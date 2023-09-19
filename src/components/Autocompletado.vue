@@ -12,6 +12,7 @@ const mostrarElementos: Ref<boolean> = ref(false);
 const inputEstaEnfocado: Ref<boolean> = ref(false);
 const opcionSeleccionada: Ref<any> = ref(null);
 const input: Ref<any> = ref(null);
+const focusedIndex: Ref<number> = ref(-1);
 
 watch(mostrarElementos, (nuevo, anterior) => {
     if (nuevo) {
@@ -28,9 +29,29 @@ const onOpcionSeleccionada = (opcion: any) => {
     console.log({ opcion });
     mostrarElementos.value = false;
     textoParaMostrar.value = opcion;
+    focusedIndex.value = -1;
 }
 
-const onKeyup = () => {
+const onKeyup = (event: KeyboardEvent) => {
+    if (event.key === "ArrowDown") {
+        if (focusedIndex.value < opcionesFiltradas.value.length - 1) {
+            focusedIndex.value++;
+        } else {
+            focusedIndex.value = 0;
+        }
+        mostrarElementos.value = true;
+    }
+    if (event.key === "ArrowUp") {
+        if (focusedIndex.value > 0) {
+            focusedIndex.value--;
+        } else {
+            focusedIndex.value = opcionesFiltradas.value.length - 1;
+        }
+    }
+    if (event.key === "Enter") {
+        if (focusedIndex.value >= 0 && focusedIndex.value < opcionesFiltradas.value.length)
+            onOpcionSeleccionada(opcionesFiltradas.value[focusedIndex.value])
+    }
     opcionSeleccionada.value = null;
     filtrarOpciones();
 }
@@ -70,8 +91,6 @@ const funcionDeFiltro = (busqueda: string, opciones: any[]) => {
         return expresion.test(opcion);
     });
 }
-
-
 </script>
 <template>
     <div class="flex flex-col">
@@ -93,8 +112,9 @@ const funcionDeFiltro = (busqueda: string, opciones: any[]) => {
             </div>
             <Transition>
                 <ul class="w-full border border-emerald-200 border-t-0 absolute mt-10 z-10" v-show="mostrarElementos">
-                    <li @click="onOpcionSeleccionada(opcion)" v-for="opcion in opcionesFiltradas"
-                        class="p-2 bg-white hover:bg-zinc-200 hover:cursor-pointer">
+                    <li @click="onOpcionSeleccionada(opcion)" v-for="(opcion, index) in opcionesFiltradas"
+                        class="p-2  hover:bg-zinc-200 hover:cursor-pointer "
+                        :class="{ 'bg-zinc-200': index === focusedIndex, 'bg-white': index !== focusedIndex }">
                         {{ opcion }}
                     </li>
                 </ul>
