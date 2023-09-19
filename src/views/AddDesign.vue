@@ -16,10 +16,9 @@ const agregarOperacionVacia = () => {
             e
         </div>
     </div>
-    <div class="max-w-xs">
+    <div class="max-w-xs content-center">
+        <Autocompletado/>
         <Autocompletado/>
     </div>
-
-
     <button @click="agregarOperacionVacia">Agregar</button>
 </template>
