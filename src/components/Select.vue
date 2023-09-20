@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch, defineProps, withDefaults } from "vue"
+import { ref, onBeforeMount, watch, defineProps, withDefaults, computed, defineEmits } from "vue"
 import type { Ref } from 'vue'
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
@@ -8,19 +8,29 @@ import Backspace from 'vue-material-design-icons/Backspace.vue';
 const props = withDefaults(defineProps<{
     label: string,
     displayItemFunction: (item: any) => string,
+    modelValue: any,
 }>(), {
     label: "Select an option",
     displayItemFunction: (item: any) => {
         return item.toString();
     },
 });
+const emit = defineEmits(['update:modelValue'])
+
+const selectedItem = computed({
+    get() {
+        return props.modelValue
+    },
+    set(value) {
+        emit('update:modelValue', value)
+    }
+})
 
 const items: Ref<Array<string>> = ref(["Imagen", "Iniciar", "Descargar imagen e imprimir", "Corte", "CorteParcial", "Imprimir imagen local", "Imagen en base64"]);
 const filteredItems: Ref<Array<string>> = ref([]);
 const inputValue: Ref<string> = ref("");
 const shouldShowItems: Ref<boolean> = ref(false);
 const isInputFocused: Ref<boolean> = ref(false);
-const selectedItem: Ref<any> = ref(null);
 const input: Ref<any> = ref(null);
 const keyboardIndex: Ref<number> = ref(-1);
 
@@ -36,34 +46,36 @@ onBeforeMount(() => {
 
 const onItemSelected = (item: any) => {
     selectedItem.value = item;
-    console.log({ opcion: item });
     shouldShowItems.value = false;
     inputValue.value = props.displayItemFunction(item);
     keyboardIndex.value = -1;
 }
 
 const onKeyup = (event: KeyboardEvent) => {
-    if (event.key === "ArrowDown") {
-        if (keyboardIndex.value < filteredItems.value.length - 1) {
-            keyboardIndex.value++;
-        } else {
-            keyboardIndex.value = 0;
-        }
-        shouldShowItems.value = true;
+    switch (event.key) {
+        case "ArrowDown":
+            if (keyboardIndex.value < filteredItems.value.length - 1) {
+                keyboardIndex.value++;
+            } else {
+                keyboardIndex.value = 0;
+            }
+            shouldShowItems.value = true;
+            break;
+        case "ArrowUp":
+            if (keyboardIndex.value > 0) {
+                keyboardIndex.value--;
+            } else {
+                keyboardIndex.value = filteredItems.value.length - 1;
+            }
+            break;
+        case "Enter":
+            if (keyboardIndex.value >= 0 && keyboardIndex.value < filteredItems.value.length) {
+                onItemSelected(filteredItems.value[keyboardIndex.value])
+            }
+            break;
+        default:
+            filterItems();
     }
-    if (event.key === "ArrowUp") {
-        if (keyboardIndex.value > 0) {
-            keyboardIndex.value--;
-        } else {
-            keyboardIndex.value = filteredItems.value.length - 1;
-        }
-    }
-    if (event.key === "Enter") {
-        if (keyboardIndex.value >= 0 && keyboardIndex.value < filteredItems.value.length)
-            onItemSelected(filteredItems.value[keyboardIndex.value])
-    }
-    selectedItem.value = null;
-    filterItems();
 }
 
 const filterItems = () => {
@@ -121,15 +133,15 @@ const filterFunction = (criteria: string, items: any[]) => {
                 </button>
             </div>
             <Transition>
-                <ul class="w-full border border-emerald-200 border-t-0 absolute mt-10 z-10" v-show="shouldShowItems">
-                    <li @click="onItemSelected(opcion)" v-for="(opcion, index) in filteredItems"
+                <div class="w-full border border-emerald-200 border-t-0 absolute mt-10 z-10" v-show="shouldShowItems">
+                    <div @click="onItemSelected(opcion)" v-for="(opcion, index) in filteredItems"
                         class="p-2  hover:bg-zinc-200 hover:cursor-pointer "
                         :class="{ 'bg-zinc-200': index === keyboardIndex, 'bg-white': index !== keyboardIndex }">
                         <slot :item="opcion" :index="index" name="item">
                             {{ opcion }}
                         </slot>
-                    </li>
-                </ul>
+                    </div>
+                </div>
             </Transition>
         </div>
     </div>
