@@ -2,7 +2,7 @@
 import { ref } from "vue"
 import type { Ref } from 'vue'
 import type { Operacion } from "../types/Tipos"
-import Autocompletado from "@/components/Autocompletado.vue";
+import Select from "@/components/Select.vue";
 //import Operacion from "../types/Operacion"
 const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionVacia = () => {
@@ -17,8 +17,12 @@ const agregarOperacionVacia = () => {
         </div>
     </div>
     <div class="max-w-xs content-center">
-        <Autocompletado/>
-        <Autocompletado/>
+        <Select label="Selecciona una opción">
+            <template #item="{ item, index }">
+                <p>El item es {{ item }} con índice {{ index }}</p>
+            </template>
+        </Select>
+        <Select :displayItemFunction="(item)=>{return 'soy el item ' + item}" />
     </div>
     <button @click="agregarOperacionVacia">Agregar</button>
 </template>

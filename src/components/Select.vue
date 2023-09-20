@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch } from "vue"
+import { ref, onBeforeMount, watch, defineProps, withDefaults } from "vue"
 import type { Ref } from 'vue'
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
 import Backspace from 'vue-material-design-icons/Backspace.vue';
+
+const props = withDefaults(defineProps<{
+    label: string,
+    displayItemFunction: (item: any) => string,
+}>(), {
+    label: "Select an option",
+    displayItemFunction: (item: any) => {
+        return item.toString();
+    },
+});
 
 const items: Ref<Array<string>> = ref(["Imagen", "Iniciar", "Descargar imagen e imprimir", "Corte", "CorteParcial", "Imprimir imagen local", "Imagen en base64"]);
 const filteredItems: Ref<Array<string>> = ref([]);
@@ -28,7 +38,7 @@ const onItemSelected = (item: any) => {
     selectedItem.value = item;
     console.log({ opcion: item });
     shouldShowItems.value = false;
-    inputValue.value = item;
+    inputValue.value = props.displayItemFunction(item);
     keyboardIndex.value = -1;
 }
 
@@ -77,8 +87,8 @@ const shouldShowClearButton = () => {
 }
 
 const clearSelectedItem = () => {
-    inputValue.value = "";
     selectedItem.value = null;
+    inputValue.value = "";
     shouldShowItems.value = true;
     input.value.focus();
     filterItems();
@@ -94,7 +104,7 @@ const filterFunction = (criteria: string, items: any[]) => {
 </script>
 <template>
     <div class="flex flex-col">
-        <strong>Seleccione una opción</strong>
+        <strong>{{ label }}</strong>
         <div class="flex flex-col relative">
             <div class="flex">
                 <input ref="input" @focus="onInputFocus" @blur="onInputBlur" @keyup="onKeyup" @click="onInputClick"
@@ -115,7 +125,9 @@ const filterFunction = (criteria: string, items: any[]) => {
                     <li @click="onItemSelected(opcion)" v-for="(opcion, index) in filteredItems"
                         class="p-2  hover:bg-zinc-200 hover:cursor-pointer "
                         :class="{ 'bg-zinc-200': index === keyboardIndex, 'bg-white': index !== keyboardIndex }">
-                        {{ opcion }}
+                        <slot :item="opcion" :index="index" name="item">
+                            {{ opcion }}
+                        </slot>
                     </li>
                 </ul>
             </Transition>
