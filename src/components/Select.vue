@@ -1,23 +1,32 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch, defineProps, withDefaults, computed, defineEmits } from "vue"
+import { ref, onBeforeMount, watch, defineProps, withDefaults, computed } from "vue"
 import type { Ref } from 'vue'
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
 import Backspace from 'vue-material-design-icons/Backspace.vue';
 
-const props = withDefaults(defineProps<{
-    label: string,
-    displayItemFunction: (item: any) => string,
-    modelValue: any,
-}>(), {
+type MyComponentProps<T> = {
+    label: string;
+    displayItemFunction: (item: T) => string;
+    modelValue: T;
+    items: T[];
+    filterFunction: (criteria: string, items: T[]) => T[];
+
+};
+const props = withDefaults(defineProps<MyComponentProps<any>>(), {
     label: "Select an option",
     displayItemFunction: (item: any) => {
         return item.toString();
     },
+    filterFunction: (criteria: string, items: MyComponentProps<any>["modelValue"][]) => {
+        const expresion = new RegExp(`${criteria}.*`, "i");
+        return items.filter((opcion: MyComponentProps<any>["modelValue"]) => {
+            return expresion.test(opcion);
+        });
+    }
 });
 const emit = defineEmits(['update:modelValue'])
-
-const selectedItem = computed({
+const selectedItem = computed<MyComponentProps<any>["modelValue"]>({
     get() {
         return props.modelValue
     },
@@ -26,8 +35,7 @@ const selectedItem = computed({
     }
 })
 
-const items: Ref<Array<string>> = ref(["Imagen", "Iniciar", "Descargar imagen e imprimir", "Corte", "CorteParcial", "Imprimir imagen local", "Imagen en base64"]);
-const filteredItems: Ref<Array<string>> = ref([]);
+const filteredItems: Ref<Array<MyComponentProps<any>["modelValue"]>> = ref([]);
 const inputValue: Ref<string> = ref("");
 const shouldShowItems: Ref<boolean> = ref(false);
 const isInputFocused: Ref<boolean> = ref(false);
@@ -41,10 +49,10 @@ watch(shouldShowItems, (newValue, previousValue) => {
 })
 
 onBeforeMount(() => {
-    filteredItems.value = items.value;
+    filteredItems.value = props.items;
 })
 
-const onItemSelected = (item: any) => {
+const onItemSelected = (item: MyComponentProps<any>["modelValue"]) => {
     selectedItem.value = item;
     shouldShowItems.value = false;
     inputValue.value = props.displayItemFunction(item);
@@ -79,7 +87,7 @@ const onKeyup = (event: KeyboardEvent) => {
 }
 
 const filterItems = () => {
-    filteredItems.value = filterFunction(inputValue.value, items.value);
+    filteredItems.value = props.filterFunction(inputValue.value, props.items);
 }
 
 const onInputClick = () => {
@@ -104,14 +112,6 @@ const clearSelectedItem = () => {
     shouldShowItems.value = true;
     input.value.focus();
     filterItems();
-}
-
-
-const filterFunction = (criteria: string, items: any[]) => {
-    const expresion = new RegExp(`${criteria}.*`, "i");
-    return items.filter((opcion: any) => {
-        return expresion.test(opcion);
-    });
 }
 </script>
 <template>
