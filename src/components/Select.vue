@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onBeforeMount, watch, defineProps, withDefaults, computed } from "vue"
+import { ref, onBeforeMount, watch, defineProps, withDefaults, computed, defineExpose } from "vue"
 import type { Ref } from 'vue'
 import ChevronDown from 'vue-material-design-icons/ChevronDown.vue';
 import ChevronUp from 'vue-material-design-icons/ChevronUp.vue';
@@ -106,13 +106,18 @@ const shouldShowClearButton = () => {
     return (inputValue.value);
 }
 
-const clearSelectedItem = () => {
+const clearSelectedItem = (showItems: boolean, focus: boolean) => {
     selectedItem.value = null;
     inputValue.value = "";
-    shouldShowItems.value = true;
-    input.value.focus();
+    if (showItems) {
+        shouldShowItems.value = true;
+    }
+    if (focus) {
+        input.value.focus();
+    }
     filterItems();
 }
+defineExpose({ clearSelectedItem });
 </script>
 <template>
     <div class="flex flex-col">
@@ -122,7 +127,7 @@ const clearSelectedItem = () => {
                 <input ref="input" @focus="onInputFocus" @blur="onInputBlur" @keyup="onKeyup" @click="onInputClick"
                     v-model="inputValue" placeholder="Selecciona una opción" type="input"
                     class="focus:outline-none w-full h-10 border border-l-emerald-200 border-t-emerald-200 border-b-emerald-200 border-r-0 rounded-tl-md p-2">
-                <button v-if="shouldShowClearButton()" @click="clearSelectedItem"
+                <button v-if="shouldShowClearButton()" @click="clearSelectedItem(true, true)"
                     class="focus:outline-none p-1 bg-white text-zinc-200 border border-l-0 border-r-0 border-t-emerald-200 border-b-emerald-200 ">
                     <Backspace />
                 </button>
