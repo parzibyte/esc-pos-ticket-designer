@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
-import { ref, onBeforeMount, watch, defineProps, withDefaults, computed } from "vue"
-import { TiposParaArgumento, type OperacionDelDiseñador } from '@/types/Tipos';
+import { defineProps, } from "vue"
+import { type OperacionDelDiseñador } from '@/types/Tipos';
 
 import Delete from 'vue-material-design-icons/Delete.vue';
 import CampoParaFormularioDeOperacion from "./CampoParaFormularioDeOperacion.vue";
