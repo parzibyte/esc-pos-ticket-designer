@@ -1,9 +1,24 @@
-export type Operacion={
+export enum TiposParaArgumento {
+    Number,
+    String,
+    LongString,
+}
+export type Operacion = {
     nombre: string,
 };
+export type ArgumentoDeFuncion = {
+    tipo: TiposParaArgumento,
+    nombre: string,
+    descripcion: string,
+}
 
-export type OperacionDelDiseñador={
-    nombre:string,
-    descripcion:string,
-    funcion:string,
+export type FuncionParaDiseñador = {
+    nombre: string,
+    argumentos: ArgumentoDeFuncion[]
+}
+
+export type OperacionDelDiseñador = {
+    nombre: string,
+    descripcion: string,
+    funcion: FuncionParaDiseñador,
 }
