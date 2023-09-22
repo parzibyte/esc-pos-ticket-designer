@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from "vue"
+import { onMounted, ref, type Ref, defineProps, computed, watch, withDefaults } from "vue"
 import Brush from 'vue-material-design-icons/Brush.vue';
 import Eraser from 'vue-material-design-icons/Eraser.vue';
 import Broom from 'vue-material-design-icons/Broom.vue';
@@ -8,7 +8,30 @@ enum Accion {
     Pintar,
     Limpiar,
 }
-
+type MyComponentProps = {
+    modelValue?: Array<Array<string>>;
+};
+const props = withDefaults(defineProps<MyComponentProps>(), {
+    modelValue: () => {
+        return Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO))
+    }
+})
+const emit = defineEmits(['update:modelValue'])
+const arregloDeCaracter = computed({
+    get() {
+        return props.modelValue
+    },
+    set(value) {
+        emit('update:modelValue', value)
+    }
+});
+watch(arregloDeCaracter,
+    () => {
+        dibujar();
+    },
+    {
+        deep: true,
+    });
 type Boton = {
     icono: Object,
     seleccionado: boolean,
@@ -17,7 +40,6 @@ type Boton = {
     accion: Accion,
 }
 let isDrawing = false;
-let matriz: Ref<string> = ref("");
 const accionSeleccionada: Ref<Accion> = ref(Accion.Pintar);
 const botones: Ref<Array<Boton>> = ref([
     {
@@ -52,7 +74,6 @@ const BIT_ENCENDIDO = "1",
     COLOR_NEGRO = "black",
     COLOR_BLANCO = "white",
     COLOR_GRIS = "#e2e8f0";
-let arregloDeCaracter: Array<Array<string>>;
 
 function getCursorPosition(event: PointerEvent | TouchEvent | MouseEvent) {
     const rect = verdaderoCanvas.getBoundingClientRect();
@@ -69,21 +90,16 @@ function getCursorPosition(event: PointerEvent | TouchEvent | MouseEvent) {
     return [x, y];
 }
 
-const convertirArregloACadenaParaCaracter = (arreglo: Array<Array<string>>) => {
-    return arreglo.map(fila => fila.join("")).join("\n");
-}
-
 const limpiarCanvas = () => {
-    arregloDeCaracter = Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO))
-    dibujar();
+    arregloDeCaracter.value = Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO))
 };
 
 const dibujar = () => {
     let y = 0, x = 0;
-    for (const fila of arregloDeCaracter) {
+    for (const fila of arregloDeCaracter.value) {
         x = 0;
         for (const bit of fila) {
-            contexto?.beginPath();
+            contexto.beginPath();
             if (bit === BIT_ENCENDIDO) {
                 contexto.fillStyle = COLOR_NEGRO;
             } else {
@@ -103,7 +119,6 @@ const dibujar = () => {
         }
         y += MEDIDA_CUADRO;
     }
-    matriz.value = convertirArregloACadenaParaCaracter(arregloDeCaracter);
 };
 
 const obtenerClases = (boton: Boton) => {
@@ -129,8 +144,8 @@ onMounted(() => {
     verdaderoCanvas = canvas.value as HTMLCanvasElement;
     contexto = verdaderoCanvas.getContext("2d") as CanvasRenderingContext2D;
     limpiarCanvas();
-    verdaderoCanvas.width = arregloDeCaracter[0].length * MEDIDA_CUADRO;
-    verdaderoCanvas.height = arregloDeCaracter.length * MEDIDA_CUADRO;
+    verdaderoCanvas.width = arregloDeCaracter.value[0].length * MEDIDA_CUADRO;
+    verdaderoCanvas.height = arregloDeCaracter.value.length * MEDIDA_CUADRO;
     ["mousedown", "touchstart"].forEach(nombreEvento => {
         verdaderoCanvas.addEventListener(nombreEvento, () => {
             isDrawing = true;
@@ -159,15 +174,14 @@ onMounted(() => {
             if (indiceX < 0 || indiceY < 0) {
                 return;
             }
-            if (indiceX > arregloDeCaracter[0].length - 1 || indiceY > arregloDeCaracter.length - 1) {
+            if (indiceX > arregloDeCaracter.value[0].length - 1 || indiceY > arregloDeCaracter.value.length - 1) {
                 return;
             }
             if (accionSeleccionada.value === Accion.Pintar) {
-                arregloDeCaracter[indiceY][indiceX] = BIT_ENCENDIDO;
+                arregloDeCaracter.value[indiceY][indiceX] = BIT_ENCENDIDO;
             } else if (accionSeleccionada.value === Accion.Borrar) {
-                arregloDeCaracter[indiceY][indiceX] = BIT_APAGADO;
+                arregloDeCaracter.value[indiceY][indiceX] = BIT_APAGADO;
             }
-            dibujar();
         });
     });
     dibujar();

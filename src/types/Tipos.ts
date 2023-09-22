@@ -10,6 +10,7 @@ export type ArgumentoDeFuncion = {
     tipo: TiposParaArgumento,
     nombre: string,
     descripcion: string,
+    valor: any,
 }
 
 export type FuncionParaDiseñador = {

@@ -17,6 +17,6 @@ defineProps<MyComponentProps>();
         <CampoInput :tipo="argumento.tipo === TiposParaArgumento.String ? 'text' : 'number'" />
     </template>
     <template v-if="argumento.tipo === TiposParaArgumento.LongString">
-        <DefinirCaracterPersonalizado />
+        <DefinirCaracterPersonalizado v-model="argumento.valor" />
     </template>
 </template>

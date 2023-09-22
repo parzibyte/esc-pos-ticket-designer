@@ -5,7 +5,7 @@ import { TiposParaArgumento, type Operacion, type OperacionDelDiseñador } from 
 import Select from "@/components/Select.vue";
 import FormularioOperacion from "@/components/FormularioOperacion.vue";
 
-const referenciaAlSelect= ref(null);
+const referenciaAlSelect = ref(null);
 const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
     {
         nombre: "Corte",
@@ -49,7 +49,7 @@ const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
 ]);
 
 const operaciones: Ref<Array<OperacionDelDiseñador>> = ref([
-{
+    {
         nombre: "Carácter personalizado",
         descripcion: `Establece un carácter personalizado de 24x12.`,
         funcion: {
@@ -94,6 +94,9 @@ const opcionSeleccionada: Ref<OperacionDelDiseñador> = ref({
 
 });
 
+const testVmodel = () => {
+    operaciones.value[0].funcion.argumentos[1].valor = Array(24).fill(false).map(() => Array(12).fill("0"))
+}
 
 </script>
 <template>
@@ -101,13 +104,14 @@ const opcionSeleccionada: Ref<OperacionDelDiseñador> = ref({
         <FormularioOperacion v-for="operacion in operaciones" :operacion="operacion" />
     </div>
     <div class="max-w-xs content-center">
-        <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones" :displayItemFunction="displayItemFunction"
-            v-model="opcionSeleccionada" label="Selecciona una opción">
+        <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
+            :displayItemFunction="displayItemFunction" v-model="opcionSeleccionada" label="Selecciona una opción">
             <template #item="{ item, index }">
                 <h1 class="text-xl">{{ item.nombre }}</h1>
                 <p>{{ item.descripcion }}</p>
             </template>
         </Select>
         <button class="bg-lime-400 p-1 rounded-md text-white my-1" @click="agregarOperacionSeleccionada">Agregar</button>
+        <button class="bg-lime-400 p-1 rounded-md text-white my-1" @click="testVmodel">test</button>
     </div>
 </template>
