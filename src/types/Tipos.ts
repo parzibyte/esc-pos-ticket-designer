@@ -1,25 +1,7 @@
-export enum TiposParaArgumento {
-    Number,
-    String,
-    LongString,
-}
-export type Operacion = {
-    nombre: string,
-};
-export type ArgumentoDeFuncion = {
-    tipo: TiposParaArgumento,
-    nombre: string,
-    descripcion: string,
-    valor: any,
-}
-
-export type FuncionParaDiseñador = {
-    nombre: string,
-    argumentos: ArgumentoDeFuncion[]
-}
-
+import type { Component } from "vue";
 export type OperacionDelDiseñador = {
-    nombre: string,
-    descripcion: string,
-    funcion: FuncionParaDiseñador,
+    nombre: string;
+    descripcion: string;
+    valor?:string;
+    componente?: Component;
 }
