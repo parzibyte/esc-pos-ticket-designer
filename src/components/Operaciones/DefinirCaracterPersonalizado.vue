@@ -8,18 +8,20 @@ enum Accion {
     Pintar,
     Limpiar,
 }
-type MyComponentProps = {
-    modelValue?: Array<Array<string>>;
+type PropiedadesDelComponente = {
+    modelValue: {
+        matrizDeBits: Array<Array<string>>,
+    };
 };
-const props = withDefaults(defineProps<MyComponentProps>(), {
+const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
     modelValue: () => {
-        return Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO))
+        return { matrizDeBits: Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO)) };
     }
 })
 const emit = defineEmits(['update:modelValue'])
 const arregloDeCaracter = computed({
     get() {
-        return props.modelValue
+        return propiedades.modelValue
     },
     set(value) {
         emit('update:modelValue', value)
@@ -91,12 +93,12 @@ function getCursorPosition(event: PointerEvent | TouchEvent | MouseEvent) {
 }
 
 const limpiarCanvas = () => {
-    arregloDeCaracter.value = Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO))
+    arregloDeCaracter.value.matrizDeBits = Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO))
 };
 
 const dibujar = () => {
     let y = 0, x = 0;
-    for (const fila of arregloDeCaracter.value) {
+    for (const fila of arregloDeCaracter.value.matrizDeBits) {
         x = 0;
         for (const bit of fila) {
             contexto.beginPath();
@@ -143,9 +145,8 @@ const onClickEnBoton = (boton: Boton) => {
 onMounted(() => {
     verdaderoCanvas = canvas.value as HTMLCanvasElement;
     contexto = verdaderoCanvas.getContext("2d") as CanvasRenderingContext2D;
-    limpiarCanvas();
-    verdaderoCanvas.width = arregloDeCaracter.value[0].length * MEDIDA_CUADRO;
-    verdaderoCanvas.height = arregloDeCaracter.value.length * MEDIDA_CUADRO;
+    verdaderoCanvas.width = arregloDeCaracter.value.matrizDeBits[0].length * MEDIDA_CUADRO;
+    verdaderoCanvas.height = arregloDeCaracter.value.matrizDeBits.length * MEDIDA_CUADRO;
     ["mousedown", "touchstart"].forEach(nombreEvento => {
         verdaderoCanvas.addEventListener(nombreEvento, () => {
             isDrawing = true;
@@ -174,13 +175,13 @@ onMounted(() => {
             if (indiceX < 0 || indiceY < 0) {
                 return;
             }
-            if (indiceX > arregloDeCaracter.value[0].length - 1 || indiceY > arregloDeCaracter.value.length - 1) {
+            if (indiceX > arregloDeCaracter.value.matrizDeBits[0].length - 1 || indiceY > arregloDeCaracter.value.matrizDeBits.length - 1) {
                 return;
             }
             if (accionSeleccionada.value === Accion.Pintar) {
-                arregloDeCaracter.value[indiceY][indiceX] = BIT_ENCENDIDO;
+                arregloDeCaracter.value.matrizDeBits[indiceY][indiceX] = BIT_ENCENDIDO;
             } else if (accionSeleccionada.value === Accion.Borrar) {
-                arregloDeCaracter.value[indiceY][indiceX] = BIT_APAGADO;
+                arregloDeCaracter.value.matrizDeBits[indiceY][indiceX] = BIT_APAGADO;
             }
         });
     });

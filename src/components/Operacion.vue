@@ -3,6 +3,7 @@ import { defineProps } from "vue";
 import { type OperacionDelDiseñador } from "@/types/Tipos";
 
 import Delete from "vue-material-design-icons/Delete.vue";
+import Corte from "./Operaciones/Corte.vue";
 
 type MyComponentProps = {
     operacion: OperacionDelDiseñador;
@@ -25,6 +26,6 @@ const eliminar = () => {
                 <Delete />
             </button>
         </div>
-        <component v-model="operacion.valor" :is="props.operacion.componente"></component>
+        <component v-model="operacion.argumentos" :is="props.operacion.componente"></component>
     </div>
 </template>

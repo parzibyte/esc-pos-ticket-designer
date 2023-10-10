@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, toRaw } from "vue";
 import type { Ref } from "vue";
 import {
   type OperacionDelDiseñador,
@@ -15,6 +15,9 @@ const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
     nombre: "Corte",
     descripcion: `Avanza el papel especificado por el número de líneas y después lo corta`,
     componente: Corte,
+    argumentos: {
+      lineas: 10,
+    }
   },
   {
     nombre: "Corte parcial",
@@ -25,6 +28,7 @@ const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
     nombre: "Carácter personalizado",
     descripcion: `Establece un carácter personalizado de 24x12.`,
     componente: DefinirCaracterPersonalizado,
+    argumentos: { dibujo: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] },
   },
   {
     nombre: "Imagen",
@@ -35,7 +39,10 @@ const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
 
 const operaciones: Ref<Array<OperacionDelDiseñador>> = ref([]);
 const agregarOperacionSeleccionada = () => {
-  operaciones.value.push(opcionSeleccionada.value);
+  const opcionSeleccionadaSinReferencias = Object.assign({}, opcionSeleccionada.value);
+  //opcionSeleccionadaSinReferencias.argumentos = Object.assign({}, opcionSeleccionadaSinReferencias.argumentos);
+  opcionSeleccionadaSinReferencias.argumentos = structuredClone(toRaw(opcionSeleccionadaSinReferencias.argumentos));
+  operaciones.value.push(opcionSeleccionadaSinReferencias);
   referenciaAlSelect.value.clearSelectedItem();
 };
 const displayItemFunction = (op: OperacionDelDiseñador): string => {
@@ -54,26 +61,20 @@ const opcionSeleccionada: Ref<OperacionDelDiseñador> = ref({
 });
 
 const eliminarOperacionPorIndice = (indice: number) => {
-  console.log({ indice });
-  operaciones.value[indice].valor="200";
-  //operaciones.value.splice(indice, 1);
+  operaciones.value.splice(indice, 1);
 }
 
 const guardar = () => {
   for (const operacion of operaciones.value) {
-    console.log(operacion.componente.value);
+    console.log(operacion.argumentos);
   }
 }
-
-onMounted(()=>{
-  //operaciones.value.push(Object.assign(todasLasOperaciones.value[0],{valor:"200"}));
-});
 
 </script>
 <template>
   <div>
-    <ComponenteOperacion @eliminar="eliminarOperacionPorIndice(indice)" v-for="(operacion, indice) in operaciones"
-      :operacion="operacion" />
+    <ComponenteOperacion :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
+      v-for="(operacion, indice) in operaciones" :operacion="operacion" />
   </div>
   <div class="max-w-xs content-center">
     <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
