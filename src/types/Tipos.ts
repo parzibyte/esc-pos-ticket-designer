@@ -1,7 +1,7 @@
 
 export type ArgumentosParaDefinirCaracterPersonalizado = {
     matrizDeBits: Array<Array<string>>,
-    caracterReemplazo: string,
+    caracterQueReemplaza: string,
 }
 
 export type ArgumentosParaDefinirCorte = {

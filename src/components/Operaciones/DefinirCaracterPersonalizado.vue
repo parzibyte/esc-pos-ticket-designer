@@ -11,6 +11,7 @@ enum Accion {
 type PropiedadesDelComponente = {
     modelValue: {
         matrizDeBits: Array<Array<string>>,
+        caracterQueReemplaza: string,
     };
 };
 const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
@@ -190,8 +191,14 @@ onMounted(() => {
 </script>
 
 <template>
-    <button class="text-white p-1" @click="onClickEnBoton(boton)" v-for="boton in botones" :class="obtenerClases(boton)">
+    <button class="text-white p-1 mt-1" @click="onClickEnBoton(boton)" v-for="boton in botones"
+        :class="obtenerClases(boton)">
         <component :is="boton.icono"></component>
     </button>
-    <canvas ref="canvas" class="border border-zinc-100"></canvas>
+    <canvas ref="canvas" class="border border-zinc-100 mt-2"></canvas>
+    <div>
+        <label class="block font-bold mb-1">Carácter que va a reemplazar</label>
+        <input v-model="propiedades.modelValue.caracterQueReemplaza" maxlength="1" type="text"
+            class="border border-emerald-300 rounded-md max-w-full focus:outline-none p-1">
+    </div>
 </template>
