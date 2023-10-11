@@ -1,84 +1,45 @@
 <script setup lang="ts">
-import type { OperacionDelDiseñador, ArgumentosParaDefinirCaracterPersonalizado, ArgumentosParaDefinirCorte } from "../types/Tipos";
-import { ref, toRaw } from "vue";
+import { OperacionFactory, Operacion } from "../types/Tipos"
+import { ref } from "vue";
 import type { Ref } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
-const crearAPartirDeClaveYArgumentos = (clave: string, argumentos: any): OperacionDelDiseñador => {
-  const mapa: { [key: string]: OperacionDelDiseñador } = {
-    "Corte": {
-      clave,
-      argumentos: argumentos,
-      nombre: "Corte",
-      descripcion: `Avanza el papel especificado por el número de líneas y después lo corta`,
-      plataformas: {
-        "Desktop": (argumentos: ArgumentosParaDefinirCorte) => {
-          return {
-            nombre: "Corte",
-            argumentos: [argumentos.lineas],
-          };
-        },
-      },
-    },
-    "DefinirCaracterPersonalizado": {
-      clave,
-      argumentos: argumentos,
-      nombre: "DefinirCaracterPersonalizado",
-      descripcion: `Define un char`,
-      plataformas:
-      {
-        "Desktop": (argumentos: ArgumentosParaDefinirCaracterPersonalizado) => {
-          const matrizComoCadena = argumentos.matrizDeBits.map(fila => fila.join("")).join("\n");
-          return {
-            nombre: "DefinirCaracterPersonalizado",
-            argumentos: [argumentos.caracterQueReemplaza, matrizComoCadena],
-          };
-        },
-      },
-
-    },
-  };
-  return mapa[clave];
-};
 
 const referenciaAlSelect = ref(null);
-const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
-  crearAPartirDeClaveYArgumentos("Corte", { lineas: 1 }),
-  crearAPartirDeClaveYArgumentos("DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
+const todasLasOperaciones: Ref<Array<Operacion>> = ref([
+  OperacionFactory.crearAPartirDeClaveYArgumentos("Corte", { lineas: 1 }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos("DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
 
 ]);
-const operaciones: Ref<Array<OperacionDelDiseñador>> = ref([]);
+const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionSeleccionada = () => {
-  const opcionSeleccionadaSinReferencias = Object.assign({}, opcionSeleccionada.value);
-  opcionSeleccionadaSinReferencias.argumentos = structuredClone(toRaw(opcionSeleccionadaSinReferencias.argumentos));
-  operaciones.value.push(opcionSeleccionadaSinReferencias);
+  operaciones.value.push(opcionSeleccionada.value.clonar());
   referenciaAlSelect.value.clearSelectedItem();
 };
-const displayItemFunction = (op: OperacionDelDiseñador): string => {
+const displayItemFunction = (op: Operacion): string => {
   return op.nombre;
 };
 
-const filterFunction = (criteria: string, items: OperacionDelDiseñador[]) => {
+const filterFunction = (criteria: string, items: Operacion[]) => {
   const expresion = new RegExp(`${criteria}.*`, "i");
-  return items.filter((opcion: OperacionDelDiseñador) => {
+  return items.filter((opcion: Operacion) => {
     return expresion.test(opcion.nombre) || expresion.test(opcion.descripcion);
   });
 };
-const opcionSeleccionada: Ref<OperacionDelDiseñador> = ref({
-  nombre: "",
-  descripcion: "",
-  argumentos: {},
-  plataformas: {},
-  clave: "",
-});
+const opcionSeleccionada: Ref<Operacion> = ref(OperacionFactory.crearAPartirDeClaveYArgumentos("", {}));
 
 const eliminarOperacionPorIndice = (indice: number) => {
   operaciones.value.splice(indice, 1);
 }
 
+const imprimir = () => {
+  for (const operacion of operaciones.value) {
+    console.log(operacion.obtenerArgumentosPorPlataforma("Desktop"));
+  }
+}
 const guardar = () => {
   for (const operacion of operaciones.value) {
-    console.log(operacion.plataformas.Desktop(operacion.argumentos));
+    console.log(operacion.obtenerArgumentosPorPlataforma("Desktop"));
   }
 }
 
@@ -96,11 +57,14 @@ const guardar = () => {
         <p>{{ item.descripcion }}</p>
       </template>
     </Select>
-    <button class="bg-lime-400 p-1 rounded-md text-white my-1" @click="agregarOperacionSeleccionada">
+    <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="agregarOperacionSeleccionada">
       Agregar
     </button>
-    <button class="bg-lime-400 p-1 rounded-md text-white my-1" @click="guardar">
-      Guardar todo
+    <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
+      Imprimir
+    </button>
+    <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="guardar">
+      Guardar
     </button>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, type Component } from "vue";
-import { type OperacionDelDiseñador } from "@/types/Tipos";
+import { Operacion } from "@/types/Tipos";
 import Delete from "vue-material-design-icons/Delete.vue";
 import Corte from "./Operaciones/Corte.vue";
 import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonalizado.vue";
@@ -11,7 +11,7 @@ const componentes: { [key: string]: Component } = {
 };
 
 type MyComponentProps = {
-    operacion: OperacionDelDiseñador;
+    operacion: Operacion;
 };
 const props = defineProps<MyComponentProps>();
 const emit = defineEmits<{
