@@ -22,6 +22,7 @@ const valorSerializado = computed({
 });
 </script>
 <template>
+	<label class="block font-bold">Líneas</label>
 	<input type="number" placeholder="Líneas" v-model.number="propiedades.modelValue.lineas"
 		class="border border-emerald-300 rounded-md max-w-full focus:outline-none p-1">
 </template>
