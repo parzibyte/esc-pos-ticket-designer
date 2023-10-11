@@ -1,8 +1,18 @@
-import type { Component } from "vue";
+
+export type ArgumentosParaDefinirCaracterPersonalizado = {
+    matrizDeBits: Array<Array<string>>,
+    caracterReemplazo: string,
+}
+
+export type ArgumentosParaDefinirCorte = {
+    lineas: number,
+}
+
+
 export type OperacionDelDiseñador = {
-    nombre: string;
-    descripcion: string;
-    valor?: string;
-    componente?: string;
-    argumentos?: any,
+    argumentos: Record<string, any>;
+    nombre: string,
+    descripcion: string,
+    plataformas: Record<string, Function>,
+    clave: string,
 }

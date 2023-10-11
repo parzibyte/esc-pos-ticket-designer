@@ -1,46 +1,55 @@
 <script setup lang="ts">
-import { onMounted, ref, toRaw } from "vue";
+import type { OperacionDelDiseñador, ArgumentosParaDefinirCaracterPersonalizado, ArgumentosParaDefinirCorte } from "../types/Tipos";
+import { ref, toRaw } from "vue";
 import type { Ref } from "vue";
-import {
-  type OperacionDelDiseñador,
-} from "../types/Tipos";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
-import Corte from "@/components/Operaciones/Corte.vue"
-import DefinirCaracterPersonalizado from "@/components/Operaciones/DefinirCaracterPersonalizado.vue";
+const crearAPartirDeClaveYArgumentos = (clave: string, argumentos: any): OperacionDelDiseñador => {
+  const mapa: { [key: string]: OperacionDelDiseñador } = {
+    "Corte": {
+      clave,
+      argumentos: argumentos,
+      nombre: "Corte",
+      descripcion: `Avanza el papel especificado por el número de líneas y después lo corta`,
+      plataformas: {
+        "Desktop": (argumentos: ArgumentosParaDefinirCorte) => {
+          return {
+            nombre: "Corte",
+            argumentos: [argumentos.lineas],
+          };
+        },
+      },
+    },
+    "DefinirCaracterPersonalizado": {
+      clave,
+      argumentos: argumentos,
+      nombre: "DefinirCaracterPersonalizado",
+      descripcion: `Define un char`,
+      plataformas:
+      {
+        "Desktop": (argumentos: ArgumentosParaDefinirCaracterPersonalizado) => {
+          const matrizComoCadena = argumentos.matrizDeBits.map(fila => fila.join("")).join("\n");
+          return {
+            nombre: "DefinirCaracterPersonalizado",
+            argumentos: [argumentos.caracterReemplazo, matrizComoCadena],
+          };
+        },
+      },
+
+    },
+  };
+  return mapa[clave];
+};
 
 const referenciaAlSelect = ref(null);
 const todasLasOperaciones: Ref<Array<OperacionDelDiseñador>> = ref([
-  {
-    nombre: "Corte",
-    descripcion: `Avanza el papel especificado por el número de líneas y después lo corta`,
-    componente: Corte,
-    argumentos: {
-      lineas: 10,
-    }
-  },
-  {
-    nombre: "Corte parcial",
-    descripcion: `Corte parcial`,
-    componente: Corte,
-  },
-  {
-    nombre: "Carácter personalizado",
-    descripcion: `Establece un carácter personalizado de 24x12.`,
-    componente: DefinirCaracterPersonalizado,
-    argumentos: { dibujo: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] },
-  },
-  {
-    nombre: "Imagen",
-    descripcion: `Imprime una imagen`,
-    componente: DefinirCaracterPersonalizado,
-  },
-]);
+  crearAPartirDeClaveYArgumentos("Corte", { lineas: 1 }),
+  crearAPartirDeClaveYArgumentos("DefinirCaracterPersonalizado", { caracterReemplazo: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
 
+]);
 const operaciones: Ref<Array<OperacionDelDiseñador>> = ref([]);
 const agregarOperacionSeleccionada = () => {
   const opcionSeleccionadaSinReferencias = Object.assign({}, opcionSeleccionada.value);
-  //opcionSeleccionadaSinReferencias.argumentos = Object.assign({}, opcionSeleccionadaSinReferencias.argumentos);
   opcionSeleccionadaSinReferencias.argumentos = structuredClone(toRaw(opcionSeleccionadaSinReferencias.argumentos));
   operaciones.value.push(opcionSeleccionadaSinReferencias);
   referenciaAlSelect.value.clearSelectedItem();
@@ -58,6 +67,9 @@ const filterFunction = (criteria: string, items: OperacionDelDiseñador[]) => {
 const opcionSeleccionada: Ref<OperacionDelDiseñador> = ref({
   nombre: "",
   descripcion: "",
+  argumentos: {},
+  plataformas: {},
+  clave: "",
 });
 
 const eliminarOperacionPorIndice = (indice: number) => {
@@ -66,7 +78,7 @@ const eliminarOperacionPorIndice = (indice: number) => {
 
 const guardar = () => {
   for (const operacion of operaciones.value) {
-    console.log(operacion.argumentos);
+    console.log(operacion.plataformas.Desktop(operacion.argumentos));
   }
 }
 
