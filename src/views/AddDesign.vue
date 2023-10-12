@@ -4,7 +4,8 @@ import { ref } from "vue";
 import type { Ref } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
-
+import { useDatabaseStore } from "@/stores/db"
+const store = useDatabaseStore();
 const referenciaAlSelect = ref(null);
 const todasLasOperaciones: Ref<Array<Operacion>> = ref([
   OperacionFactory.crearAPartirDeClaveYArgumentos("Corte", { lineas: 1 }),
@@ -37,9 +38,13 @@ const imprimir = () => {
     console.log(operacion.obtenerArgumentosPorPlataforma("Desktop"));
   }
 }
-const guardar = () => {
+const guardar = async () => {
   for (const operacion of operaciones.value) {
-    console.log(operacion.obtenerArgumentosPorPlataforma("Desktop"));
+    const argumentos = operacion.obtenerArgumentosPorPlataforma("Desktop")
+    const operacionRecienInsertada = await store.exec("INSERT INTO operaciones(clave, argumentos) VALUES (?, ?) RETURNING *",
+      [operacion.clave, JSON.stringify(argumentos)],
+    )
+    console.log({ operacionRecienInsertada });
   }
 }
 
