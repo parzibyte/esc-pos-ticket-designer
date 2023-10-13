@@ -26,6 +26,9 @@ export class Operacion {
     obtenerArgumentosPorPlataforma(plataforma: string) {
         return this.plataformas[plataforma](this);
     }
+    obtenerArgumentosRealesSerializados() {
+        return JSON.stringify(this.argumentos);
+    }
     clonar(): Operacion {
         return new Operacion(Object.assign({}, this.argumentos), this.clave, this.nombre, this.descripcion, this.plataformas);
     }
@@ -68,6 +71,13 @@ export class OperacionFactory {
 
         },
     };
+
+    static crearAPartirDeClaveYArgumentosSerializados(clave: string, argumentos: string): Operacion {
+        const argumentosDeserializados = JSON.parse(argumentos);
+        console.log(argumentosDeserializados);
+
+        return OperacionFactory.crearAPartirDeClaveYArgumentos(clave, argumentosDeserializados);
+    }
     static crearAPartirDeClaveYArgumentos(clave: string, argumentos: Record<string, any>): Operacion {
         const valoresQueMeFaltan = OperacionFactory.mapa[clave];
         return new Operacion(argumentos, clave, valoresQueMeFaltan.nombre, valoresQueMeFaltan.descripcion, valoresQueMeFaltan.plataformas);

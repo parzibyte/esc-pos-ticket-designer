@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { OperacionFactory, Operacion } from "../types/Tipos"
-import { ref } from "vue";
-import type { Ref } from "vue";
+import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
@@ -40,13 +39,23 @@ const imprimir = () => {
 }
 const guardar = async () => {
   for (const operacion of operaciones.value) {
-    const argumentos = operacion.obtenerArgumentosPorPlataforma("Desktop")
+    const argumentosSerializados = operacion.obtenerArgumentosRealesSerializados();
     const operacionRecienInsertada = await store.exec("INSERT INTO operaciones(clave, argumentos) VALUES (?, ?) RETURNING *",
-      [operacion.clave, JSON.stringify(argumentos)],
+      [operacion.clave, argumentosSerializados],
     )
     console.log({ operacionRecienInsertada });
   }
 }
+
+onMounted(async () => {
+  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos FROM operaciones");
+  for (const operacionSerializada of operacionesSerializadas) {
+    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.clave, operacionSerializada.argumentos);
+    operaciones.value.push(operacion);
+    console.log({ operacion });
+  }
+
+})
 
 </script>
 <template>
