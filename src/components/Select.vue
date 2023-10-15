@@ -121,24 +121,24 @@ defineExpose({ clearSelectedItem });
 </script>
 <template>
     <div class="flex flex-col">
-        <strong>{{ label }}</strong>
+        <strong class="text-xl font-semibold">{{ label }}</strong>
         <div class="flex flex-col relative">
             <div class="flex">
                 <input ref="input" @focus="onInputFocus" @blur="onInputBlur" @keyup="onKeyup" @click="onInputClick"
                     v-model="inputValue" placeholder="Selecciona una opción" type="input"
-                    class="focus:outline-none w-full h-10 border border-l-emerald-200 border-t-emerald-200 border-b-emerald-200 border-r-0 rounded-tl-md p-2">
+                    class="focus:outline-none text-xl w-full h-10 border border-l-gray-200 border-t-gray-200 border-b-gray-200 border-r-0 rounded-tl-md p-2 focus:border-2 focus:border-l-blue-500  focus:border-t-blue-500  focus:border-b-blue-500 focus:border-r-0">
                 <button v-if="shouldShowClearButton()" @click="clearSelectedItem(true, true)"
-                    class="focus:outline-none p-1 bg-white text-zinc-200 border border-l-0 border-r-0 border-t-emerald-200 border-b-emerald-200 ">
+                    class="focus:outline-none p-1 bg-white  border border-l-0 border-r-0 border-t-gray-200 border-b-gray-200 ">
                     <Backspace />
                 </button>
                 <button @click="shouldShowItems = !shouldShowItems"
-                    class="focus:outline-none p-1 bg-white text-zinc-200 rounded-tr-md border-b-emerald-200 border border-l-0 border-r-emerald-200 border-t-emerald-200">
+                    class="focus:outline-none p-1 bg-white  rounded-tr-md border-b-gray-200 border border-l-0 border-r-gray-200 border-t-gray-200">
                     <ChevronDown v-if="!shouldShowItems" />
                     <ChevronUp v-if="shouldShowItems" />
                 </button>
             </div>
             <Transition>
-                <div class="w-full border border-emerald-200 border-t-0 absolute mt-10 z-10" v-show="shouldShowItems">
+                <div class="w-full border border-gray-200 border-t-0 absolute mt-10 z-10" v-show="shouldShowItems">
                     <div @click="onItemSelected(opcion)" v-for="(opcion, index) in filteredItems"
                         class="p-2  hover:bg-zinc-200 hover:cursor-pointer "
                         :class="{ 'bg-zinc-200': index === keyboardIndex, 'bg-white': index !== keyboardIndex }">

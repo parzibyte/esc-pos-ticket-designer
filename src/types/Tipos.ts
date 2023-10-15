@@ -85,3 +85,9 @@ export class OperacionFactory {
 }
 
 
+
+export type Diseño = {
+    id: number,
+    nombre: string,
+    fechaModificacion: string,
+}

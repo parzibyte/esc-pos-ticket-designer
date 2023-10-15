@@ -23,12 +23,67 @@ class EnvolturaDeBaseDeDatos {
             this.db = new sqlite3.oo1.DB(NOMBRE_BASE_DE_DATOS, 'ct');
             log('OPFS is not available, created transient database', this.db.filename);
         }
-        this.db.exec(`CREATE TABLE IF NOT EXISTS operaciones(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    clave TEXT NOT NULL,
-    argumentos TEXT NOT NULL
-  );`);
+        this.crearTablas();
+        await this.insertarDatosIniciales();
         this.exponerFuncionesDeDB();
+    }
+    crearTablas() {
+        this.db.exec(`CREATE TABLE IF NOT EXISTS plataformas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre TEXT NOT NULL,
+    descripcion TEXT NOT NULL,
+    ruta_api TEXT NOT NULL,
+    licencia TEXT NOT NULL DEFAULT ""
+    );`);
+        this.db.exec(`CREATE TABLE IF NOT EXISTS diseños(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_plataforma INTEGER,
+    nombre TEXT NOT NULL,
+    fecha_creacion TEXT NOT NULL,
+    fecha_modificacion TEXT NOT NULL,
+    FOREIGN KEY (id_plataforma) REFERENCES plataformas(id) ON DELETE CASCADE ON UPDATE CASCADE
+    );`);
+
+        this.db.exec(`CREATE TABLE IF NOT EXISTS operaciones_diseños(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_diseño INTEGER,
+    clave TEXT NOT NULL,
+    argumentos TEXT NOT NULL,
+    FOREIGN KEY (id_diseño) REFERENCES diseños(id) ON DELETE CASCADE ON UPDATE CASCADE);`);
+    }
+
+    async insertarDatosIniciales() {
+        const plataformasExistentes = await this.db.exec({
+            sql: "SELECT count(*) AS conteo FROM plataformas",
+            bind: [],
+            returnValue: "resultRows",
+            rowMode: "object",
+        });
+        if (plataformasExistentes[0].conteo <= 0) {
+            await this.db.exec({
+                sql: "INSERT INTO plataformas(nombre, descripcion, ruta_api) VALUES (?, ?, ?), (?, ?, ?)",
+                bind: [
+                    "Android", "Imprimir en Android con impresora Bluetooth", "http://localhost:8000",
+                    "Desktop", "Imprimir en Windows, Raspbian o Linux con impresora USB", "http://localhost:8000",
+                ],
+                returnValue: "resultRows",
+                rowMode: "object",
+            });
+
+            await this.db.exec({
+                sql: "INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion) VALUES (?, ?, ?, ?)",
+                bind: [1, "Mi primer diseño", "2023-10-14T12:34:55", "2023-10-14T12:34:55"],
+                returnValue: "resultRows",
+                rowMode: "object",
+            });
+
+            await this.db.exec({
+                sql: "INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion) VALUES (?, ?, ?, ?)",
+                bind: [2, "Ticket de venta", "2023-10-14T15:34:55", "2023-10-16T12:34:55"],
+                returnValue: "resultRows",
+                rowMode: "object",
+            });
+        }
     }
 
     exponerFuncionesDeDB() {

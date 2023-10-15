@@ -59,26 +59,29 @@ onMounted(async () => {
 
 </script>
 <template>
-  <div>
-    <ComponenteOperacion :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
-      v-for="(operacion, indice) in operaciones" :operacion="operacion" />
-  </div>
-  <div class="max-w-xs content-center">
-    <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
-      :displayItemFunction="displayItemFunction" v-model="opcionSeleccionada" label="Selecciona una opción">
-      <template #item="{ item, index }">
-        <h1 class="text-xl">{{ item.nombre }}</h1>
-        <p>{{ item.descripcion }}</p>
-      </template>
-    </Select>
-    <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="agregarOperacionSeleccionada">
-      Agregar
-    </button>
-    <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
-      Imprimir
-    </button>
-    <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="guardar">
-      Guardar
-    </button>
+  <div class="p-1">
+    <h1 class="text-4xl" contenteditable="">Soy el título</h1>
+    <div class="bg-pink-500">
+      <ComponenteOperacion :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
+        v-for="(operacion, indice) in operaciones" :operacion="operacion" />
+    </div>
+    <div class="max-w-xs content-center">
+      <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
+        :displayItemFunction="displayItemFunction" v-model="opcionSeleccionada" label="Selecciona una opción">
+        <template #item="{ item, index }">
+          <h1 class="text-xl">{{ item.nombre }}</h1>
+          <p>{{ item.descripcion }}</p>
+        </template>
+      </Select>
+      <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="agregarOperacionSeleccionada">
+        Agregar
+      </button>
+      <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
+        Imprimir
+      </button>
+      <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="guardar">
+        Guardar
+      </button>
+    </div>
   </div>
 </template>
