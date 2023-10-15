@@ -4,6 +4,7 @@ import { type Diseño } from "@/types/Tipos"
 import Printer from "vue-material-design-icons/Printer.vue";
 import Delete from "vue-material-design-icons/Delete.vue";
 import Pencil from "vue-material-design-icons/Pencil.vue";
+import router from '@/router';
 const props = withDefaults(defineProps<{
 	diseño: Diseño,
 }>(), {
@@ -15,6 +16,15 @@ const props = withDefaults(defineProps<{
 		};
 	}
 });
+
+const modificarDiseño = () => {
+	router.push({
+		name: "add-design",
+		params: {
+			id: props.diseño.id,
+		}
+	});
+}
 </script>
 <template>
 	<div class="bg-white p-2 mx-2 my-2 rounded-md">
@@ -26,7 +36,7 @@ const props = withDefaults(defineProps<{
 			<Printer></Printer>
 			Imprimir
 		</button>
-		<button
+		<button @click="modificarDiseño"
 			class="rounded-md px-3 py-2 m-1 bg-amber-500 text-white hover:bg-amber-400 text-sm font-semibold inline-flex items-center">
 			<Pencil></Pencil>
 			Modificar

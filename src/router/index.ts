@@ -12,9 +12,10 @@ const router = createRouter({
       component: AddDesign
     },
     {
-      path: '/add-design',
+      path: '/add-design/:id',
       name: 'add-design',
       component: AddDesign,
+      props: true,
     },
     {
       path: '/about',

@@ -6,14 +6,24 @@ import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
 const store = useDatabaseStore();
 const referenciaAlSelect = ref(null);
+const diseñoActualmenteEditado = ref({});
+const props = defineProps<{
+  id: number,
+}>();
 const todasLasOperaciones: Ref<Array<Operacion>> = ref([
   OperacionFactory.crearAPartirDeClaveYArgumentos("Corte", { lineas: 1 }),
   OperacionFactory.crearAPartirDeClaveYArgumentos("DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
 
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);
-const agregarOperacionSeleccionada = () => {
-  operaciones.value.push(opcionSeleccionada.value.clonar());
+const agregarOperacionSeleccionada = async () => {
+  const operacionSinReferencias = opcionSeleccionada.value.clonar();
+  const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
+  const operacionRecienInsertada = await store.exec("INSERT INTO operaciones_diseños(id_diseño, clave, argumentos) VALUES (?, ?, ?) RETURNING *",
+    [props.id, operacionSinReferencias.clave, argumentosSerializados],
+  )
+  console.log({ operacionRecienInsertada });
+  operaciones.value.push(operacionSinReferencias);
   referenciaAlSelect.value.clearSelectedItem();
 };
 const displayItemFunction = (op: Operacion): string => {
@@ -48,7 +58,20 @@ const guardar = async () => {
 }
 
 onMounted(async () => {
-  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos FROM operaciones");
+  const diseñosCoincidentesConId = await store.exec(`select d.id,
+	d.nombre,
+	d.fecha_creacion,
+	d.fecha_modificacion,
+	p.id AS id_plataforma,
+	p.nombre AS plataforma,
+	p.licencia,
+	p.ruta_api
+from diseños d
+	inner join plataformas p on d.id_plataforma = p.id
+  WHERE d.id = ?`, [props.id]);
+
+  diseñoActualmenteEditado.value = diseñosCoincidentesConId[0];
+  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos FROM operaciones_diseños WHERE id_diseño = ?", [props.id]);
   for (const operacionSerializada of operacionesSerializadas) {
     const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.clave, operacionSerializada.argumentos);
     operaciones.value.push(operacion);
@@ -60,7 +83,7 @@ onMounted(async () => {
 </script>
 <template>
   <div class="p-1">
-    <h1 class="text-4xl" contenteditable="">Soy el título</h1>
+    <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
     <div class="bg-pink-500">
       <ComponenteOperacion :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
         v-for="(operacion, indice) in operaciones" :operacion="operacion" />
