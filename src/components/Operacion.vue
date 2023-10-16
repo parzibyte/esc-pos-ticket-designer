@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, type Component } from "vue";
+import { defineProps, type Component, watch } from "vue";
 import { Operacion } from "@/types/Tipos";
 import Delete from "vue-material-design-icons/Delete.vue";
 import Corte from "./Operaciones/Corte.vue";
@@ -16,11 +16,17 @@ type MyComponentProps = {
 const props = defineProps<MyComponentProps>();
 const emit = defineEmits<{
     (e: "eliminar"): void,
+    (e: "actualizado", operacion: Operacion): void,
 }>();
 
 const eliminar = () => {
     emit("eliminar");
 }
+
+watch(props.operacion.argumentos, () => {
+    emit("actualizado", props.operacion);
+});
+
 </script>
 <template>
     <div class="p-1 my-2 border border-zinc-500">

@@ -16,7 +16,9 @@ export class Operacion {
     public nombre: string;
     public descripcion: string;
     public plataformas: Plataforma;
-    constructor(argumentos: Record<string, any>, clave: string, nombre?: string, descripcion?: string, plataformas?: Plataforma) {
+    public id: number;
+    constructor(id: number, argumentos: Record<string, any>, clave: string, nombre?: string, descripcion?: string, plataformas?: Plataforma) {
+        this.id = id;
         this.argumentos = argumentos;
         this.clave = clave;
         this.nombre = nombre || "";
@@ -30,7 +32,7 @@ export class Operacion {
         return JSON.stringify(this.argumentos);
     }
     clonar(): Operacion {
-        return new Operacion(Object.assign({}, this.argumentos), this.clave, this.nombre, this.descripcion, this.plataformas);
+        return new Operacion(this.id, Object.assign({}, this.argumentos), this.clave, this.nombre, this.descripcion, this.plataformas);
     }
 }
 
@@ -72,15 +74,15 @@ export class OperacionFactory {
         },
     };
 
-    static crearAPartirDeClaveYArgumentosSerializados(clave: string, argumentos: string): Operacion {
+    static crearAPartirDeClaveYArgumentosSerializados(id: number, clave: string, argumentos: string): Operacion {
         const argumentosDeserializados = JSON.parse(argumentos);
         console.log(argumentosDeserializados);
 
-        return OperacionFactory.crearAPartirDeClaveYArgumentos(clave, argumentosDeserializados);
+        return OperacionFactory.crearAPartirDeClaveYArgumentos(id, clave, argumentosDeserializados);
     }
-    static crearAPartirDeClaveYArgumentos(clave: string, argumentos: Record<string, any>): Operacion {
+    static crearAPartirDeClaveYArgumentos(id: number, clave: string, argumentos: Record<string, any>): Operacion {
         const valoresQueMeFaltan = OperacionFactory.mapa[clave];
-        return new Operacion(argumentos, clave, valoresQueMeFaltan.nombre, valoresQueMeFaltan.descripcion, valoresQueMeFaltan.plataformas);
+        return new Operacion(id, argumentos, clave, valoresQueMeFaltan.nombre, valoresQueMeFaltan.descripcion, valoresQueMeFaltan.plataformas);
     }
 }
 

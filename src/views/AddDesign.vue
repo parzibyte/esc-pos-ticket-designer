@@ -11,8 +11,8 @@ const props = defineProps<{
   id: number,
 }>();
 const todasLasOperaciones: Ref<Array<Operacion>> = ref([
-  OperacionFactory.crearAPartirDeClaveYArgumentos("Corte", { lineas: 1 }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos("DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Corte", { lineas: 1 }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
 
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);
@@ -36,7 +36,7 @@ const filterFunction = (criteria: string, items: Operacion[]) => {
     return expresion.test(opcion.nombre) || expresion.test(opcion.descripcion);
   });
 };
-const opcionSeleccionada: Ref<Operacion> = ref(OperacionFactory.crearAPartirDeClaveYArgumentos("", {}));
+const opcionSeleccionada: Ref<Operacion> = ref(OperacionFactory.crearAPartirDeClaveYArgumentos(0, "", {}));
 
 const eliminarOperacionPorIndice = (indice: number) => {
   operaciones.value.splice(indice, 1);
@@ -57,6 +57,15 @@ const guardar = async () => {
   }
 }
 
+const onActualizado = async (op: Operacion) => {
+  console.log("se actualizó alguna operación");
+
+  const operacionRecienInsertada = await store.exec(`UPDATE operaciones_diseños SET argumentos = ? WHERE id = ?`,
+    [op.clonar().obtenerArgumentosRealesSerializados(), op.id]);
+  console.log({ operacionRecienInsertada });
+
+}
+
 onMounted(async () => {
   const diseñosCoincidentesConId = await store.exec(`select d.id,
 	d.nombre,
@@ -73,7 +82,7 @@ from diseños d
   diseñoActualmenteEditado.value = diseñosCoincidentesConId[0];
   const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos FROM operaciones_diseños WHERE id_diseño = ?", [props.id]);
   for (const operacionSerializada of operacionesSerializadas) {
-    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.clave, operacionSerializada.argumentos);
+    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.id, operacionSerializada.clave, operacionSerializada.argumentos);
     operaciones.value.push(operacion);
     console.log({ operacion });
   }
@@ -85,8 +94,9 @@ from diseños d
   <div class="p-1">
     <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
     <div class="bg-pink-500">
-      <ComponenteOperacion :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
-        v-for="(operacion, indice) in operaciones" :operacion="operacion" />
+      <ComponenteOperacion @actualizado="onActualizado" :key="'componente_' + indice"
+        @eliminar="eliminarOperacionPorIndice(indice)" v-for="(operacion, indice) in operaciones"
+        :operacion="operacion" />
     </div>
     <div class="max-w-xs content-center">
       <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
