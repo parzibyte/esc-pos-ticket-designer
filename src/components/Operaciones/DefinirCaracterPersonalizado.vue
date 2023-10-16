@@ -16,7 +16,7 @@ type PropiedadesDelComponente = {
 };
 const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
     modelValue: () => {
-        return { matrizDeBits: Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO)) };
+        return { matrizDeBits: Array(24).fill(false).map(() => Array(12).fill(BIT_APAGADO)), caracterQueReemplaza: "" };
     }
 })
 const emit = defineEmits(['update:modelValue'])
