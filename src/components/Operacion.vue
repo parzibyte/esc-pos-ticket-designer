@@ -4,10 +4,12 @@ import { Operacion } from "@/types/Tipos";
 import Delete from "vue-material-design-icons/Delete.vue";
 import Corte from "./Operaciones/Corte.vue";
 import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonalizado.vue";
+import Texto from "./Operaciones/Texto.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
     "DefinirCaracterPersonalizado": DefinirCaracterPersonalizado,
+    "Texto": Texto,
 };
 
 type MyComponentProps = {

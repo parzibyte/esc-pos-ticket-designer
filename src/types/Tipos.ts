@@ -8,6 +8,12 @@ export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
 
+export type ArgumentosParaDefinirTexto = {
+    texto: string,
+}
+
+
+
 type Plataforma = Record<string, (thisArg: Operacion) => any>;
 
 export class Operacion {
@@ -67,6 +73,21 @@ export class OperacionFactory {
                     return {
                         nombre: "DefinirCaracterPersonalizado",
                         argumentos: [argumentos.caracterQueReemplaza, matrizComoCadena],
+                    };
+                },
+            },
+
+        },
+        "Texto": {
+            nombre: "Texto",
+            descripcion: `Imprimir cualquier texto`,
+            plataformas:
+            {
+                "Desktop": (thisArg: Operacion) => {
+                    const argumentos = thisArg.argumentos as ArgumentosParaDefinirTexto;
+                    return {
+                        nombre: "EscribirTexto",
+                        argumentos: [argumentos.texto],
                     };
                 },
             },
