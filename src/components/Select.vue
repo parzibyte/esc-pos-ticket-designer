@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<MyComponentProps<any>>(), {
         });
     }
 });
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', "change"])
 const selectedItem = computed<MyComponentProps<any>["modelValue"]>({
     get() {
         return props.modelValue
@@ -57,6 +57,7 @@ const onItemSelected = (item: MyComponentProps<any>["modelValue"]) => {
     shouldShowItems.value = false;
     inputValue.value = props.displayItemFunction(item);
     keyboardIndex.value = -1;
+    emit("change", item);
 }
 
 const onKeyup = (event: KeyboardEvent) => {
