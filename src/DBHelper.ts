@@ -15,7 +15,7 @@ class EnvolturaDeBaseDeDatos {
         if ('opfs' in sqlite3) {
             this.db = new sqlite3.oo1.OpfsDb({
                 filename: NOMBRE_BASE_DE_DATOS,
-                flags: "ct",
+                flags: "c",
                 vfs: false,
             });
             log('OPFS is available, created persisted database at', this.db.filename);
@@ -41,6 +41,7 @@ class EnvolturaDeBaseDeDatos {
     nombre TEXT NOT NULL,
     fecha_creacion TEXT NOT NULL,
     fecha_modificacion TEXT NOT NULL,
+    impresora TEXT NOT NULL,
     FOREIGN KEY (id_plataforma) REFERENCES plataformas(id) ON DELETE CASCADE ON UPDATE CASCADE
     );`);
 
@@ -69,6 +70,7 @@ class EnvolturaDeBaseDeDatos {
                 returnValue: "resultRows",
                 rowMode: "object",
             });
+            return;
 
             await this.db.exec({
                 sql: "INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion) VALUES (?, ?, ?, ?)",

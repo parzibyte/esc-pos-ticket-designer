@@ -7,31 +7,44 @@ import FormatListText from "vue-material-design-icons/FormatListText.vue";
 import router from "@/router";
 const store = useDatabaseStore();
 const plataformas = ref([]);
-const referenciaAlSelect = ref(null);
+const impresoras = ref([]);
 const nombre = ref("");
 const plataformaSeleccionada = ref({});
+const impresoraSeleccionada = ref("");
 
-const filterFunction = (criteria: string, items: any[]) => {
+const funcionDeFiltroParaPlataformas = (criteria: string, items: any[]) => {
 	const expresion = new RegExp(`${criteria}.*`, "i");
 	return items.filter((plataforma) => {
 		return expresion.test(plataforma.nombre) || expresion.test(plataforma.descripcion);
 	});
-};
+}
+const funcionDeFiltroParaImpresoras = (criteria: string, items: any[]) => {
+	const expresion = new RegExp(`${criteria}.*`, "i");
+	return items.filter((impresora) => {
+		return expresion.test(impresora);
+	});
+};;
 
 const guardarDiseño = async () => {
-	const argumentos = [plataformaSeleccionada.value.id, nombre.value, "", ""];
+	const argumentos = [plataformaSeleccionada.value.id, nombre.value, "", "", impresoraSeleccionada.value];
 	console.log({ argumentos });
-	await store.exec("INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion) VALUES (?, ?, ?, ?)", argumentos);
+	await store.exec("INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion, impresora) VALUES (?, ?, ?, ?, ?)", argumentos);
 }
 
-const navegarADiseños = ()=>{
+const navegarADiseños = () => {
 	router.push({
-		name:"Designs",
+		name: "Designs",
 	});
 }
 
+const onPlataformaCambiada = async (plataforma: any) => {
+	const rutaApi = plataforma.ruta_api;
+	const response = await fetch(`${rutaApi}/impresoras`);
+	impresoras.value = await response.json();
+}
+
 onMounted(async () => {
-	plataformas.value = await store.exec("SELECT id, nombre, descripcion FROM plataformas");
+	plataformas.value = await store.exec("SELECT id, nombre, descripcion, ruta_api, licencia FROM plataformas");
 });
 </script>
 <template>
@@ -39,12 +52,18 @@ onMounted(async () => {
 		<label for="nombre" class="font-semibold text-xl">Dale un nombre a tu diseño</label>
 		<input v-model="nombre" id="nombre" type="text" placeholder="Nombre"
 			class="mt-2 border border-gray-500 rounded-md p-2 block text-xl w-full focus:border-2 focus:border-blue-500 outline-none">
-		<Select v-model="plataformaSeleccionada" label="¿Para cuál plataforma?" ref="referenciaAlSelect"
-			:items="plataformas" :filter-function="filterFunction"
+		<Select @change="onPlataformaCambiada" v-model="plataformaSeleccionada" label="¿Para cuál plataforma?"
+			:items="plataformas" :filter-function="funcionDeFiltroParaPlataformas"
 			:display-item-function="(plataforma) => `${plataforma.nombre}`">
 			<template #item="{ item, index }">
 				<h1 class="text-xl">{{ item.nombre }}</h1>
 				<p>{{ item.descripcion }}</p>
+			</template>
+		</Select>
+		<Select v-model="impresoraSeleccionada" label="¿En dónde se va a imprimir?" :items="impresoras"
+			:filter-function="funcionDeFiltroParaImpresoras" :display-item-function="(impresora) => impresora">
+			<template #item="{ item, index }">
+				<h1 class="text-xl">{{ item }}</h1>
 			</template>
 		</Select>
 		<button @click="guardarDiseño"

@@ -13,7 +13,7 @@ const props = defineProps<{
 const todasLasOperaciones: Ref<Array<Operacion>> = ref([
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Corte", { lineas: 1 }),
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
-
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Texto", { texto: "" }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionSeleccionada = async () => {
@@ -46,10 +46,20 @@ const eliminarOperacionPorIndice = async (indice: number) => {
   operaciones.value.splice(indice, 1);
 }
 
-const imprimir = () => {
+const imprimir = async () => {
+  const payload = {
+    nombreImpresora: diseñoActualmenteEditado.value.impresora,
+    serial: diseñoActualmenteEditado.value.licencia,
+    operaciones: [],
+  };
   for (const operacion of operaciones.value) {
-    console.log(operacion.obtenerArgumentosPorPlataforma("Desktop"));
+    payload.operaciones.push(operacion.obtenerArgumentosPorPlataforma(diseñoActualmenteEditado.value.plataforma));
   }
+  await fetch(`${diseñoActualmenteEditado.value.ruta_api}/imprimir`, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  })
+
 }
 const guardar = async () => {
   for (const operacion of operaciones.value) {
@@ -76,6 +86,7 @@ onMounted(async () => {
 	d.nombre,
 	d.fecha_creacion,
 	d.fecha_modificacion,
+	d.impresora,
 	p.id AS id_plataforma,
 	p.nombre AS plataforma,
 	p.licencia,
