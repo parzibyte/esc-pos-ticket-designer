@@ -29,7 +29,7 @@ watch(props.operacion.argumentos, () => {
 
 </script>
 <template>
-    <div class="p-1 my-2 border border-zinc-500">
+    <div class="p-1 my-2 bg-white rounded-md">
         <div class="flex my-2">
             <h1 class="text-xl">{{ props.operacion.nombre }}</h1>
             <button @click="eliminar" class="bg-red-500 text-white p-1 mx-2 rounded-md hover:bg-red-600 focus:bg-red-600">

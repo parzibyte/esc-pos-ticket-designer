@@ -19,11 +19,13 @@ const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionSeleccionada = async () => {
   const operacionSinReferencias = opcionSeleccionada.value.clonar();
   const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
-  const operacionRecienInsertada = await store.exec("INSERT INTO operaciones_diseños(id_diseño, clave, argumentos) VALUES (?, ?, ?) RETURNING *",
+  const operacionesInsertadas = await store.exec("INSERT INTO operaciones_diseños(id_diseño, clave, argumentos) VALUES (?, ?, ?) RETURNING *",
     [props.id, operacionSinReferencias.clave, argumentosSerializados],
   )
-  console.log({ operacionRecienInsertada });
-  operaciones.value.push(operacionSinReferencias);
+  const operacionRecienInsertada = operacionesInsertadas[0];
+  const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
+    operacionRecienInsertada.id, operacionRecienInsertada.clave, operacionRecienInsertada.argumentos);
+  operaciones.value.push(operacion);
   referenciaAlSelect.value.clearSelectedItem();
 };
 const displayItemFunction = (op: Operacion): string => {
@@ -38,7 +40,9 @@ const filterFunction = (criteria: string, items: Operacion[]) => {
 };
 const opcionSeleccionada: Ref<Operacion> = ref(OperacionFactory.crearAPartirDeClaveYArgumentos(0, "", {}));
 
-const eliminarOperacionPorIndice = (indice: number) => {
+const eliminarOperacionPorIndice = async (indice: number) => {
+  const operacionParaEliminar = operaciones.value[indice];
+  await store.exec("DELETE FROM operaciones_diseños WHERE id = ?", [operacionParaEliminar.id])
   operaciones.value.splice(indice, 1);
 }
 
@@ -62,6 +66,7 @@ const onActualizado = async (op: Operacion) => {
 
   const operacionRecienInsertada = await store.exec(`UPDATE operaciones_diseños SET argumentos = ? WHERE id = ?`,
     [op.clonar().obtenerArgumentosRealesSerializados(), op.id]);
+  await store.exec(`UPDATE diseños SET fecha_modificacion = ? WHERE id = ?`, [new Date().toLocaleDateString(), props.id]);
   console.log({ operacionRecienInsertada });
 
 }
@@ -91,9 +96,9 @@ from diseños d
 
 </script>
 <template>
-  <div class="p-1">
+  <div class="p-1 bg-gray-100">
     <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
-    <div class="bg-pink-500">
+    <div class="">
       <ComponenteOperacion @actualizado="onActualizado" :key="'componente_' + indice"
         @eliminar="eliminarOperacionPorIndice(indice)" v-for="(operacion, indice) in operaciones"
         :operacion="operacion" />
