@@ -83,6 +83,20 @@ const valorSerializado = computed({
     <label class="font-bold">Rotación 90 °</label>
     <input type="checkbox" v-model="propiedades.modelValue.rotacion90">
     <label class="block font-bold">Texto</label>
+    <div class="bg-red-500 rounded-md text-white p-1 my-2"
+        v-show="propiedades.modelValue.alto !== 1 && propiedades.modelValue.rotacion90">
+        <strong>
+            Problemas conocidos: 
+        </strong>
+
+        cuando se elige
+        <strong>
+            Rotación de 90°
+        </strong>
+        el
+        <strong>Alto</strong>
+        debería ser 1
+    </div>
     <textarea placeholder="Texto para imprimir" rows="3"
         class="border border-emerald-300 rounded-md max-w-full focus:outline-none p-1"
         v-model="propiedades.modelValue.texto"></textarea>
