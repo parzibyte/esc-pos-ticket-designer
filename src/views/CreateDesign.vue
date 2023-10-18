@@ -53,7 +53,7 @@ onMounted(async () => {
 	<div class="p-1">
 		<label for="nombre" class="font-semibold text-xl">Dale un nombre a tu diseño</label>
 		<input v-model="nombre" id="nombre" type="text" placeholder="Nombre"
-			class="mt-2 border border-gray-500 rounded-md p-2 block text-xl w-full focus:border-2 focus:border-blue-500 outline-none">
+			class="mt-2 border border-gray-200 rounded-md p-2 block text-xl w-full focus:border-2 focus:border-blue-500 outline-none">
 		<Select @change="onPlataformaCambiada" v-model="plataformaSeleccionada" label="¿Para cuál plataforma?"
 			:items="plataformas" :filter-function="funcionDeFiltroParaPlataformas"
 			:display-item-function="(plataforma) => `${plataforma.nombre}`">
