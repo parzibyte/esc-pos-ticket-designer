@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import AddDesign from '../views/AddDesign.vue'
 import Designs from '../views/Designs.vue'
 import CreateDesign from '../views/CreateDesign.vue'
+import PlatformsSettings from '../views/PlatformsSettings.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/create-design',
       name: 'CreateDesign',
       component: CreateDesign,
+    },
+    {
+      path: '/platforms-settings',
+      name: 'PlatformsSettings',
+      component: PlatformsSettings,
     },
   ]
 })
