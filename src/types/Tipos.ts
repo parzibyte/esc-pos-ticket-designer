@@ -3,13 +3,25 @@ export type ArgumentosParaDefinirCaracterPersonalizado = {
     matrizDeBits: Array<Array<string>>,
     caracterQueReemplaza: string,
 }
-
+export enum Alineacion {
+    Izquierda = 0,
+    Centro,
+    Derecha,
+}
 export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
 
 export type ArgumentosParaDefinirTexto = {
     texto: string,
+    ancho: number,
+    alto: number,
+    enfatizado: boolean,
+    alineacion: Alineacion,
+    subrayado: boolean,
+    alReves: boolean,
+    inverso: boolean,
+    rotacion90: boolean,
 }
 
 
@@ -55,10 +67,10 @@ export class OperacionFactory {
             plataformas: {
                 "Desktop": (thisArg: Operacion) => {
                     const argumentos = thisArg.argumentos as ArgumentosParaDefinirCorte;
-                    return {
+                    return [{
                         nombre: "Corte",
                         argumentos: [argumentos.lineas],
-                    };
+                    }];
                 },
             },
         },
@@ -70,10 +82,10 @@ export class OperacionFactory {
                 "Desktop": (thisArg: Operacion) => {
                     const argumentos = thisArg.argumentos as ArgumentosParaDefinirCaracterPersonalizado;
                     const matrizComoCadena = argumentos.matrizDeBits.map(fila => fila.join("")).join("\n");
-                    return {
+                    return [{
                         nombre: "DefinirCaracterPersonalizado",
                         argumentos: [argumentos.caracterQueReemplaza, matrizComoCadena],
-                    };
+                    }];
                 },
             },
 
@@ -85,10 +97,41 @@ export class OperacionFactory {
             {
                 "Desktop": (thisArg: Operacion) => {
                     const argumentos = thisArg.argumentos as ArgumentosParaDefinirTexto;
-                    return {
-                        nombre: "EscribirTexto",
-                        argumentos: [argumentos.texto],
-                    };
+                    const argumentosParaDevolver = [
+                        {
+                            nombre: "EstablecerTamañoFuente",
+                            argumentos: [argumentos.ancho, argumentos.alto],
+                        },
+                        {
+                            nombre: "EstablecerEnfatizado",
+                            argumentos: [argumentos.enfatizado],
+                        },
+                        {
+                            nombre: "EstablecerAlineacion",
+                            argumentos: [argumentos.alineacion],
+                        },
+                        {
+                            nombre: "EstablecerSubrayado",
+                            argumentos: [argumentos.subrayado],
+                        },
+                        {
+                            nombre: "EstablecerImpresionAlReves",
+                            argumentos: [argumentos.alReves],
+                        },
+                        {
+                            nombre: "EstablecerImpresionBlancoYNegroInversa",
+                            argumentos: [argumentos.inverso],
+                        },
+                        {
+                            nombre: "EstablecerRotacionDe90Grados",
+                            argumentos: [argumentos.rotacion90],
+                        },
+                        {
+                            nombre: "EscribirTexto",
+                            argumentos: [argumentos.texto],
+                        },
+                    ];
+                    return argumentosParaDevolver;
                 },
             },
 

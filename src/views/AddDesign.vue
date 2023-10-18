@@ -4,6 +4,7 @@ import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
+import { Alineacion } from "@/types/Tipos"
 const store = useDatabaseStore();
 const referenciaAlSelect = ref(null);
 const diseñoActualmenteEditado = ref({});
@@ -13,7 +14,9 @@ const props = defineProps<{
 const todasLasOperaciones: Ref<Array<Operacion>> = ref([
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Corte", { lineas: 1 }),
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DefinirCaracterPersonalizado", { caracterQueReemplaza: "", matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]] }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Texto", { texto: "" }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Texto", {
+    texto: "", ancho: 1, alto: 1, enfatizado: false, alineacion: Alineacion.Izquierda, subrayado: false, alReves: false, inverso: false, rotacion90: false,
+  }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionSeleccionada = async () => {
@@ -53,7 +56,7 @@ const imprimir = async () => {
     operaciones: [],
   };
   for (const operacion of operaciones.value) {
-    payload.operaciones.push(operacion.obtenerArgumentosPorPlataforma(diseñoActualmenteEditado.value.plataforma));
+    payload.operaciones.push(...(operacion.obtenerArgumentosPorPlataforma(diseñoActualmenteEditado.value.plataforma)));
   }
   await fetch(`${diseñoActualmenteEditado.value.ruta_api}/imprimir`, {
     method: "POST",
