@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { ArgumentosParaDefinirCorte } from '@/types/Tipos';
 import { computed, } from 'vue';
 
 type Propiedades = {
-	modelValue: { lineas: number };
+	modelValue: ArgumentosParaDefinirCorte;
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
 	modelValue: () => {

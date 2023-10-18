@@ -1,4 +1,3 @@
-
 export type ArgumentosParaDefinirCaracterPersonalizado = {
     matrizDeBits: Array<Array<string>>,
     caracterQueReemplaza: string,

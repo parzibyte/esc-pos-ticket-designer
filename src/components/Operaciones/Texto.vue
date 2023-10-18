@@ -1,20 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { Alineacion } from "@/types/Tipos"
+import { Alineacion, type ArgumentosParaDefinirTexto } from "@/types/Tipos"
 
 
 type Propiedades = {
-    modelValue: {
-        texto: string,
-        ancho: number,
-        alto: number,
-        enfatizado: boolean,
-        alineacion: Alineacion,
-        subrayado: boolean,
-        alReves: boolean,
-        inverso: boolean,
-        rotacion90: boolean,
-    };
+    modelValue: ArgumentosParaDefinirTexto,
 };
 const alineaciones = ref([
     {
@@ -86,7 +76,7 @@ const valorSerializado = computed({
     <div class="bg-red-500 rounded-md text-white p-1 my-2"
         v-show="propiedades.modelValue.alto !== 1 && propiedades.modelValue.rotacion90">
         <strong>
-            Problemas conocidos: 
+            Problemas conocidos:
         </strong>
 
         cuando se elige

@@ -3,16 +3,14 @@ import { onMounted, ref, type Ref, defineProps, computed, watch, withDefaults } 
 import Brush from 'vue-material-design-icons/Brush.vue';
 import Eraser from 'vue-material-design-icons/Eraser.vue';
 import Broom from 'vue-material-design-icons/Broom.vue';
+import type { ArgumentosParaDefinirCaracterPersonalizado } from "@/types/Tipos";
 enum Accion {
     Borrar,
     Pintar,
     Limpiar,
 }
 type PropiedadesDelComponente = {
-    modelValue: {
-        matrizDeBits: Array<Array<string>>,
-        caracterQueReemplaza: string,
-    };
+    modelValue: ArgumentosParaDefinirCaracterPersonalizado,
 };
 const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
     modelValue: () => {
