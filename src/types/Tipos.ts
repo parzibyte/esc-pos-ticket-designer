@@ -99,6 +99,10 @@ export class OperacionFactory {
                     const argumentos = thisArg.argumentos as ArgumentosParaDefinirTexto;
                     const argumentosParaDevolver = [
                         {
+                            nombre: "Feed",
+                            argumentos: [1],
+                        },
+                        {
                             nombre: "EstablecerTamañoFuente",
                             argumentos: [argumentos.ancho, argumentos.alto],
                         },
@@ -129,6 +133,10 @@ export class OperacionFactory {
                         {
                             nombre: "EscribirTexto",
                             argumentos: [argumentos.texto],
+                        },
+                        {
+                            nombre: "Feed",
+                            argumentos: [1],
                         },
                     ];
                     return argumentosParaDevolver;
