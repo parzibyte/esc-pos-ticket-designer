@@ -5,12 +5,14 @@ import Select from "@/components/Select.vue";
 import CheckBold from "vue-material-design-icons/CheckBold.vue";
 import FormatListText from "vue-material-design-icons/FormatListText.vue";
 import router from "@/router";
+import { PlataformasService } from "@/services/PlataformasService"
 const store = useDatabaseStore();
 const plataformas = ref([]);
 const impresoras = ref([]);
 const nombre = ref("");
 const plataformaSeleccionada = ref({});
 const impresoraSeleccionada = ref("");
+const plataformasService = new PlataformasService(store);
 
 const funcionDeFiltroParaPlataformas = (criteria: string, items: any[]) => {
 	const expresion = new RegExp(`${criteria}.*`, "i");
@@ -44,7 +46,7 @@ const onPlataformaCambiada = async (plataforma: any) => {
 }
 
 onMounted(async () => {
-	plataformas.value = await store.exec("SELECT id, nombre, descripcion, ruta_api, licencia FROM plataformas");
+	plataformas.value = await plataformasService.obtenerPlataformas();
 });
 </script>
 <template>
