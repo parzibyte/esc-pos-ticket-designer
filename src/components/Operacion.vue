@@ -5,11 +5,13 @@ import Delete from "vue-material-design-icons/Delete.vue";
 import Corte from "./Operaciones/Corte.vue";
 import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonalizado.vue";
 import Texto from "./Operaciones/Texto.vue";
+import Imagen from "./Operaciones/Imagen.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
     "DefinirCaracterPersonalizado": DefinirCaracterPersonalizado,
     "Texto": Texto,
+    "Imagen": Imagen,
 };
 
 type MyComponentProps = {

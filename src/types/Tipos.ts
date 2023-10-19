@@ -7,6 +7,13 @@ export enum Alineacion {
     Centro,
     Derecha,
 }
+
+export enum TamañoImagen {
+    Normal = 0,
+    DobleAncho,
+    DobleLargo,
+    DobleAnchoYLargo,
+}
 export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
@@ -23,6 +30,14 @@ export type ArgumentosParaDefinirTexto = {
     rotacion90: boolean,
 }
 
+export type ArgumentosParaDefinirImagen = {
+    alineacion: Alineacion,
+    ancho: number,
+    alto: number,
+    tamaño: TamañoImagen,
+    maximoAncho: number,
+    contenidoEnBase64: string,
+}
 
 
 type Plataforma = Record<string, (thisArg: Operacion) => any>;
@@ -81,10 +96,17 @@ export class OperacionFactory {
                 "Desktop": (thisArg: Operacion) => {
                     const argumentos = thisArg.argumentos as ArgumentosParaDefinirCaracterPersonalizado;
                     const matrizComoCadena = argumentos.matrizDeBits.map(fila => fila.join("")).join("\n");
-                    return [{
+                    return [
+                        {
+                            nombre:"HabilitarCaracteresPersonalizados",
+                            argumentos:[],
+                        },
+                        {
                         nombre: "DefinirCaracterPersonalizado",
                         argumentos: [argumentos.caracterQueReemplaza, matrizComoCadena],
-                    }];
+                    },
+                    
+                ];
                 },
             },
 
@@ -137,6 +159,28 @@ export class OperacionFactory {
                             nombre: "Feed",
                             argumentos: [1],
                         },
+                    ];
+                    return argumentosParaDevolver;
+                },
+            },
+
+        },
+        "Imagen": {
+            nombre: "Imagen",
+            descripcion: `Imprimir una imagen del dispositivo`,
+            plataformas:
+            {
+                "Desktop": (thisArg: Operacion) => {
+                    const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
+                    const argumentosParaDevolver = [
+                        {
+                            nombre: "EstablecerAlineacion",
+                            argumentos: [argumentos.alineacion],
+                        },
+                        {
+                            nombre: "ImprimirImagenEnBase64",
+                            argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño, argumentos.maximoAncho],
+                        }
                     ];
                     return argumentosParaDevolver;
                 },
