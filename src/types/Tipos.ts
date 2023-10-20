@@ -39,6 +39,9 @@ export type ArgumentosParaDefinirImagen = {
     contenidoEnBase64: string,
 }
 
+export type ArgumentosParaDefinirTabla = {
+    tabla: Array<Array<string>>,
+}
 
 type Plataforma = Record<string, (thisArg: Operacion) => any>;
 
@@ -98,15 +101,15 @@ export class OperacionFactory {
                     const matrizComoCadena = argumentos.matrizDeBits.map(fila => fila.join("")).join("\n");
                     return [
                         {
-                            nombre:"HabilitarCaracteresPersonalizados",
-                            argumentos:[],
+                            nombre: "HabilitarCaracteresPersonalizados",
+                            argumentos: [],
                         },
                         {
-                        nombre: "DefinirCaracterPersonalizado",
-                        argumentos: [argumentos.caracterQueReemplaza, matrizComoCadena],
-                    },
-                    
-                ];
+                            nombre: "DefinirCaracterPersonalizado",
+                            argumentos: [argumentos.caracterQueReemplaza, matrizComoCadena],
+                        },
+
+                    ];
                 },
             },
 
@@ -181,6 +184,25 @@ export class OperacionFactory {
                             nombre: "ImprimirImagenEnBase64",
                             argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño, argumentos.maximoAncho],
                         }
+                    ];
+                    return argumentosParaDevolver;
+                },
+            },
+
+        },
+
+        "Tabla": {
+            nombre: "Texto como tabla",
+            descripcion: `Imprimir texto tabulado`,
+            plataformas:
+            {
+                "Desktop": (thisArg: Operacion) => {
+                    const argumentos = thisArg.argumentos as ArgumentosParaDefinirTabla;
+                    const argumentosParaDevolver = [
+                        {
+                            nombre: "EscribirTexto",
+                            argumentos: [argumentos.tabla[0][0]],
+                        },
                     ];
                     return argumentosParaDevolver;
                 },

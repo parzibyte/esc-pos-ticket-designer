@@ -8,6 +8,7 @@ class EnvolturaDeBaseDeDatos {
     constructor() {
     }
     async iniciar() {
+        console.log("Iniciando worker...");
         const sqlite3 = await sqlite3InitModule({
             print: log,
             printErr: error,

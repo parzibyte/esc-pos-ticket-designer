@@ -6,12 +6,14 @@ import Corte from "./Operaciones/Corte.vue";
 import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonalizado.vue";
 import Texto from "./Operaciones/Texto.vue";
 import Imagen from "./Operaciones/Imagen.vue";
+import Tabla from "./Operaciones/Tabla.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
     "DefinirCaracterPersonalizado": DefinirCaracterPersonalizado,
     "Texto": Texto,
     "Imagen": Imagen,
+    "Tabla": Tabla,
 };
 
 type MyComponentProps = {

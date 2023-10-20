@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion } from "@/types/Tipos"
 
 const referenciaAlInput = ref(null);
@@ -29,13 +29,7 @@ const valorSerializado = computed({
         return propiedades.modelValue;
     },
 });
-const extraerExtensionDeArchivo = (nombre: string) => {
-    const indice = nombre.lastIndexOf(".");
-    if (indice === -1) {
-        return "";
-    }
-    return nombre.substring(indice + 1);
-}
+
 const obtenerArchivoComoBase64 = async function (file: File): Promise<string> {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -55,7 +49,6 @@ const obtenerResolucionImagen = function (archivo: File): Promise<[number, numbe
         const imagen = new Image();
         const objectUrl = URL.createObjectURL(archivo)
         imagen.onload = () => {
-            console.log({ imagen });
             URL.revokeObjectURL(objectUrl);
             resolve([imagen.naturalHeight, imagen.naturalWidth]);
         }
@@ -122,7 +115,8 @@ const tamaños = ref([
         <select class="border border-gray-200" v-model="propiedades.modelValue.tamaño">
             <option v-for="tamaño in tamaños" :value="tamaño.valor">{{ tamaño.nombre }}</option>
         </select>
-        <input type="range" step="8" v-model.number="propiedades.modelValue.maximoAncho" :max="propiedades.modelValue.ancho">
+        <input type="range" step="8" v-model.number="propiedades.modelValue.maximoAncho"
+            :max="propiedades.modelValue.ancho">
         <img class="max-h-40" :src="propiedades.modelValue.contenidoEnBase64"
             v-if="propiedades.modelValue.contenidoEnBase64.length > 0">
         <input accept="image/png,image/jpeg" @change="onArchivoSeleccionado" ref="referenciaAlInput"

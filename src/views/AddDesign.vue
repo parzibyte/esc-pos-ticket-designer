@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OperacionFactory, Operacion, TamañoImagen } from "../types/Tipos"
+import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla } from "../types/Tipos"
 import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
@@ -35,6 +35,9 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     ancho: 0,
     maximoAncho: 8,
     contenidoEnBase64: "",
+  }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Tabla", <ArgumentosParaDefinirTabla>{
+    tabla: [],
   }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);
