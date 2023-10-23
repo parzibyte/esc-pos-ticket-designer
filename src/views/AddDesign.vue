@@ -38,6 +38,11 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
   }),
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Tabla", <ArgumentosParaDefinirTabla>{
     tabla: [],
+    ajustesEncabezados: [],
+    caracterSeparadorColumnasDatos: "|",
+    caracterSeparadorColumnasEnSeparadorDeFilas: "+",
+    caracterSeparadorFilas: "-",
+    relleno: " ",
   }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);

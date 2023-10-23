@@ -39,8 +39,16 @@ export type ArgumentosParaDefinirImagen = {
     contenidoEnBase64: string,
 }
 
+export type EncabezadoDeTabla = {
+    longitudMaxima: number,
+}
 export type ArgumentosParaDefinirTabla = {
     tabla: Array<Array<string>>,
+    ajustesEncabezados: Array<EncabezadoDeTabla>,
+    caracterSeparadorColumnasDatos: string,
+    caracterSeparadorFilas: string,
+    caracterSeparadorColumnasEnSeparadorDeFilas: string,
+    relleno: string,
 }
 
 type Plataforma = Record<string, (thisArg: Operacion) => any>;
