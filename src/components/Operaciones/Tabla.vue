@@ -20,81 +20,6 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 
 const LONGITUD_MAXIMA_POR_DEFECTO = 5;
 
-const separarCadenaEnArregloSiSuperaLongitud = (cadena, maximaLongitud) => {
-    const resultado = [];
-    let indice = 0;
-    while (indice < cadena.length) {
-        const pedazo = cadena.substring(indice, indice + maximaLongitud);
-        indice += maximaLongitud;
-        resultado.push(pedazo);
-    }
-    return resultado;
-}
-
-const dividirCadenasYEncontrarMayorConteoDeBloques = (contenidosConMaximaLongitud) => {
-    let mayorConteoDeCadenasSeparadas = 0;
-    const cadenasSeparadas = [];
-    for (const contenido of contenidosConMaximaLongitud) {
-        const separadas = separarCadenaEnArregloSiSuperaLongitud(contenido.contenido, contenido.maximaLongitud);
-        cadenasSeparadas.push({ separadas, maximaLongitud: contenido.maximaLongitud });
-        if (separadas.length > mayorConteoDeCadenasSeparadas) {
-            mayorConteoDeCadenasSeparadas = separadas.length;
-        }
-    }
-    return [cadenasSeparadas, mayorConteoDeCadenasSeparadas];
-}
-
-
-const tabularDatos = (cadenas, relleno, separadorColumnas) => {
-    const [arreglosDeContenidosConMaximaLongitudSeparadas, mayorConteoDeBloques] = dividirCadenasYEncontrarMayorConteoDeBloques(cadenas)
-    let indice = 0;
-    const lineas = [];
-    while (indice < mayorConteoDeBloques) {
-        let linea = "";
-        for (const contenidos of arreglosDeContenidosConMaximaLongitudSeparadas) {
-            let cadena = "";
-            if (indice < contenidos.separadas.length) {
-                cadena = contenidos.separadas[indice];
-            }
-            if (cadena.length < contenidos.maximaLongitud) {
-                cadena = cadena + relleno.repeat(contenidos.maximaLongitud - cadena.length);
-            }
-            linea += cadena + separadorColumnas;
-        }
-        lineas.push(linea);
-        indice++;
-    }
-    return lineas;
-}
-
-const xd = () => {
-    let contenido = "";
-    let { caracterSeparadorColumnasDatos, caracterSeparadorColumnasEnSeparadorDeFilas, caracterSeparadorFilas, relleno } = propiedades.modelValue;
-    for (let indiceColumna = 0; indiceColumna < cantidadColumnas(); indiceColumna++) {
-        contenido += tabularDatos(
-            [{ contenido: caracterSeparadorFilas, maximaLongitud: propiedades.modelValue.ajustesEncabezados[indiceColumna].longitudMaxima }], caracterSeparadorFilas, caracterSeparadorColumnasEnSeparadorDeFilas)
-            .join(""); // Lo unimos con una cadena vacía porque siempre nos va a devolver un arreglo de longitud 1, básicamente estamos convirtiendo el array a cadena, la unión no importa
-    }
-    contenido += "\n";
-    for (const fila of propiedades.modelValue.tabla) {
-        contenido += tabularDatos(fila.map((cadena, indiceColumna) => {
-            return {
-                contenido: cadena,
-                maximaLongitud: propiedades.modelValue.ajustesEncabezados[indiceColumna].longitudMaxima,
-            };
-        }),
-            relleno, caracterSeparadorColumnasDatos).join("\n");
-        contenido += "\n";
-        for (let indiceColumna = 0; indiceColumna < fila.length; indiceColumna++) {
-            contenido += tabularDatos(
-                [{ contenido: caracterSeparadorFilas, maximaLongitud: propiedades.modelValue.ajustesEncabezados[indiceColumna].longitudMaxima }], caracterSeparadorFilas, caracterSeparadorColumnasEnSeparadorDeFilas)
-                .join(""); // Lo unimos con una cadena vacía porque siempre nos va a devolver un arreglo de longitud 1, básicamente estamos convirtiendo el array a cadena, la unión no importa
-        }
-        contenido += "\n"
-    }
-    return contenido;
-}
-
 const cantidadFilas = () => {
     return propiedades.modelValue.tabla.length;
 }
@@ -139,7 +64,6 @@ const quitarFila = (indice: number) => {
 }
 </script>
 <template>
-    <pre>{{ xd() }}</pre>
     <input type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
     <input type="text" v-model="propiedades.modelValue.caracterSeparadorFilas" maxlength="1">
     <input type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas" maxlength="1">

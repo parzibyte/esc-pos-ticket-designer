@@ -51,6 +51,81 @@ export type ArgumentosParaDefinirTabla = {
     relleno: string,
 }
 
+
+const separarCadenaEnArregloSiSuperaLongitud = (cadena: string, maximaLongitud: number) => {
+    const resultado = [];
+    let indice = 0;
+    while (indice < cadena.length) {
+        const pedazo = cadena.substring(indice, indice + maximaLongitud);
+        indice += maximaLongitud;
+        resultado.push(pedazo);
+    }
+    return resultado;
+}
+
+const dividirCadenasYEncontrarMayorConteoDeBloques = function (contenidosConMaximaLongitud: { contenido: string, maximaLongitud: number }[]): [{ separadas: string[], maximaLongitud: number }[], number] {
+    let mayorConteoDeCadenasSeparadas = 0;
+    const cadenasSeparadas = [];
+    for (const contenido of contenidosConMaximaLongitud) {
+        const separadas = separarCadenaEnArregloSiSuperaLongitud(contenido.contenido, contenido.maximaLongitud);
+        cadenasSeparadas.push({ separadas, maximaLongitud: contenido.maximaLongitud });
+        if (separadas.length > mayorConteoDeCadenasSeparadas) {
+            mayorConteoDeCadenasSeparadas = separadas.length;
+        }
+    }
+    return [cadenasSeparadas, mayorConteoDeCadenasSeparadas];
+}
+
+
+const tabularDatos = (cadenas: { contenido: string, maximaLongitud: number }[], relleno: string, separadorColumnas: string) => {
+    const [arreglosDeContenidosConMaximaLongitudSeparadas, mayorConteoDeBloques] = dividirCadenasYEncontrarMayorConteoDeBloques(cadenas)
+    let indice = 0;
+    const lineas = [];
+    while (indice < mayorConteoDeBloques) {
+        let linea = "";
+        for (const contenidos of arreglosDeContenidosConMaximaLongitudSeparadas) {
+            let cadena = "";
+            if (indice < contenidos.separadas.length) {
+                cadena = contenidos.separadas[indice];
+            }
+            if (cadena.length < contenidos.maximaLongitud) {
+                cadena = cadena + relleno.repeat(contenidos.maximaLongitud - cadena.length);
+            }
+            linea += cadena + separadorColumnas;
+        }
+        lineas.push(linea);
+        indice++;
+    }
+    return lineas;
+}
+const obtenerSeparador = (caracterSeparadorFilas: string, caracterSeparadorColumnasEnSeparadorDeFilas: string, cantidadColumnas: number, ajustesEncabezados: EncabezadoDeTabla[]) => {
+    let separador = "";
+    for (let indiceColumna = 0; indiceColumna < cantidadColumnas; indiceColumna++) {
+        separador += tabularDatos(
+            [
+                {
+                    contenido: caracterSeparadorFilas,
+                    maximaLongitud: ajustesEncabezados[indiceColumna].longitudMaxima
+                }
+            ],
+            caracterSeparadorFilas,
+            caracterSeparadorColumnasEnSeparadorDeFilas,
+        )
+            // Lo unimos con una cadena vacía porque siempre nos va a devolver un arreglo de longitud 1, básicamente estamos convirtiendo el array a cadena, la unión no importa
+            .join("");
+    }
+    return separador + "\n";
+}
+const cantidadFilas = (argumentos: ArgumentosParaDefinirTabla) => {
+    return argumentos.tabla.length;
+}
+const cantidadColumnas = (argumentos: ArgumentosParaDefinirTabla) => {
+    let cantidad = 0;
+    if (cantidadFilas(argumentos) > 0) {
+        cantidad = argumentos.tabla[0].length;
+    }
+    return cantidad;
+}
 type Plataforma = Record<string, (thisArg: Operacion) => any>;
 
 export class Operacion {
@@ -206,10 +281,24 @@ export class OperacionFactory {
             {
                 "Desktop": (thisArg: Operacion) => {
                     const argumentos = thisArg.argumentos as ArgumentosParaDefinirTabla;
+                    let contenido = "";
+                    let { caracterSeparadorColumnasDatos, caracterSeparadorColumnasEnSeparadorDeFilas, caracterSeparadorFilas, relleno } = argumentos;
+                    contenido += obtenerSeparador(caracterSeparadorFilas, caracterSeparadorColumnasEnSeparadorDeFilas, cantidadColumnas(argumentos), argumentos.ajustesEncabezados)
+                    for (const fila of argumentos.tabla) {
+                        contenido += tabularDatos(fila.map((cadena, indiceColumna) => {
+                            return {
+                                contenido: cadena,
+                                maximaLongitud: argumentos.ajustesEncabezados[indiceColumna].longitudMaxima,
+                            };
+                        }),
+                            relleno, caracterSeparadorColumnasDatos).join("\n");
+                        contenido += "\n";
+                        contenido += obtenerSeparador(caracterSeparadorFilas, caracterSeparadorColumnasEnSeparadorDeFilas, cantidadColumnas(argumentos), argumentos.ajustesEncabezados)
+                    }
                     const argumentosParaDevolver = [
                         {
                             nombre: "EscribirTexto",
-                            argumentos: [argumentos.tabla[0][0]],
+                            argumentos: [contenido],
                         },
                     ];
                     return argumentosParaDevolver;
