@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla } from "../types/Tipos"
+import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla, type ArgumentosParaDefinirCodigoDeBarras, TipoDeCodigoDeBarras } from "../types/Tipos"
 import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
@@ -43,6 +43,18 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     caracterSeparadorColumnasEnSeparadorDeFilas: "+",
     caracterSeparadorFilas: "-",
     relleno: " ",
+  }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoDeBarras", <ArgumentosParaDefinirCodigoDeBarras>{
+    tipo: TipoDeCodigoDeBarras.Ean,
+    contenido: "",
+    ancho: 200,
+    alto: 10,
+    tamaño: TamañoImagen.Normal,
+    incluirSumaDeVerificacion: false,
+    modoAsciiCompleto: false,
+    intercalado: false,
+    alineacion: Alineacion.Centro,
+    nivelDeSeguridad: 1,
   }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);

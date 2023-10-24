@@ -7,6 +7,7 @@ import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonali
 import Texto from "./Operaciones/Texto.vue";
 import Imagen from "./Operaciones/Imagen.vue";
 import Tabla from "./Operaciones/Tabla.vue";
+import CodigoDeBarras from "./Operaciones/CodigoDeBarras.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -14,6 +15,7 @@ const componentes: { [key: string]: Component } = {
     "Texto": Texto,
     "Imagen": Imagen,
     "Tabla": Tabla,
+    "CodigoDeBarras": CodigoDeBarras,
 };
 
 type MyComponentProps = {

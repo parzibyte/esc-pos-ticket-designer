@@ -51,6 +51,31 @@ export type ArgumentosParaDefinirTabla = {
     relleno: string,
 }
 
+// El valor debe coincidir con la función que se llama
+export enum TipoDeCodigoDeBarras {
+    Codabar = "ImprimirCodigoDeBarrasCodabar",
+    Code128 = "ImprimirCodigoDeBarrasCode128",
+    Code39 = "ImprimirCodigoDeBarrasCode39",
+    Code93 = "ImprimirCodigoDeBarrasCode93",
+    Ean = "ImprimirCodigoDeBarrasEan",
+    Ean8 = "ImprimirCodigoDeBarrasEan8",
+    Pdf417 = "ImprimirCodigoDeBarrasPdf417",
+    TwoOffFiveITF = "ImprimirCodigoDeBarrasTwoOfFiveITF",
+    UpcA = "ImprimirCodigoDeBarrasUpcA",
+    UpcE = "ImprimirCodigoDeBarrasUpcE",
+}
+export type ArgumentosParaDefinirCodigoDeBarras = {
+    tipo: TipoDeCodigoDeBarras,
+    contenido: string,
+    ancho: number,
+    alto: number,
+    tamaño: TamañoImagen,
+    alineacion: Alineacion,
+    incluirSumaDeVerificacion?: boolean,
+    modoAsciiCompleto?: boolean,
+    intercalado?: boolean,
+    nivelDeSeguridad?: number,
+}
 
 const separarCadenaEnArregloSiSuperaLongitud = (cadena: string, maximaLongitud: number) => {
     const resultado = [];
@@ -301,6 +326,64 @@ export class OperacionFactory {
                             argumentos: [contenido],
                         },
                     ];
+                    return argumentosParaDevolver;
+                },
+            },
+
+        },
+        "CodigoDeBarras": {
+            nombre: "Código de barras",
+            descripcion: `Código de barras`,
+            plataformas:
+            {
+                "Desktop": (thisArg: Operacion) => {
+                    const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoDeBarras;
+                    const argumentosParaDevolver = <any>[
+                        {
+                            nombre: "EstablecerAlineacion",
+                            argumentos: [argumentos.alineacion],
+                        },
+                    ];
+
+                    if (
+                        [
+                            TipoDeCodigoDeBarras.Codabar,
+                            TipoDeCodigoDeBarras.Code128,
+                            TipoDeCodigoDeBarras.Code93,
+                            TipoDeCodigoDeBarras.Ean,
+                            TipoDeCodigoDeBarras.Ean8,
+                            TipoDeCodigoDeBarras.UpcA,
+                            TipoDeCodigoDeBarras.UpcE,
+                        ].includes(argumentos.tipo)
+                    ) {
+                        argumentosParaDevolver.push({
+                            nombre: argumentos.tipo,
+                            argumentos: [argumentos.contenido, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                        });
+                    } else {
+                        switch (argumentos.tipo) {
+                            case TipoDeCodigoDeBarras.Code39:
+                                argumentosParaDevolver.push({
+                                    nombre: argumentos.tipo,
+                                    argumentos: [argumentos.contenido, argumentos.incluirSumaDeVerificacion, argumentos.modoAsciiCompleto, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                                });
+                                break;
+
+                            case TipoDeCodigoDeBarras.Pdf417:
+                                argumentosParaDevolver.push({
+                                    nombre: argumentos.tipo,
+                                    argumentos: [argumentos.contenido, argumentos.nivelDeSeguridad, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                                });
+                                break;
+
+                            case TipoDeCodigoDeBarras.TwoOffFiveITF:
+                                argumentosParaDevolver.push({
+                                    nombre: argumentos.tipo,
+                                    argumentos: [argumentos.contenido, argumentos.intercalado, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                                });
+                                break;
+                        }
+                    }
                     return argumentosParaDevolver;
                 },
             },
