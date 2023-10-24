@@ -8,6 +8,7 @@ import Texto from "./Operaciones/Texto.vue";
 import Imagen from "./Operaciones/Imagen.vue";
 import Tabla from "./Operaciones/Tabla.vue";
 import CodigoDeBarras from "./Operaciones/CodigoDeBarras.vue";
+import CodigoQr from "./Operaciones/CodigoQr.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -16,6 +17,7 @@ const componentes: { [key: string]: Component } = {
     "Imagen": Imagen,
     "Tabla": Tabla,
     "CodigoDeBarras": CodigoDeBarras,
+    "CodigoQr": CodigoQr,
 };
 
 type MyComponentProps = {

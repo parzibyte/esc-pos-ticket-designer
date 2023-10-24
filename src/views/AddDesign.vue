@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla, type ArgumentosParaDefinirCodigoDeBarras, TipoDeCodigoDeBarras } from "../types/Tipos"
+import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla, type ArgumentosParaDefinirCodigoDeBarras, TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoQr, RecuperacionQr } from "../types/Tipos"
 import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
@@ -55,6 +55,13 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     intercalado: false,
     alineacion: Alineacion.Centro,
     nivelDeSeguridad: 1,
+  }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoQr", <ArgumentosParaDefinirCodigoQr>{
+    contenido: "",
+    ancho: 200,
+    tamaño: TamañoImagen.Normal,
+    nivelDeRecuperacion: RecuperacionQr.Medio,
+    alineacion: Alineacion.Centro,
   }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);

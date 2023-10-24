@@ -77,6 +77,21 @@ export type ArgumentosParaDefinirCodigoDeBarras = {
     nivelDeSeguridad?: number,
 }
 
+export enum RecuperacionQr {
+    Bajo = 0,
+    Medio,
+    Alto,
+    ElMasAlto,
+}
+
+export type ArgumentosParaDefinirCodigoQr = {
+    contenido: string,
+    ancho: number,
+    tamaño: TamañoImagen,
+    alineacion: Alineacion,
+    nivelDeRecuperacion: RecuperacionQr,
+}
+
 const separarCadenaEnArregloSiSuperaLongitud = (cadena: string, maximaLongitud: number) => {
     const resultado = [];
     let indice = 0;
@@ -384,6 +399,28 @@ export class OperacionFactory {
                                 break;
                         }
                     }
+                    return argumentosParaDevolver;
+                },
+            },
+
+        },
+        "CodigoQr": {
+            nombre: "Código QR",
+            descripcion: `Código QR`,
+            plataformas:
+            {
+                "Desktop": (thisArg: Operacion) => {
+                    const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoQr;
+                    const argumentosParaDevolver = <any>[
+                        {
+                            nombre: "EstablecerAlineacion",
+                            argumentos: [argumentos.alineacion],
+                        },
+                        {
+                            nombre: "ImprimirCodigoQr",
+                            argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion, argumentos.tamaño],
+                        }
+                    ];
                     return argumentosParaDevolver;
                 },
             },
