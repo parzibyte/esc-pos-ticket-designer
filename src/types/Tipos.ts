@@ -75,6 +75,7 @@ export type ArgumentosParaDefinirCodigoDeBarras = {
     modoAsciiCompleto?: boolean,
     intercalado?: boolean,
     nivelDeSeguridad?: number,
+    imprimirContenido: boolean,
 }
 
 export enum RecuperacionQr {
@@ -90,6 +91,7 @@ export type ArgumentosParaDefinirCodigoQr = {
     tamaño: TamañoImagen,
     alineacion: Alineacion,
     nivelDeRecuperacion: RecuperacionQr,
+    imprimirContenido: boolean,
 }
 
 const separarCadenaEnArregloSiSuperaLongitud = (cadena: string, maximaLongitud: number) => {
@@ -399,6 +401,12 @@ export class OperacionFactory {
                                 break;
                         }
                     }
+                    if (argumentos.imprimirContenido) {
+                        argumentosParaDevolver.push({
+                            nombre: "EscribirTexto",
+                            argumentos: [argumentos.contenido + "\n"],
+                        });
+                    }
                     return argumentosParaDevolver;
                 },
             },
@@ -421,6 +429,12 @@ export class OperacionFactory {
                             argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion, argumentos.tamaño],
                         }
                     ];
+                    if (argumentos.imprimirContenido) {
+                        argumentosParaDevolver.push({
+                            nombre: "EscribirTexto",
+                            argumentos: [argumentos.contenido + "\n"],
+                        });
+                    }
                     return argumentosParaDevolver;
                 },
             },

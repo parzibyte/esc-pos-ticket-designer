@@ -20,6 +20,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
             intercalado: false,
             alineacion: Alineacion.Centro,
             nivelDeSeguridad: 1,
+            imprimirContenido: false,
         };
     }
 })
@@ -162,4 +163,6 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
     <input type="range" step="8" v-model.number="propiedades.modelValue.ancho" max="500">
     <input type="range" step="8" v-model.number="propiedades.modelValue.alto" max="500">
     <input type="text" v-model="propiedades.modelValue.contenido">
+    <label>Imprimir contenido</label>
+    <input type="checkbox" v-model="propiedades.modelValue.imprimirContenido">
 </template>

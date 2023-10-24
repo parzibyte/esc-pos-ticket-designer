@@ -55,6 +55,7 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     intercalado: false,
     alineacion: Alineacion.Centro,
     nivelDeSeguridad: 1,
+    imprimirContenido: false,
   }),
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoQr", <ArgumentosParaDefinirCodigoQr>{
     contenido: "",
@@ -62,6 +63,7 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     tamaño: TamañoImagen.Normal,
     nivelDeRecuperacion: RecuperacionQr.Medio,
     alineacion: Alineacion.Centro,
+    imprimirContenido: false,
   }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);

@@ -14,6 +14,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
             ancho: 200,
             tamaño: TamañoImagen.Normal,
             nivelDeRecuperacion: RecuperacionQr.Medio,
+            imprimirContenido: false,
         };
     }
 })
@@ -90,4 +91,6 @@ const recuperaciones = ref([
             nivelDeRecuperacion.nombre }}</option>
     </select>
     <input type="range" step="8" v-model.number="propiedades.modelValue.ancho">
+    <label>Imprimir contenido</label>
+    <input type="checkbox" v-model="propiedades.modelValue.imprimirContenido">
 </template>
