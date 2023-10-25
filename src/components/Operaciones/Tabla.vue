@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import type { ArgumentosParaDefinirTabla } from '@/types/Tipos';
 
+import TableColumnRemove from "vue-material-design-icons/TableColumnRemove.vue";
+import TableRowRemove from "vue-material-design-icons/TableRowRemove.vue";
+import TableRowPlusAfter from "vue-material-design-icons/TableRowPlusAfter.vue";
+import TableColumnPlusAfter from "vue-material-design-icons/TableColumnPlusAfter.vue";
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTabla,
@@ -69,33 +73,46 @@ const quitarFila = (indice: number) => {
     <input type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas" maxlength="1">
     <input type="text" v-model="propiedades.modelValue.relleno" maxlength="1">
 
-    <table class="border border-gray-200">
-        <thead>
-            <tr>
-                <th v-for="ajuste in propiedades.modelValue.ajustesEncabezados">
-                    <input type="number" v-model.number="ajuste.longitudMaxima">
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="border border-gray-200" v-for="(fila, indiceFila) in propiedades.modelValue.tabla">
-                <td class="border border-gray-200" v-for="(celda, indiceColumna) in fila">
-                    <input type="text"
-                        class="outline-none rounded-md border border-gray-200 focus:border-2 focus:border-blue-500 p-2"
-                        v-model="propiedades.modelValue.tabla[indiceFila][indiceColumna]">
-                </td>
-                <td>
-                    <button @click="quitarFila(indiceFila)">Quitar fila</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="border border-gray-200" v-for="indice in cantidadColumnas()">
-                    <button @click="quitarColumna(indice - 1)">Quitar columna</button>
-                </td>
-                <td>Nada</td>
-            </tr>
-        </tbody>
-    </table>
-    <button @click="agregarFila()">Agregar fila</button>
-    <button @click="agregarColumna()">Agregar columna</button>
+    <div class="overflow-x-auto">
+        <table class="border-collapse w-full table-auto">
+            <tbody>
+                <tr>
+                    <td class="p-0  border border-gray-200" v-for="ajuste in propiedades.modelValue.ajustesEncabezados">
+                        <input class="w-full h-full outline-none p-3 focus:border focus:border-blue-500  border-collapse"
+                            type="number" v-model.number="ajuste.longitudMaxima">
+                    </td>
+                    <td class="p-0  border border-gray-200 text-center">
+                        <button @click="agregarColumna()" class="bg-sky-500 text-white rounded-md p-2">
+                            <TableColumnPlusAfter></TableColumnPlusAfter>
+                        </button>
+                    </td>
+                </tr>
+                <tr v-for="(fila, indiceFila) in propiedades.modelValue.tabla">
+                    <td class="p-0 border-collapse border border-gray-200" v-for="(celda, indiceColumna) in fila">
+                        <input type="text" placeholder="Escriba aquí el contenido de la celda..."
+                            class="w-full h-full outline-none p-3 focus:border focus:border-blue-500  border-collapse"
+                            v-model="propiedades.modelValue.tabla[indiceFila][indiceColumna]">
+                    </td>
+                    <td class="border border-gray-200 text-center">
+                        <button class="bg-red-500 text-white rounded-md p-2 m-2" @click="quitarFila(indiceFila)">
+                            <TableRowRemove></TableRowRemove>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="border border-gray-200 text-center" v-for="indice in cantidadColumnas()">
+                        <button class="bg-red-500 text-white rounded-md p-2 m-2" @click="quitarColumna(indice - 1)">
+                            <TableColumnRemove></TableColumnRemove>
+                        </button>
+                    </td>
+                    <td class="text-center border-gray-200 border">
+                        <button @click="agregarFila()" class="bg-sky-500 rounded-md p-2 text-white">
+                            <TableRowPlusAfter></TableRowPlusAfter>
+                        </button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </template>
