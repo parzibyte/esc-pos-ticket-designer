@@ -66,6 +66,12 @@ const quitarColumna = (indice: number) => {
 const quitarFila = (indice: number) => {
     propiedades.modelValue.tabla.splice(indice, 1);
 }
+
+const estiloInput = (a) => {
+    return {
+        "backgroundSize": `${a}% 100%`,
+    };
+}
 </script>
 <template>
     <input type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
@@ -77,9 +83,15 @@ const quitarFila = (indice: number) => {
         <table class="border-collapse w-full table-auto">
             <tbody>
                 <tr>
-                    <td class="p-0  border border-gray-200" v-for="ajuste in propiedades.modelValue.ajustesEncabezados">
-                        <input class="w-full h-full outline-none p-3 focus:border focus:border-blue-500  border-collapse"
-                            type="number" v-model.number="ajuste.longitudMaxima">
+                    <td class="p-0 border border-gray-200"
+                        v-for="(ajuste, indiceAjuste) in propiedades.modelValue.ajustesEncabezados" :key="indiceAjuste">
+                        <label class="block">
+                            <span class="font-semibold">
+                                Longitud máxima:
+                            </span>
+                            {{ ajuste.longitudMaxima }}</label>
+                        <input :style="estiloInput(ajuste.longitudMaxima)" type="range"
+                            v-model.number="ajuste.longitudMaxima">
                     </td>
                     <td class="p-0  border border-gray-200 text-center">
                         <button @click="agregarColumna()" class="bg-sky-500 text-white rounded-md p-2">
@@ -116,3 +128,38 @@ const quitarFila = (indice: number) => {
         </table>
     </div>
 </template>
+<style lang="css">
+input[type="range"] {
+    background-color: transparent;
+    appearance: none;
+    height: 0.5rem;
+    margin: 0.5rem;
+    background-image: linear-gradient(theme("colors.sky.500"), theme("colors.sky.500"));
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    background-color: theme("colors.gray.200");
+
+}
+
+/**El puntito */
+input[type="range"]::-webkit-slider-thumb {
+    background: theme("colors.white");
+    height: 1rem;
+    width: 1rem;
+    appearance: none;
+    border: 1px solid theme("colors.gray.200");
+    border-radius: 3px;
+    margin-top: 0.1rem;
+    cursor: pointer;
+}
+
+/*La barra*/
+input[type="range"]::-webkit-slider-runnable-track {
+    appearance: none;
+}
+
+input[type="range"]:focus {
+    outline: none;
+
+}
+</style>
