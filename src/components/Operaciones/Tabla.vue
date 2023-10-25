@@ -23,7 +23,25 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
     }
 })
 
-const LONGITUD_MAXIMA_POR_DEFECTO = 5;
+const LONGITUD_MAXIMA_POR_DEFECTO = 10;
+/**
+ * En la impresora GOOJPRT PT-210 de 58 milímetros puedo imprimir hasta 30 caracteres, y al medir la
+ * línea horizontal mide 47 mm. Me imagino que los 11 mm faltantes son de márgenes horizontales
+ * 
+ * Entonces si son 30 caracteres que ocupan 47 mm, 
+ * cada carácter ocupa 1.5666666666666666666666666666667 mm efectivamente,
+ * pero redondeando con margen ocupa 1.93
+ * 
+ * Tomando en cuenta eso, para una de 80 milímetros deben caber 41.45 caracteres (80/1.93), 
+ * pero si suponemos que el margen es de 11 milímetros, sobran 69 milímetros para puro carácter,
+ * dividido entre 1.56 sería 44.23 caracteres
+ * 
+ * Así que, como al momento de escribir esto no tengo una impresora de 80 milímetros,
+ * supondré que en una impresora de 80 milímetros caben 45 caracteres como máximo
+ * 
+ */
+const LONGITUD_MAXIMA_POR_LINEA_EN_80_MM = 45;
+const LONGITUD_MAXIMA_POR_LINEA_EN_58_MM = 30;
 
 const cantidadFilas = () => {
     return propiedades.modelValue.tabla.length;
@@ -68,25 +86,72 @@ const quitarFila = (indice: number) => {
     propiedades.modelValue.tabla.splice(indice, 1);
 }
 
-const estiloInput = (a) => {
-    return {
-        "backgroundSize": `${a}% 100%`,
-    };
+const totalCaracteresPorLinea = () => {
+    let total = 0;
+    for (const encabezado of propiedades.modelValue.ajustesEncabezados) {
+        total += encabezado.longitudMaxima;
+    }
+    return total;
+}
+
+const deberiaMostrarAlertaDeMaximosCaracteres = () => {
+    return totalCaracteresPorLinea() > LONGITUD_MAXIMA_POR_LINEA_EN_58_MM;
 }
 </script>
 <template>
-    <input type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
-    <input type="text" v-model="propiedades.modelValue.caracterSeparadorFilas" maxlength="1">
-    <input type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas" maxlength="1">
-    <input type="text" v-model="propiedades.modelValue.relleno" maxlength="1">
+    <div class="flex flex-row">
+        <div class="flex flex-col bg-lime-500">
+            <label class="inline-block">Separador de columnas:</label>
+            <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2"
+                type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
 
+        </div>
+        <div class="bg-red-500">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni corporis rem dolore minima non enim sit
+                obcaecati ut? Reiciendis beatae tempore similique impedit debitis distinctio voluptatem nesciunt? Amet, ut
+                facere.</p>
+        </div>
+        <div class="bg-zinc-500">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni corporis rem dolore minima non enim sit
+                obcaecati ut? Reiciendis beatae tempore similique impedit debitis distinctio voluptatem nesciunt? Amet, ut
+                facere.</p>
+        </div>
+        <div class="bg-yellow-500">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni corporis rem dolore minima non enim sit
+                obcaecati ut? Reiciendis beatae tempore similique impedit debitis distinctio voluptatem nesciunt? Amet, ut
+                facere.</p>
+        </div>
+    </div>
+    <div>
+
+        <div>
+            <label class="inline-block">Separador de columnas:</label>
+            <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2"
+                type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
+        </div>
+    </div>
+    <label>Separador de filas:</label>
+    <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2" type="text"
+        v-model="propiedades.modelValue.caracterSeparadorFilas" maxlength="1">
+    <label>Separador de columnas dentro de las filas:</label>
+    <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2" type="text"
+        v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas" maxlength="1">
+    <label>Relleno:</label>
+    <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2" type="text"
+        v-model="propiedades.modelValue.relleno" maxlength="1">
+    <div v-show="deberiaMostrarAlertaDeMaximosCaracteres()" class="my-1 p-2 bg-orange-600 text-white rounded-md">
+        <strong>Nota:</strong> según pruebas, en impresoras de 58mm la cantidad máxima por línea es de 30 caracteres.
+        En impresoras de 80mm, la cantidad máxima es de 45. Usted tiene actualmente {{ totalCaracteresPorLinea() }}
+        caracteres en total.
+    </div>
     <div class="overflow-x-auto">
         <table class="border-collapse w-full table-auto">
             <tbody>
                 <tr>
                     <td class="p-0 border border-gray-200"
                         v-for="(ajuste, indiceAjuste) in propiedades.modelValue.ajustesEncabezados" :key="indiceAjuste">
-                        <Range max="500" min="1" label="Máxima longitud:" v-model="ajuste.longitudMaxima">
+                        <Range :max="LONGITUD_MAXIMA_POR_LINEA_EN_80_MM" min="1" label="Máxima longitud:"
+                            v-model="ajuste.longitudMaxima">
                         </Range>
                     </td>
                     <td class="p-0  border border-gray-200 text-center">
