@@ -5,6 +5,7 @@ import TableColumnRemove from "vue-material-design-icons/TableColumnRemove.vue";
 import TableRowRemove from "vue-material-design-icons/TableRowRemove.vue";
 import TableRowPlusAfter from "vue-material-design-icons/TableRowPlusAfter.vue";
 import TableColumnPlusAfter from "vue-material-design-icons/TableColumnPlusAfter.vue";
+import Range from "@/components/Range.vue"
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTabla,
@@ -85,13 +86,8 @@ const estiloInput = (a) => {
                 <tr>
                     <td class="p-0 border border-gray-200"
                         v-for="(ajuste, indiceAjuste) in propiedades.modelValue.ajustesEncabezados" :key="indiceAjuste">
-                        <label class="block">
-                            <span class="font-semibold">
-                                Longitud máxima:
-                            </span>
-                            {{ ajuste.longitudMaxima }}</label>
-                        <input :style="estiloInput(ajuste.longitudMaxima)" type="range"
-                            v-model.number="ajuste.longitudMaxima">
+                        <Range max="500" min="1" label="Máxima longitud:" v-model="ajuste.longitudMaxima">
+                        </Range>
                     </td>
                     <td class="p-0  border border-gray-200 text-center">
                         <button @click="agregarColumna()" class="bg-sky-500 text-white rounded-md p-2">
@@ -128,38 +124,3 @@ const estiloInput = (a) => {
         </table>
     </div>
 </template>
-<style lang="css">
-input[type="range"] {
-    background-color: transparent;
-    appearance: none;
-    height: 0.5rem;
-    margin: 0.5rem;
-    background-image: linear-gradient(theme("colors.sky.500"), theme("colors.sky.500"));
-    background-repeat: no-repeat;
-    border-radius: 5px;
-    background-color: theme("colors.gray.200");
-
-}
-
-/**El puntito */
-input[type="range"]::-webkit-slider-thumb {
-    background: theme("colors.white");
-    height: 1rem;
-    width: 1rem;
-    appearance: none;
-    border: 1px solid theme("colors.gray.200");
-    border-radius: 3px;
-    margin-top: 0.1rem;
-    cursor: pointer;
-}
-
-/*La barra*/
-input[type="range"]::-webkit-slider-runnable-track {
-    appearance: none;
-}
-
-input[type="range"]:focus {
-    outline: none;
-
-}
-</style>
