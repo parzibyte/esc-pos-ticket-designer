@@ -6,6 +6,7 @@ import TableRowRemove from "vue-material-design-icons/TableRowRemove.vue";
 import TableRowPlusAfter from "vue-material-design-icons/TableRowPlusAfter.vue";
 import TableColumnPlusAfter from "vue-material-design-icons/TableColumnPlusAfter.vue";
 import Range from "@/components/Range.vue"
+import CustomInput from "@/components/CustomInput.vue"
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTabla,
@@ -99,46 +100,16 @@ const deberiaMostrarAlertaDeMaximosCaracteres = () => {
 }
 </script>
 <template>
-    <div class="flex flex-row">
-        <div class="flex flex-col bg-lime-500">
-            <label class="inline-block">Separador de columnas:</label>
-            <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2"
-                type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
-
-        </div>
-        <div class="bg-red-500">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni corporis rem dolore minima non enim sit
-                obcaecati ut? Reiciendis beatae tempore similique impedit debitis distinctio voluptatem nesciunt? Amet, ut
-                facere.</p>
-        </div>
-        <div class="bg-zinc-500">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni corporis rem dolore minima non enim sit
-                obcaecati ut? Reiciendis beatae tempore similique impedit debitis distinctio voluptatem nesciunt? Amet, ut
-                facere.</p>
-        </div>
-        <div class="bg-yellow-500">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni corporis rem dolore minima non enim sit
-                obcaecati ut? Reiciendis beatae tempore similique impedit debitis distinctio voluptatem nesciunt? Amet, ut
-                facere.</p>
-        </div>
+    <div class="flex md:flex-row flex-col">
+        <CustomInput placeholder="|" class="flex-1" type="text" label="Sep. columnas:" maxlength="1"
+            v-model="propiedades.modelValue.caracterSeparadorColumnasDatos"></CustomInput>
+        <CustomInput placeholder="-" class="flex-1" type="text" label="Sep. filas" maxlength="1"
+            v-model="propiedades.modelValue.caracterSeparadorFilas"></CustomInput>
+        <CustomInput placeholder="+" class="flex-1" type="text" label="Sep. esquinas"
+            maxlength="1" v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas"></CustomInput>
+        <CustomInput placeholder=" " class="flex-1" type="text" label="Relleno" maxlength="1"
+            v-model="propiedades.modelValue.relleno"></CustomInput>
     </div>
-    <div>
-
-        <div>
-            <label class="inline-block">Separador de columnas:</label>
-            <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2"
-                type="text" v-model="propiedades.modelValue.caracterSeparadorColumnasDatos" maxlength="1">
-        </div>
-    </div>
-    <label>Separador de filas:</label>
-    <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2" type="text"
-        v-model="propiedades.modelValue.caracterSeparadorFilas" maxlength="1">
-    <label>Separador de columnas dentro de las filas:</label>
-    <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2" type="text"
-        v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas" maxlength="1">
-    <label>Relleno:</label>
-    <input class="border border-gray-200 focus:border-blue-500 rounded-md p-1 outline-none focus:border-2 mx-2" type="text"
-        v-model="propiedades.modelValue.relleno" maxlength="1">
     <div v-show="deberiaMostrarAlertaDeMaximosCaracteres()" class="my-1 p-2 bg-orange-600 text-white rounded-md">
         <strong>Nota:</strong> según pruebas, en impresoras de 58mm la cantidad máxima por línea es de 30 caracteres.
         En impresoras de 80mm, la cantidad máxima es de 45. Usted tiene actualmente {{ totalCaracteresPorLinea() }}
