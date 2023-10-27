@@ -22,7 +22,10 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     ancho: 1,
     alto: 1,
     enfatizado: false,
-    alineacion: Alineacion.Izquierda,
+    alineacion: {
+      nombre: "Izquierda",
+      valor: Alineacion.Izquierda,
+    },
     subrayado: false,
     alReves: false,
     inverso: false,

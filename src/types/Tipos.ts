@@ -23,7 +23,7 @@ export type ArgumentosParaDefinirTexto = {
     ancho: number,
     alto: number,
     enfatizado: boolean,
-    alineacion: Alineacion,
+    alineacion: { nombre: string, valor: Alineacion },
     subrayado: boolean,
     alReves: boolean,
     inverso: boolean,
@@ -257,7 +257,7 @@ export class OperacionFactory {
                         },
                         {
                             nombre: "EstablecerAlineacion",
-                            argumentos: [argumentos.alineacion],
+                            argumentos: [argumentos.alineacion.valor],
                         },
                         {
                             nombre: "EstablecerSubrayado",
