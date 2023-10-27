@@ -4,6 +4,7 @@ import Brush from 'vue-material-design-icons/Brush.vue';
 import Eraser from 'vue-material-design-icons/Eraser.vue';
 import Broom from 'vue-material-design-icons/Broom.vue';
 import type { ArgumentosParaDefinirCaracterPersonalizado } from "@/types/Tipos";
+import CustomInput from "../CustomInput.vue";
 enum Accion {
     Borrar,
     Pintar,
@@ -67,6 +68,8 @@ const botones: Ref<Array<Boton>> = ref([
     },
 ]);
 const canvas: Ref<HTMLCanvasElement | null> = ref(null);
+let ancho = ref(1);
+let alto = ref(1);
 let verdaderoCanvas: HTMLCanvasElement;
 let contexto: CanvasRenderingContext2D;
 const BIT_ENCENDIDO = "1",
@@ -144,8 +147,8 @@ const onClickEnBoton = (boton: Boton) => {
 onMounted(() => {
     verdaderoCanvas = canvas.value as HTMLCanvasElement;
     contexto = verdaderoCanvas.getContext("2d") as CanvasRenderingContext2D;
-    verdaderoCanvas.width = arregloDeCaracter.value.matrizDeBits[0].length * MEDIDA_CUADRO;
-    verdaderoCanvas.height = arregloDeCaracter.value.matrizDeBits.length * MEDIDA_CUADRO;
+    ancho.value = verdaderoCanvas.width = arregloDeCaracter.value.matrizDeBits[0].length * MEDIDA_CUADRO;
+    alto.value = verdaderoCanvas.height = arregloDeCaracter.value.matrizDeBits.length * MEDIDA_CUADRO;
     ["mousedown", "touchstart"].forEach(nombreEvento => {
         verdaderoCanvas.addEventListener(nombreEvento, () => {
             isDrawing = true;
@@ -186,17 +189,28 @@ onMounted(() => {
     });
     dibujar();
 })
+
+const estiloDelCanvas = () => {
+    return {
+        width: ancho.value + "px",
+        height: alto.value + "px",
+    };
+};
 </script>
 
 <template>
-    <button class="text-white p-1 mt-1" @click="onClickEnBoton(boton)" v-for="boton in botones"
-        :class="obtenerClases(boton)">
-        <component :is="boton.icono"></component>
-    </button>
-    <canvas ref="canvas" class="border border-zinc-100 mt-2"></canvas>
-    <div>
-        <label class="block font-bold mb-1">Carácter que va a reemplazar</label>
-        <input v-model="propiedades.modelValue.caracterQueReemplaza" maxlength="1" type="text"
-            class="border border-emerald-300 rounded-md max-w-full focus:outline-none p-1">
+    <div class="flex flex-col md:flex-row">
+        <div class="flex flex-col">
+            <div class="flex flex-row">
+                <button class="text-white p-1 mt-1 h-8" @click="onClickEnBoton(boton)" v-for="boton in botones"
+                    :class="obtenerClases(boton)">
+                    <component :is="boton.icono"></component>
+                </button>
+            </div>
+            <canvas :style="estiloDelCanvas()" ref="canvas" class="flex-1 border border-zinc-100 mt-2"></canvas>
+        </div>
+        <div>
+            <CustomInput label="Carácter que va a reemplazar" maxlength="1" type="text"> </CustomInput>
+        </div>
     </div>
 </template>
