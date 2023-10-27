@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { Alineacion, type ArgumentosParaDefinirTexto } from "@/types/Tipos"
-
+import Select from "@/components/Select.vue";
+import CustomCheckbox from "@/components/CustomCheckbox.vue";
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTexto,
@@ -47,31 +48,31 @@ const valorSerializado = computed({
 });
 </script>
 <template>
-    <label class="block font-bold">Fuente</label>
-    <label class="font-bold">Ancho</label>
-    <select v-model="propiedades.modelValue.ancho" class="border border-gray-200">
-        <option v-for="tamaño in tamañosFuente" :value="tamaño">{{ tamaño }}</option>
-    </select>
-    <label class="font-bold">Alto</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.alto">
-        <option v-for="tamaño in tamañosFuente" :value="tamaño">{{ tamaño }}</option>
-    </select>
-    <label class="font-bold">Enfatizado</label>
-    <input type="checkbox" v-model="propiedades.modelValue.enfatizado">
-    <label class="font-bold">Alineación</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.alineacion">
-        <option v-for="alineacion in alineaciones" :value="alineacion.valor">{{ alineacion.nombre }}</option>
-    </select>
-    <label class="font-bold">Subrayado</label>
-    <input type="checkbox" v-model="propiedades.modelValue.subrayado">
-
-
-    <label class="font-bold">Al revés</label>
-    <input type="checkbox" v-model="propiedades.modelValue.alReves">
-    <label class="font-bold">Inverso</label>
-    <input type="checkbox" v-model="propiedades.modelValue.inverso">
-    <label class="font-bold">Rotación 90 °</label>
-    <input type="checkbox" v-model="propiedades.modelValue.rotacion90">
+    <div class="flex flex-col md:flex-row">
+        <Select :items="tamañosFuente" label="Ancho" v-model.number="propiedades.modelValue.ancho">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item }}</h1>
+            </template>
+        </Select>
+        <Select :items="tamañosFuente" label="Alto" v-model.number="propiedades.modelValue.alto">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item }}</h1>
+            </template>
+        </Select>
+        <Select :display-item-function="alineacion => alineacion.nombre" :items="alineaciones" label="Alineación"
+            v-model="propiedades.modelValue.alineacion">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+    </div>
+    <div class="flex md:flex-row flex-col">
+        <CustomCheckbox label="Enfatizado" v-model="propiedades.modelValue.enfatizado"></CustomCheckbox>
+        <CustomCheckbox label="Subrayado" v-model="propiedades.modelValue.subrayado"></CustomCheckbox>
+        <CustomCheckbox label="Al revés" v-model="propiedades.modelValue.alReves"></CustomCheckbox>
+        <CustomCheckbox label="Inverso" v-model="propiedades.modelValue.inverso"></CustomCheckbox>
+        <CustomCheckbox label="Rotar 90°" v-model="propiedades.modelValue.rotacion90"></CustomCheckbox>
+    </div>
     <label class="block font-bold">Texto</label>
     <div class="bg-red-500 rounded-md text-white p-1 my-2"
         v-show="propiedades.modelValue.alto !== 1 && propiedades.modelValue.rotacion90">
