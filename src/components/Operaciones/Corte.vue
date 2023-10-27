@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ArgumentosParaDefinirCorte } from '@/types/Tipos';
 import { computed, } from 'vue';
+import CustomInput from '../CustomInput.vue';
 
 type Propiedades = {
 	modelValue: ArgumentosParaDefinirCorte;
@@ -23,7 +24,5 @@ const valorSerializado = computed({
 });
 </script>
 <template>
-	<label class="block font-bold">Líneas</label>
-	<input type="number" placeholder="Líneas" v-model.number="propiedades.modelValue.lineas"
-		class="border border-emerald-300 rounded-md max-w-full focus:outline-none p-1">
+	<CustomInput type="number" placeholder="Líneas" label="Líneas" v-model="propiedades.modelValue.lineas"></CustomInput>
 </template>
