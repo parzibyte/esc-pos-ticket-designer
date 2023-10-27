@@ -3,6 +3,7 @@ import { computed, ref } from 'vue';
 import { Alineacion, type ArgumentosParaDefinirTexto } from "@/types/Tipos"
 import Select from "@/components/Select.vue";
 import CustomCheckbox from "@/components/CustomCheckbox.vue";
+import CustomTextarea from "@/components/CustomTextarea.vue";
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTexto,
@@ -28,7 +29,10 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
             ancho: 1,
             alto: 1,
             enfatizado: false,
-            alineacion: Alineacion.Izquierda,
+            alineacion: {
+                nombre: "Izquierda",
+                valor: Alineacion.Izquierda,
+            },
             subrayado: false,
             alReves: false,
             inverso: false,
@@ -73,7 +77,6 @@ const valorSerializado = computed({
         <CustomCheckbox label="Inverso" v-model="propiedades.modelValue.inverso"></CustomCheckbox>
         <CustomCheckbox label="Rotar 90°" v-model="propiedades.modelValue.rotacion90"></CustomCheckbox>
     </div>
-    <label class="block font-bold">Texto</label>
     <div class="bg-red-500 rounded-md text-white p-1 my-2"
         v-show="propiedades.modelValue.alto !== 1 && propiedades.modelValue.rotacion90">
         <strong>
@@ -88,7 +91,6 @@ const valorSerializado = computed({
         <strong>Alto</strong>
         debería ser 1
     </div>
-    <textarea placeholder="Texto para imprimir" rows="3"
-        class="border border-emerald-300 rounded-md max-w-full focus:outline-none p-1"
-        v-model="propiedades.modelValue.texto"></textarea>
+    <CustomTextarea rows="3" placeholder="Escribe el texto para imprimir..." label="Texto para imprimir"
+        v-model="propiedades.modelValue.texto"></CustomTextarea>
 </template>
