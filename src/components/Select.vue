@@ -42,20 +42,32 @@ const isInputFocused: Ref<boolean> = ref(false);
 const input: Ref<any> = ref(null);
 const keyboardIndex: Ref<number> = ref(-1);
 
+const refreshRealInputValue = () => {
+    if (selectedItem.value !== null) {
+        inputValue.value = props.displayItemFunction(selectedItem.value);
+    } else {
+        inputValue.value = "";
+    }
+}
+
 watch(shouldShowItems, (newValue, previousValue) => {
     if (newValue) {
         filterItems();
     }
 })
 
+watch(selectedItem, (newValue, previousValue) => {
+    refreshRealInputValue();
+})
+
 onBeforeMount(() => {
     filteredItems.value = props.items;
+    refreshRealInputValue();
 })
 
 const onItemSelected = (item: MyComponentProps<any>["modelValue"]) => {
     selectedItem.value = item;
     shouldShowItems.value = false;
-    inputValue.value = props.displayItemFunction(item);
     keyboardIndex.value = -1;
     emit("change", item);
 }
@@ -111,7 +123,6 @@ const shouldShowClearButton = () => {
 
 const clearSelectedItem = (showItems: boolean, focus: boolean) => {
     selectedItem.value = null;
-    inputValue.value = "";
     if (showItems) {
         shouldShowItems.value = true;
     }
@@ -143,7 +154,7 @@ const additionalClassesForInput = () => {
 };
 </script>
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col p-1">
         <strong class="text-xl font-semibold">{{ label }}</strong>
         <div class="flex flex-col relative">
             <div class="flex">
