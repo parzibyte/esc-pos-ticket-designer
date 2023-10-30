@@ -418,6 +418,7 @@ export class OperacionFactory {
                     const argumentosParaDevolver = <any>[
                         {
                             nombre: "EstablecerAlineacion",
+                            argumentos: [argumentos.alineacion.valor],
                         },
                         {
                             nombre: "ImprimirCodigoQr",
