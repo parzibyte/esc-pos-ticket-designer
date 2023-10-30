@@ -2,6 +2,10 @@
 
 import { TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoDeBarras, TamañoImagen, Alineacion } from '@/types/Tipos';
 import { ref } from 'vue';
+import Select from '../Select.vue';
+import Range from '../Range.vue';
+import CustomCheckbox from '../CustomCheckbox.vue';
+import CustomInput from '../CustomInput.vue';
 
 
 type Propiedades = {
@@ -105,26 +109,38 @@ const tipos = ref([
 ]);
 
 const deberiaMostrarCamposParaSumaDeVerificacion = () => {
-    if (propiedades.modelValue.tipo === TipoDeCodigoDeBarras.Code39) {
+    if (!propiedades.modelValue.tipo) {
+        return false;
+    }
+    if (propiedades.modelValue.tipo.valor === TipoDeCodigoDeBarras.Code39) {
         return true;
     }
     return false;
 }
 
 const deberiaMostrarCamposParaNivelDeSeguridad = () => {
-    if (propiedades.modelValue.tipo === TipoDeCodigoDeBarras.Pdf417) {
+    if (!propiedades.modelValue.tipo) {
+        return false;
+    }
+    if (propiedades.modelValue.tipo.valor === TipoDeCodigoDeBarras.Pdf417) {
         return true;
     }
     return false;
 }
 const deberiaMostrarCamposParaIntercalado = () => {
-    if (propiedades.modelValue.tipo === TipoDeCodigoDeBarras.TwoOffFiveITF) {
+    if (!propiedades.modelValue.tipo) {
+        return false;
+    }
+    if (propiedades.modelValue.tipo.valor === TipoDeCodigoDeBarras.TwoOffFiveITF) {
         return true;
     }
     return false;
 }
 const deberiaMostrarCamposParaModoAsciiCompleto = () => {
-    if (propiedades.modelValue.tipo === TipoDeCodigoDeBarras.Code39) {
+    if (!propiedades.modelValue.tipo) {
+        return false;
+    }
+    if (propiedades.modelValue.tipo.valor === TipoDeCodigoDeBarras.Code39) {
         return true;
     }
     return false;
@@ -132,37 +148,43 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
 </script>
 
 <template>
-    <label class="font-bold">Tipo</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.tipo">
-        <option v-for="tipo in tipos" :value="tipo.valor">{{ tipo.nombre }}</option>
-    </select>
-    <label class="font-bold">Alineación</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.alineacion">
-        <option v-for="alineacion in alineaciones" :value="alineacion.valor">{{ alineacion.nombre }}</option>
-    </select>
-    <label class="font-bold">Redimensionar al imprimir:</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.tamaño">
-        <option v-for="tamaño in tamaños" :value="tamaño.valor">{{ tamaño.nombre }}</option>
-    </select>
-    <template v-if="deberiaMostrarCamposParaSumaDeVerificacion()">
-        <label class="font-bold">Incluir suma de verificación</label>
-        <input type="checkbox" v-model="propiedades.modelValue.incluirSumaDeVerificacion">
-    </template>
-    <template v-if="deberiaMostrarCamposParaNivelDeSeguridad()">
-        <label class="font-bold">Nivel de seguridad</label>
-        <input type="range" min="0" max="0" v-model.number="propiedades.modelValue.nivelDeSeguridad">
-    </template>
-    <template v-if="deberiaMostrarCamposParaIntercalado()">
-        <label class="font-bold">Intercalado</label>
-        <input type="checkbox" v-model="propiedades.modelValue.intercalado">
-    </template>
-    <template v-if="deberiaMostrarCamposParaModoAsciiCompleto()">
-        <label class="font-bold">Modo ASCII completo</label>
-        <input type="checkbox" v-model="propiedades.modelValue.modoAsciiCompleto">
-    </template>
-    <input type="range" step="8" v-model.number="propiedades.modelValue.ancho" max="500">
-    <input type="range" step="8" v-model.number="propiedades.modelValue.alto" max="500">
-    <input type="text" v-model="propiedades.modelValue.contenido">
-    <label>Imprimir contenido</label>
-    <input type="checkbox" v-model="propiedades.modelValue.imprimirContenido">
+    <div class="flex md:flex-row flex-col md:items-center">
+        <Select :items="tipos" :display-item-function="(tipo) => tipo.nombre" label="Tipo"
+            v-model="propiedades.modelValue.tipo">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <Select :items="alineaciones" :display-item-function="(alineacion) => alineacion.nombre" label="Alineación"
+            v-model="propiedades.modelValue.alineacion">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <CustomInput label="Contenido" v-model="propiedades.modelValue.contenido" type="text">
+        </CustomInput>
+        <CustomCheckbox label="Imprimir contenido como texto debajo el código"
+            v-model="propiedades.modelValue.imprimirContenido"></CustomCheckbox>
+    </div>
+    <div class="flex md:flex-row flex-col">
+        <Select :display-item-function="(tamaño) => tamaño.nombre" :items="tamaños" label="Redimensionar al imprimir:"
+            v-model="propiedades.modelValue.tamaño">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <div class="flex flex-col">
+            <CustomCheckbox v-if="deberiaMostrarCamposParaSumaDeVerificacion()" label="Incluir suma de verificación"
+                v-model="propiedades.modelValue.incluirSumaDeVerificacion">
+            </CustomCheckbox>
+            <CustomCheckbox v-if="deberiaMostrarCamposParaIntercalado()" label="Intercalado"
+                v-model="propiedades.modelValue.intercalado"></CustomCheckbox>
+            <CustomCheckbox v-if="deberiaMostrarCamposParaModoAsciiCompleto()" label="Modo ASCII completo"
+                v-model="propiedades.modelValue.modoAsciiCompleto"></CustomCheckbox>
+        </div>
+        <Range step="8" v-model="propiedades.modelValue.ancho" min="8" max="500" label="Ancho"></Range>
+        <Range v-model="propiedades.modelValue.alto" min="8" max="500" label="Alto"></Range>
+        <Range v-if="deberiaMostrarCamposParaNivelDeSeguridad()" v-model="propiedades.modelValue.nivelDeSeguridad" min="0"
+            max="8" label="Nivel de seguridad"> </Range>
+    </div>
 </template>
