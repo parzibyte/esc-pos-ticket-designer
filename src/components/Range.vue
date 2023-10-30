@@ -61,6 +61,9 @@ input[type="range"]::-webkit-slider-thumb {
     margin-top: 0.1rem;
     cursor: pointer;
 }
+input[type="range"]::-webkit-slider-thumb:hover {
+    border: 2px solid theme("colors.blue.200");
+}
 
 /*La barra*/
 input[type="range"]::-webkit-slider-runnable-track {
