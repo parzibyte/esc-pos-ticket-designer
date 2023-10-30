@@ -50,7 +50,7 @@ const labelClasses = () => {
 </script>
 <template>
     <div @mouseenter="onHover()" @focus="onHover()" @mouseleave="onBlur()" @click="onCheckboxClick"
-        class="flex flex-row p-1 items-center select-none">
+        class="flex flex-row p-1 items-center select-none mb-2">
         <input v-model="booleanValue" type="checkbox" class="absolute opacity-0 -z-50">
         <div :class="checkboxClasses()"
             class="text-white h-8 w-8 border-2 border-gray-200 rounded-md cursor-pointer items-center flex justify-center">
