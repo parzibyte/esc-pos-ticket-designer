@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion } from "@/types/Tipos"
+import Select from "@/components/Select.vue"
+import Range from '../Range.vue';
+import FileUpload from '../FileUpload.vue';
 
-const referenciaAlInput = ref(null);
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirImagen,
@@ -55,19 +57,6 @@ const obtenerResolucionImagen = function (archivo: File): Promise<[number, numbe
         imagen.src = objectUrl;
     });
 }
-
-const onArchivoSeleccionado = async (e: Event) => {
-    const files = e.target.files;
-    if (files.length <= 0) {
-        return;
-    }
-    const primerArchivo = files[0];
-    const [alto, ancho] = await obtenerResolucionImagen(primerArchivo);
-    propiedades.modelValue.alto = alto;
-    propiedades.modelValue.ancho = ancho;
-    propiedades.modelValue.contenidoEnBase64 = await obtenerArchivoComoBase64(primerArchivo);
-}
-
 const alineaciones = ref([
     {
         nombre: "Izquierda",
@@ -104,22 +93,46 @@ const tamaños = ref([
     },
 
 ]);
+
+
+const onImagenSeleccionada = async (archivos: File[]) => {
+    if (archivos.length <= 0) {
+        return;
+    }
+    const primerArchivo = archivos[0];
+    const [alto, ancho] = await obtenerResolucionImagen(primerArchivo);
+    propiedades.modelValue.alto = alto;
+    propiedades.modelValue.ancho = ancho;
+    propiedades.modelValue.contenidoEnBase64 = await obtenerArchivoComoBase64(primerArchivo);
+}
+
+const hayImagenSeleccionada = computed(() => {
+    if (propiedades.modelValue.contenidoEnBase64.length > 0) {
+        return true;
+    }
+    return false;
+});
 </script>
 <template>
-    <div>
-        <label class="font-bold">Alineación</label>
-        <select class="border border-gray-200" v-model="propiedades.modelValue.alineacion">
-            <option v-for="alineacion in alineaciones" :value="alineacion.valor">{{ alineacion.nombre }}</option>
-        </select>
-        <label class="font-bold">Redimensionar al imprimir:</label>
-        <select class="border border-gray-200" v-model="propiedades.modelValue.tamaño">
-            <option v-for="tamaño in tamaños" :value="tamaño.valor">{{ tamaño.nombre }}</option>
-        </select>
-        <input type="range" step="8" v-model.number="propiedades.modelValue.maximoAncho"
-            :max="propiedades.modelValue.ancho">
-        <img class="max-h-40" :src="propiedades.modelValue.contenidoEnBase64"
-            v-if="propiedades.modelValue.contenidoEnBase64.length > 0">
-        <input accept="image/png,image/jpeg" @change="onArchivoSeleccionado" ref="referenciaAlInput"
-            class="border border-gray-200 rounded-md" type="file">
+    <div class="flex flex-col">
+        <img class="w-80" :src="propiedades.modelValue.contenidoEnBase64" v-if="hayImagenSeleccionada">
+        <FileUpload label="Seleccionar archivo..." multiple accept="image/png,image/jpeg" @change="onImagenSeleccionada">
+        </FileUpload>
+    </div>
+    <div class="flex flex-col md:flex-row" v-if="hayImagenSeleccionada">
+        <Select :display-item-function="(alineacion) => alineacion.nombre" :items="alineaciones" label="Alineación"
+            v-model="propiedades.modelValue.alineacion">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <Select :display-item-function="(tamaño) => tamaño.nombre" :items="tamaños" label="Redimensionar al imprimir:"
+            v-model="propiedades.modelValue.tamaño">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho" step="8"
+            label="Ancho"></Range>
     </div>
 </template>
