@@ -23,8 +23,8 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     alto: 1,
     enfatizado: false,
     alineacion: {
-      nombre: "Izquierda",
-      valor: Alineacion.Izquierda,
+      nombre: "Centro",
+      valor: Alineacion.Centro,
     },
     subrayado: false,
     alReves: false,
@@ -37,8 +37,8 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
       valor: TamañoImagen.Normal,
     },
     alineacion: {
-      nombre: "Izquierda",
-      valor: Alineacion.Izquierda,
+      nombre: "Centro",
+      valor: Alineacion.Centro,
     },
     alto: 0,
     ancho: 8,
@@ -61,13 +61,16 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     contenido: "",
     ancho: 200,
     alto: 10,
-    tamaño: TamañoImagen.Normal,
+    tamaño: {
+      nombre: "Normal",
+      valor: TamañoImagen.Normal,
+    },
     incluirSumaDeVerificacion: false,
     modoAsciiCompleto: false,
     intercalado: false,
     alineacion: {
-      nombre: "Izquierda",
-      valor: Alineacion.Izquierda,
+      nombre: "Centro",
+      valor: Alineacion.Centro,
     },
     nivelDeSeguridad: 1,
     imprimirContenido: false,
@@ -75,9 +78,15 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoQr", <ArgumentosParaDefinirCodigoQr>{
     contenido: "",
     ancho: 200,
-    tamaño: TamañoImagen.Normal,
-    nivelDeRecuperacion: RecuperacionQr.Medio,
-    alineacion: Alineacion.Centro,
+    tamaño: {
+      nombre: "Normal",
+      valor: TamañoImagen.Normal,
+    },
+    nivelDeRecuperacion: { nombre: "Medio", valor: RecuperacionQr.Medio },
+    alineacion: {
+      nombre: "Centro",
+      valor: Alineacion.Centro,
+    },
     imprimirContenido: false,
   }),
 ]);

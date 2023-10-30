@@ -69,7 +69,7 @@ export type ArgumentosParaDefinirCodigoDeBarras = {
     contenido: string,
     ancho: number,
     alto: number,
-    tamaño: TamañoImagen,
+    tamaño: { nombre: string, valor: TamañoImagen },
     alineacion: { nombre: string, valor: Alineacion },
     incluirSumaDeVerificacion?: boolean,
     modoAsciiCompleto?: boolean,
@@ -88,9 +88,9 @@ export enum RecuperacionQr {
 export type ArgumentosParaDefinirCodigoQr = {
     contenido: string,
     ancho: number,
-    tamaño: TamañoImagen,
-    alineacion: Alineacion,
-    nivelDeRecuperacion: RecuperacionQr,
+    tamaño: { nombre: string, valor: TamañoImagen },
+    alineacion: { nombre: string, valor: Alineacion },
+    nivelDeRecuperacion: { nombre: string, valor: RecuperacionQr },
     imprimirContenido: boolean,
 }
 
