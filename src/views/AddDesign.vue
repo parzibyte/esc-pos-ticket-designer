@@ -32,10 +32,16 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     rotacion90: false,
   }),
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Imagen", {
-    tamaño: TamañoImagen.Normal,
-    alineacion: Alineacion.Centro,
+    tamaño: {
+      nombre: "Normal",
+      valor: TamañoImagen.Normal,
+    },
+    alineacion: {
+      nombre: "Izquierda",
+      valor: Alineacion.Izquierda,
+    },
     alto: 0,
-    ancho: 0,
+    ancho: 8,
     maximoAncho: 8,
     contenidoEnBase64: "",
   }),
