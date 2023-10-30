@@ -65,12 +65,12 @@ export enum TipoDeCodigoDeBarras {
     UpcE = "ImprimirCodigoDeBarrasUpcE",
 }
 export type ArgumentosParaDefinirCodigoDeBarras = {
-    tipo: TipoDeCodigoDeBarras,
+    tipo: { nombre: string, valor: TipoDeCodigoDeBarras },
     contenido: string,
     ancho: number,
     alto: number,
     tamaño: TamañoImagen,
-    alineacion: Alineacion,
+    alineacion: { nombre: string, valor: Alineacion },
     incluirSumaDeVerificacion?: boolean,
     modoAsciiCompleto?: boolean,
     intercalado?: boolean,

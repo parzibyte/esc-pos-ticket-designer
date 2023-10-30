@@ -54,7 +54,10 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     relleno: " ",
   }),
   OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoDeBarras", <ArgumentosParaDefinirCodigoDeBarras>{
-    tipo: TipoDeCodigoDeBarras.Ean,
+    tipo: {
+      valor: TipoDeCodigoDeBarras.Ean,
+      nombre: "EAN",
+    },
     contenido: "",
     ancho: 200,
     alto: 10,
@@ -62,7 +65,10 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     incluirSumaDeVerificacion: false,
     modoAsciiCompleto: false,
     intercalado: false,
-    alineacion: Alineacion.Centro,
+    alineacion: {
+      nombre: "Izquierda",
+      valor: Alineacion.Izquierda,
+    },
     nivelDeSeguridad: 1,
     imprimirContenido: false,
   }),
