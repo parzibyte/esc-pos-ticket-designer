@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { TamañoImagen, type ArgumentosParaDefinirCodigoQr, RecuperacionQr, Alineacion } from '@/types/Tipos';
 import { ref } from 'vue';
+import CustomInputVue from '../CustomInput.vue';
+import Select from '../Select.vue';
+import Range from '../Range.vue';
+import CustomCheckboxVue from '../CustomCheckbox.vue';
 
 
 type Propiedades = {
@@ -76,21 +80,30 @@ const recuperaciones = ref([
 ]);
 </script>
 <template>
-    <input type="text" v-model="propiedades.modelValue.contenido">
-    <label class="font-bold">Alineación</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.alineacion">
-        <option v-for="alineacion in alineaciones" :value="alineacion.valor">{{ alineacion.nombre }}</option>
-    </select>
-    <label class="font-bold">Redimensionar al imprimir:</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.tamaño">
-        <option v-for="tamaño in tamaños" :value="tamaño.valor">{{ tamaño.nombre }}</option>
-    </select>
-    <label class="font-bold">Recuperación:</label>
-    <select class="border border-gray-200" v-model="propiedades.modelValue.nivelDeRecuperacion">
-        <option v-for="nivelDeRecuperacion in recuperaciones" :value="nivelDeRecuperacion.valor">{{
-            nivelDeRecuperacion.nombre }}</option>
-    </select>
-    <input type="range" step="8" v-model.number="propiedades.modelValue.ancho">
-    <label>Imprimir contenido</label>
-    <input type="checkbox" v-model="propiedades.modelValue.imprimirContenido">
+    <div class="flex md:flex-row flex-col">
+        <CustomInputVue v-model="propiedades.modelValue.contenido" type="text" label="Contenido del QR"></CustomInputVue>
+        <Select :display-item-function="(alineacion) => alineacion.nombre" :items="alineaciones" label="Alineación"
+            v-model="propiedades.modelValue.alineacion">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <Range label="Ancho" step="8" min="8" max="500" v-model="propiedades.modelValue.ancho"></Range>
+        <CustomCheckboxVue v-model="propiedades.modelValue.imprimirContenido"
+            label="Imprimir contenido como texto debajo del código QR"></CustomCheckboxVue>
+    </div>
+    <div class="flex flex-col md:flex-row">
+        <Select :display-item-function="(tamaño) => tamaño.nombre" :items="tamaños" label="Redimensionar al imprimir:"
+            v-model="propiedades.modelValue.tamaño">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+        <Select :display-item-function="(nivel) => nivel.nombre" :items="recuperaciones" label="Recuperación:"
+            v-model="propiedades.modelValue.nivelDeRecuperacion">
+            <template #item="{ item, index }">
+                <h1 class="text-xl">{{ item.nombre }}</h1>
+            </template>
+        </Select>
+    </div>
 </template>
