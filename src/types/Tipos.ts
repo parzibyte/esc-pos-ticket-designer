@@ -31,10 +31,10 @@ export type ArgumentosParaDefinirTexto = {
 }
 
 export type ArgumentosParaDefinirImagen = {
-    alineacion: Alineacion,
+    alineacion: { nombre: string, valor: Alineacion },
     ancho: number,
     alto: number,
-    tamaño: TamañoImagen,
+    tamaño: { nombre: string, valor: TamañoImagen },
     maximoAncho: number,
     contenidoEnBase64: string,
 }
@@ -299,11 +299,11 @@ export class OperacionFactory {
                     const argumentosParaDevolver = [
                         {
                             nombre: "EstablecerAlineacion",
-                            argumentos: [argumentos.alineacion],
+                            argumentos: [argumentos.alineacion.valor],
                         },
                         {
                             nombre: "ImprimirImagenEnBase64",
-                            argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño, argumentos.maximoAncho],
+                            argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
                         }
                     ];
                     return argumentosParaDevolver;
@@ -354,7 +354,7 @@ export class OperacionFactory {
                     const argumentosParaDevolver = <any>[
                         {
                             nombre: "EstablecerAlineacion",
-                            argumentos: [argumentos.alineacion],
+                            argumentos: [argumentos.alineacion.valor],
                         },
                     ];
 
@@ -367,32 +367,32 @@ export class OperacionFactory {
                             TipoDeCodigoDeBarras.Ean8,
                             TipoDeCodigoDeBarras.UpcA,
                             TipoDeCodigoDeBarras.UpcE,
-                        ].includes(argumentos.tipo)
+                        ].includes(argumentos.tipo.valor)
                     ) {
                         argumentosParaDevolver.push({
-                            nombre: argumentos.tipo,
-                            argumentos: [argumentos.contenido, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                            nombre: argumentos.tipo.valor,
+                            argumentos: [argumentos.contenido, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
                         });
                     } else {
-                        switch (argumentos.tipo) {
+                        switch (argumentos.tipo.valor) {
                             case TipoDeCodigoDeBarras.Code39:
                                 argumentosParaDevolver.push({
-                                    nombre: argumentos.tipo,
-                                    argumentos: [argumentos.contenido, argumentos.incluirSumaDeVerificacion, argumentos.modoAsciiCompleto, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                                    nombre: argumentos.tipo.valor,
+                                    argumentos: [argumentos.contenido, argumentos.incluirSumaDeVerificacion, argumentos.modoAsciiCompleto, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
                                 });
                                 break;
 
                             case TipoDeCodigoDeBarras.Pdf417:
                                 argumentosParaDevolver.push({
-                                    nombre: argumentos.tipo,
-                                    argumentos: [argumentos.contenido, argumentos.nivelDeSeguridad, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                                    nombre: argumentos.tipo.valor,
+                                    argumentos: [argumentos.contenido, argumentos.nivelDeSeguridad, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
                                 });
                                 break;
 
                             case TipoDeCodigoDeBarras.TwoOffFiveITF:
                                 argumentosParaDevolver.push({
-                                    nombre: argumentos.tipo,
-                                    argumentos: [argumentos.contenido, argumentos.intercalado, argumentos.alto, argumentos.ancho, argumentos.tamaño],
+                                    nombre: argumentos.tipo.valor,
+                                    argumentos: [argumentos.contenido, argumentos.intercalado, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
                                 });
                                 break;
                         }
@@ -418,11 +418,10 @@ export class OperacionFactory {
                     const argumentosParaDevolver = <any>[
                         {
                             nombre: "EstablecerAlineacion",
-                            argumentos: [argumentos.alineacion],
                         },
                         {
                             nombre: "ImprimirCodigoQr",
-                            argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion, argumentos.tamaño],
+                            argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion.valor, argumentos.tamaño.valor],
                         }
                     ];
                     if (argumentos.imprimirContenido) {
