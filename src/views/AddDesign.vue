@@ -5,6 +5,7 @@ import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
 import { Alineacion } from "@/types/Tipos"
+import { debounce } from "@/Helpers"
 const store = useDatabaseStore();
 const referenciaAlSelect = ref(null);
 const diseñoActualmenteEditado = ref({});
@@ -146,15 +147,15 @@ const guardar = async () => {
   }
 }
 
-const onActualizado = async (op: Operacion) => {
-  console.log("se actualizó alguna operación");
 
+const onActualizado = debounce(async (op: Operacion) => {
+  console.log("se actualizó alguna operación");
   const operacionRecienInsertada = await store.exec(`UPDATE operaciones_diseños SET argumentos = ? WHERE id = ?`,
     [op.clonar().obtenerArgumentosRealesSerializados(), op.id]);
   await store.exec(`UPDATE diseños SET fecha_modificacion = ? WHERE id = ?`, [new Date().toLocaleDateString(), props.id]);
   console.log({ operacionRecienInsertada });
+}, 500);
 
-}
 
 onMounted(async () => {
   const diseñosCoincidentesConId = await store.exec(`select d.id,
