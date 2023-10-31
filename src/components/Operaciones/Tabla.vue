@@ -105,16 +105,12 @@ const deberiaMostrarAlertaDeMaximosCaracteres = () => {
             v-model="propiedades.modelValue.caracterSeparadorColumnasDatos"></CustomInput>
         <CustomInput placeholder="-" class="flex-1" type="text" label="Sep. filas" maxlength="1"
             v-model="propiedades.modelValue.caracterSeparadorFilas"></CustomInput>
-        <CustomInput placeholder="+" class="flex-1" type="text" label="Sep. esquinas"
-            maxlength="1" v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas"></CustomInput>
+        <CustomInput placeholder="+" class="flex-1" type="text" label="Sep. esquinas" maxlength="1"
+            v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas"></CustomInput>
         <CustomInput placeholder=" " class="flex-1" type="text" label="Relleno" maxlength="1"
             v-model="propiedades.modelValue.relleno"></CustomInput>
     </div>
-    <div v-show="deberiaMostrarAlertaDeMaximosCaracteres()" class="my-1 p-2 bg-orange-600 text-white rounded-md">
-        <strong>Nota:</strong> según pruebas, en impresoras de 58mm la cantidad máxima por línea es de 30 caracteres.
-        En impresoras de 80mm, la cantidad máxima es de 45. Usted tiene actualmente {{ totalCaracteresPorLinea() }}
-        caracteres en total.
-    </div>
+
     <div class="overflow-x-auto">
         <table class="border-collapse w-full table-auto">
             <tbody>
@@ -158,5 +154,10 @@ const deberiaMostrarAlertaDeMaximosCaracteres = () => {
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div v-show="deberiaMostrarAlertaDeMaximosCaracteres()" class="my-1 p-2 bg-orange-600 text-white rounded-md">
+        <strong>Nota:</strong> según pruebas, en impresoras de 58mm la cantidad máxima por línea es de 30 caracteres.
+        En impresoras de 80mm, la cantidad máxima es de 45. Usted tiene actualmente {{ totalCaracteresPorLinea() }}
+        caracteres en total.
     </div>
 </template>
