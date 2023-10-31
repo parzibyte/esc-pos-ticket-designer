@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { defineProps, type Component, watch } from "vue";
+import { defineProps, type Component, watch, ref } from "vue";
 import { Operacion } from "@/types/Tipos";
 import Delete from "vue-material-design-icons/Delete.vue";
+import UnfoldLessHorizontal from "vue-material-design-icons/UnfoldLessHorizontal.vue";
+import UnfoldMoreHorizontal from "vue-material-design-icons/UnfoldMoreHorizontal.vue";
 import Corte from "./Operaciones/Corte.vue";
 import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonalizado.vue";
 import Texto from "./Operaciones/Texto.vue";
@@ -33,9 +35,15 @@ const eliminar = () => {
     emit("eliminar");
 }
 
+const mostrarElementos = ref(true);
+
 watch(props.operacion.argumentos, () => {
     emit("actualizado", props.operacion);
 });
+
+const alternarVisibilidad = () => {
+    mostrarElementos.value = !mostrarElementos.value;
+}
 
 </script>
 <template>
@@ -45,7 +53,27 @@ watch(props.operacion.argumentos, () => {
             <button @click="eliminar" class="bg-red-500 text-white p-1 mx-2 rounded-md hover:bg-red-600 focus:bg-red-600">
                 <Delete />
             </button>
+            <button @click="alternarVisibilidad()"
+                class="bg-sky-500 text-white p-1 mx-2 rounded-md hover:bg-sky-600 ">
+                <UnfoldLessHorizontal v-if="mostrarElementos"></UnfoldLessHorizontal>
+                <UnfoldMoreHorizontal v-else></UnfoldMoreHorizontal>
+            </button>
         </div>
-        <component v-model="operacion.argumentos" :is="componentes[operacion.clave]"></component>
+        <Transition>
+            <div v-show="mostrarElementos">
+                <component v-model="operacion.argumentos" :is="componentes[operacion.clave]"></component>
+            </div>
+        </Transition>
     </div>
 </template>
+<style>
+.v-enter-active,
+.v-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+    opacity: 0;
+}
+</style>
