@@ -61,7 +61,7 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
     },
     contenido: "",
     ancho: 200,
-    alto: 10,
+    alto: 80,
     tamaño: {
       nombre: "Normal",
       valor: TamañoImagen.Normal,

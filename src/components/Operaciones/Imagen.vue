@@ -4,6 +4,7 @@ import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion } from "@/t
 import Select from "@/components/Select.vue"
 import Range from '../Range.vue';
 import FileUpload from '../FileUpload.vue';
+import AlertaAnchoImagen from '@/components/Alertas/AlertaAnchoImagen.vue';
 
 
 type Propiedades = {
@@ -31,15 +32,6 @@ const valorSerializado = computed({
         return propiedades.modelValue;
     },
 });
-
-/**
- * En mi impresora térmica de 58mm en la verdadera medida es 47mm, lo máximo que soporta para una
- * imagen completa en su ancho es 384. Entonces ocupa 0.122mm por pixel, así que en una de 80mm que
- * puede tener una medida de 69, la máxima sería 566 de ancho. Si suponemos que no tiene márgenes, sería de 655
- * pixeles de ancho, redondeado al anterior múltiplo de 8 es 648
- */
-const MAXIMO_ANCHO_IMAGEN_58_MM = 384;
-const MAXIMO_ANCHO_IMAGEN_80_MM = 648;
 
 const obtenerArchivoComoBase64 = async function (file: File): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -122,7 +114,6 @@ const hayImagenSeleccionada = computed(() => {
     return false;
 });
 
-const deberiaMostrarAlertaSobreMaximoAncho = computed(() => propiedades.modelValue.maximoAncho > MAXIMO_ANCHO_IMAGEN_58_MM);
 </script>
 <template>
     <div class="flex flex-col">
@@ -146,10 +137,5 @@ const deberiaMostrarAlertaSobreMaximoAncho = computed(() => propiedades.modelVal
         <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho" step="8"
             label="Ancho"></Range>
     </div>
-    <div v-show="deberiaMostrarAlertaSobreMaximoAncho" class="bg-red-500 rounded-md text-white p-2">
-        <strong>Nota: </strong>según pruebas, sin redimensionar la imagen al
-        imprimir, el ancho máximo para las
-        impresoras de 58mm es de {{ MAXIMO_ANCHO_IMAGEN_58_MM }} y de {{ MAXIMO_ANCHO_IMAGEN_80_MM }} para las de 80mm. El
-        ancho actual es de {{ propiedades.modelValue.maximoAncho }}
-    </div>
+    <AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen>
 </template>

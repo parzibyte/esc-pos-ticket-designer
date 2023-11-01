@@ -5,6 +5,7 @@ import CustomInputVue from '../CustomInput.vue';
 import Select from '../Select.vue';
 import Range from '../Range.vue';
 import CustomCheckboxVue from '../CustomCheckbox.vue';
+import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
 
 
 type Propiedades = {
@@ -88,7 +89,7 @@ const recuperaciones = ref([
                 <h1 class="text-xl">{{ item.nombre }}</h1>
             </template>
         </Select>
-        <Range label="Ancho" step="8" min="8" max="500" v-model="propiedades.modelValue.ancho"></Range>
+        <Range label="Ancho" step="8" min="8" max="648" v-model="propiedades.modelValue.ancho"></Range>
         <CustomCheckboxVue v-model="propiedades.modelValue.imprimirContenido"
             label="Imprimir contenido como texto debajo del código QR"></CustomCheckboxVue>
     </div>
@@ -106,4 +107,5 @@ const recuperaciones = ref([
             </template>
         </Select>
     </div>
+    <AlertaAnchoImagen :ancho="propiedades.modelValue.ancho"></AlertaAnchoImagen>
 </template>

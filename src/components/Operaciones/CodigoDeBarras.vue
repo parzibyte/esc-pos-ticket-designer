@@ -6,6 +6,7 @@ import Select from '../Select.vue';
 import Range from '../Range.vue';
 import CustomCheckbox from '../CustomCheckbox.vue';
 import CustomInput from '../CustomInput.vue';
+import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
 
 
 type Propiedades = {
@@ -155,14 +156,14 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
                 <h1 class="text-xl">{{ item.nombre }}</h1>
             </template>
         </Select>
+        <CustomInput label="Contenido" v-model="propiedades.modelValue.contenido" type="text">
+        </CustomInput>
         <Select :items="alineaciones" :display-item-function="(alineacion) => alineacion.nombre" label="Alineación"
             v-model="propiedades.modelValue.alineacion">
             <template #item="{ item, index }">
                 <h1 class="text-xl">{{ item.nombre }}</h1>
             </template>
         </Select>
-        <CustomInput label="Contenido" v-model="propiedades.modelValue.contenido" type="text">
-        </CustomInput>
         <CustomCheckbox label="Imprimir contenido como texto debajo el código"
             v-model="propiedades.modelValue.imprimirContenido"></CustomCheckbox>
     </div>
@@ -182,9 +183,11 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
             <CustomCheckbox v-if="deberiaMostrarCamposParaModoAsciiCompleto()" label="Modo ASCII completo"
                 v-model="propiedades.modelValue.modoAsciiCompleto"></CustomCheckbox>
         </div>
-        <Range step="8" v-model="propiedades.modelValue.ancho" min="8" max="500" label="Ancho"></Range>
+        <Range step="8" v-model.number="propiedades.modelValue.ancho" min="8" max="648" label="Ancho"></Range>
         <Range v-model="propiedades.modelValue.alto" min="8" max="500" label="Alto"></Range>
         <Range v-if="deberiaMostrarCamposParaNivelDeSeguridad()" v-model="propiedades.modelValue.nivelDeSeguridad" min="0"
             max="8" label="Nivel de seguridad"> </Range>
     </div>
+    <AlertaAnchoImagen :ancho="propiedades.modelValue.ancho">
+    </AlertaAnchoImagen>
 </template>
