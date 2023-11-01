@@ -210,7 +210,8 @@ const estiloDelCanvas = () => {
             <canvas :style="estiloDelCanvas()" ref="canvas" class="flex-1 border border-zinc-100 mt-2"></canvas>
         </div>
         <div>
-            <CustomInput label="Carácter que va a reemplazar" maxlength="1" type="text"> </CustomInput>
+            <CustomInput v-model="propiedades.modelValue.caracterQueReemplaza" label="Carácter que va a reemplazar"
+                maxlength="1" type="text"></CustomInput>
         </div>
     </div>
 </template>
