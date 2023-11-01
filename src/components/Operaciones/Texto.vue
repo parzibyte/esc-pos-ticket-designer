@@ -52,6 +52,8 @@ const valorSerializado = computed({
 });
 </script>
 <template>
+    <CustomTextarea rows="3" placeholder="Escribe el texto para imprimir..." label="Texto para imprimir"
+        v-model="propiedades.modelValue.texto"></CustomTextarea>
     <div class="flex flex-col md:flex-row">
         <Select :items="tamañosFuente" label="Ancho" v-model.number="propiedades.modelValue.ancho">
             <template #item="{ item, index }">
@@ -91,6 +93,4 @@ const valorSerializado = computed({
         <strong>Alto</strong>
         debería ser 1
     </div>
-    <CustomTextarea rows="3" placeholder="Escribe el texto para imprimir..." label="Texto para imprimir"
-        v-model="propiedades.modelValue.texto"></CustomTextarea>
 </template>
