@@ -122,18 +122,32 @@ const eliminarOperacionPorIndice = async (indice: number) => {
   operaciones.value.splice(indice, 1);
 }
 
-const imprimir = async () => {
-  const payload = {
+const obtenerPayload = () => {
+  const operacionesParaPayload = [];
+  for (const operacion of operaciones.value) {
+    operacionesParaPayload.push(...(operacion.obtenerArgumentosPorPlataforma(diseñoActualmenteEditado.value.plataforma)));
+  }
+  return {
     nombreImpresora: diseñoActualmenteEditado.value.impresora,
     serial: diseñoActualmenteEditado.value.licencia,
-    operaciones: [],
+    operaciones: operacionesParaPayload,
   };
-  for (const operacion of operaciones.value) {
-    payload.operaciones.push(...(operacion.obtenerArgumentosPorPlataforma(diseñoActualmenteEditado.value.plataforma)));
-  }
+}
+
+const obtenerPayloadComoJson = () => {
+  return JSON.stringify(obtenerPayload())
+}
+
+const obtenerCodigo = () => {
+  return `curl -X POST https://reqbin.com/echo/post/json
+-H 'Content-Type: application/json'
+-d '{"login":"my_login","password":"my_password"}'`;
+};
+
+const imprimir = async () => {
   await fetch(`${diseñoActualmenteEditado.value.ruta_api}/imprimir`, {
     method: "POST",
-    body: JSON.stringify(payload),
+    body: obtenerPayloadComoJson(),
   })
 
 }
@@ -183,30 +197,36 @@ from diseños d
 
 </script>
 <template>
-  <div class="p-1 bg-gray-100">
-    <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
-    <div class="">
-      <ComponenteOperacion @actualizado="onActualizado" :key="'componente_' + indice"
-        @eliminar="eliminarOperacionPorIndice(indice)" v-for="(operacion, indice) in operaciones"
-        :operacion="operacion" />
+  <div class="flex flex-col md:flex-row">
+    <div class="p-1 bg-gray-100 w-full md:w-3/4">
+      <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
+      <div class="">
+        <ComponenteOperacion @actualizado="onActualizado" :key="'componente_' + indice"
+          @eliminar="eliminarOperacionPorIndice(indice)" v-for="(operacion, indice) in operaciones"
+          :operacion="operacion" />
+      </div>
+      <div class="max-w-xs content-center">
+        <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
+          :displayItemFunction="displayItemFunction" v-model="opcionSeleccionada" label="Selecciona una opción">
+          <template #item="{ item, index }">
+            <h1 class="text-xl">{{ item.nombre }}</h1>
+            <p>{{ item.descripcion }}</p>
+          </template>
+        </Select>
+        <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="agregarOperacionSeleccionada">
+          Agregar
+        </button>
+        <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
+          Imprimir
+        </button>
+        <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="guardar">
+          Guardar
+        </button>
+      </div>
     </div>
-    <div class="max-w-xs content-center">
-      <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
-        :displayItemFunction="displayItemFunction" v-model="opcionSeleccionada" label="Selecciona una opción">
-        <template #item="{ item, index }">
-          <h1 class="text-xl">{{ item.nombre }}</h1>
-          <p>{{ item.descripcion }}</p>
-        </template>
-      </Select>
-      <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="agregarOperacionSeleccionada">
-        Agregar
-      </button>
-      <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
-        Imprimir
-      </button>
-      <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="guardar">
-        Guardar
-      </button>
+    <div class="bg-white w-full md:w-1/4 overflow-x-auto p-1 break-words">
+      <code>{{ obtenerCodigo() }}</code>
     </div>
+
   </div>
 </template>
