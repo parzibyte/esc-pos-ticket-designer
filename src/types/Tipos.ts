@@ -1,3 +1,9 @@
+export type ArgumentosParaDefinirImagenLocal = {
+    ruta: string,
+    alineacion: { nombre: string, valor: Alineacion },
+    tamaño: { nombre: string, valor: TamañoImagen },
+    maximoAncho: number,
+}
 export type ArgumentosParaDefinirCaracterPersonalizado = {
     matrizDeBits: Array<Array<string>>,
     caracterQueReemplaza: string,
@@ -431,6 +437,28 @@ export class OperacionFactory {
                             argumentos: [argumentos.contenido + "\n"],
                         });
                     }
+                    return argumentosParaDevolver;
+                },
+            },
+
+        },
+        "ImagenLocal": {
+            nombre: "Imagen local",
+            descripcion: `Imagen que existe en el sistema, por ejemplo, C:\\Users\\Parzibyte\\desktop\\maggie.jpg o /home/parzibyte/mj.png`,
+            plataformas:
+            {
+                "Desktop": (thisArg: Operacion) => {
+                    const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenLocal;
+                    const argumentosParaDevolver = <any>[
+                        {
+                            nombre: "EstablecerAlineacion",
+                            argumentos: [argumentos.alineacion.valor],
+                        },
+                        {
+                            nombre: "CargarImagenLocalEImprimir",
+                            argumentos: [argumentos.ruta, argumentos.tamaño.valor, argumentos.maximoAncho],
+                        }
+                    ];
                     return argumentosParaDevolver;
                 },
             },

@@ -11,6 +11,7 @@ import Imagen from "./Operaciones/Imagen.vue";
 import Tabla from "./Operaciones/Tabla.vue";
 import CodigoDeBarras from "./Operaciones/CodigoDeBarras.vue";
 import CodigoQr from "./Operaciones/CodigoQr.vue";
+import ImagenLocal from "./Operaciones/ImagenLocal.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -20,6 +21,7 @@ const componentes: { [key: string]: Component } = {
     "Tabla": Tabla,
     "CodigoDeBarras": CodigoDeBarras,
     "CodigoQr": CodigoQr,
+    "ImagenLocal": ImagenLocal,
 };
 
 type MyComponentProps = {
@@ -53,8 +55,7 @@ const alternarVisibilidad = () => {
             <button @click="eliminar" class="bg-red-500 text-white p-1 mx-2 rounded-md hover:bg-red-600 focus:bg-red-600">
                 <Delete />
             </button>
-            <button @click="alternarVisibilidad()"
-                class="bg-sky-500 text-white p-1 mx-2 rounded-md hover:bg-sky-600 ">
+            <button @click="alternarVisibilidad()" class="bg-sky-500 text-white p-1 mx-2 rounded-md hover:bg-sky-600 ">
                 <UnfoldLessHorizontal v-if="mostrarElementos"></UnfoldLessHorizontal>
                 <UnfoldMoreHorizontal v-else></UnfoldMoreHorizontal>
             </button>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla, type ArgumentosParaDefinirCodigoDeBarras, TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoQr, RecuperacionQr } from "../types/Tipos"
+import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla, type ArgumentosParaDefinirCodigoDeBarras, TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoQr, RecuperacionQr, type ArgumentosParaDefinirImagen, type ArgumentosParaDefinirImagenLocal } from "../types/Tipos"
 import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
@@ -89,6 +89,18 @@ const todasLasOperaciones: Ref<Array<Operacion>> = ref([
       valor: Alineacion.Centro,
     },
     imprimirContenido: false,
+  }),
+  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "ImagenLocal", <ArgumentosParaDefinirImagenLocal>{
+    ruta: "",
+    tamaño: {
+      nombre: "Normal",
+      valor: TamañoImagen.Normal,
+    },
+    alineacion: {
+      nombre: "Centro",
+      valor: Alineacion.Centro,
+    },
+    maximoAncho: 8,
   }),
 ]);
 const operaciones: Ref<Array<Operacion>> = ref([]);
