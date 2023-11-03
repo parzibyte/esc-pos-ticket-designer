@@ -21,6 +21,4 @@ const valorSerializado = computed({
 	},
 });
 </script>
-<template>
-	
-</template>
+<template></template>

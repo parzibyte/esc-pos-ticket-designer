@@ -12,6 +12,7 @@ import Tabla from "./Operaciones/Tabla.vue";
 import CodigoDeBarras from "./Operaciones/CodigoDeBarras.vue";
 import CodigoQr from "./Operaciones/CodigoQr.vue";
 import ImagenLocal from "./Operaciones/ImagenLocal.vue";
+import CorteParcial from "./Operaciones/CorteParcial.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -22,6 +23,7 @@ const componentes: { [key: string]: Component } = {
     "CodigoDeBarras": CodigoDeBarras,
     "CodigoQr": CodigoQr,
     "ImagenLocal": ImagenLocal,
+    "CorteParcial": CorteParcial,
 };
 
 type MyComponentProps = {
