@@ -9,6 +9,7 @@ import type {
 	ArgumentosParaDefinirCodigoDeBarras,
 	ArgumentosParaDefinirCodigoQr,
 	ArgumentosParaDefinirImagenLocal,
+	ArgumentosParaDefinirCorteParcial,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -125,5 +126,7 @@ export const listaCompletaDeOperaciones = [
 			valor: Alineacion.Centro,
 		},
 		maximoAncho: 8,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CorteParcial", <ArgumentosParaDefinirCorteParcial>{
 	}),
 ]

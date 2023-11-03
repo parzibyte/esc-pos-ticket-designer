@@ -1,15 +1,18 @@
-import type {
-	Plataforma,
-	ArgumentosParaDefinirCorte,
-	ArgumentosParaDefinirCaracterPersonalizado,
-	ArgumentosParaDefinirTexto,
-	ArgumentosParaDefinirImagen,
-	ArgumentosParaDefinirTabla,
-	ArgumentosParaDefinirCodigoDeBarras,
-	ArgumentosParaDefinirCodigoQr,
-	ArgumentosParaDefinirImagenLocal,
-} from "./Tipos.ts"
+import {
+	type Plataforma,
+	type ArgumentosParaDefinirCorte,
+	type ArgumentosParaDefinirCaracterPersonalizado,
+	type ArgumentosParaDefinirTexto,
+	type ArgumentosParaDefinirImagen,
+	type ArgumentosParaDefinirTabla,
+	type ArgumentosParaDefinirCodigoDeBarras,
+	type ArgumentosParaDefinirCodigoQr,
+	type ArgumentosParaDefinirImagenLocal,
+	type ArgumentosParaDefinirCorteParcial,
+	TipoDeCodigoDeBarras,
+} from "./Tipos"
 import { Operacion } from "./Operacion"
+import { obtenerSeparador,tabularDatos,cantidadColumnas } from "@/Helpers";
 
 export class OperacionFactory {
 	static mapa: { [key: string]: { nombre: string, descripcion: string, plataformas: Plataforma } } = {
@@ -266,6 +269,24 @@ export class OperacionFactory {
 						{
 							nombre: "CargarImagenLocalEImprimir",
 							argumentos: [argumentos.ruta, argumentos.tamaño.valor, argumentos.maximoAncho],
+						}
+					];
+					return argumentosParaDevolver;
+				},
+			},
+
+		},
+		"CorteParcial": {
+			nombre: "Corte parcial",
+			descripcion: `Realizar un corte parcial`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCorteParcial;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "CorteParcial",
+							argumentos: [],
 						}
 					];
 					return argumentosParaDevolver;

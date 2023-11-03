@@ -24,6 +24,8 @@ export enum TamañoImagen {
 export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
+export type ArgumentosParaDefinirCorteParcial = {
+}
 
 export type ArgumentosParaDefinirTexto = {
     texto: string,
