@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion } from "@/types/Tipos"
-import Select from "@/components/Select.vue"
 import Range from '../Range.vue';
 import FileUpload from '../FileUpload.vue';
 import AlertaAnchoImagen from '@/components/Alertas/AlertaAnchoImagen.vue';
+import SelectAlineacion from '@/components/Selects/SelectAlineacion.vue';
+import SelectTamanioImagen from '@/components/Selects/SelectTamanioImagen.vue';
 
 
 type Propiedades = {
@@ -14,8 +15,8 @@ type Propiedades = {
 const propiedades = withDefaults(defineProps<Propiedades>(), {
     modelValue: () => {
         return {
-            tamaño: TamañoImagen.Normal,
-            alineacion: Alineacion.Centro,
+            tamaño: { nombre: "Normal", valor: TamañoImagen.Normal },
+            alineacion: { nombre: "Centro", valor: Alineacion.Centro },
             alto: 0,
             ancho: 0,
             maximoAncho: 8,
@@ -58,44 +59,6 @@ const obtenerResolucionImagen = function (archivo: File): Promise<[number, numbe
         imagen.src = objectUrl;
     });
 }
-const alineaciones = ref([
-    {
-        nombre: "Izquierda",
-        valor: Alineacion.Izquierda,
-    },
-    {
-        nombre: "Centro",
-        valor: Alineacion.Centro,
-    },
-    {
-        nombre: "Derecha",
-        valor: Alineacion.Derecha,
-    },
-
-]);
-
-
-const tamaños = ref([
-    {
-        nombre: "Normal",
-        valor: TamañoImagen.Normal,
-    },
-    {
-        nombre: "Doble ancho",
-        valor: TamañoImagen.DobleAncho,
-    },
-    {
-        nombre: "Doble largo",
-        valor: TamañoImagen.DobleLargo,
-    },
-    {
-        nombre: "Doble ancho y largo",
-        valor: TamañoImagen.DobleAnchoYLargo,
-    },
-
-]);
-
-
 const onImagenSeleccionada = async (archivos: File[]) => {
     if (archivos.length <= 0) {
         return;
@@ -122,18 +85,8 @@ const hayImagenSeleccionada = computed(() => {
         </FileUpload>
     </div>
     <div class="flex flex-col md:flex-row" v-if="hayImagenSeleccionada">
-        <Select :display-item-function="(alineacion) => alineacion.nombre" :items="alineaciones" label="Alineación"
-            v-model="propiedades.modelValue.alineacion">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item.nombre }}</h1>
-            </template>
-        </Select>
-        <Select :display-item-function="(tamaño) => tamaño.nombre" :items="tamaños" label="Redimensionar al imprimir:"
-            v-model="propiedades.modelValue.tamaño">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item.nombre }}</h1>
-            </template>
-        </Select>
+        <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
+        <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
         <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho" step="8"
             label="Ancho"></Range>
     </div>

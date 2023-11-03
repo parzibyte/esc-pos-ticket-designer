@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { OperacionFactory, Operacion, TamañoImagen, type ArgumentosParaDefinirTabla, type ArgumentosParaDefinirCodigoDeBarras, TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoQr, RecuperacionQr, type ArgumentosParaDefinirImagen, type ArgumentosParaDefinirImagenLocal } from "../types/Tipos"
+import { Operacion, listaCompletaDeOperaciones } from "../types/Operacion"
+import { OperacionFactory } from "../types/OperacionFactory"
 import { ref, type Ref, onMounted } from "vue";
 import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
-import { Alineacion } from "@/types/Tipos"
 import { debounce } from "@/Helpers"
 const store = useDatabaseStore();
 const referenciaAlSelect = ref(null);
@@ -12,97 +12,7 @@ const diseñoActualmenteEditado = ref({});
 const props = defineProps<{
   id: number,
 }>();
-const todasLasOperaciones: Ref<Array<Operacion>> = ref([
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Corte", { lineas: 1 }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DefinirCaracterPersonalizado", {
-    caracterQueReemplaza: "",
-    matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]],
-  }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Texto", {
-    texto: "",
-    ancho: 1,
-    alto: 1,
-    enfatizado: false,
-    alineacion: {
-      nombre: "Centro",
-      valor: Alineacion.Centro,
-    },
-    subrayado: false,
-    alReves: false,
-    inverso: false,
-    rotacion90: false,
-  }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Imagen", {
-    tamaño: {
-      nombre: "Normal",
-      valor: TamañoImagen.Normal,
-    },
-    alineacion: {
-      nombre: "Centro",
-      valor: Alineacion.Centro,
-    },
-    alto: 0,
-    ancho: 8,
-    maximoAncho: 8,
-    contenidoEnBase64: "",
-  }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Tabla", <ArgumentosParaDefinirTabla>{
-    tabla: [],
-    ajustesEncabezados: [],
-    caracterSeparadorColumnasDatos: "|",
-    caracterSeparadorColumnasEnSeparadorDeFilas: "+",
-    caracterSeparadorFilas: "-",
-    relleno: " ",
-  }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoDeBarras", <ArgumentosParaDefinirCodigoDeBarras>{
-    tipo: {
-      valor: TipoDeCodigoDeBarras.Ean,
-      nombre: "EAN",
-    },
-    contenido: "",
-    ancho: 200,
-    alto: 80,
-    tamaño: {
-      nombre: "Normal",
-      valor: TamañoImagen.Normal,
-    },
-    incluirSumaDeVerificacion: false,
-    modoAsciiCompleto: false,
-    intercalado: false,
-    alineacion: {
-      nombre: "Centro",
-      valor: Alineacion.Centro,
-    },
-    nivelDeSeguridad: 1,
-    imprimirContenido: false,
-  }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoQr", <ArgumentosParaDefinirCodigoQr>{
-    contenido: "",
-    ancho: 200,
-    tamaño: {
-      nombre: "Normal",
-      valor: TamañoImagen.Normal,
-    },
-    nivelDeRecuperacion: { nombre: "Medio", valor: RecuperacionQr.Medio },
-    alineacion: {
-      nombre: "Centro",
-      valor: Alineacion.Centro,
-    },
-    imprimirContenido: false,
-  }),
-  OperacionFactory.crearAPartirDeClaveYArgumentos(0, "ImagenLocal", <ArgumentosParaDefinirImagenLocal>{
-    ruta: "",
-    tamaño: {
-      nombre: "Normal",
-      valor: TamañoImagen.Normal,
-    },
-    alineacion: {
-      nombre: "Centro",
-      valor: Alineacion.Centro,
-    },
-    maximoAncho: 8,
-  }),
-]);
+const todasLasOperaciones: Ref<Array<Operacion>> = ref(listaCompletaDeOperaciones);
 const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionSeleccionada = async () => {
   const operacionSinReferencias = opcionSeleccionada.value.clonar();
@@ -239,6 +149,5 @@ from diseños d
     <div class="bg-white w-full md:w-1/4 overflow-x-auto p-1 break-words">
       <code>{{ obtenerCodigo() }}</code>
     </div>
-
   </div>
 </template>

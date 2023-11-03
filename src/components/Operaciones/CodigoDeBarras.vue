@@ -1,12 +1,12 @@
 <script setup lang="ts">
-
 import { TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoDeBarras, TamañoImagen, Alineacion } from '@/types/Tipos';
-import { ref } from 'vue';
-import Select from '../Select.vue';
 import Range from '../Range.vue';
 import CustomCheckbox from '../CustomCheckbox.vue';
 import CustomInput from '../CustomInput.vue';
 import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
+import SelectAlineacion from '../Selects/SelectAlineacion.vue';
+import SelectTamanioImagen from '../Selects/SelectTamanioImagen.vue';
+import SelectTipoCodigoDeBarras from '../Selects/SelectTipoCodigoDeBarras.vue';
 
 
 type Propiedades = {
@@ -29,86 +29,6 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
         };
     }
 })
-const alineaciones = ref([
-    {
-        nombre: "Izquierda",
-        valor: Alineacion.Izquierda,
-    },
-    {
-        nombre: "Centro",
-        valor: Alineacion.Centro,
-    },
-    {
-        nombre: "Derecha",
-        valor: Alineacion.Derecha,
-    },
-
-]);
-
-
-const tamaños = ref([
-    {
-        nombre: "Normal",
-        valor: TamañoImagen.Normal,
-    },
-    {
-        nombre: "Doble ancho",
-        valor: TamañoImagen.DobleAncho,
-    },
-    {
-        nombre: "Doble largo",
-        valor: TamañoImagen.DobleLargo,
-    },
-    {
-        nombre: "Doble ancho y largo",
-        valor: TamañoImagen.DobleAnchoYLargo,
-    },
-
-]);
-const tipos = ref([
-    {
-        nombre: "Codabar",
-        valor: TipoDeCodigoDeBarras.Codabar,
-    },
-    {
-        nombre: "Code 128",
-        valor: TipoDeCodigoDeBarras.Code128,
-    },
-    {
-        nombre: "Code 39",
-        valor: TipoDeCodigoDeBarras.Code39,
-    },
-    {
-        nombre: "Code93",
-        valor: TipoDeCodigoDeBarras.Code93,
-    },
-    {
-        nombre: "Ean",
-        valor: TipoDeCodigoDeBarras.Ean,
-    },
-    {
-        nombre: "Ean 8",
-        valor: TipoDeCodigoDeBarras.Ean8,
-    },
-    {
-        nombre: "PDF 417",
-        valor: TipoDeCodigoDeBarras.Pdf417,
-    },
-    {
-        nombre: "Two off five ITF",
-        valor: TipoDeCodigoDeBarras.TwoOffFiveITF,
-    },
-    {
-        nombre: "UPC A",
-        valor: TipoDeCodigoDeBarras.UpcA,
-    },
-    {
-        nombre: "UPC E",
-        valor: TipoDeCodigoDeBarras.UpcE,
-    },
-
-]);
-
 const deberiaMostrarCamposParaSumaDeVerificacion = () => {
     if (!propiedades.modelValue.tipo) {
         return false;
@@ -150,30 +70,15 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
 
 <template>
     <div class="flex md:flex-row flex-col md:items-center">
-        <Select :items="tipos" :display-item-function="(tipo) => tipo.nombre" label="Tipo"
-            v-model="propiedades.modelValue.tipo">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item.nombre }}</h1>
-            </template>
-        </Select>
+        <SelectTipoCodigoDeBarras v-model="propiedades.modelValue.tipo"></SelectTipoCodigoDeBarras>
         <CustomInput label="Contenido" v-model="propiedades.modelValue.contenido" type="text">
         </CustomInput>
-        <Select :items="alineaciones" :display-item-function="(alineacion) => alineacion.nombre" label="Alineación"
-            v-model="propiedades.modelValue.alineacion">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item.nombre }}</h1>
-            </template>
-        </Select>
+        <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
         <CustomCheckbox label="Imprimir contenido como texto debajo el código"
             v-model="propiedades.modelValue.imprimirContenido"></CustomCheckbox>
     </div>
     <div class="flex md:flex-row flex-col">
-        <Select :display-item-function="(tamaño) => tamaño.nombre" :items="tamaños" label="Redimensionar al imprimir:"
-            v-model="propiedades.modelValue.tamaño">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item.nombre }}</h1>
-            </template>
-        </Select>
+        <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
         <div class="flex flex-col">
             <CustomCheckbox v-if="deberiaMostrarCamposParaSumaDeVerificacion()" label="Incluir suma de verificación"
                 v-model="propiedades.modelValue.incluirSumaDeVerificacion">

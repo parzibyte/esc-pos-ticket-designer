@@ -1,27 +1,14 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { Alineacion, type ArgumentosParaDefinirTexto } from "@/types/Tipos"
 import Select from "@/components/Select.vue";
 import CustomCheckbox from "@/components/CustomCheckbox.vue";
 import CustomTextarea from "@/components/CustomTextarea.vue";
+import SelectAlineacion from '../Selects/SelectAlineacion.vue';
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTexto,
 };
-const alineaciones = ref([
-    {
-        nombre: "Izquierda",
-        valor: Alineacion.Izquierda,
-    },
-    {
-        nombre: "Centro",
-        valor: Alineacion.Centro,
-    },
-    {
-        nombre: "Derecha",
-        valor: Alineacion.Derecha,
-    },
-]);
 const propiedades = withDefaults(defineProps<Propiedades>(), {
     modelValue: () => {
         return {
@@ -65,12 +52,7 @@ const valorSerializado = computed({
                 <h1 class="text-xl">{{ item }}</h1>
             </template>
         </Select>
-        <Select :display-item-function="alineacion => alineacion.nombre" :items="alineaciones" label="Alineación"
-            v-model="propiedades.modelValue.alineacion">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item.nombre }}</h1>
-            </template>
-        </Select>
+        <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
     </div>
     <div class="flex md:flex-row flex-col">
         <CustomCheckbox label="Enfatizado" v-model="propiedades.modelValue.enfatizado"></CustomCheckbox>
