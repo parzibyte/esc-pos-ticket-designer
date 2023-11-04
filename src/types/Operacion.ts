@@ -10,6 +10,7 @@ import type {
 	ArgumentosParaDefinirCodigoQr,
 	ArgumentosParaDefinirImagenLocal,
 	ArgumentosParaDefinirCorteParcial,
+	ArgumentosParaDefinirImagenDeInternet,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -128,5 +129,17 @@ export const listaCompletaDeOperaciones = [
 		maximoAncho: 8,
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CorteParcial", <ArgumentosParaDefinirCorteParcial>{
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DescargarImagenDeInternet", <ArgumentosParaDefinirImagenDeInternet>{
+		url: "",
+		tamaño: {
+			nombre: "Normal",
+			valor: TamañoImagen.Normal,
+		},
+		alineacion: {
+			nombre: "Centro",
+			valor: Alineacion.Centro,
+		},
+		maximoAncho: 8,
 	}),
 ]

@@ -26,6 +26,12 @@ export type ArgumentosParaDefinirCorte = {
 }
 export type ArgumentosParaDefinirCorteParcial = {
 }
+export type ArgumentosParaDefinirImagenDeInternet = {
+    alineacion: AlineacionConNombreYValor,
+    tamaño: TamañoConNombreYValor,
+    maximoAncho: number,
+    url: string,
+}
 
 export type ArgumentosParaDefinirTexto = {
     texto: string,

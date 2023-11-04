@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, type Component, watch, ref } from "vue";
-import { Operacion } from "@/types/Tipos";
+import { Operacion } from "@/types/Operacion";
 import Delete from "vue-material-design-icons/Delete.vue";
 import UnfoldLessHorizontal from "vue-material-design-icons/UnfoldLessHorizontal.vue";
 import UnfoldMoreHorizontal from "vue-material-design-icons/UnfoldMoreHorizontal.vue";
@@ -13,6 +13,7 @@ import CodigoDeBarras from "./Operaciones/CodigoDeBarras.vue";
 import CodigoQr from "./Operaciones/CodigoQr.vue";
 import ImagenLocal from "./Operaciones/ImagenLocal.vue";
 import CorteParcial from "./Operaciones/CorteParcial.vue";
+import DescargarImagenDeInternet from "./Operaciones/DescargarImagenDeInternet.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -24,6 +25,7 @@ const componentes: { [key: string]: Component } = {
     "CodigoQr": CodigoQr,
     "ImagenLocal": ImagenLocal,
     "CorteParcial": CorteParcial,
+    "DescargarImagenDeInternet": DescargarImagenDeInternet,
 };
 
 type MyComponentProps = {

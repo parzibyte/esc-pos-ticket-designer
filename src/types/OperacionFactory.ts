@@ -10,9 +10,10 @@ import {
 	type ArgumentosParaDefinirImagenLocal,
 	type ArgumentosParaDefinirCorteParcial,
 	TipoDeCodigoDeBarras,
+	type ArgumentosParaDefinirImagenDeInternet,
 } from "./Tipos"
 import { Operacion } from "./Operacion"
-import { obtenerSeparador,tabularDatos,cantidadColumnas } from "@/Helpers";
+import { obtenerSeparador, tabularDatos, cantidadColumnas } from "@/Helpers";
 
 export class OperacionFactory {
 	static mapa: { [key: string]: { nombre: string, descripcion: string, plataformas: Plataforma } } = {
@@ -287,6 +288,28 @@ export class OperacionFactory {
 						{
 							nombre: "CorteParcial",
 							argumentos: [],
+						}
+					];
+					return argumentosParaDevolver;
+				},
+			},
+
+		},
+		"DescargarImagenDeInternet": {
+			nombre: "Imprimir imagen de internet",
+			descripcion: `Descargar e imprimir una imagen de internet. La imagen debe ser pública`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenDeInternet;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "DescargarImagenDeInternetEImprimir",
+							argumentos: [argumentos.url, argumentos.tamaño.valor, argumentos.maximoAncho],
 						}
 					];
 					return argumentosParaDevolver;
