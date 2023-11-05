@@ -14,6 +14,12 @@ import CodigoQr from "./Operaciones/CodigoQr.vue";
 import ImagenLocal from "./Operaciones/ImagenLocal.vue";
 import CorteParcial from "./Operaciones/CorteParcial.vue";
 import DescargarImagenDeInternet from "./Operaciones/DescargarImagenDeInternet.vue";
+import DeshabilitarCaracteresPersonalizados from "./Operaciones/DeshabilitarCaracteresPersonalizados.vue";
+import DeshabilitarCaracteresChinos from "./Operaciones/DeshabilitarCaracteresChinos.vue";
+import TextoSimple from "./Operaciones/TextoSimple.vue";
+import EstablecerAlineacion from "./Operaciones/EstablecerAlineacion.vue";
+import EstablecerEnfatizado from "./Operaciones/EstablecerEnfatizado.vue";
+import EstablecerFuente from "./Operaciones/EstablecerFuente.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -26,6 +32,12 @@ const componentes: { [key: string]: Component } = {
     "ImagenLocal": ImagenLocal,
     "CorteParcial": CorteParcial,
     "DescargarImagenDeInternet": DescargarImagenDeInternet,
+    "DeshabilitarCaracteresPersonalizados": DeshabilitarCaracteresPersonalizados,
+    "DeshabilitarElModoDeCaracteresChinos": DeshabilitarCaracteresChinos,
+    "TextoSimple": TextoSimple,
+    "EstablecerAlineacion": EstablecerAlineacion,
+    "EstablecerEnfatizado": EstablecerEnfatizado,
+    "EstablecerFuente": EstablecerFuente,
 };
 
 type MyComponentProps = {

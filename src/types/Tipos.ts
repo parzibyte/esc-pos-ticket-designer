@@ -24,6 +24,10 @@ export enum TamañoImagen {
 export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
+export type ArgumentosParaDefinirTextoSimple = {
+    contenido: string,
+}
+
 export type ArgumentosParaDefinirCorteParcial = {
 }
 export type ArgumentosParaDefinirImagenDeInternet = {
@@ -168,4 +172,21 @@ export type AlineacionConNombreYValor = {
 export type TamañoConNombreYValor = {
     nombre: string,
     valor: TamañoImagen,
+}
+
+export type ArgumentosParaDefinirEnfatizado = {
+    enfatizado: boolean,
+}
+
+export enum Fuente {
+    A = 0,
+    B,
+}
+
+export type ArgumentosParaDefinirFuente = {
+    fuente: FuenteConNombreYValor,
+}
+export type FuenteConNombreYValor = {
+    nombre: string,
+    valor: Fuente,
 }

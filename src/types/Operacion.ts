@@ -1,5 +1,5 @@
 import { OperacionFactory } from "./OperacionFactory.js";
-import { Alineacion, TamañoImagen, type Plataforma } from "./Tipos"
+import { Alineacion, TamañoImagen, type Plataforma, Fuente } from "./Tipos"
 import type {
 	ArgumentosParaDefinirCorte,
 	ArgumentosParaDefinirCaracterPersonalizado,
@@ -11,6 +11,11 @@ import type {
 	ArgumentosParaDefinirImagenLocal,
 	ArgumentosParaDefinirCorteParcial,
 	ArgumentosParaDefinirImagenDeInternet,
+	ArgumentosParaDefinirTextoSimple,
+	AlineacionConNombreYValor,
+	ArgumentosParaDefinirEnfatizado,
+	ArgumentosParaDefinirFuente,
+	FuenteConNombreYValor,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -141,5 +146,25 @@ export const listaCompletaDeOperaciones = [
 			valor: Alineacion.Centro,
 		},
 		maximoAncho: 8,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DeshabilitarCaracteresPersonalizados", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DeshabilitarElModoDeCaracteresChinos", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSimple", <ArgumentosParaDefinirTextoSimple>{
+		contenido: "",
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerAlineacion", <AlineacionConNombreYValor>{
+		nombre: "Centro",
+		valor: Alineacion.Centro,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerEnfatizado", <ArgumentosParaDefinirEnfatizado>{
+		enfatizado: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerFuente", <ArgumentosParaDefinirFuente>{
+		fuente: {
+			nombre: "Fuente A (24x12)",
+			valor: 0,
+		}
 	}),
 ]

@@ -11,6 +11,10 @@ import {
 	type ArgumentosParaDefinirCorteParcial,
 	TipoDeCodigoDeBarras,
 	type ArgumentosParaDefinirImagenDeInternet,
+	type ArgumentosParaDefinirTextoSimple,
+	type AlineacionConNombreYValor,
+	type ArgumentosParaDefinirEnfatizado,
+	type ArgumentosParaDefinirFuente,
 } from "./Tipos"
 import { Operacion } from "./Operacion"
 import { obtenerSeparador, tabularDatos, cantidadColumnas } from "@/Helpers";
@@ -315,7 +319,106 @@ export class OperacionFactory {
 					return argumentosParaDevolver;
 				},
 			},
-
+		},
+		"DeshabilitarCaracteresPersonalizados": {
+			nombre: "Deshabilitar caracteres personalizados",
+			descripcion: `Deshabilita la impresión de caracteres personalizados`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "DeshabilitarCaracteresPersonalizados",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"DeshabilitarElModoDeCaracteresChinos": {
+			nombre: "Deshabilitar caracteres chinos",
+			descripcion: `Deshabilita el modo de caracteres chinos. Si tu impresora es china y al imprimir acentos aparecen caracteres chinos puede que quieras deshabilitarlos`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "DeshabilitarElModoDeCaracteresChinos",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"TextoSimple": {
+			nombre: "Texto sin formato",
+			descripcion: `Texto simple cuyo formato puede definirse en otras operaciones`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTextoSimple;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EscribirTexto",
+							argumentos: [argumentos.contenido],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerAlineacion": {
+			nombre: "Establecer alineación",
+			descripcion: `Establece la alineación del texto e imágenes (incluyendo códigos de barras y QR)`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as { alineacion: AlineacionConNombreYValor };
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerEnfatizado": {
+			nombre: "Establecer enfatizado",
+			descripcion: `Cambiar el estado enfatizado del texto`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirEnfatizado;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerEnfatizado",
+							argumentos: [argumentos.enfatizado],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerFuente": {
+			nombre: "Establecer fuente",
+			descripcion: `Cambiar entre la fuente A (24x12) y B (17x9). Tener cuidado porque los caracteres personalizados solo funcionan con la fuente A`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFuente;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerFuente",
+							argumentos: [argumentos.fuente.valor],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
 		},
 	};
 
