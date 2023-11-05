@@ -16,6 +16,13 @@ import type {
 	ArgumentosParaDefinirEnfatizado,
 	ArgumentosParaDefinirFuente,
 	FuenteConNombreYValor,
+	ArgumentosParaDefinirImpresionAlReves,
+	ArgumentosParaDefinirImpresionBlancoYNegroInversa,
+	ArgumentosParaDefinirRotacionDe90Grados,
+	ArgumentosParaDefinirSubrayado,
+	ArgumentosParaDefinirTamañoFuente,
+	ArgumentosParaDefinirFeed,
+	ArgumentosParaDefinirImagenEnBase64,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -166,5 +173,40 @@ export const listaCompletaDeOperaciones = [
 			nombre: "Fuente A (24x12)",
 			valor: 0,
 		}
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerImpresionAlReves", <ArgumentosParaDefinirImpresionAlReves>{
+		alReves: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerImpresionBlancoYNegroInversa", <ArgumentosParaDefinirImpresionBlancoYNegroInversa>{
+		inversa: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerRotacionDe90Grados", <ArgumentosParaDefinirRotacionDe90Grados>{
+		rotar: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerSubrayado", <ArgumentosParaDefinirSubrayado>{
+		subrayar: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerTamañoFuente", <ArgumentosParaDefinirTamañoFuente>{
+		alto: 1,
+		ancho: 1,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Feed", <ArgumentosParaDefinirFeed>{
+		lineas: 1,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarCaracteresPersonalizados", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarElModoDeCaracteresChinos", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "ImprimirImagenEnBase64", <ArgumentosParaDefinirImagenEnBase64>{
+		alineacion: {
+			nombre: "Centro",
+			valor: Alineacion.Centro,
+		},
+		tamaño: {
+			nombre: "Normal",
+			valor: TamañoImagen.Normal,
+		},
+		contenidoEnBase64: "",
+		maximoAncho: 200,
 	}),
 ]

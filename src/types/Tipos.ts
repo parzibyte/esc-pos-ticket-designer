@@ -24,6 +24,15 @@ export enum TamañoImagen {
 export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
+export type ArgumentosParaDefinirFeed = {
+    lineas: number,
+}
+export type ArgumentosParaDefinirImagenEnBase64 = {
+    alineacion: AlineacionConNombreYValor,
+    tamaño: TamañoConNombreYValor,
+    maximoAncho: number,
+    contenidoEnBase64: string,
+}
 export type ArgumentosParaDefinirTextoSimple = {
     contenido: string,
 }
@@ -176,6 +185,22 @@ export type TamañoConNombreYValor = {
 
 export type ArgumentosParaDefinirEnfatizado = {
     enfatizado: boolean,
+}
+export type ArgumentosParaDefinirImpresionAlReves = {
+    alReves: boolean,
+}
+export type ArgumentosParaDefinirImpresionBlancoYNegroInversa = {
+    inversa: boolean,
+}
+export type ArgumentosParaDefinirRotacionDe90Grados = {
+    rotar: boolean,
+}
+export type ArgumentosParaDefinirSubrayado = {
+    subrayar: boolean,
+}
+export type ArgumentosParaDefinirTamañoFuente = {
+    ancho: number,
+    alto: number,
 }
 
 export enum Fuente {

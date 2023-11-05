@@ -15,6 +15,13 @@ import {
 	type AlineacionConNombreYValor,
 	type ArgumentosParaDefinirEnfatizado,
 	type ArgumentosParaDefinirFuente,
+	type ArgumentosParaDefinirImpresionAlReves,
+	type ArgumentosParaDefinirImpresionBlancoYNegroInversa,
+	type ArgumentosParaDefinirRotacionDe90Grados,
+	type ArgumentosParaDefinirSubrayado,
+	type ArgumentosParaDefinirTamañoFuente,
+	type ArgumentosParaDefinirFeed,
+	type ArgumentosParaDefinirImagenEnBase64,
 } from "./Tipos"
 import { Operacion } from "./Operacion"
 import { obtenerSeparador, tabularDatos, cantidadColumnas } from "@/Helpers";
@@ -420,6 +427,163 @@ export class OperacionFactory {
 				},
 			},
 		},
+		"EstablecerImpresionAlReves": {
+			nombre: "Establecer impresión al revés",
+			descripcion: `Alternar modo de impresión al revés`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImpresionAlReves;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerImpresionAlReves",
+							argumentos: [argumentos.alReves],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerImpresionBlancoYNegroInversa": {
+			nombre: "Establecer impresión B&N inversa",
+			descripcion: `Alternar modo de impresión blanco y negro inversa`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImpresionBlancoYNegroInversa;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerImpresionBlancoYNegroInversa",
+							argumentos: [argumentos.inversa],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerRotacionDe90Grados": {
+			nombre: "Establecer rotación de 90°",
+			descripcion: `Alternar rotación de texto de 90°`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirRotacionDe90Grados;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerRotacionDe90Grados",
+							argumentos: [argumentos.rotar],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerSubrayado": {
+			nombre: "Establecer subrayado",
+			descripcion: `Alternar subrayado de texto`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirSubrayado;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerSubrayado",
+							argumentos: [argumentos.subrayar],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"EstablecerTamañoFuente": {
+			nombre: "Establecer tamaño de fuente",
+			descripcion: `Cambiar ancho y alto de fuente`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTamañoFuente;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerTamañoFuente",
+							argumentos: [argumentos.ancho, argumentos.alto],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"Feed": {
+			nombre: "Feed",
+			descripcion: `Avanzar el papel determinado número de líneas`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFeed;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "Feed",
+							argumentos: [argumentos.lineas],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"HabilitarCaracteresPersonalizados": {
+			nombre: "Habilitar caracteres personalizados",
+			descripcion: `Habilita la impresión y reemplazo de caracteres definidos por el usuario`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "HabilitarCaracteresPersonalizados",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"HabilitarElModoDeCaracteresChinos": {
+			nombre: "Habilitar los caracteres chinos",
+			descripcion: `Habilita la impresión de caracteres chinos`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "HabilitarElModoDeCaracteresChinos",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"ImprimirImagenEnBase64": {
+			nombre: "Imprimir una imagen en base64",
+			descripcion: `Convierte el texto en base64 a una imagen, la convierte a blanco y negro y la redimensiona para que el ancho no sea mayor al ancho especificado. La imagen puede ser JPG o PNG y tener o no tener el "base64,"`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenEnBase64;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "ImprimirImagenEnBase64",
+							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+
+
 	};
 
 	static crearAPartirDeClaveYArgumentosSerializados(id: number, clave: string, argumentos: string): Operacion {

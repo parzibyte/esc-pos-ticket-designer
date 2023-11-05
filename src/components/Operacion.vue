@@ -20,6 +20,15 @@ import TextoSimple from "./Operaciones/TextoSimple.vue";
 import EstablecerAlineacion from "./Operaciones/EstablecerAlineacion.vue";
 import EstablecerEnfatizado from "./Operaciones/EstablecerEnfatizado.vue";
 import EstablecerFuente from "./Operaciones/EstablecerFuente.vue";
+import EstablecerImpresionAlReves from "./Operaciones/EstablecerImpresionAlReves.vue";
+import EstablecerImpresionBlancoYNegroInversa from "./Operaciones/EstablecerImpresionBlancoYNegroInversa.vue";
+import EstablecerRotacionDe90Grados from "./Operaciones/EstablecerRotacionDe90Grados.vue";
+import EstablecerSubrayado from "./Operaciones/EstablecerSubrayado.vue";
+import EstablecerTamanioFuente from "./Operaciones/EstablecerTamanioFuente.vue";
+import Feed from "./Operaciones/Feed.vue";
+import HabilitarCaracteresPersonalizados from "./Operaciones/HabilitarCaracteresPersonalizados.vue";
+import HabilitarElModoDeCaracteresChinos from "./Operaciones/HabilitarElModoDeCaracteresChinos.vue";
+import ImprimirImagenEnBase64 from "./Operaciones/ImprimirImagenEnBase64.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -38,6 +47,15 @@ const componentes: { [key: string]: Component } = {
     "EstablecerAlineacion": EstablecerAlineacion,
     "EstablecerEnfatizado": EstablecerEnfatizado,
     "EstablecerFuente": EstablecerFuente,
+    "EstablecerImpresionAlReves": EstablecerImpresionAlReves,
+    "EstablecerImpresionBlancoYNegroInversa": EstablecerImpresionBlancoYNegroInversa,
+    "EstablecerRotacionDe90Grados": EstablecerRotacionDe90Grados,
+    "EstablecerSubrayado": EstablecerSubrayado,
+    "EstablecerTamañoFuente": EstablecerTamanioFuente,
+    "Feed": Feed,
+    "HabilitarCaracteresPersonalizados": HabilitarCaracteresPersonalizados,
+    "HabilitarElModoDeCaracteresChinos": HabilitarElModoDeCaracteresChinos,
+    "ImprimirImagenEnBase64": ImprimirImagenEnBase64,
 };
 
 type MyComponentProps = {
