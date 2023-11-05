@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Alineacion, type ArgumentosParaDefinirTexto } from "@/types/Tipos"
-import Select from "@/components/Select.vue";
 import CustomCheckbox from "@/components/CustomCheckbox.vue";
 import CustomTextarea from "@/components/CustomTextarea.vue";
 import SelectAlineacion from '../Selects/SelectAlineacion.vue';
+import SelectTamanioFuente from '../Selects/SelectTamanioFuente.vue';
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTexto,
@@ -27,7 +27,6 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
         };
     }
 })
-const tamañosFuente = [1, 2, 3, 4, 5, 6, 7, 8];
 const emit = defineEmits(["update:modelValue"]);
 const valorSerializado = computed({
     set(value) {
@@ -42,16 +41,8 @@ const valorSerializado = computed({
     <CustomTextarea rows="3" placeholder="Escribe el texto para imprimir..." label="Texto para imprimir"
         v-model="propiedades.modelValue.texto"></CustomTextarea>
     <div class="flex flex-col md:flex-row">
-        <Select :items="tamañosFuente" label="Ancho" v-model.number="propiedades.modelValue.ancho">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item }}</h1>
-            </template>
-        </Select>
-        <Select :items="tamañosFuente" label="Alto" v-model.number="propiedades.modelValue.alto">
-            <template #item="{ item, index }">
-                <h1 class="text-xl">{{ item }}</h1>
-            </template>
-        </Select>
+        <SelectTamanioFuente v-model="propiedades.modelValue.ancho" label="Ancho"></SelectTamanioFuente>
+        <SelectTamanioFuente v-model="propiedades.modelValue.alto" label="Alto"></SelectTamanioFuente>
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
     </div>
     <div class="flex md:flex-row flex-col">
