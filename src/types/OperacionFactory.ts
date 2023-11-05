@@ -22,6 +22,7 @@ import {
 	type ArgumentosParaDefinirTamañoFuente,
 	type ArgumentosParaDefinirFeed,
 	type ArgumentosParaDefinirImagenEnBase64,
+	type ArgumentosParaDefinirPulso,
 } from "./Tipos"
 import { Operacion } from "./Operacion"
 import { obtenerSeparador, tabularDatos, cantidadColumnas } from "@/Helpers";
@@ -582,8 +583,39 @@ export class OperacionFactory {
 				},
 			},
 		},
-
-
+		"Iniciar": {
+			nombre: "Iniciar impresora",
+			descripcion: `Limpia los datos en el búfer y reinicia la impresora al modo que estaba en efecto cuando fue encendida. Útil para borrar el formato`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "Iniciar",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"Pulso": {
+			nombre: "Enviar pulso",
+			descripcion: `Envía un pulso eléctrico. Normalmente es para abrir el cajón. Los valores más comunes son pin 48, tiempo encendido 60, tiempo apagado 120`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirPulso;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "Pulso",
+							argumentos: [argumentos.pin, argumentos.tiempoEncendido, argumentos.tiempoApagado],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
 	};
 
 	static crearAPartirDeClaveYArgumentosSerializados(id: number, clave: string, argumentos: string): Operacion {

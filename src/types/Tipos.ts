@@ -24,6 +24,11 @@ export enum TamañoImagen {
 export type ArgumentosParaDefinirCorte = {
     lineas: number,
 }
+export type ArgumentosParaDefinirPulso = {
+    pin: number,
+    tiempoEncendido: number,
+    tiempoApagado: number,
+}
 export type ArgumentosParaDefinirFeed = {
     lineas: number,
 }

@@ -29,6 +29,8 @@ import Feed from "./Operaciones/Feed.vue";
 import HabilitarCaracteresPersonalizados from "./Operaciones/HabilitarCaracteresPersonalizados.vue";
 import HabilitarElModoDeCaracteresChinos from "./Operaciones/HabilitarElModoDeCaracteresChinos.vue";
 import ImprimirImagenEnBase64 from "./Operaciones/ImprimirImagenEnBase64.vue";
+import Iniciar from "./Operaciones/Iniciar.vue";
+import Pulso from "./Operaciones/Pulso.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -56,6 +58,8 @@ const componentes: { [key: string]: Component } = {
     "HabilitarCaracteresPersonalizados": HabilitarCaracteresPersonalizados,
     "HabilitarElModoDeCaracteresChinos": HabilitarElModoDeCaracteresChinos,
     "ImprimirImagenEnBase64": ImprimirImagenEnBase64,
+    "Iniciar": Iniciar,
+    "Pulso": Pulso,
 };
 
 type MyComponentProps = {

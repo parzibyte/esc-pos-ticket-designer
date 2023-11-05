@@ -23,6 +23,7 @@ import type {
 	ArgumentosParaDefinirTamañoFuente,
 	ArgumentosParaDefinirFeed,
 	ArgumentosParaDefinirImagenEnBase64,
+	ArgumentosParaDefinirPulso,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -208,5 +209,12 @@ export const listaCompletaDeOperaciones = [
 		},
 		contenidoEnBase64: "",
 		maximoAncho: 200,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Iniciar", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Pulso", <ArgumentosParaDefinirPulso>{
+		pin: 48,
+		tiempoEncendido: 60,
+		tiempoApagado: 120,
 	}),
 ]
