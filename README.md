@@ -76,3 +76,23 @@ const componentes: { [key: string]: Component } = {
     "CorteParcial": CorteParcial,
 };
 ```
+
+## Argumentos
+Me parece que todos los argumentos deben ser un objeto en el modelValue del componente. Por ejemplo, lo siguiente es correcto:
+
+```typescript
+type Propiedades = {
+	modelValue: {
+		alineacion: AlineacionConNombreYValor,
+	},
+};
+```
+
+Ahí, `alineacion` está dentro de un objeto. Lo siguiente es incorrecto y muestra un error de que es de solo lectura:
+```typescript
+type Propiedades = {
+	modelValue: AlineacionConNombreYValor
+};
+```
+
+O sea que `modelValue` siempre debe ser un objeto, y dentro de ese objeto podemos tener cualquier propiedad, pero no podemos deefinir `modelValue` de otro modo. Aunque no muestre errores, a veces simplemente no desencadena el evento change o cosas similares
