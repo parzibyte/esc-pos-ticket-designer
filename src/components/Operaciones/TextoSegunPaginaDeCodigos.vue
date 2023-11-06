@@ -26,57 +26,6 @@ const valorSerializado = computed<ArgumentosParaDefinirTextoSegunPaginaDeCodigos
 		return propiedades.modelValue;
 	},
 });
-/**
- * Faltan:
- * CP847
- * CP850
- * CP860
- * 
- * CP863
- * CP865
- * CP852
- * CP857
- * CP737
- * CP866
- * CP862
- * CP775
- * ISO8859-15
- * Win1252
- * CP858
- * CP855
- * Win1251
- * Win1250
- * Win1253
- * Win1254
- * Win1255
- * Win1258
- * Win1257
- * CP874
- * CP720
- * Win1256
- * CP932
- * CP949
- * CP950
- * CP936
- * 
- * 
- * 
- * 
- * CP737
- * CP852
- * CP857
- * CP862
- * CP864
- * CP866
- * CP1252
- * CP1253
- * ISO8859
- * 
- * 
- * 
- * 
- * 
- */
 const paginasDeCodigos = [
 	"437",
 	"850",
@@ -102,9 +51,9 @@ const paginasDeCodigos = [
 	"BIG5-HKSCS:2004",
 	"C99",
 	"CHINESE",
-	"CN",
-	"CN-GB",
 	"CN-GB-ISOIR165",
+	"CN-GB",
+	"CN",
 	"CP1046",
 	"CP1124",
 	"CP1125",
@@ -126,13 +75,24 @@ const paginasDeCodigos = [
 	"CP1361",
 	"CP154",
 	"CP50221",
+	"CP720",
 	"CP737",
 	"CP775",
 	"CP819",
+	"CP847",
+	"CP850",
+	"CP852",
 	"CP853",
+	"CP855",
 	"CP856",
+	"CP857",
 	"CP858",
+	"CP860",
+	"CP862",
+	"CP863",
 	"CP864",
+	"CP865",
+	"CP866",
 	"CP874",
 	"CP922",
 	"CP932",
@@ -157,12 +117,12 @@ const paginasDeCodigos = [
 	"HZ",
 	"ISO-10646-UCS-2",
 	"ISO-10646-UCS-4",
-	"ISO-2022-CN",
 	"ISO-2022-CN-EXT",
-	"ISO-2022-JP",
+	"ISO-2022-CN",
 	"ISO-2022-JP-1",
 	"ISO-2022-JP-2",
 	"ISO-2022-JP-2004",
+	"ISO-2022-JP",
 	"ISO-2022-KR",
 	"ISO-8859-10",
 	"ISO-8859-11",
@@ -180,6 +140,8 @@ const paginasDeCodigos = [
 	"ISO-IR-166",
 	"ISO-IR-230",
 	"ISO-IR-87",
+	"ISO8859-15",
+	"ISO8859",
 	"JAVA",
 	"JISX0201-1976",
 	"KOI8-R",
@@ -221,14 +183,24 @@ const paginasDeCodigos = [
 	"UTF-32BE",
 	"UTF-32LE",
 	"UTF-8",
-	"VISCII"
+	"VISCII",
+	"Win1250",
+	"Win1251",
+	"Win1252",
+	"Win1253",
+	"Win1254",
+	"Win1255",
+	"Win1256",
+	"Win1257",
+	"Win1258",
 ];
 </script>
 <template>
 	<CustomTextarea v-model="valorSerializado.texto" placeholder="Escribe el texto" label="Texto:"></CustomTextarea>
 	<CustomInput v-model="valorSerializado.numeroPagina" type="number"
 		label="Número de página según modelo de tu impresora"></CustomInput>
-	<Select v-model="valorSerializado.pagina" label="Página de caracteres para iconv" :items="paginasDeCodigos" :display-item-function="(pagina) => pagina">
+	<Select v-model="valorSerializado.pagina" label="Página de caracteres para iconv" :items="paginasDeCodigos"
+		:display-item-function="(pagina) => pagina">
 		<template #item="{ item, index }">
 			<h1 class="text-xl">{{ item }}</h1>
 		</template>
