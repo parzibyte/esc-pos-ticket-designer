@@ -31,6 +31,7 @@ import HabilitarElModoDeCaracteresChinos from "./Operaciones/HabilitarElModoDeCa
 import ImprimirImagenEnBase64 from "./Operaciones/ImprimirImagenEnBase64.vue";
 import Iniciar from "./Operaciones/Iniciar.vue";
 import Pulso from "./Operaciones/Pulso.vue";
+import TextoSegunPaginaDeCodigos from "./Operaciones/TextoSegunPaginaDeCodigos.vue";
 
 const componentes: { [key: string]: Component } = {
     "Corte": Corte,
@@ -60,6 +61,7 @@ const componentes: { [key: string]: Component } = {
     "ImprimirImagenEnBase64": ImprimirImagenEnBase64,
     "Iniciar": Iniciar,
     "Pulso": Pulso,
+    "TextoSegunPaginaDeCodigos": TextoSegunPaginaDeCodigos,
 };
 
 type MyComponentProps = {

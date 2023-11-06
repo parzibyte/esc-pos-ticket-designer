@@ -61,10 +61,8 @@ const obtenerPayloadComoJson = () => {
 }
 
 const obtenerCodigo = () => {
-  return `curl -X POST https://reqbin.com/echo/post/json
--H 'Content-Type: application/json'
--d '{"login":"my_login","password":"my_password"}'`;
-};
+  return obtenerPayload();
+}
 
 const imprimir = async () => {
   await fetch(`${diseñoActualmenteEditado.value.ruta_api}/imprimir`, {
@@ -147,7 +145,7 @@ from diseños d
       </div>
     </div>
     <div class="bg-white w-full md:w-1/4 overflow-x-auto p-1 break-words">
-      <code>{{ obtenerCodigo() }}</code>
+      <pre>{{ obtenerCodigo() }}</pre>
     </div>
   </div>
 </template>

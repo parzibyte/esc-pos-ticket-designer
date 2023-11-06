@@ -1,0 +1,236 @@
+<script setup lang="ts">
+import type { ArgumentosParaDefinirTextoSegunPaginaDeCodigos } from '@/types/Tipos';
+import { computed, } from 'vue';
+import CustomTextarea from '../CustomTextarea.vue';
+import CustomInput from '../CustomInput.vue';
+import Select from '../Select.vue';
+
+type Propiedades = {
+	modelValue: ArgumentosParaDefinirTextoSegunPaginaDeCodigos,
+};
+const propiedades = withDefaults(defineProps<Propiedades>(), {
+	modelValue: () => {
+		return {
+			texto: "",
+			pagina: "",
+			numeroPagina: 1,
+		};
+	}
+})
+const emit = defineEmits(["update:modelValue"]);
+const valorSerializado = computed<ArgumentosParaDefinirTextoSegunPaginaDeCodigos>({
+	set(value) {
+		emit("update:modelValue", value);
+	},
+	get() {
+		return propiedades.modelValue;
+	},
+});
+/**
+ * Faltan:
+ * CP847
+ * CP850
+ * CP860
+ * 
+ * CP863
+ * CP865
+ * CP852
+ * CP857
+ * CP737
+ * CP866
+ * CP862
+ * CP775
+ * ISO8859-15
+ * Win1252
+ * CP858
+ * CP855
+ * Win1251
+ * Win1250
+ * Win1253
+ * Win1254
+ * Win1255
+ * Win1258
+ * Win1257
+ * CP874
+ * CP720
+ * Win1256
+ * CP932
+ * CP949
+ * CP950
+ * CP936
+ * 
+ * 
+ * 
+ * 
+ * CP737
+ * CP852
+ * CP857
+ * CP862
+ * CP864
+ * CP866
+ * CP1252
+ * CP1253
+ * ISO8859
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+const paginasDeCodigos = [
+	"437",
+	"850",
+	"852",
+	"855",
+	"857",
+	"860",
+	"861",
+	"862",
+	"863",
+	"865",
+	"866",
+	"869",
+	"ANSI_X3.4-1968",
+	"ARABIC",
+	"ARMSCII-8",
+	"ATARI",
+	"BIG-5",
+	"BIG5-2003",
+	"BIG5-HKSCS",
+	"BIG5-HKSCS:1999",
+	"BIG5-HKSCS:2001",
+	"BIG5-HKSCS:2004",
+	"C99",
+	"CHINESE",
+	"CN",
+	"CN-GB",
+	"CN-GB-ISOIR165",
+	"CP1046",
+	"CP1124",
+	"CP1125",
+	"CP1129",
+	"CP1131",
+	"CP1133",
+	"CP1161",
+	"CP1162",
+	"CP1163",
+	"CP1250",
+	"CP1251",
+	"CP1252",
+	"CP1253",
+	"CP1254",
+	"CP1255",
+	"CP1256",
+	"CP1257",
+	"CP1258",
+	"CP1361",
+	"CP154",
+	"CP50221",
+	"CP737",
+	"CP775",
+	"CP819",
+	"CP853",
+	"CP856",
+	"CP858",
+	"CP864",
+	"CP874",
+	"CP922",
+	"CP932",
+	"CP936",
+	"CP943",
+	"CP949",
+	"CP950",
+	"CYRILLIC",
+	"DEC-HANYU",
+	"DEC-KANJI",
+	"ECMA-118",
+	"EUC-JIS-2004",
+	"EUC-JP",
+	"EUC-KR",
+	"EUC-TW",
+	"GB18030",
+	"GBK",
+	"GEORGIAN-ACADEMY",
+	"GEORGIAN-PS",
+	"HEBREW",
+	"HP-ROMAN8",
+	"HZ",
+	"ISO-10646-UCS-2",
+	"ISO-10646-UCS-4",
+	"ISO-2022-CN",
+	"ISO-2022-CN-EXT",
+	"ISO-2022-JP",
+	"ISO-2022-JP-1",
+	"ISO-2022-JP-2",
+	"ISO-2022-JP-2004",
+	"ISO-2022-KR",
+	"ISO-8859-10",
+	"ISO-8859-11",
+	"ISO-8859-13",
+	"ISO-8859-14",
+	"ISO-8859-15",
+	"ISO-8859-16",
+	"ISO-8859-2",
+	"ISO-8859-3",
+	"ISO-8859-4",
+	"ISO-8859-9",
+	"ISO-IR-14",
+	"ISO-IR-149",
+	"ISO-IR-159",
+	"ISO-IR-166",
+	"ISO-IR-230",
+	"ISO-IR-87",
+	"JAVA",
+	"JISX0201-1976",
+	"KOI8-R",
+	"KOI8-RU",
+	"KOI8-T",
+	"KOI8-U",
+	"KZ-1048",
+	"MAC",
+	"MACARABIC",
+	"MACCENTRALEUROPE",
+	"MACCROATIAN",
+	"MACCYRILLIC",
+	"MACGREEK",
+	"MACHEBREW",
+	"MACICELAND",
+	"MACROMANIA",
+	"MACTHAI",
+	"MACTURKISH",
+	"MACUKRAINE",
+	"MS_KANJI",
+	"MULELAO-1",
+	"NEXTSTEP",
+	"RISCOS-LATIN1",
+	"SHIFT_JIS-2004",
+	"TCVN",
+	"UCS-2-INTERNAL",
+	"UCS-2-SWAPPED",
+	"UCS-2BE",
+	"UCS-2LE",
+	"UCS-4-INTERNAL",
+	"UCS-4-SWAPPED",
+	"UCS-4BE",
+	"UCS-4LE",
+	"UNICODE-1-1-UTF-7",
+	"UTF-16",
+	"UTF-16BE",
+	"UTF-16LE",
+	"UTF-32",
+	"UTF-32BE",
+	"UTF-32LE",
+	"UTF-8",
+	"VISCII"
+];
+</script>
+<template>
+	<CustomTextarea v-model="valorSerializado.texto" placeholder="Escribe el texto" label="Texto:"></CustomTextarea>
+	<CustomInput v-model="valorSerializado.numeroPagina" type="number"
+		label="Número de página según modelo de tu impresora"></CustomInput>
+	<Select v-model="valorSerializado.pagina" label="Página de caracteres para iconv" :items="paginasDeCodigos" :display-item-function="(pagina) => pagina">
+		<template #item="{ item, index }">
+			<h1 class="text-xl">{{ item }}</h1>
+		</template>
+	</Select>
+</template>

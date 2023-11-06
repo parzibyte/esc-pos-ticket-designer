@@ -23,6 +23,7 @@ import {
 	type ArgumentosParaDefinirFeed,
 	type ArgumentosParaDefinirImagenEnBase64,
 	type ArgumentosParaDefinirPulso,
+	type ArgumentosParaDefinirTextoSegunPaginaDeCodigos,
 } from "./Tipos"
 import { Operacion } from "./Operacion"
 import { obtenerSeparador, tabularDatos, cantidadColumnas } from "@/Helpers";
@@ -610,6 +611,23 @@ export class OperacionFactory {
 						{
 							nombre: "Pulso",
 							argumentos: [argumentos.pin, argumentos.tiempoEncendido, argumentos.tiempoApagado],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+			},
+		},
+		"TextoSegunPaginaDeCodigos": {
+			nombre: "Convertir codificación texto según página de códigos de caracteres",
+			descripcion: `Permite, en palabras simples, escribir texto con acentos. Hay que especificar el número de página (según la impresora) y el character code page para iconv. Se recomienda deshabilitar el modo de caracteres chinos en impresoras chinas. Funciona solo si el plugin viene con iconv`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTextoSegunPaginaDeCodigos;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "TextoSegunPaginaDeCodigos",
+							argumentos: [argumentos.numeroPagina, argumentos.pagina, argumentos.texto],
 						},
 					];
 					return argumentosParaDevolver;

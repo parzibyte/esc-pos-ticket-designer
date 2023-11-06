@@ -24,6 +24,7 @@ import type {
 	ArgumentosParaDefinirFeed,
 	ArgumentosParaDefinirImagenEnBase64,
 	ArgumentosParaDefinirPulso,
+	ArgumentosParaDefinirTextoSegunPaginaDeCodigos,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -216,5 +217,10 @@ export const listaCompletaDeOperaciones = [
 		pin: 48,
 		tiempoEncendido: 60,
 		tiempoApagado: 120,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSegunPaginaDeCodigos", <ArgumentosParaDefinirTextoSegunPaginaDeCodigos>{
+		texto: "",
+		pagina: "cp850",
+		numeroPagina: 2,
 	}),
 ]

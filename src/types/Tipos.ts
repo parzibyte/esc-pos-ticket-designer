@@ -41,6 +41,11 @@ export type ArgumentosParaDefinirImagenEnBase64 = {
 export type ArgumentosParaDefinirTextoSimple = {
     contenido: string,
 }
+export type ArgumentosParaDefinirTextoSegunPaginaDeCodigos = {
+    texto: string,
+    numeroPagina: number,
+    pagina: string,
+}
 
 export type ArgumentosParaDefinirCorteParcial = {
 }
