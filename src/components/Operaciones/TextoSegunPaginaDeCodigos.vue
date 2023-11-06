@@ -184,20 +184,11 @@ const paginasDeCodigos = [
 	"UTF-32LE",
 	"UTF-8",
 	"VISCII",
-	"Win1250",
-	"Win1251",
-	"Win1252",
-	"Win1253",
-	"Win1254",
-	"Win1255",
-	"Win1256",
-	"Win1257",
-	"Win1258",
 ];
 </script>
 <template>
 	<CustomTextarea v-model="valorSerializado.texto" placeholder="Escribe el texto" label="Texto:"></CustomTextarea>
-	<CustomInput v-model="valorSerializado.numeroPagina" type="number"
+	<CustomInput min="0" v-model="valorSerializado.numeroPagina" type="number"
 		label="Número de página según modelo de tu impresora"></CustomInput>
 	<Select v-model="valorSerializado.pagina" label="Página de caracteres para iconv" :items="paginasDeCodigos"
 		:display-item-function="(pagina) => pagina">
