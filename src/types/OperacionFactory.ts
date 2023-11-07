@@ -638,8 +638,6 @@ export class OperacionFactory {
 
 	static crearAPartirDeClaveYArgumentosSerializados(id: number, clave: string, argumentos: string, orden: number = 0): Operacion {
 		const argumentosDeserializados = JSON.parse(argumentos);
-		console.log(argumentosDeserializados);
-
 		return OperacionFactory.crearAPartirDeClaveYArgumentos(id, clave, argumentosDeserializados, orden);
 	}
 	static crearAPartirDeClaveYArgumentos(id: number, clave: string, argumentos: Record<string, any>, orden: number = 0): Operacion {

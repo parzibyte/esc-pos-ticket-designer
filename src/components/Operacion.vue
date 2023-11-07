@@ -107,14 +107,12 @@ const onSoltado = (evento) => {
     const operacionReemplazadaConIndice = { operacion: props.operacion.clonar(), indice: props.indice };
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
     emit("intercambiar", operacionReemplazoConIndice, operacionReemplazadaConIndice);
-    console.log({ operacionReemplazo: operacionReemplazoConIndice, operacionReemplazada: operacionReemplazadaConIndice });
 }
 
 // Están a punto de soltar algo sobre el elemento. Debemos mostrar estilo e interfaz que muestren que el
 // elemento puede ser soltado
 const onArrastreAPuntoDeSoltar = (evento) => {
     evento.preventDefault();
-    console.log("onArrastreAPuntoDeSoltar");
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = true;
 }
 
@@ -122,7 +120,6 @@ const onArrastreAPuntoDeSoltar = (evento) => {
 const onAPuntoDeSoltarCancelado = (evento) => {
     evento.preventDefault();
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
-    console.log("onAPuntoDeSoltarCancelado");
 }
 
 // Solo lo necesitamos para que "onSoltado", "ondrop" o el evento "drop" funcione
@@ -133,7 +130,6 @@ const onDragOver = (evento: DragEvent) => {
 
 </script>
 <template>
-    <strong>Index {{ indice }} orden {{ props.operacion.orden }}</strong>
     <div @dragover="onDragOver($event)" @dragleave="onAPuntoDeSoltarCancelado($event)"
         @dragenter="onArrastreAPuntoDeSoltar($event)" draggable="true"
         @dragstart="onArrastreIniciado($event, props.operacion, props.indice)" @drop="onSoltado($event)"
