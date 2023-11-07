@@ -78,6 +78,7 @@ const eliminar = () => {
 }
 
 const mostrarElementos = ref(true);
+const estanAPuntoDeSoltarAlgoSobreElElementoActual = ref(false);
 
 watch(props.operacion.argumentos, () => {
     emit("actualizado", props.operacion);
@@ -87,21 +88,63 @@ const alternarVisibilidad = () => {
     mostrarElementos.value = !mostrarElementos.value;
 }
 
+// Empezaron a arrastrar el elemento, ponemos los datos
+const onArrastreIniciado = (evento, operacion) => {
+    evento.dataTransfer.setData("text/plain", JSON.stringify(operacion));
+}
+
+// Lo soltaron, aquí ya podemos acceder al elemento soltado y cancelar estilos
+const onSoltado = (evento) => {
+    evento.preventDefault();
+    const operacionReemplazo = JSON.parse(evento.dataTransfer.getData("text/plain"))
+    const operacionReemplazada = props.operacion.clonar();
+    estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
+    console.log({ operacionReemplazo, operacionReemplazada });
+}
+
+// Están a punto de soltar algo sobre el elemento. Debemos mostrar estilo e interfaz que muestren que el
+// elemento puede ser soltado
+const onArrastreAPuntoDeSoltar = (evento) => {
+    evento.preventDefault();
+    console.log("onArrastreAPuntoDeSoltar");
+    estanAPuntoDeSoltarAlgoSobreElElementoActual.value = true;
+}
+
+// Lo iban a soltar pero no lo hicieron. Debemos cancelar los estilos y cosas similares
+const onAPuntoDeSoltarCancelado = (evento) => {
+    evento.preventDefault();
+    estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
+    console.log("onAPuntoDeSoltarCancelado");
+}
+
+// Solo lo necesitamos para que "onSoltado", "ondrop" o el evento "drop" funcione
+const onDragOver = (evento: DragEvent) => {
+    evento.preventDefault();
+    evento.dataTransfer.dropEffect = "move";
+}
+
 </script>
 <template>
-    <div class="p-1 my-2 bg-white rounded-md">
+    <div @dragover="onDragOver($event)" @dragleave="onAPuntoDeSoltarCancelado($event)"
+        @dragenter="onArrastreAPuntoDeSoltar($event)" draggable="true"
+        @dragstart="onArrastreIniciado($event, props.operacion)" @drop="onSoltado($event)"
+        class="p-1 my-2 bg-white rounded-md"
+        :class="{ 'deshabilitar-pointer-events border-2 border-sky-200': estanAPuntoDeSoltarAlgoSobreElElementoActual }">
         <div class="flex my-2">
-            <h1 class="text-xl">{{ props.operacion.nombre }}</h1>
-            <button @click="eliminar" class="bg-red-500 text-white p-1 mx-2 rounded-md hover:bg-red-600 focus:bg-red-600">
+            <h1 class="text-xl" v-show="!estanAPuntoDeSoltarAlgoSobreElElementoActual">{{ props.operacion.nombre }}</h1>
+            <h1 class="text-xl" v-show="estanAPuntoDeSoltarAlgoSobreElElementoActual">Suelta para intercambiarlas</h1>
+            <button :class="{ 'invisible': estanAPuntoDeSoltarAlgoSobreElElementoActual }" @click="eliminar"
+                class="bg-red-500 text-white p-1 mx-2 rounded-md hover:bg-red-600 focus:bg-red-600">
                 <Delete />
             </button>
-            <button @click="alternarVisibilidad()" class="bg-sky-500 text-white p-1 mx-2 rounded-md hover:bg-sky-600 ">
+            <button :class="{ 'invisible': estanAPuntoDeSoltarAlgoSobreElElementoActual }" @click="alternarVisibilidad()"
+                class="bg-sky-500 text-white p-1 mx-2 rounded-md hover:bg-sky-600 ">
                 <UnfoldLessHorizontal v-if="mostrarElementos"></UnfoldLessHorizontal>
                 <UnfoldMoreHorizontal v-else></UnfoldMoreHorizontal>
             </button>
         </div>
         <Transition>
-            <div v-show="mostrarElementos">
+            <div :class="{ 'invisible': estanAPuntoDeSoltarAlgoSobreElElementoActual }" v-show="mostrarElementos">
                 <component v-model="operacion.argumentos" :is="componentes[operacion.clave]"></component>
             </div>
         </Transition>
@@ -116,5 +159,9 @@ const alternarVisibilidad = () => {
 .v-enter-from,
 .v-leave-to {
     opacity: 0;
+}
+
+.deshabilitar-pointer-events * {
+    pointer-events: none;
 }
 </style>
