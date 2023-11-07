@@ -101,13 +101,22 @@ const imprimir = async () => {
 const onActualizado = debounce(async (op: Operacion) => {
   console.log("se actualizó alguna operación");
   console.log(op.clonar());
-  
+
   const operacionRecienInsertada = await store.exec(`UPDATE operaciones_diseños SET argumentos = ? WHERE id = ?`,
     [op.clonar().obtenerArgumentosRealesSerializados(), op.id]);
   await store.exec(`UPDATE diseños SET fecha_modificacion = ? WHERE id = ?`, [new Date().toLocaleDateString(), props.id]);
   console.log({ operacionRecienInsertada });
 }, 500);
 
+
+const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
+  operaciones.value = [];
+  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos, orden FROM operaciones_diseños WHERE id_diseño = ? ORDER BY orden ASC", [props.id]);
+  for (const operacionSerializada of operacionesSerializadas) {
+    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.id, operacionSerializada.clave, operacionSerializada.argumentos, operacionSerializada.orden);
+    operaciones.value.push(operacion);
+  }
+}
 
 onMounted(async () => {
   const diseñosCoincidentesConId = await store.exec(`select d.id,
@@ -124,35 +133,19 @@ from diseños d
   WHERE d.id = ?`, [props.id]);
 
   diseñoActualmenteEditado.value = diseñosCoincidentesConId[0];
-  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos, orden FROM operaciones_diseños WHERE id_diseño = ? ORDER BY orden ASC", [props.id]);
-  for (const operacionSerializada of operacionesSerializadas) {
-    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.id, operacionSerializada.clave, operacionSerializada.argumentos, operacionSerializada.orden);
-    operaciones.value.push(operacion);
-    console.log({ operacion });
-  }
-
+  await refrescarOperacionesDeDiseñoActualmenteEditado();
 })
 
 const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionConIndice, operacionReemplazadaConIndice: OperacionConIndice) => {
-  /**
-   * Hay muchas variables porque no puedo usar objetos debido a las referencias, tampoco puedo invocar
-   * a Operacion.clonar() (que elimina las referencias) porque deja de funcionar el "change"
-   */
-  const indiceReemplazo = operacionReemplazoConIndice.indice;
-  const indiceReemplazado = operacionReemplazadaConIndice.indice;
   const ordenReemplazo = operacionReemplazoConIndice.operacion.orden;
   const ordenReemplazado = operacionReemplazadaConIndice.operacion.orden;
   const idReemplazo = operacionReemplazoConIndice.operacion.id;
   const idReemplazado = operacionReemplazadaConIndice.operacion.id;
-  const temporal = operaciones.value[indiceReemplazo];
-  operaciones.value[indiceReemplazo].orden = ordenReemplazado;
-  operaciones.value[indiceReemplazado].orden = ordenReemplazo;
-  operaciones.value[operacionReemplazoConIndice.indice] = operaciones.value[operacionReemplazadaConIndice.indice]
-  operaciones.value[operacionReemplazadaConIndice.indice] = temporal;
   await store.exec("UPDATE operaciones_diseños SET orden = ? WHERE id = ?",
     [ordenReemplazado, idReemplazo]);
   await store.exec("UPDATE operaciones_diseños SET orden = ? WHERE id = ?",
     [ordenReemplazo, idReemplazado]);
+  await refrescarOperacionesDeDiseñoActualmenteEditado();
 }
 
 </script>
