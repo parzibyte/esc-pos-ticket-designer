@@ -225,3 +225,7 @@ export type FuenteConNombreYValor = {
     nombre: string,
     valor: Fuente,
 }
+export type OperacionConIndice = {
+    operacion: Operacion,
+    indice: number,
+}

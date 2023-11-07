@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps, type Component, watch, ref } from "vue";
 import { Operacion } from "@/types/Operacion";
+import type { OperacionConIndice } from "@/types/Tipos";
 import Delete from "vue-material-design-icons/Delete.vue";
 import UnfoldLessHorizontal from "vue-material-design-icons/UnfoldLessHorizontal.vue";
 import UnfoldMoreHorizontal from "vue-material-design-icons/UnfoldMoreHorizontal.vue";
@@ -66,11 +67,15 @@ const componentes: { [key: string]: Component } = {
 
 type MyComponentProps = {
     operacion: Operacion;
+    indice: number,
 };
+
+
 const props = defineProps<MyComponentProps>();
 const emit = defineEmits<{
     (e: "eliminar"): void,
     (e: "actualizado", operacion: Operacion): void,
+    (e: "intercambiar", operacionReemplazo: OperacionConIndice, operacionReemplazada: OperacionConIndice): void,
 }>();
 
 const eliminar = () => {
@@ -89,17 +94,20 @@ const alternarVisibilidad = () => {
 }
 
 // Empezaron a arrastrar el elemento, ponemos los datos
-const onArrastreIniciado = (evento, operacion) => {
-    evento.dataTransfer.setData("text/plain", JSON.stringify(operacion));
+const onArrastreIniciado = (evento, operacion, indice) => {
+    evento.dataTransfer.setData("text/plain", JSON.stringify(<OperacionConIndice>{
+        operacion, indice,
+    }));
 }
 
 // Lo soltaron, aquí ya podemos acceder al elemento soltado y cancelar estilos
 const onSoltado = (evento) => {
     evento.preventDefault();
-    const operacionReemplazo = JSON.parse(evento.dataTransfer.getData("text/plain"))
-    const operacionReemplazada = props.operacion.clonar();
+    const operacionReemplazoConIndice = JSON.parse(evento.dataTransfer.getData("text/plain"))
+    const operacionReemplazadaConIndice = { operacion: props.operacion.clonar(), indice: props.indice };
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
-    console.log({ operacionReemplazo, operacionReemplazada });
+    emit("intercambiar", operacionReemplazoConIndice, operacionReemplazadaConIndice);
+    console.log({ operacionReemplazo: operacionReemplazoConIndice, operacionReemplazada: operacionReemplazadaConIndice });
 }
 
 // Están a punto de soltar algo sobre el elemento. Debemos mostrar estilo e interfaz que muestren que el
@@ -125,9 +133,10 @@ const onDragOver = (evento: DragEvent) => {
 
 </script>
 <template>
+    <strong>Index {{ indice }} orden {{ props.operacion.orden }}</strong>
     <div @dragover="onDragOver($event)" @dragleave="onAPuntoDeSoltarCancelado($event)"
         @dragenter="onArrastreAPuntoDeSoltar($event)" draggable="true"
-        @dragstart="onArrastreIniciado($event, props.operacion)" @drop="onSoltado($event)"
+        @dragstart="onArrastreIniciado($event, props.operacion, props.indice)" @drop="onSoltado($event)"
         class="p-1 my-2 bg-white rounded-md"
         :class="{ 'deshabilitar-pointer-events border-2 border-sky-200': estanAPuntoDeSoltarAlgoSobreElElementoActual }">
         <div class="flex my-2">

@@ -6,6 +6,7 @@ import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
 import { debounce } from "@/Helpers"
+import type { OperacionConIndice } from "@/types/Tipos";
 const store = useDatabaseStore();
 const referenciaAlSelect = ref(null);
 const diseñoActualmenteEditado = ref({});
@@ -17,12 +18,36 @@ const operaciones: Ref<Array<Operacion>> = ref([]);
 const agregarOperacionSeleccionada = async () => {
   const operacionSinReferencias = opcionSeleccionada.value.clonar();
   const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
-  const operacionesInsertadas = await store.exec("INSERT INTO operaciones_diseños(id_diseño, clave, argumentos) VALUES (?, ?, ?) RETURNING *",
-    [props.id, operacionSinReferencias.clave, argumentosSerializados],
+  const operacionesInsertadas = await store.exec(` INSERT INTO
+    operaciones_diseños(id_diseño, clave, argumentos, orden)
+VALUES
+    (
+        ?,
+        ?,
+        ?,
+        (
+            SELECT
+                COALESCE(
+                    (
+                        SELECT
+                            orden
+                        FROM
+                            operaciones_diseños
+                        WHERE
+                            id_diseño = ?
+                        ORDER BY
+                            orden DESC
+                        LIMIT
+                            1
+                    ), 0
+                )
+        ) + 1
+    ) RETURNING *`,
+    [props.id, operacionSinReferencias.clave, argumentosSerializados, props.id],
   )
   const operacionRecienInsertada = operacionesInsertadas[0];
   const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
-    operacionRecienInsertada.id, operacionRecienInsertada.clave, operacionRecienInsertada.argumentos);
+    operacionRecienInsertada.id, operacionRecienInsertada.clave, operacionRecienInsertada.argumentos, operacionRecienInsertada.orden);
   operaciones.value.push(operacion);
   referenciaAlSelect.value.clearSelectedItem();
 };
@@ -71,19 +96,12 @@ const imprimir = async () => {
   })
 
 }
-const guardar = async () => {
-  for (const operacion of operaciones.value) {
-    const argumentosSerializados = operacion.obtenerArgumentosRealesSerializados();
-    const operacionRecienInsertada = await store.exec("INSERT INTO operaciones(clave, argumentos) VALUES (?, ?) RETURNING *",
-      [operacion.clave, argumentosSerializados],
-    )
-    console.log({ operacionRecienInsertada });
-  }
-}
 
 
 const onActualizado = debounce(async (op: Operacion) => {
   console.log("se actualizó alguna operación");
+  console.log(op.clonar());
+  
   const operacionRecienInsertada = await store.exec(`UPDATE operaciones_diseños SET argumentos = ? WHERE id = ?`,
     [op.clonar().obtenerArgumentosRealesSerializados(), op.id]);
   await store.exec(`UPDATE diseños SET fecha_modificacion = ? WHERE id = ?`, [new Date().toLocaleDateString(), props.id]);
@@ -106,14 +124,36 @@ from diseños d
   WHERE d.id = ?`, [props.id]);
 
   diseñoActualmenteEditado.value = diseñosCoincidentesConId[0];
-  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos FROM operaciones_diseños WHERE id_diseño = ?", [props.id]);
+  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos, orden FROM operaciones_diseños WHERE id_diseño = ? ORDER BY orden ASC", [props.id]);
   for (const operacionSerializada of operacionesSerializadas) {
-    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.id, operacionSerializada.clave, operacionSerializada.argumentos);
+    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.id, operacionSerializada.clave, operacionSerializada.argumentos, operacionSerializada.orden);
     operaciones.value.push(operacion);
     console.log({ operacion });
   }
 
 })
+
+const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionConIndice, operacionReemplazadaConIndice: OperacionConIndice) => {
+  /**
+   * Hay muchas variables porque no puedo usar objetos debido a las referencias, tampoco puedo invocar
+   * a Operacion.clonar() (que elimina las referencias) porque deja de funcionar el "change"
+   */
+  const indiceReemplazo = operacionReemplazoConIndice.indice;
+  const indiceReemplazado = operacionReemplazadaConIndice.indice;
+  const ordenReemplazo = operacionReemplazoConIndice.operacion.orden;
+  const ordenReemplazado = operacionReemplazadaConIndice.operacion.orden;
+  const idReemplazo = operacionReemplazoConIndice.operacion.id;
+  const idReemplazado = operacionReemplazadaConIndice.operacion.id;
+  const temporal = operaciones.value[indiceReemplazo];
+  operaciones.value[indiceReemplazo].orden = ordenReemplazado;
+  operaciones.value[indiceReemplazado].orden = ordenReemplazo;
+  operaciones.value[operacionReemplazoConIndice.indice] = operaciones.value[operacionReemplazadaConIndice.indice]
+  operaciones.value[operacionReemplazadaConIndice.indice] = temporal;
+  await store.exec("UPDATE operaciones_diseños SET orden = ? WHERE id = ?",
+    [ordenReemplazado, idReemplazo]);
+  await store.exec("UPDATE operaciones_diseños SET orden = ? WHERE id = ?",
+    [ordenReemplazo, idReemplazado]);
+}
 
 </script>
 <template>
@@ -121,9 +161,9 @@ from diseños d
     <div class="p-1 bg-gray-100 w-full md:w-3/4">
       <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
       <div class="">
-        <ComponenteOperacion @actualizado="onActualizado" :key="'componente_' + indice"
-          @eliminar="eliminarOperacionPorIndice(indice)" v-for="(operacion, indice) in operaciones"
-          :operacion="operacion" />
+        <ComponenteOperacion @intercambiar="onOperacionIntercambiada" :indice="indice" @actualizado="onActualizado"
+          :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
+          v-for="(operacion, indice) in operaciones" :operacion="operacion" />
       </div>
       <div class="max-w-xs content-center">
         <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
@@ -139,9 +179,6 @@ from diseños d
         <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
           Imprimir
         </button>
-        <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="guardar">
-          Guardar
-        </button>
       </div>
     </div>
     <div class="bg-white w-full md:w-1/4 overflow-x-auto p-1 break-words">
@@ -149,3 +186,4 @@ from diseños d
     </div>
   </div>
 </template>
+<style></style>

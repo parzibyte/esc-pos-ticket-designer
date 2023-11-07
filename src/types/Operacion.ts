@@ -34,13 +34,15 @@ export class Operacion {
 	public descripcion: string;
 	public plataformas: Plataforma;
 	public id: number;
-	constructor(id: number, argumentos: Record<string, any>, clave: string, nombre?: string, descripcion?: string, plataformas?: Plataforma) {
+	public orden: number;
+	constructor(id: number, argumentos: Record<string, any>, clave: string, nombre?: string, descripcion?: string, plataformas?: Plataforma, orden: number = 0) {
 		this.id = id;
 		this.argumentos = argumentos;
 		this.clave = clave;
 		this.nombre = nombre || "";
 		this.descripcion = descripcion || "";
 		this.plataformas = plataformas || {};
+		this.orden = orden;
 	}
 	obtenerArgumentosPorPlataforma(plataforma: string) {
 		return this.plataformas[plataforma](this);
@@ -49,7 +51,7 @@ export class Operacion {
 		return JSON.stringify(this.argumentos);
 	}
 	clonar(): Operacion {
-		return new Operacion(this.id, Object.assign({}, this.argumentos), this.clave, this.nombre, this.descripcion, this.plataformas);
+		return new Operacion(this.id, Object.assign({}, this.argumentos), this.clave, this.nombre, this.descripcion, this.plataformas, this.orden);
 	}
 }
 export const listaCompletaDeOperaciones = [

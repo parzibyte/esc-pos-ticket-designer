@@ -51,6 +51,7 @@ class EnvolturaDeBaseDeDatos {
     id_diseño INTEGER,
     clave TEXT NOT NULL,
     argumentos TEXT NOT NULL,
+    orden INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (id_diseño) REFERENCES diseños(id) ON DELETE CASCADE ON UPDATE CASCADE);`);
     }
 
