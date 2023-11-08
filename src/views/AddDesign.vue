@@ -4,9 +4,10 @@ import { OperacionFactory } from "../types/OperacionFactory"
 import { ref, type Ref, onMounted } from "vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
-import { debounce } from "@/Helpers"
+import { debounce, obtenerPayload, convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from "@/Helpers"
 import type { OperacionConIndice } from "@/types/Tipos";
 import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAgregar.vue";
+import BotonImprimir from "@/components/BotonImprimir.vue";
 const store = useDatabaseStore();
 const diseñoActualmenteEditado = ref({});
 const props = defineProps<{
@@ -21,30 +22,19 @@ const eliminarOperacionPorIndice = async (indice: number) => {
   operaciones.value.splice(indice, 1);
 }
 
-const obtenerPayload = () => {
-  const operacionesParaPayload = [];
-  for (const operacion of operaciones.value) {
-    operacionesParaPayload.push(...(operacion.obtenerArgumentosPorPlataforma(diseñoActualmenteEditado.value.plataforma)));
-  }
-  return {
-    nombreImpresora: diseñoActualmenteEditado.value.impresora,
-    serial: diseñoActualmenteEditado.value.licencia,
-    operaciones: operacionesParaPayload,
-  };
-}
-
-const obtenerPayloadComoJson = () => {
-  return JSON.stringify(obtenerPayload())
-}
-
 const obtenerCodigo = () => {
-  return obtenerPayload();
+  return obtenerPayload(
+    diseñoActualmenteEditado.value.plataforma,
+    operaciones.value,
+    diseñoActualmenteEditado.value.impresora,
+    diseñoActualmenteEditado.value.licencia,
+  );
 }
 
 const imprimir = async () => {
   await fetch(`${diseñoActualmenteEditado.value.ruta_api}/imprimir`, {
     method: "POST",
-    body: obtenerPayloadComoJson(),
+    body: obtenerPayloadComoJson(diseñoActualmenteEditado.value.plataforma, operaciones.value, diseñoActualmenteEditado.value.impresora, diseñoActualmenteEditado.value.licencia),
   })
 
 }
@@ -62,12 +52,8 @@ const onActualizado = debounce(async (op: Operacion) => {
 
 
 const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
-  operaciones.value = [];
-  const operacionesSerializadas = await store.exec("SELECT id, clave, argumentos, orden FROM operaciones_diseños WHERE id_diseño = ? ORDER BY orden ASC", [props.id]);
-  for (const operacionSerializada of operacionesSerializadas) {
-    const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(operacionSerializada.id, operacionSerializada.clave, operacionSerializada.argumentos, operacionSerializada.orden);
-    operaciones.value.push(operacion);
-  }
+  operaciones.value = [];// Necesario para que se escuche el change de los argumentos
+  operaciones.value = convertirOperacionesSerializadasAReactivas(await store.obtenerOperacionesDeDiseño(props.id));
 }
 
 onMounted(async () => {
@@ -136,11 +122,31 @@ VALUES
   operaciones.value.push(operacionParaAgregarAlArreglo);
 }
 
+const onErrorImprimiendo = (err) => {
+  alert("Error imprimiendo: " + err);
+}
+
 </script>
 <template>
   <div class="flex flex-col md:flex-row">
     <div class="p-1 bg-gray-100 w-full md:w-3/4">
-      <h1 class="text-4xl" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</h1>
+      <div class="p-2 bg-indigo-600 w-full text-white rounded-md">
+        <div class="flex flex-row items-end">
+          <p class="text-4xl capitalize mr-2" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</p>
+          <p>
+            <strong>Creado </strong> {{ diseñoActualmenteEditado.fecha_creacion }} <strong>Modificado</strong> {{
+              diseñoActualmenteEditado.fecha_modificacion }}
+          </p>
+          <div class="inline-block bg-blue-500 rounded-md text-white p-1 text-sm ml-2">
+            {{ diseñoActualmenteEditado.plataforma }}
+            ({{ diseñoActualmenteEditado.impresora }})
+          </div>
+        </div>
+        <BotonImprimir @error="onErrorImprimiendo" :diseño="diseñoActualmenteEditado"></BotonImprimir>
+      </div>
+      <div v-show="operaciones.length <= 0" class="bg-sky-500 my-2 p-8 rounded-md text-center text-white text-2xl">
+        <p>Tu diseño está vacío. Elige una operación de la lista de abajo para empezar</p>
+      </div>
       <div class="">
         <ComponenteOperacion @intercambiar="onOperacionIntercambiada" :indice="indice" @actualizado="onActualizado"
           :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
@@ -149,11 +155,6 @@ VALUES
       <div class="bg-red-500">
         <ListaDeOperacionesParaAgregar @operacionSeleccionada="onOperacionSeleccionada"
           :operaciones="todasLasOperaciones"></ListaDeOperacionesParaAgregar>
-      </div>
-      <div class="max-w-xs content-center">
-        <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
-          Imprimir
-        </button>
       </div>
     </div>
     <div class="bg-white w-full md:w-1/4 overflow-x-auto p-1 break-words">

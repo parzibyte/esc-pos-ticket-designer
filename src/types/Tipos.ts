@@ -232,3 +232,9 @@ export type OperacionConIndice = {
     operacion: Operacion,
     indice: number,
 }
+export type OperacionSerializada = {
+    id: number,
+    clave: string,
+    argumentos: string,
+    orden: number,
+}

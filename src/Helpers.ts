@@ -1,4 +1,6 @@
-import type { ArgumentosParaDefinirTabla,EncabezadoDeTabla } from "./types/Tipos";
+import type { Operacion } from "./types/Operacion";
+import { OperacionFactory } from "./types/OperacionFactory";
+import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, OperacionSerializada } from "./types/Tipos";
 export const debounce = (callback: Function, wait: number) => {
     let timerId: number;
     return (...args: any) => {
@@ -82,3 +84,32 @@ export const cantidadColumnas = (argumentos: ArgumentosParaDefinirTabla) => {
     }
     return cantidad;
 }
+export const obtenerPayload = (plataforma: string, operaciones: Operacion[], impresora: string, serial: string) => {
+    const operacionesParaPayload = [];
+    for (const operacion of operaciones) {
+        operacionesParaPayload.push(...(operacion.obtenerArgumentosPorPlataforma(plataforma)));
+    }
+    return {
+        nombreImpresora: impresora,
+        serial,
+        operaciones: operacionesParaPayload,
+    };
+}
+
+export const convertirOperacionesSerializadasAReactivas = (operacionesSerializadas: OperacionSerializada[]) => {
+    const operacionesReactivas: Operacion[] = [];
+    for (const operacionSerializada of operacionesSerializadas) {
+        const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
+            operacionSerializada.id,
+            operacionSerializada.clave,
+            operacionSerializada.argumentos,
+            operacionSerializada.orden,
+        );
+        operacionesReactivas.push(operacion);
+    }
+    return operacionesReactivas;
+}
+export const obtenerPayloadComoJson = (plataforma: string, operaciones: Operacion[], impresora: string, serial: string) => {
+    return JSON.stringify(obtenerPayload(plataforma, operaciones, impresora, serial));
+}
+

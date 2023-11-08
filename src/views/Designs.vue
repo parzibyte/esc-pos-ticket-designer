@@ -27,7 +27,8 @@ const refrescarListaDeDiseños = async () => {
 	p.id AS id_plataforma,
 	p.nombre AS plataforma,
 	p.licencia,
-	p.ruta_api
+	p.ruta_api,
+	d.impresora
 from diseños d
 	inner join plataformas p on d.id_plataforma = p.id;`
 	diseños.value = await store.exec(consulta);
