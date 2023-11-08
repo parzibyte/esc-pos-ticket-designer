@@ -188,6 +188,9 @@ export type AlineacionConNombreYValor = {
     nombre: string,
     valor: Alineacion,
 }
+export type ArgumentosParaDefinirAlineacion = {
+    alineacion: AlineacionConNombreYValor,
+}
 export type TamañoConNombreYValor = {
     nombre: string,
     valor: TamañoImagen,

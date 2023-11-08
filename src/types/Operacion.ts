@@ -25,6 +25,7 @@ import type {
 	ArgumentosParaDefinirImagenEnBase64,
 	ArgumentosParaDefinirPulso,
 	ArgumentosParaDefinirTextoSegunPaginaDeCodigos,
+	ArgumentosParaDefinirAlineacion,
 } from "./Tipos"
 import { TipoDeCodigoDeBarras, RecuperacionQr } from "./Tipos";
 export class Operacion {
@@ -165,9 +166,11 @@ export const listaCompletaDeOperaciones = [
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSimple", <ArgumentosParaDefinirTextoSimple>{
 		contenido: "",
 	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerAlineacion", <AlineacionConNombreYValor>{
-		nombre: "Centro",
-		valor: Alineacion.Centro,
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerAlineacion", <ArgumentosParaDefinirAlineacion>{
+		alineacion: {
+			nombre: "Centro",
+			valor: Alineacion.Centro,
+		}
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerEnfatizado", <ArgumentosParaDefinirEnfatizado>{
 		enfatizado: false,

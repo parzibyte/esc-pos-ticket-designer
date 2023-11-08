@@ -24,6 +24,7 @@ import {
 	type ArgumentosParaDefinirImagenEnBase64,
 	type ArgumentosParaDefinirPulso,
 	type ArgumentosParaDefinirTextoSegunPaginaDeCodigos,
+	type ArgumentosParaDefinirAlineacion,
 } from "./Tipos"
 import { Operacion } from "./Operacion"
 import { obtenerSeparador, tabularDatos, cantidadColumnas } from "@/Helpers";
@@ -384,7 +385,7 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
-					const argumentos = thisArg.argumentos as { alineacion: AlineacionConNombreYValor };
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirAlineacion;
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",

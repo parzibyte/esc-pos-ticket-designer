@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { Alineacion, type AlineacionConNombreYValor } from '@/types/Tipos';
+import { Alineacion, type ArgumentosParaDefinirAlineacion } from '@/types/Tipos';
 import { computed, } from 'vue';
 import SelectAlineacion from '../Selects/SelectAlineacion.vue';
 
 type Propiedades = {
-	modelValue: {
-		alineacion: AlineacionConNombreYValor,
-	},
+	modelValue: ArgumentosParaDefinirAlineacion,
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
 	modelValue: () => {
