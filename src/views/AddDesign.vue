@@ -2,66 +2,18 @@
 import { Operacion, listaCompletaDeOperaciones } from "../types/Operacion"
 import { OperacionFactory } from "../types/OperacionFactory"
 import { ref, type Ref, onMounted } from "vue";
-import Select from "@/components/Select.vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDatabaseStore } from "@/stores/db"
 import { debounce } from "@/Helpers"
 import type { OperacionConIndice } from "@/types/Tipos";
+import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAgregar.vue";
 const store = useDatabaseStore();
-const referenciaAlSelect = ref(null);
 const diseñoActualmenteEditado = ref({});
 const props = defineProps<{
   id: number,
 }>();
 const todasLasOperaciones: Ref<Array<Operacion>> = ref(listaCompletaDeOperaciones);
 const operaciones: Ref<Array<Operacion>> = ref([]);
-const agregarOperacionSeleccionada = async () => {
-  const operacionSinReferencias = opcionSeleccionada.value.clonar();
-  const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
-  const operacionesInsertadas = await store.exec(` INSERT INTO
-    operaciones_diseños(id_diseño, clave, argumentos, orden)
-VALUES
-    (
-        ?,
-        ?,
-        ?,
-        (
-            SELECT
-                COALESCE(
-                    (
-                        SELECT
-                            orden
-                        FROM
-                            operaciones_diseños
-                        WHERE
-                            id_diseño = ?
-                        ORDER BY
-                            orden DESC
-                        LIMIT
-                            1
-                    ), 0
-                )
-        ) + 1
-    ) RETURNING *`,
-    [props.id, operacionSinReferencias.clave, argumentosSerializados, props.id],
-  )
-  const operacionRecienInsertada = operacionesInsertadas[0];
-  const operacion = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
-    operacionRecienInsertada.id, operacionRecienInsertada.clave, operacionRecienInsertada.argumentos, operacionRecienInsertada.orden);
-  operaciones.value.push(operacion);
-  referenciaAlSelect.value.clearSelectedItem();
-};
-const displayItemFunction = (op: Operacion): string => {
-  return op.nombre;
-};
-
-const filterFunction = (criteria: string, items: Operacion[]) => {
-  const expresion = new RegExp(`${criteria}.*`, "i");
-  return items.filter((opcion: Operacion) => {
-    return expresion.test(opcion.nombre) || expresion.test(opcion.descripcion);
-  });
-};
-const opcionSeleccionada: Ref<Operacion> = ref(OperacionFactory.crearAPartirDeClaveYArgumentos(0, "", {}));
 
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
@@ -148,6 +100,42 @@ const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionCo
   await refrescarOperacionesDeDiseñoActualmenteEditado();
 }
 
+const onOperacionSeleccionada = async (operacion: Operacion) => {
+  const operacionSinReferencias = operacion.clonar();
+  const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
+  const operacionesInsertadas = await store.exec(` INSERT INTO
+    operaciones_diseños(id_diseño, clave, argumentos, orden)
+VALUES
+    (
+        ?,
+        ?,
+        ?,
+        (
+            SELECT
+                COALESCE(
+                    (
+                        SELECT
+                            orden
+                        FROM
+                            operaciones_diseños
+                        WHERE
+                            id_diseño = ?
+                        ORDER BY
+                            orden DESC
+                        LIMIT
+                            1
+                    ), 0
+                )
+        ) + 1
+    ) RETURNING *`,
+    [props.id, operacionSinReferencias.clave, argumentosSerializados, props.id],
+  )
+  const operacionRecienInsertada = operacionesInsertadas[0];
+  const operacionParaAgregarAlArreglo = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
+    operacionRecienInsertada.id, operacionRecienInsertada.clave, operacionRecienInsertada.argumentos, operacionRecienInsertada.orden);
+  operaciones.value.push(operacionParaAgregarAlArreglo);
+}
+
 </script>
 <template>
   <div class="flex flex-col md:flex-row">
@@ -158,17 +146,11 @@ const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionCo
           :key="'componente_' + indice" @eliminar="eliminarOperacionPorIndice(indice)"
           v-for="(operacion, indice) in operaciones" :operacion="operacion" />
       </div>
+      <div class="bg-red-500">
+        <ListaDeOperacionesParaAgregar @operacionSeleccionada="onOperacionSeleccionada"
+          :operaciones="todasLasOperaciones"></ListaDeOperacionesParaAgregar>
+      </div>
       <div class="max-w-xs content-center">
-        <Select ref="referenciaAlSelect" :filterFunction="filterFunction" :items="todasLasOperaciones"
-          :displayItemFunction="displayItemFunction" v-model="opcionSeleccionada" label="Selecciona una opción">
-          <template #item="{ item, index }">
-            <h1 class="text-xl">{{ item.nombre }}</h1>
-            <p>{{ item.descripcion }}</p>
-          </template>
-        </Select>
-        <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="agregarOperacionSeleccionada">
-          Agregar
-        </button>
         <button class="bg-lime-400 p-1 rounded-md text-white m-1" @click="imprimir">
           Imprimir
         </button>
