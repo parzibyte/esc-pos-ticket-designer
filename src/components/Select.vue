@@ -156,7 +156,7 @@ const additionalClassesForInput = () => {
 </script>
 <template>
     <div class="flex flex-col p-1">
-        <strong class="text-xl font-semibold">{{ label }}</strong>
+        <strong class="text-md font-semibold mb-1">{{ label }}</strong>
         <div class="flex flex-col relative">
             <div class="flex">
                 <input ref="input" @focus="onInputFocus" @blur="onInputBlur" @keyup="onKeyup" @click="onInputClick"
