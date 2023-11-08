@@ -6,6 +6,8 @@ import CheckBold from "vue-material-design-icons/CheckBold.vue";
 import FormatListText from "vue-material-design-icons/FormatListText.vue";
 import router from "@/router";
 import { PlataformasService } from "@/services/PlataformasService"
+import CustomInput from "@/components/CustomInput.vue";
+import type { Plataforma } from "@/types/Tipos";
 const store = useDatabaseStore();
 const plataformas = ref([]);
 const impresoras = ref([]);
@@ -29,8 +31,10 @@ const funcionDeFiltroParaImpresoras = (criteria: string, items: any[]) => {
 
 const guardarDiseño = async () => {
 	const argumentos = [plataformaSeleccionada.value.id, nombre.value, "", "", impresoraSeleccionada.value];
-	console.log({ argumentos });
 	await store.exec("INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion, impresora) VALUES (?, ?, ?, ?, ?)", argumentos);
+	router.push({
+		name: "Designs",
+	});
 }
 
 const navegarADiseños = () => {
@@ -45,18 +49,24 @@ const onPlataformaCambiada = async (plataforma: any) => {
 	impresoras.value = await response.json();
 }
 
+const displayItemFunction = (plataforma: Plataforma): string => {
+	if (plataforma.nombre) {
+		return plataforma.nombre.toString();
+	}
+	return "";
+}
+
 onMounted(async () => {
 	plataformas.value = await plataformasService.obtenerPlataformas();
 });
 </script>
 <template>
 	<div class="p-1">
-		<label for="nombre" class="font-semibold text-xl">Dale un nombre a tu diseño</label>
-		<input v-model="nombre" id="nombre" type="text" placeholder="Nombre"
-			class="mt-2 border border-gray-200 rounded-md p-2 block text-xl w-full focus:border-2 focus:border-blue-500 outline-none">
+		<CustomInput label="Dale un nombre a tu diseño" type="text" placeholder="Por ejemplo, ticket de venta"
+			v-model="nombre"></CustomInput>
 		<Select @change="onPlataformaCambiada" v-model="plataformaSeleccionada" label="¿Para cuál plataforma?"
 			:items="plataformas" :filter-function="funcionDeFiltroParaPlataformas"
-			:display-item-function="(plataforma) => `${plataforma.nombre}`">
+			:display-item-function="displayItemFunction">
 			<template #item="{ item, index }">
 				<h1 class="text-xl">{{ item.nombre }}</h1>
 				<p>{{ item.descripcion }}</p>
