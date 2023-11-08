@@ -16,6 +16,7 @@ const props = withDefaults(defineProps<{
 		};
 	}
 });
+const emit = defineEmits(["eliminar"]);
 
 const modificarDiseño = () => {
 	router.push({
@@ -25,10 +26,14 @@ const modificarDiseño = () => {
 		}
 	});
 }
+
+const eliminarDiseño = () => {
+	emit("eliminar", props.diseño);
+}
 </script>
 <template>
 	<div class="bg-white p-2 mx-2 my-2 rounded-md">
-		<h1 class="text-4xl mb-2 inline-block">{{ props.diseño.nombre }}</h1>
+		<h1 class="text-4xl mb-2 inline-block text-zinc-700 font-semibold">{{ props.diseño.nombre }}</h1>
 		<div class="inline-block bg-blue-500 rounded-md text-white ml-2 p-1 text-sm">{{ props.diseño.plataforma }}</div>
 		<br>
 		<button
@@ -41,7 +46,7 @@ const modificarDiseño = () => {
 			<Pencil></Pencil>
 			Modificar
 		</button>
-		<button
+		<button @click="eliminarDiseño"
 			class="rounded-md px-3 py-2 m-1 bg-red-500 text-white hover:bg-red-400 text-sm font-semibold inline-flex items-center">
 			<Delete></Delete>
 			Eliminar

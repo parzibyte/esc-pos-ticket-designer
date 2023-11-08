@@ -4,11 +4,22 @@ import { useDatabaseStore } from "@/stores/db"
 import { ref, onMounted } from "vue"
 import router from "@/router/index"
 import FilePlus from "vue-material-design-icons/FilePlus.vue";
+import FileImport from "vue-material-design-icons/FileImport.vue";
+import type { Diseño } from "@/types/Tipos";
 
 const store = useDatabaseStore();
 const diseños = ref([]);
 
 onMounted(async () => {
+	await refrescarListaDeDiseños();
+});
+
+const agregarNuevoDiseño = () => {
+	router.push({
+		name: "CreateDesign"
+	});
+}
+const refrescarListaDeDiseños = async () => {
 	const consulta = `select d.id,
 	d.nombre,
 	d.fecha_creacion,
@@ -20,13 +31,11 @@ onMounted(async () => {
 from diseños d
 	inner join plataformas p on d.id_plataforma = p.id;`
 	diseños.value = await store.exec(consulta);
-});
+}
 
-const agregarNuevoDiseño = () => {
-	router.push({
-		name: "CreateDesign"
-	});
-
+const eliminarDiseño = async (diseño: Diseño) => {
+	await store.exec(`DELETE FROM diseños WHERE id = ?`, [diseño.id]);
+	await refrescarListaDeDiseños();
 }
 </script>
 <template>
@@ -36,6 +45,12 @@ const agregarNuevoDiseño = () => {
 			<FilePlus></FilePlus>
 			Nuevo diseño
 		</button>
-		<DesignItem v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño" :diseño="diseño"></DesignItem>
+		<button @click="agregarNuevoDiseño"
+			class="rounded-md px-3 py-2 ml-2 bg-sky-500 text-white hover:bg-sky-400 font-bold inline-flex items-center">
+			<FileImport></FileImport>
+			Importar
+		</button>
+		<DesignItem @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño"
+			:diseño="diseño"></DesignItem>
 	</div>
 </template>
