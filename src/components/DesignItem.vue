@@ -6,6 +6,7 @@ import Delete from "vue-material-design-icons/Delete.vue";
 import Pencil from "vue-material-design-icons/Pencil.vue";
 import router from '@/router';
 import BotonImprimir from './BotonImprimir.vue';
+import Ping from './Ping.vue';
 const props = withDefaults(defineProps<{
 	diseño: Diseño,
 }>(), {
@@ -51,5 +52,6 @@ const onErrorImprimiendo = (err) => {
 			<Delete></Delete>
 			Eliminar
 		</button>
+		<Ping :diseño="props.diseño"></Ping>
 	</div>
 </template>

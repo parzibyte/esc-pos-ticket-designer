@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { Diseño } from '@/types/Tipos';
-
 import { useDatabaseStore } from "@/stores/db"
 import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from '@/Helpers';
 import Printer from "vue-material-design-icons/Printer.vue";
