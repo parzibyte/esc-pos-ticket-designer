@@ -51,7 +51,7 @@ const eliminarDiseño = async (diseño: Diseño) => {
 			<FileImport></FileImport>
 			Importar
 		</button>
-		<DesignItem @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño"
+		<DesignItem :mostrar-boton-modificar="true" :mostrar-boton-eliminar="true" @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño"
 			:diseño="diseño"></DesignItem>
 	</div>
 </template>

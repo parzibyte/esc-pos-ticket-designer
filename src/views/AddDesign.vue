@@ -8,6 +8,8 @@ import { debounce, obtenerPayload, convertirOperacionesSerializadasAReactivas, o
 import type { OperacionConIndice } from "@/types/Tipos";
 import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAgregar.vue";
 import BotonImprimir from "@/components/BotonImprimir.vue";
+import Ping from "@/components/Ping.vue";
+import DesignItem from "@/components/DesignItem.vue";
 const store = useDatabaseStore();
 const diseñoActualmenteEditado = ref({});
 const props = defineProps<{
@@ -130,20 +132,7 @@ const onErrorImprimiendo = (err) => {
 <template>
   <div class="flex flex-col md:flex-row">
     <div class="p-1 bg-gray-100 w-full md:w-3/4">
-      <div class="p-2 bg-indigo-600 w-full text-white rounded-md">
-        <div class="flex flex-row items-end">
-          <p class="text-4xl capitalize mr-2" contenteditable="">{{ diseñoActualmenteEditado.nombre }}</p>
-          <p>
-            <strong>Creado </strong> {{ diseñoActualmenteEditado.fecha_creacion }} <strong>Modificado</strong> {{
-              diseñoActualmenteEditado.fecha_modificacion }}
-          </p>
-          <div class="inline-block bg-blue-500 rounded-md text-white p-1 text-sm ml-2">
-            {{ diseñoActualmenteEditado.plataforma }}
-            ({{ diseñoActualmenteEditado.impresora }})
-          </div>
-        </div>
-        <BotonImprimir @error="onErrorImprimiendo" :diseño="diseñoActualmenteEditado"></BotonImprimir>
-      </div>
+      <DesignItem :mostrarBotonEliminar="false" :mostrarBotonModificar="false" :diseño="diseñoActualmenteEditado"></DesignItem>
       <div v-show="operaciones.length <= 0" class="bg-sky-500 my-2 p-8 rounded-md text-center text-white text-2xl">
         <p>Tu diseño está vacío. Elige una operación de la lista de abajo para empezar</p>
       </div>

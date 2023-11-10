@@ -10,7 +10,12 @@ type DiccionarioDePlataformas = {
         descripcion: string,
         ruta_api: string,
         licencia: string,
-        activa: boolean,
+        detalles: {
+            version: string,
+            plataforma: string,
+            sistemaOperativo: string,
+            activa: boolean,
+        },
     },
 }
 export const usePingPlatformStore = defineStore('ping_platform', () => {
@@ -23,7 +28,12 @@ export const usePingPlatformStore = defineStore('ping_platform', () => {
         const plataformas = await plataformaService.obtenerPlataformas();
         for (const plataforma of plataformas) {
             estado.value[plataforma.id] = {
-                activa: false,
+                detalles: {
+                    version: "",
+                    plataforma: "",
+                    sistemaOperativo: "",
+                    activa: false,
+                },
                 ruta_api: plataforma.ruta_api,
                 id: plataforma.id,
                 nombre: plataforma.nombre,
@@ -38,14 +48,14 @@ export const usePingPlatformStore = defineStore('ping_platform', () => {
         try {
             const httpResponse = await fetch(url + "/version");
             const respuesta = await httpResponse.json();
-            return respuesta.version === "3.2.1";
+            return respuesta;
         } catch (e) {
             return false;
         }
     }
     async function actualizarEstadoDeTodasLasPlataformas() {
         for (const [clave, valor] of Object.entries(estado.value)) {
-            estado.value[clave].activa = await consultarEstadoDePlataforma(valor.ruta_api);
+            estado.value[clave].detalles = await consultarEstadoDePlataforma(valor.ruta_api);
         }
         setTimeout(actualizarEstadoDeTodasLasPlataformas, 1000);
     }
