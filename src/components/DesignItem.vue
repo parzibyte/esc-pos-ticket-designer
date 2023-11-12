@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { defineProps, withDefaults } from 'vue';
 import { type Diseño } from "@/types/Tipos"
-import Printer from "vue-material-design-icons/Printer.vue";
 import Delete from "vue-material-design-icons/Delete.vue";
 import Pencil from "vue-material-design-icons/Pencil.vue";
 import CalendarBlank from "vue-material-design-icons/CalendarBlank.vue";
+import ShareVariant from "vue-material-design-icons/ShareVariant.vue";
 import router from '@/router';
 import BotonImprimir from './BotonImprimir.vue';
 import Ping from './Ping.vue';
+import { useDatabaseStore } from '@/stores/db';
+import FileUpload from './FileUpload.vue';
+const store = useDatabaseStore();
 const props = withDefaults(defineProps<{
 	diseño: Diseño,
 	mostrarBotonModificar: boolean,
@@ -22,7 +25,7 @@ const props = withDefaults(defineProps<{
 		};
 	}
 });
-const emit = defineEmits(["eliminar"]);
+const emit = defineEmits(["eliminar", "importado"]);
 
 const modificarDiseño = () => {
 	router.push({
@@ -36,8 +39,90 @@ const modificarDiseño = () => {
 const eliminarDiseño = () => {
 	emit("eliminar", props.diseño);
 }
+
+const exportarDiseño = async () => {
+	console.log(props.diseño);
+	const operacionesRecuperadasDeBaseDeDatos = await store.obtenerOperacionesDeDiseño(props.diseño.id);
+	const operacionesParaGuardar = operacionesRecuperadasDeBaseDeDatos.map(operacion => {
+		const { clave, argumentos } = operacion;
+		return { clave, argumentos };
+	});
+	const archivo = new Blob([JSON.stringify(operacionesParaGuardar)], { type: 'application/json' });
+	const a = document.createElement("a");
+	const url = URL.createObjectURL(archivo);
+	a.href = url;
+	a.download = `${props.diseño.nombre}.json`
+	a.click();
+	URL.revokeObjectURL(url);
+	a.remove();
+}
 const onErrorImprimiendo = (err) => {
 	alert("Error imprimiendo: " + err);
+}
+
+const esCadenaValida = (operacionesCodificadas: string) => {
+	const operacionesSerializadas = JSON.parse(operacionesCodificadas);
+	if (!operacionesSerializadas) {
+		return false;
+	}
+	if (!Array.isArray(operacionesSerializadas)) {
+		return false;
+	}
+	for (const operacion of operacionesSerializadas) {
+		if (typeof operacion.clave !== "string") {
+			return false;
+		}
+		if (typeof operacion.argumentos !== "string") {
+			return false;
+		}
+	}
+	return true;
+}
+
+const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
+	if (archivos.length <= 0) {
+		return;
+	}
+	const primerArchivo = archivos[0];
+	const reader = new FileReader();
+	reader.onload = async () => {
+		const operacionesCodificadas = reader.result as string;
+		if (!esCadenaValida(operacionesCodificadas)) {
+			return alert("El archivo importado no es válido");
+		}
+		const operacionesSerializadas = JSON.parse(operacionesCodificadas);
+		for (const operacion of operacionesSerializadas) {
+			await store.exec(`INSERT INTO
+    operaciones_diseños(id_diseño, clave, argumentos, orden)
+VALUES
+    (
+        ?,
+        ?,
+        ?,
+        (
+            SELECT
+                COALESCE(
+                    (
+                        SELECT
+                            orden
+                        FROM
+                            operaciones_diseños
+                        WHERE
+                            id_diseño = ?
+                        ORDER BY
+                            orden DESC
+                        LIMIT
+                            1
+                    ), 0
+                )
+        ) + 1
+    ) RETURNING *`,
+				[props.diseño.id, operacion.clave, operacion.argumentos],
+			)
+		}
+		emit("importado");
+	}
+	reader.readAsText(primerArchivo);
 }
 </script>
 <template>
@@ -63,6 +148,12 @@ const onErrorImprimiendo = (err) => {
 				<Delete></Delete>
 				Eliminar
 			</button>
+			<button @click="exportarDiseño"
+				class="rounded-md px-3 py-2 m-1 bg-green-500 text-white hover:bg-green-400 text-sm font-semibold inline-flex items-center">
+				<ShareVariant></ShareVariant>
+				Exportar
+			</button>
+			<FileUpload @change="onArchivoParaImportarSeleccionado" label="Importar..."></FileUpload>
 		</div>
 
 	</div>
