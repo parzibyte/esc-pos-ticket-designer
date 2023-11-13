@@ -126,7 +126,7 @@ VALUES
 }
 </script>
 <template>
-	<div class="bg-white p-2 mx-2 my-2 rounded-md">
+	<div class="bg-white p-2 my-2 rounded-md">
 		<h1 class="text-4xl mb-2 inline-block text-zinc-700 font-semibold">{{ props.diseño.nombre }}
 		</h1>
 		<div class="flex flex-row items-center">
@@ -141,19 +141,25 @@ VALUES
 			<button v-show="mostrarBotonModificar" @click="modificarDiseño"
 				class="rounded-md px-3 py-2 m-1 bg-amber-500 text-white hover:bg-amber-400 text-sm font-semibold inline-flex items-center">
 				<Pencil></Pencil>
-				Modificar
+				Editar
 			</button>
-			<button v-show="mostrarBotonEliminar" @click="eliminarDiseño"
-				class="rounded-md px-3 py-2 m-1 bg-red-500 text-white hover:bg-red-400 text-sm font-semibold inline-flex items-center">
-				<Delete></Delete>
-				Eliminar
+			<button v-show="mostrarBotonModificar" @click="modificarDiseño"
+				class="rounded-md px-3 py-2 m-1 bg-amber-500 text-white hover:bg-amber-400 text-sm font-semibold inline-flex items-center">
+				<Pencil></Pencil>
+				Operaciones
 			</button>
 			<button @click="exportarDiseño"
 				class="rounded-md px-3 py-2 m-1 bg-green-500 text-white hover:bg-green-400 text-sm font-semibold inline-flex items-center">
 				<ShareVariant></ShareVariant>
 				Exportar
 			</button>
-			<FileUpload @change="onArchivoParaImportarSeleccionado" label="Importar..."></FileUpload>
+			<FileUpload accept="application/json" @change="onArchivoParaImportarSeleccionado" label="Importar...">
+			</FileUpload>
+			<button v-show="mostrarBotonEliminar" @click="eliminarDiseño"
+				class="rounded-md px-3 py-2 m-1 bg-red-500 text-white hover:bg-red-400 text-sm font-semibold inline-flex items-center">
+				<Delete></Delete>
+				Eliminar
+			</button>
 		</div>
 
 	</div>
