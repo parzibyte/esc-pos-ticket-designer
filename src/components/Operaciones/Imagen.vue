@@ -81,7 +81,7 @@ const hayImagenSeleccionada = computed(() => {
 <template>
     <div class="flex flex-col">
         <img class="w-80" :src="propiedades.modelValue.contenidoEnBase64" v-if="hayImagenSeleccionada">
-        <FileUpload label="Seleccionar archivo..." multiple accept="image/png,image/jpeg" @change="onImagenSeleccionada">
+        <FileUpload label="Seleccionar archivo..." accept="image/png,image/jpeg" @change="onImagenSeleccionada">
         </FileUpload>
     </div>
     <div class="flex flex-col md:flex-row" v-if="hayImagenSeleccionada">
