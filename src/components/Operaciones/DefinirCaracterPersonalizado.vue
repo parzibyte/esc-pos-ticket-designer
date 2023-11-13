@@ -5,6 +5,7 @@ import Eraser from 'vue-material-design-icons/Eraser.vue';
 import Broom from 'vue-material-design-icons/Broom.vue';
 import type { ArgumentosParaDefinirCaracterPersonalizado } from "@/types/Tipos";
 import CustomInput from "../CustomInput.vue";
+import FileUpload from "../FileUpload.vue";
 enum Accion {
     Borrar,
     Pintar,
@@ -196,6 +197,50 @@ const estiloDelCanvas = () => {
         height: alto.value + "px",
     };
 };
+
+const onArchivoSeleccionado = async (archivos: File[]) => {
+    const umbralParaDecidirSiElGrisSeConvierteEnNegro = 210;
+    const totalFilas = 24;
+    const elementosPorFila = 12;
+    // Al invocar a getImagaData, se nos devuelve un arreglo lineal en donde
+    // vienen los valores R,G,B,A,R,G,B,A...
+    // Dicho con otras palabras, cada pixel ocupa 4 posiciones
+    const posicionesPorPixel = 4;
+    if (archivos.length <= 0) {
+        return;
+    }
+    const primerArchivo = archivos[0];
+    const imagen = await createImageBitmap(primerArchivo);
+    const canvas = new OffscreenCanvas(imagen.width, imagen.height);
+    const contexto = canvas.getContext("2d");
+    if (!contexto) {
+        return;
+    }
+    contexto.drawImage(imagen, 0, 0, imagen.width, imagen.height);
+    const datosDeImagen = contexto.getImageData(0, 0, imagen.width, imagen.height);
+    const pixeles = datosDeImagen.data;
+    const cantidadDePixeles = pixeles.length / posicionesPorPixel;
+    const totalElementos = totalFilas * elementosPorFila;
+    if (cantidadDePixeles < totalElementos) {
+        return alert("Imagen muy pequeña");
+    }
+    let bit;
+    for (let indice = 0; indice < totalElementos * posicionesPorPixel; indice += posicionesPorPixel) {
+        const rojo = pixeles[indice];
+        const verde = pixeles[indice + 1];
+        const azul = pixeles[indice + 2];
+        // El alpha está en indice + 3, pero no lo necesitamos
+        const promedioEnGris = (rojo + verde + azul) / 3;
+        const indiceX = (indice / posicionesPorPixel) % elementosPorFila;
+        const indiceY = Math.floor((indice / posicionesPorPixel) / elementosPorFila);
+        if (promedioEnGris > umbralParaDecidirSiElGrisSeConvierteEnNegro) {
+            bit = BIT_APAGADO;
+        } else {
+            bit = BIT_ENCENDIDO;
+        }
+        arregloDeCaracter.value.matrizDeBits[indiceY][indiceX] = bit;
+    }
+}
 </script>
 
 <template>
@@ -208,10 +253,14 @@ const estiloDelCanvas = () => {
                 </button>
             </div>
             <canvas :style="estiloDelCanvas()" ref="canvas" class="flex-1 border border-zinc-100 mt-2"></canvas>
+            <FileUpload accept="image/png,image/jpeg,image/bmp" @change="onArchivoSeleccionado"
+                label="Crear desde imagen...">
+            </FileUpload>
         </div>
         <div>
             <CustomInput v-model="propiedades.modelValue.caracterQueReemplaza" label="Carácter que va a reemplazar"
                 maxlength="1" type="text"></CustomInput>
         </div>
+
     </div>
 </template>
