@@ -7,6 +7,7 @@ import TableRowPlusAfter from "vue-material-design-icons/TableRowPlusAfter.vue";
 import TableColumnPlusAfter from "vue-material-design-icons/TableColumnPlusAfter.vue";
 import Range from "@/components/Range.vue"
 import CustomInput from "@/components/CustomInput.vue"
+import FileUpload from '../FileUpload.vue';
 
 type Propiedades = {
     modelValue: ArgumentosParaDefinirTabla,
@@ -98,6 +99,37 @@ const totalCaracteresPorLinea = () => {
 const deberiaMostrarAlertaDeMaximosCaracteres = () => {
     return totalCaracteresPorLinea() > LONGITUD_MAXIMA_POR_LINEA_EN_58_MM;
 }
+
+const onCsvSeleccionado = (archivos: File[]) => {
+    if (archivos.length <= 0) {
+        return;
+    }
+    const primerArchivo = archivos[0];
+    const fileReader = new FileReader();
+    fileReader.onload = () => {
+        const tabla = [];
+        const contenidoDelCSV = fileReader.result as string;
+        const filas = contenidoDelCSV.split(/\r\n|\n/);
+        if (filas.length <= 0) {
+            return;
+        }
+        let haCalculadoEncabezados = false;
+        for (const columna of filas) {
+            const celdas = columna.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
+            if (!haCalculadoEncabezados) {
+                const cantidadColumnas = celdas.length;
+                const longitudMaximaPorColumna = LONGITUD_MAXIMA_POR_LINEA_EN_58_MM / cantidadColumnas;
+                for (let i = 0; i < cantidadColumnas; i++) {
+                    propiedades.modelValue.ajustesEncabezados.push({ longitudMaxima: longitudMaximaPorColumna });
+                }
+                haCalculadoEncabezados = true;
+            }
+            tabla.push(celdas);
+        }
+        propiedades.modelValue.tabla = tabla;
+    }
+    fileReader.readAsText(primerArchivo);
+}
 </script>
 <template>
     <div class="flex md:flex-row flex-col">
@@ -155,6 +187,7 @@ const deberiaMostrarAlertaDeMaximosCaracteres = () => {
             </tbody>
         </table>
     </div>
+    <FileUpload label="Cargar desde CSV..." accept="text/csv" @change="onCsvSeleccionado"></FileUpload>
     <div v-show="deberiaMostrarAlertaDeMaximosCaracteres()" class="my-1 p-2 bg-orange-600 text-white rounded-md">
         <strong>Nota:</strong> según pruebas, en impresoras de 58mm la cantidad máxima por línea es de 30 caracteres.
         En impresoras de 80mm, la cantidad máxima es de 45. Usted tiene actualmente {{ totalCaracteresPorLinea() }}
