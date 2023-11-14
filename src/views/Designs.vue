@@ -4,7 +4,6 @@ import { useDatabaseStore } from "@/stores/db"
 import { ref, onMounted } from "vue"
 import router from "@/router/index"
 import FilePlus from "vue-material-design-icons/FilePlus.vue";
-import FileImport from "vue-material-design-icons/FileImport.vue";
 import type { Diseño } from "@/types/Tipos";
 
 const store = useDatabaseStore();
@@ -46,12 +45,7 @@ const eliminarDiseño = async (diseño: Diseño) => {
 			<FilePlus></FilePlus>
 			Nuevo diseño
 		</button>
-		<button @click="agregarNuevoDiseño"
-			class="rounded-md px-3 py-2 ml-2 bg-sky-500 text-white hover:bg-sky-400 font-bold inline-flex items-center">
-			<FileImport></FileImport>
-			Importar
-		</button>
-		<DesignItem :mostrar-boton-modificar="true" :mostrar-boton-eliminar="true" @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño"
-			:diseño="diseño"></DesignItem>
+		<DesignItem :mostrar-boton-modificar="true" :mostrar-boton-eliminar="true" @eliminar="eliminarDiseño"
+			v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño" :diseño="diseño"></DesignItem>
 	</div>
 </template>
