@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { PlataformasService } from '@/services/PlataformasService';
 import { ref, onMounted } from 'vue';
-import { useDatabaseStore } from '@/stores/db';
 import AjustePlataforma from "@/components/Ajustes/AjustePlataforma.vue"
+import { usePlatformStore } from '@/stores/platform';
 const plataformas = ref([]);
-const store = useDatabaseStore();
-const plataformasService = new PlataformasService(store);
+const platformStore = usePlatformStore();
 
 const guardarPlataforma = async (plataforma) => {
-    await plataformasService.actualizarPlataforma(plataforma);
+    platformStore.actualizarPlataforma(plataforma);
 }
 
 onMounted(async () => {
-    plataformas.value = await plataformasService.obtenerPlataformas();
+    plataformas.value = await platformStore.obtenerPlataformas();
 });
 </script>
 <template>

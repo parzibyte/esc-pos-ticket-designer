@@ -3,14 +3,14 @@ import { Operacion, listaCompletaDeOperaciones } from "../types/Operacion"
 import { OperacionFactory } from "../types/OperacionFactory"
 import { ref, type Ref, onMounted } from "vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
-import { useDatabaseStore } from "@/stores/db"
+import { useDesignsOperationStore } from "@/stores/designOperation"
 import { debounce, obtenerPayload, convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from "@/Helpers"
 import type { OperacionConIndice } from "@/types/Tipos";
 import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAgregar.vue";
-import BotonImprimir from "@/components/BotonImprimir.vue";
-import Ping from "@/components/Ping.vue";
 import DesignItem from "@/components/DesignItem.vue";
-const store = useDatabaseStore();
+import { useDesignsStore } from "@/stores/designsStore";
+const designsStore = useDesignsStore();
+const designsOperationStore = useDesignsOperationStore();
 const diseñoActualmenteEditado = ref({});
 const props = defineProps<{
   id: number,
@@ -20,7 +20,7 @@ const operaciones: Ref<Array<Operacion>> = ref([]);
 
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
-  await store.exec("DELETE FROM operaciones_diseños WHERE id = ?", [operacionParaEliminar.id])
+  await designsOperationStore.eliminarOperacion(operacionParaEliminar.id);
   operaciones.value.splice(indice, 1);
 }
 
@@ -33,45 +33,25 @@ const obtenerCodigo = () => {
   );
 }
 
-const imprimir = async () => {
-  await fetch(`${diseñoActualmenteEditado.value.ruta_api}/imprimir`, {
-    method: "POST",
-    body: obtenerPayloadComoJson(diseñoActualmenteEditado.value.plataforma, operaciones.value, diseñoActualmenteEditado.value.impresora, diseñoActualmenteEditado.value.licencia),
-  })
-
-}
-
-
 const onActualizado = debounce(async (op: Operacion) => {
   console.log("se actualizó alguna operación");
   console.log(op.clonar());
-
-  const operacionRecienInsertada = await store.exec(`UPDATE operaciones_diseños SET argumentos = ? WHERE id = ?`,
-    [op.clonar().obtenerArgumentosRealesSerializados(), op.id]);
-  await store.exec(`UPDATE diseños SET fecha_modificacion = ? WHERE id = ?`, [new Date().toLocaleDateString(), props.id]);
-  console.log({ operacionRecienInsertada });
+  await designsOperationStore.actualizarArgumentosDeOperacion(op.clonar().obtenerArgumentosRealesSerializados(), op.id);
+  await designsStore.actualizarDiseño(
+    diseñoActualmenteEditado.value.id_plataforma,
+    diseñoActualmenteEditado.value.nombre,
+    diseñoActualmenteEditado.value.impresora,
+    props.id);
 }, 500);
 
 
 const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
   operaciones.value = [];// Necesario para que se escuche el change de los argumentos
-  operaciones.value = convertirOperacionesSerializadasAReactivas(await store.obtenerOperacionesDeDiseño(props.id));
+  operaciones.value = convertirOperacionesSerializadasAReactivas(await designsOperationStore.obtenerOperacionesDeDiseño(props.id));
 }
 
 onMounted(async () => {
-  const diseñosCoincidentesConId = await store.exec(`select d.id,
-	d.nombre,
-	d.fecha_modificacion,
-	d.impresora,
-	p.id AS id_plataforma,
-	p.nombre AS plataforma,
-	p.licencia,
-	p.ruta_api
-from diseños d
-	inner join plataformas p on d.id_plataforma = p.id
-  WHERE d.id = ?`, [props.id]);
-
-  diseñoActualmenteEditado.value = diseñosCoincidentesConId[0];
+  diseñoActualmenteEditado.value = await designsStore.obtenerDiseñoPorId(props.id);
   await refrescarOperacionesDeDiseñoActualmenteEditado();
 })
 
@@ -80,46 +60,22 @@ const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionCo
   const ordenReemplazado = operacionReemplazadaConIndice.operacion.orden;
   const idReemplazo = operacionReemplazoConIndice.operacion.id;
   const idReemplazado = operacionReemplazadaConIndice.operacion.id;
-  await store.exec("UPDATE operaciones_diseños SET orden = ? WHERE id = ?",
-    [ordenReemplazado, idReemplazo]);
-  await store.exec("UPDATE operaciones_diseños SET orden = ? WHERE id = ?",
-    [ordenReemplazo, idReemplazado]);
+  await designsOperationStore.cambiarOrdenDeOperacion(idReemplazo, ordenReemplazado);
+  await designsOperationStore.cambiarOrdenDeOperacion(idReemplazado, ordenReemplazo);
   await refrescarOperacionesDeDiseñoActualmenteEditado();
 }
 
 const onOperacionSeleccionada = async (operacion: Operacion) => {
   const operacionSinReferencias = operacion.clonar();
   const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
-  const operacionesInsertadas = await store.exec(` INSERT INTO
-    operaciones_diseños(id_diseño, clave, argumentos, orden)
-VALUES
-    (
-        ?,
-        ?,
-        ?,
-        (
-            SELECT
-                COALESCE(
-                    (
-                        SELECT
-                            orden
-                        FROM
-                            operaciones_diseños
-                        WHERE
-                            id_diseño = ?
-                        ORDER BY
-                            orden DESC
-                        LIMIT
-                            1
-                    ), 0
-                )
-        ) + 1
-    ) RETURNING *`,
-    [props.id, operacionSinReferencias.clave, argumentosSerializados, props.id],
-  )
+  const operacionesInsertadas = await designsOperationStore.agregarOperacion(props.id, operacionSinReferencias.clave, argumentosSerializados)
   const operacionRecienInsertada = operacionesInsertadas[0];
   const operacionParaAgregarAlArreglo = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
-    operacionRecienInsertada.id, operacionRecienInsertada.clave, operacionRecienInsertada.argumentos, operacionRecienInsertada.orden);
+    operacionRecienInsertada.id,
+    operacionRecienInsertada.clave,
+    operacionRecienInsertada.argumentos,
+    operacionRecienInsertada.orden,
+  );
   operaciones.value.push(operacionParaAgregarAlArreglo);
 }
 

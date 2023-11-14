@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import DesignItem from "@/components/DesignItem.vue";
-import { useDatabaseStore } from "@/stores/db"
 import { ref, onMounted } from "vue"
 import router from "@/router/index"
 import FilePlus from "vue-material-design-icons/FilePlus.vue";
 import type { Diseño } from "@/types/Tipos";
+import { useDesignsStore } from "@/stores/designsStore";
 
-const store = useDatabaseStore();
+const designsStore = useDesignsStore();
 const diseños = ref([]);
 
 onMounted(async () => {
@@ -19,21 +19,11 @@ const agregarNuevoDiseño = () => {
 	});
 }
 const refrescarListaDeDiseños = async () => {
-	const consulta = `select d.id,
-	d.nombre,
-	d.fecha_modificacion,
-	p.id AS id_plataforma,
-	p.nombre AS plataforma,
-	p.licencia,
-	p.ruta_api,
-	d.impresora
-from diseños d
-	inner join plataformas p on d.id_plataforma = p.id;`
-	diseños.value = await store.exec(consulta);
+	diseños.value = await designsStore.obtenerDiseños();
 }
 
 const eliminarDiseño = async (diseño: Diseño) => {
-	await store.exec(`DELETE FROM diseños WHERE id = ?`, [diseño.id]);
+	await designsStore.eliminarDiseño(diseño.id);
 	await refrescarListaDeDiseños();
 }
 </script>

@@ -3,6 +3,19 @@ import { useDatabaseStore } from "@/stores/db"
 
 export const useDesignsStore = defineStore('designsStore', () => {
 	const dbStore = useDatabaseStore();
+	const obtenerDiseños = async () => {
+		return await dbStore.exec(`SELECT d.id,
+	d.nombre,
+	d.fecha_modificacion,
+	p.id AS id_plataforma,
+	p.nombre AS plataforma,
+	p.licencia,
+	p.ruta_api,
+	d.impresora
+FROM diseños d
+	INNER JOIN plataformas p ON d.id_plataforma = p.id;
+		`);
+	}
 	const insertarDiseño = async (idPlataforma: number | string, nombre: string, impresora: string) => {
 		const ahora = new Date().getTime();
 		await dbStore.exec(`INSERT INTO diseños
@@ -32,11 +45,16 @@ export const useDesignsStore = defineStore('designsStore', () => {
 	p.nombre AS plataforma,
 	p.licencia,
 	p.ruta_api
-from diseños d
+	FROM diseños d
 	inner join plataformas p on d.id_plataforma = p.id
-  WHERE d.id = ?`, [id]);
+	WHERE d.id = ?`,
+			[id]);
 		return diseñosCoincidentesConId[0];
 	}
 
-	return { obtenerDiseñoPorId, actualizarDiseño, insertarDiseño };
+	const eliminarDiseño = async (id: number) => {
+		return await dbStore.exec("DELETE FROM diseños WHERE id = ?", [id]);
+	}
+
+	return { obtenerDiseñoPorId, actualizarDiseño, insertarDiseño, obtenerDiseños, eliminarDiseño };
 });

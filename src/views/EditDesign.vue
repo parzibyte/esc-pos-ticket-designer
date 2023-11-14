@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue"
-import { useDatabaseStore } from "@/stores/db"
 import { useDesignsStore } from "@/stores/designsStore"
 import CheckBold from "vue-material-design-icons/CheckBold.vue";
 import FormatListText from "vue-material-design-icons/FormatListText.vue";
@@ -9,7 +8,6 @@ import CustomInput from "@/components/CustomInput.vue";
 import SelectPlataformas from "@/components/Selects/SelectPlataformas.vue";
 import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { usePlatformStore } from "@/stores/platform";
-const store = useDatabaseStore();
 const designsStore = useDesignsStore();
 const platformStore = usePlatformStore();
 const impresoras = ref([]);

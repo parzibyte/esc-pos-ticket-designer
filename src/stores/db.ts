@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import DbWorker from "@/DBHelper?worker"
 import * as Comlink from "comlink"
-import type { OperacionSerializada } from '@/types/Tipos';
 const worker = new DbWorker();
 const DbHelper = Comlink.wrap(worker);
 const helper = await new DbHelper();
@@ -16,8 +15,5 @@ export const useDatabaseStore = defineStore('database', () => {
             rowMode: "object",
         });
     }
-    async function obtenerOperacionesDeDiseño(id: number): Promise<OperacionSerializada[]> {
-        return await exec("SELECT id, clave, argumentos, orden FROM operaciones_diseños WHERE id_diseño = ? ORDER BY orden ASC", [id]);
-    }
-    return { exec, obtenerOperacionesDeDiseño };
+    return { exec };
 });
