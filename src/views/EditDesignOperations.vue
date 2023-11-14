@@ -21,6 +21,7 @@ const operaciones: Ref<Array<Operacion>> = ref([]);
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
   await designsOperationStore.eliminarOperacion(operacionParaEliminar.id);
+  await actualizarFechaDeModificacionDeDiseño();
   operaciones.value.splice(indice, 1);
 }
 
@@ -34,15 +35,19 @@ const obtenerCodigo = () => {
 }
 
 const onActualizado = debounce(async (op: Operacion) => {
-  console.log("se actualizó alguna operación");
-  console.log(op.clonar());
   await designsOperationStore.actualizarArgumentosDeOperacion(op.clonar().obtenerArgumentosRealesSerializados(), op.id);
+  await actualizarFechaDeModificacionDeDiseño();
+}, 500);
+
+const actualizarFechaDeModificacionDeDiseño = async () => {
   await designsStore.actualizarDiseño(
     diseñoActualmenteEditado.value.id_plataforma,
     diseñoActualmenteEditado.value.nombre,
     diseñoActualmenteEditado.value.impresora,
-    props.id);
-}, 500);
+    props.id,
+  );
+  diseñoActualmenteEditado.value = await designsStore.obtenerDiseñoPorId(props.id);
+}
 
 
 const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
@@ -62,6 +67,7 @@ const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionCo
   const idReemplazado = operacionReemplazadaConIndice.operacion.id;
   await designsOperationStore.cambiarOrdenDeOperacion(idReemplazo, ordenReemplazado);
   await designsOperationStore.cambiarOrdenDeOperacion(idReemplazado, ordenReemplazo);
+  await actualizarFechaDeModificacionDeDiseño();
   await refrescarOperacionesDeDiseñoActualmenteEditado();
 }
 
@@ -70,6 +76,7 @@ const onOperacionSeleccionada = async (operacion: Operacion) => {
   const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
   const operacionesInsertadas = await designsOperationStore.agregarOperacion(props.id, operacionSinReferencias.clave, argumentosSerializados)
   const operacionRecienInsertada = operacionesInsertadas[0];
+  await actualizarFechaDeModificacionDeDiseño();
   const operacionParaAgregarAlArreglo = OperacionFactory.crearAPartirDeClaveYArgumentosSerializados(
     operacionRecienInsertada.id,
     operacionRecienInsertada.clave,

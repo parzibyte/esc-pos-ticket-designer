@@ -18,7 +18,7 @@ FROM diseños d
 	}
 	const insertarDiseño = async (idPlataforma: number | string, nombre: string, impresora: string) => {
 		const ahora = new Date().getTime();
-		await dbStore.exec(`INSERT INTO diseños
+		return await dbStore.exec(`INSERT INTO diseños
 		(id_plataforma, nombre, fecha_modificacion, impresora)
 		VALUES
 		(?, ?, ?, ?)`,
@@ -26,7 +26,7 @@ FROM diseños d
 		);
 	}
 	const actualizarDiseño = async (idPlataforma: number | string, nombre: string, impresora: string, id: number | string) => {
-		await dbStore.exec(`UPDATE diseños SET 
+		return await dbStore.exec(`UPDATE diseños SET 
 		id_plataforma = ?,
 		nombre = ?,
 		fecha_modificacion = ?,
