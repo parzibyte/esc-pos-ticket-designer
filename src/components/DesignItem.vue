@@ -27,9 +27,18 @@ const props = withDefaults(defineProps<{
 });
 const emit = defineEmits(["eliminar", "importado"]);
 
+
 const modificarDiseño = () => {
 	router.push({
-		name: "add-design",
+		name: "EditDesign",
+		params: {
+			id: props.diseño.id,
+		}
+	});
+}
+const modificarOperacionesDeDiseño = () => {
+	router.push({
+		name: "EditDesignOperations",
 		params: {
 			id: props.diseño.id,
 		}
@@ -143,7 +152,7 @@ VALUES
 				<Pencil></Pencil>
 				Editar
 			</button>
-			<button v-show="mostrarBotonModificar" @click="modificarDiseño"
+			<button v-show="mostrarBotonModificar" @click="modificarOperacionesDeDiseño"
 				class="rounded-md px-3 py-2 m-1 bg-amber-500 text-white hover:bg-amber-400 text-sm font-semibold inline-flex items-center">
 				<Pencil></Pencil>
 				Operaciones

@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import AddDesign from '../views/AddDesign.vue'
+import EditDesignOperations from '../views/EditDesignOperations.vue'
 import Designs from '../views/Designs.vue'
 import CreateDesign from '../views/CreateDesign.vue'
 import PlatformsSettings from '../views/PlatformsSettings.vue'
+import EditDesign from '../views/EditDesign.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,21 +11,19 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: AddDesign
+      component: CreateDesign
     },
     {
-      path: '/add-design/:id',
-      name: 'add-design',
-      component: AddDesign,
+      path: '/edit-design-details/:id',
+      name: 'EditDesign',
+      component: EditDesign,
       props: true,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: AddDesign,
+      path: '/edit-design-operations/:id',
+      name: 'EditDesignOperations',
+      component: EditDesignOperations,
+      props: true,
     },
     {
       path: '/designs',
