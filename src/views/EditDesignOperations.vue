@@ -136,8 +136,8 @@ const onArchivoImportado = async () => {
 <template>
   <div class="flex flex-col md:flex-row">
     <div class="p-1 bg-gray-100 w-full md:w-3/4">
-      <DesignItem @importado="onArchivoImportado" :mostrarBotonEliminar="false" :mostrarBotonModificar="false"
-        :diseño="diseñoActualmenteEditado"></DesignItem>
+      <DesignItem @importado="onArchivoImportado" :mostrar-boton-exportar="true" :mostrar-boton-importar="true"
+        :mostrarBotonEliminar="false" :mostrarBotonModificar="false" :diseño="diseñoActualmenteEditado"></DesignItem>
       <div v-show="operaciones.length <= 0" class="bg-sky-500 my-2 p-8 rounded-md text-center text-white text-2xl">
         <p>Tu diseño está vacío. Elige una operación de la lista de abajo para empezar</p>
       </div>
