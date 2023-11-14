@@ -40,8 +40,7 @@ class EnvolturaDeBaseDeDatos {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_plataforma INTEGER,
     nombre TEXT NOT NULL,
-    fecha_creacion TEXT NOT NULL,
-    fecha_modificacion TEXT NOT NULL,
+    fecha_modificacion INTEGER NOT NULL,
     impresora TEXT NOT NULL,
     FOREIGN KEY (id_plataforma) REFERENCES plataformas(id) ON DELETE CASCADE ON UPDATE CASCADE
     );`);

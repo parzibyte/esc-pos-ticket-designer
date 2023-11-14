@@ -21,7 +21,6 @@ const agregarNuevoDiseño = () => {
 const refrescarListaDeDiseños = async () => {
 	const consulta = `select d.id,
 	d.nombre,
-	d.fecha_creacion,
 	d.fecha_modificacion,
 	p.id AS id_plataforma,
 	p.nombre AS plataforma,

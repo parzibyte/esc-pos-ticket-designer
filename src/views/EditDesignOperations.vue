@@ -61,7 +61,6 @@ const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
 onMounted(async () => {
   const diseñosCoincidentesConId = await store.exec(`select d.id,
 	d.nombre,
-	d.fecha_creacion,
 	d.fecha_modificacion,
 	d.impresora,
 	p.id AS id_plataforma,

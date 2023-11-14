@@ -11,7 +11,9 @@ import BotonImprimir from './BotonImprimir.vue';
 import Ping from './Ping.vue';
 import { useDatabaseStore } from '@/stores/db';
 import FileUpload from './FileUpload.vue';
+import { useFiltersStore } from '@/stores/filters';
 const store = useDatabaseStore();
+const filterStore = useFiltersStore();
 const props = withDefaults(defineProps<{
 	diseño: Diseño,
 	mostrarBotonModificar: boolean,
@@ -146,7 +148,7 @@ VALUES
 		</h1>
 		<div class="flex flex-row items-center">
 			<CalendarBlank fillColor="#6b7280"></CalendarBlank>
-			<small class="text-sm text-gray-500">{{ props.diseño.fecha_modificacion }}</small>
+			<small class="text-sm text-gray-500">{{ filterStore.date(props.diseño.fecha_modificacion) }}</small>
 			<div class="inline-block bg-blue-500 rounded-md text-white mx-2 p-1 text-sm">{{ props.diseño.plataforma }} ({{
 				props.diseño.impresora }})</div>
 			<Ping :diseño="props.diseño"></Ping>

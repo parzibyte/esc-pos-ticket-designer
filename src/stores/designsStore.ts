@@ -6,10 +6,10 @@ export const useDesignsStore = defineStore('designsStore', () => {
 	const insertarDiseño = async (idPlataforma: number | string, nombre: string, impresora: string) => {
 		const ahora = new Date().getTime();
 		await dbStore.exec(`INSERT INTO diseños
-		(id_plataforma, nombre, fecha_creacion, fecha_modificacion, impresora)
+		(id_plataforma, nombre, fecha_modificacion, impresora)
 		VALUES
-		(?, ?, ?, ?, ?)`,
-			[idPlataforma, nombre, ahora, ahora, impresora],
+		(?, ?, ?, ?)`,
+			[idPlataforma, nombre, ahora, impresora],
 		);
 	}
 	const actualizarDiseño = async (idPlataforma: number | string, nombre: string, impresora: string, id: number | string) => {
@@ -26,7 +26,6 @@ export const useDesignsStore = defineStore('designsStore', () => {
 	const obtenerDiseñoPorId = async (id: number | string) => {
 		const diseñosCoincidentesConId = await dbStore.exec(`select d.id,
 	d.nombre,
-	d.fecha_creacion,
 	d.fecha_modificacion,
 	d.impresora,
 	p.id AS id_plataforma,
