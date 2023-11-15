@@ -7,6 +7,7 @@ import { useDesignsOperationStore } from "@/stores/designOperation"
 import { debounce, obtenerPayload, convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from "@/Helpers"
 import type { OperacionConIndice } from "@/types/Tipos";
 import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAgregar.vue";
+import Codigo from "@/components/FragmentosCodigo/Codigo.vue";
 import DesignItem from "@/components/DesignItem.vue";
 import { useDesignsStore } from "@/stores/designsStore";
 const designsStore = useDesignsStore();
@@ -113,9 +114,9 @@ const onArchivoImportado = async () => {
           :operaciones="todasLasOperaciones"></ListaDeOperacionesParaAgregar>
       </div>
     </div>
-    <div class="bg-white w-full md:w-1/4 overflow-x-auto p-1 break-words">
-      <pre>{{ obtenerCodigo() }}</pre>
+    <div class="bg-white w-full md:w-1/4 overflow-x-auto p-2 break-all">
+      <br><br>
+      <Codigo :json="obtenerCodigo()" :diseño="diseñoActualmenteEditado"></Codigo>
     </div>
   </div>
 </template>
-<style></style>
