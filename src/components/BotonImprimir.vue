@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { Diseño } from '@/types/Tipos';
-import { useDatabaseStore } from "@/stores/db"
 import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from '@/Helpers';
 import Printer from "vue-material-design-icons/Printer.vue";
 import { emit } from 'process';
-const store = useDatabaseStore();
+import { useDesignsOperationStore } from '@/stores/designOperation';
+const designsOperationStore = useDesignsOperationStore();
 const props = withDefaults(defineProps<{
     diseño: Diseño,
 }>(), {
@@ -20,7 +20,7 @@ const props = withDefaults(defineProps<{
 const emit = defineEmits(["error", "exito"]);
 
 const imprimir = async () => {
-    const operacionesRecuperadasDeBaseDeDatos = await store.obtenerOperacionesDeDiseño(props.diseño.id);
+    const operacionesRecuperadasDeBaseDeDatos = await designsOperationStore.obtenerOperacionesDeDiseño(props.diseño.id);
     const payload = obtenerPayloadComoJson(
         props.diseño.plataforma,
         convertirOperacionesSerializadasAReactivas(operacionesRecuperadasDeBaseDeDatos),
