@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import BloqueDeCodigo from './BloqueDeCodigo.vue';
+
 type Propiedades = {
     json: string,
     diseño: object,
@@ -13,12 +15,19 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 </script>
 <template>
     Importa los paquetes:
-    <pre>using System.Net.Http;
+    <BloqueDeCodigo><template #default>using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-    </pre>
+</template>
+    </BloqueDeCodigo>
+
 
     Define la función <strong><code>Imprimir</code></strong>:
+<BloqueDeCodigo>
+    <template #codigo>
+
+    </template>
+</BloqueDeCodigo>
 
     <pre class="bg-gray-200 overflow-x-auto p-4 break-all whitespace-pre-wrap rounded-md">public class ResultadoAlImprimir
 {
