@@ -96,3 +96,13 @@ type Propiedades = {
 ```
 
 O sea que `modelValue` siempre debe ser un objeto, y dentro de ese objeto podemos tener cualquier propiedad, pero no podemos deefinir `modelValue` de otro modo. Aunque no muestre errores, a veces simplemente no desencadena el evento change o cosas similares
+
+# Bloques de código
+Para el caso del generador de código, el código se pasa en un objeto devuelto por un `computed`. Lo hice de esta manera para no tener variables como `codigo1`, `codigo2`, etcétera.
+
+Usé los siguientes enfoques con los siguientes resultados:
+1. Slots: funcionaba bien, pero tenía que escapar el HTML manualmente (por ejemplo, en C# se usa el símbolo `<` y `>`). No se podía copiar el código porque no pude acceder a los slots (sí, usé `useSlots`), además, me parece que los slots tienen nodos, no el HTML generado
+
+2. Pasar el código en una propiedad (como se hace actualmente) pero definir el código ahí mismo en el atributo: funcionaba bien excepto cuando el código tenía comillas dobles (`"`), además de que el código se veía un poco sucio
+
+Así que al final se quedó con un objeto devuelto por un computed. En el script podemos definir código en variables usando los backticks y luego pasarlo en el template

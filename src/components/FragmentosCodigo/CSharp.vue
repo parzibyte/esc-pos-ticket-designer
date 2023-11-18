@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
 import BloqueDeCodigo from './BloqueDeCodigo.vue';
 
 type Propiedades = {
@@ -12,24 +13,12 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
         return {};
     },
 })
-</script>
-<template>
-    Importa los paquetes:
-    <BloqueDeCodigo><template #default>using System.Net.Http;
+const bloques = computed(() => {
+    return {
+        "imports": `using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
-</template>
-    </BloqueDeCodigo>
-
-
-    Define la función <strong><code>Imprimir</code></strong>:
-<BloqueDeCodigo>
-    <template #codigo>
-
-    </template>
-</BloqueDeCodigo>
-
-    <pre class="bg-gray-200 overflow-x-auto p-4 break-all whitespace-pre-wrap rounded-md">public class ResultadoAlImprimir
+using System.Threading.Tasks;`,
+        "funcion": `public class ResultadoAlImprimir
 {
     public bool EsExitoso { get; set; }
     public string Mensaje { get; set; }
@@ -39,16 +28,16 @@ using System.Threading.Tasks;
         return "Exitoso: " + EsExitoso + " Mensaje: " + Mensaje;
     }
 };
-public static async Task&lt;ResultadoAlImprimir&gt; Imprimir()
+public static async Task<ResultadoAlImprimir> Imprimir()
 {
 
-    var payload = "{{ payloadEscapado }}";
+    var payload = "${propiedades.payloadEscapado}";
     try
     {
         using (HttpClient client = new HttpClient())
         {
             StringContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await client.PostAsync("{{ diseño.ruta_api }}/imprimir", content);
+            HttpResponseMessage response = await client.PostAsync("${propiedades.diseño.ruta_api}/imprimir", content);
             string responseString = await response.Content.ReadAsStringAsync();
             if (bool.TryParse(responseString, out bool exitoso))
             {
@@ -65,10 +54,8 @@ public static async Task&lt;ResultadoAlImprimir&gt; Imprimir()
         Console.WriteLine("Error haciendo petición al plugin. ¿El plugin se está ejecutando y ha comprobado el puerto? el error es: " + e.ToString());
         return new ResultadoAlImprimir { EsExitoso = false, Mensaje = e.Message };
     }
-}</pre>
-
-    <p>Después, invoca a la función. Recuerda agregar <code>Async</code> a la función desde donde la invoques. Ejemplo:</p>
-    <pre>static async Task Main(string[] args)
+}`,
+        "invocacion": `static async Task Main(string[] args)
 {
     var resultado = await Imprimir();
     if (resultado.EsExitoso)
@@ -81,5 +68,15 @@ public static async Task&lt;ResultadoAlImprimir&gt; Imprimir()
     }
 
     Console.ReadLine();
-}</pre>
+}`,
+    }
+});
+</script>
+<template>
+    Importa los paquetes:
+    <BloqueDeCodigo :codigo="bloques.imports"></BloqueDeCodigo>
+    Define la función <strong><code>Imprimir</code></strong>:
+    <BloqueDeCodigo :codigo="bloques.funcion"></BloqueDeCodigo>
+    <p>Después, invoca a la función. Recuerda agregar <code>Async</code> a la función desde donde la invoques. Ejemplo:</p>
+    <BloqueDeCodigo :codigo="bloques.invocacion"></BloqueDeCodigo>
 </template>
