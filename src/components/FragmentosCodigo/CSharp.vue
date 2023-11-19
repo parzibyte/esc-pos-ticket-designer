@@ -64,7 +64,7 @@ public static async Task<ResultadoAlImprimir> Imprimir()
     }
     else
     {
-        Console.WriteLine("Error: " + resultado.Mensaje);
+        Console.WriteLine("Error con el plugin: " + resultado.Mensaje);
     }
 
     Console.ReadLine();

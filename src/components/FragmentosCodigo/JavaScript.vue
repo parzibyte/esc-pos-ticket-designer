@@ -13,7 +13,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 		return {};
 	},
 })
-const otrosBloques = computed(() => {
+const bloques = computed(() => {
 	return {
 		"principal": `const payload = "${propiedades.payloadEscapado}";
 fetch(\"${propiedades.diseño.ruta_api}/imprimir\",{
@@ -24,11 +24,14 @@ fetch(\"${propiedades.diseño.ruta_api}/imprimir\",{
 .then(respuesta => {
 	if (respuesta === true) {
 		// Éxito
-		alert(\"Impreso correctamente\");
+		console.log(\"Impreso correctamente\");
 	} else {
 		// Error (el mensaje de error está en \"respuesta\")
-		alert(\"Error: \" + respuesta);
+		console.log(\"Error con el plugin: \" + respuesta);
 	}
+})
+.catch(e => {
+	console.log("Error haciendo petición. Verifica que el plugin se está ejecutando. El error dice: " + e);
 });`}
 });
 
@@ -37,5 +40,5 @@ fetch(\"${propiedades.diseño.ruta_api}/imprimir\",{
 	<p>Funciona el navegador web. Recuerda que debes estar en localhost o en un sitio con https, de otro
 		modo no funcionará.
 	</p>
-	<BloqueDeCodigo :codigo="otrosBloques.principal"></BloqueDeCodigo>
+	<BloqueDeCodigo :codigo="bloques.principal"></BloqueDeCodigo>
 </template>

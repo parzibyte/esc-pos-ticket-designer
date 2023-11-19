@@ -1,6 +1,10 @@
 <script setup lang="ts">
-import JavascriptCliente from "./JavascriptCliente.vue";
+import JavascriptCliente from "./Javascript.vue";
 import CSharp from "./CSharp.vue";
+import CurlWindows from "./CurlWindows.vue";
+import Java from "./Java.vue";
+import Python from "./Python.vue";
+import C from "./C.vue";
 import { ref } from "vue"
 type Propiedades = {
 	json: string,
@@ -16,7 +20,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 const indiceLenguajeSeleccionado = ref(0);
 const lenguajes = [
 	{
-		nombre: "JavaScript (Cliente)",
+		nombre: "JavaScript (Cliente y servidor)",
 		componente: JavascriptCliente,
 	},
 	{
@@ -24,8 +28,44 @@ const lenguajes = [
 		componente: CSharp,
 	},
 	{
+		nombre: "CURL Windows",
+		componente: CurlWindows,
+	},
+	{
+		nombre: "Java",
+		componente: Java,
+	},
+	{
+		nombre: "Python",
+		componente: Python,
+	},
+	{
+		nombre: "PHP",
+		componente: Python,
+	},
+	{
+		nombre: "Laravel",
+		componente: Python,
+	},
+	{
+		nombre: "Dart",
+		componente: Python,
+	},
+	{
+		nombre: "React",
+		componente: Python,
+	},
+	{
+		nombre: "Angular",
+		componente: Python,
+	},
+	{
 		nombre: "Golang",
 		componente: "Go",
+	},
+{
+		nombre: "C",
+		componente: C,
 	},
 ];
 const clase = (indice: number) => {
