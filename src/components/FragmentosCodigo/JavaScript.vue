@@ -37,8 +37,11 @@ fetch(\"${propiedades.diseño.ruta_api}/imprimir\",{
 
 </script>
 <template>
-	<p>Funciona el navegador web. Recuerda que debes estar en localhost o en un sitio con https, de otro
-		modo no funcionará.
+	<p>El código funciona en el cliente y servidor. Si lo usas en el cliente, es
+		<strong>
+			obligatorio invocar al plugin desde un sitio con https
+		</strong>
 	</p>
+
 	<BloqueDeCodigo :codigo="bloques.principal"></BloqueDeCodigo>
 </template>

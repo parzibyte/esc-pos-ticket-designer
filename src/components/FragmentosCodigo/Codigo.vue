@@ -5,6 +5,11 @@ import CurlWindows from "./CurlWindows.vue";
 import Java from "./Java.vue";
 import Python from "./Python.vue";
 import C from "./C.vue";
+import PHP from "./PHP.vue";
+import Laravel from "./Laravel.vue";
+import Dart from "./Dart.vue";
+import React from "./React.vue";
+import Angular from "./Angular.vue";
 import { ref } from "vue"
 type Propiedades = {
 	json: string,
@@ -41,29 +46,33 @@ const lenguajes = [
 	},
 	{
 		nombre: "PHP",
-		componente: Python,
+		componente: PHP,
 	},
 	{
 		nombre: "Laravel",
-		componente: Python,
+		componente: Laravel,
 	},
 	{
-		nombre: "Dart",
-		componente: Python,
+		nombre: "Dart y Flutter",
+		componente: Dart,
 	},
 	{
 		nombre: "React",
-		componente: Python,
+		componente: React,
 	},
 	{
 		nombre: "Angular",
+		componente: Angular,
+	},
+	{
+		nombre: "Vue",
 		componente: Python,
 	},
 	{
 		nombre: "Golang",
 		componente: "Go",
 	},
-{
+	{
 		nombre: "C",
 		componente: C,
 	},
