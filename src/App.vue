@@ -18,7 +18,7 @@ const clasesParaContenedor = () => {
 <template>
   <header>
     <nav class="bg-red-500 text-white p-4 font-semibold flex flex-row items-center">
-      <button  @click="mostrarMenu = !mostrarMenu" class="mr-4 p-1 hover:bg-red-600">
+      <button @click="mostrarMenu = !mostrarMenu" class="mr-4 p-1 hover:bg-red-600">
         <Menu v-show="!mostrarMenu"></Menu>
         <MenuOpen v-show="mostrarMenu"></MenuOpen>
       </button>
@@ -30,11 +30,27 @@ const clasesParaContenedor = () => {
       :class="clasesParaMenu()">
       <RouterLink to="/designs" class="p-3 hover:bg-gray-100 flex flex-row">
         <ViewList class="mr-6"></ViewList>
-        Diseños
+        Mis diseños
+      </RouterLink>
+      <RouterLink to="/designs" class="p-3 hover:bg-gray-100 flex flex-row">
+        <ViewList class="mr-6"></ViewList>
+        Primeros pasos
       </RouterLink>
       <RouterLink to="/platforms-settings" class="p-3 hover:bg-gray-100 flex flex-row">
         <CellPhoneLink class="mr-6"></CellPhoneLink>
         Plataformas
+      </RouterLink>
+      <RouterLink to="/designs" class="p-3 hover:bg-gray-100 flex flex-row">
+        <ViewList class="mr-6"></ViewList>
+        Remover pie de página
+      </RouterLink>
+      <RouterLink to="/designs" class="p-3 hover:bg-gray-100 flex flex-row">
+        <ViewList class="mr-6"></ViewList>
+        Ajustes
+      </RouterLink>
+      <RouterLink to="/designs" class="p-3 hover:bg-gray-100 flex flex-row">
+        <ViewList class="mr-6"></ViewList>
+        Ayuda
       </RouterLink>
       <p class="text-center font-normal text-xs">
         ESC POS ticket designer developed by Parzibyte
