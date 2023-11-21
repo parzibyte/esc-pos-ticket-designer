@@ -53,7 +53,7 @@ class EnvolturaDeBaseDeDatos {
     orden INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (id_diseño) REFERENCES diseños(id) ON DELETE CASCADE ON UPDATE CASCADE);`);
         this.db.exec(`CREATE TABLE IF NOT EXISTS ajustes_diseños(
-    id_diseño INTEGER,
+    id_diseño INTEGER UNIQUE,
     indice_lenguaje_programacion  INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (id_diseño) REFERENCES diseños(id) ON DELETE CASCADE ON UPDATE CASCADE
     );`);

@@ -21,6 +21,7 @@ const props = defineProps<{
 const todasLasOperaciones: Ref<Array<Operacion>> = ref(listaCompletaDeOperaciones);
 const operaciones: Ref<Array<Operacion>> = ref([]);
 const modoDesarrolladorActivado = ref(false);
+const componenteCodigo = ref({});
 
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
@@ -63,6 +64,9 @@ onMounted(async () => {
   modoDesarrolladorActivado.value = !!(await settingsStore.obtenerAjustes()).modo_programador;
   diseñoActualmenteEditado.value = await designsStore.obtenerDiseñoPorId(props.id);
   await refrescarOperacionesDeDiseñoActualmenteEditado();
+  if (modoDesarrolladorActivado.value) {
+    await componenteCodigo.value.refrescarIndice();
+  }
 })
 
 const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionConIndice, operacionReemplazadaConIndice: OperacionConIndice) => {
@@ -132,7 +136,7 @@ const clasesParaContenedorDeCodigo = () => {
     </div>
     <div v-if="modoDesarrolladorActivado" class="bg-white overflow-x-auto p-2 break-all w-full"
       :class="clasesParaContenedorDeCodigo()">
-      <Codigo :json="obtenerCodigo()" :diseño="diseñoActualmenteEditado"></Codigo>
+      <Codigo ref="componenteCodigo" :json="obtenerCodigo()" :diseño="diseñoActualmenteEditado"></Codigo>
     </div>
   </div>
 </template>

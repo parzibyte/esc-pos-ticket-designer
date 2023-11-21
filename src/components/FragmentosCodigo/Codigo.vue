@@ -12,7 +12,9 @@ import React from "./React.vue";
 import Angular from "./Angular.vue";
 import Vue from "./Vue.vue";
 import Golang from "./Golang.vue";
-import { ref } from "vue"
+import { onMounted, ref } from "vue"
+import { useSettingsStore } from "@/stores/settings";
+const settingsStore = useSettingsStore();
 type Propiedades = {
 	json: string,
 	diseño: object,
@@ -93,10 +95,22 @@ const payloadEscapado = () => {
 		.replace(/\\/g, '\\\\')
 		.replace(/"/g, '\\"');
 }
+
+const onIndiceCambiado = async (nuevoIndice: number) => {
+	indiceLenguajeSeleccionado.value = nuevoIndice;
+	await settingsStore.guardarAjustesDeDiseño(propiedades.diseño.id, nuevoIndice);
+}
+
+const refrescarIndice = async () => {
+	indiceLenguajeSeleccionado.value = (await settingsStore.obtenerAjustesDeDiseño(propiedades.diseño.id)).indice_lenguaje_programacion;
+}
+
+defineExpose({ refrescarIndice });
+
 </script>
 <template>
 	<div class="flex flex-row overflow-x-auto">
-		<div @click="indiceLenguajeSeleccionado = indice" v-for="(lenguaje, indice) in lenguajes" :class="clase(indice)"
+		<div @click="onIndiceCambiado(indice)" v-for="(lenguaje, indice) in lenguajes" :class="clase(indice)"
 			class="cursor-pointer pt-1 pb-2 px-2  w-fit min-w-fit">{{ lenguaje.nombre }}</div>
 	</div>
 	<component :payloadEscapado="payloadEscapado()" :diseño="diseño" :json="propiedades.json"
