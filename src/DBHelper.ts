@@ -16,7 +16,7 @@ class EnvolturaDeBaseDeDatos {
         if ('opfs' in sqlite3) {
             this.db = new sqlite3.oo1.OpfsDb({
                 filename: NOMBRE_BASE_DE_DATOS,
-                flags: "c",
+                flags: "ct",
                 vfs: false,
             });
             log('OPFS is available, created persisted database at', this.db.filename);
@@ -52,6 +52,14 @@ class EnvolturaDeBaseDeDatos {
     argumentos TEXT NOT NULL,
     orden INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (id_diseño) REFERENCES diseños(id) ON DELETE CASCADE ON UPDATE CASCADE);`);
+        this.db.exec(`CREATE TABLE IF NOT EXISTS ajustes_diseños(
+    id_diseño INTEGER,
+    indice_lenguaje_programacion  INTEGER NOT NULL DEFAULT 0,
+    FOREIGN KEY (id_diseño) REFERENCES diseños(id) ON DELETE CASCADE ON UPDATE CASCADE
+    );`);
+        this.db.exec(`CREATE TABLE IF NOT EXISTS ajustes(
+    modo_programador INTEGER NOT NULL DEFAULT 0
+    );`);
     }
 
     async insertarDatosIniciales() {
@@ -68,6 +76,12 @@ class EnvolturaDeBaseDeDatos {
                     "Android", "Imprimir en Android con impresora Bluetooth", "http://localhost:8000",
                     "Desktop", "Imprimir en Windows, Raspbian o Linux con impresora USB", "http://localhost:8000",
                 ],
+                returnValue: "resultRows",
+                rowMode: "object",
+            });
+            await this.db.exec({
+                sql: "INSERT INTO ajustes(modo_programador) VALUES (0)",
+                bind: [],
                 returnValue: "resultRows",
                 rowMode: "object",
             });

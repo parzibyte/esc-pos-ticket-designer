@@ -44,7 +44,7 @@ const clasesParaContenedor = () => {
         <ViewList class="mr-6"></ViewList>
         Remover pie de página
       </RouterLink>
-      <RouterLink to="/designs" class="p-3 hover:bg-gray-100 flex flex-row">
+      <RouterLink to="/settings" class="p-3 hover:bg-gray-100 flex flex-row">
         <ViewList class="mr-6"></ViewList>
         Ajustes
       </RouterLink>

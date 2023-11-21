@@ -10,14 +10,17 @@ import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAg
 import Codigo from "@/components/FragmentosCodigo/Codigo.vue";
 import DesignItem from "@/components/DesignItem.vue";
 import { useDesignsStore } from "@/stores/designsStore";
+import { useSettingsStore } from "@/stores/settings";
 const designsStore = useDesignsStore();
 const designsOperationStore = useDesignsOperationStore();
+const settingsStore = useSettingsStore();
 const diseñoActualmenteEditado = ref({});
 const props = defineProps<{
   id: number,
 }>();
 const todasLasOperaciones: Ref<Array<Operacion>> = ref(listaCompletaDeOperaciones);
 const operaciones: Ref<Array<Operacion>> = ref([]);
+const modoDesarrolladorActivado = ref(false);
 
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
@@ -57,6 +60,7 @@ const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
 }
 
 onMounted(async () => {
+  modoDesarrolladorActivado.value = !!(await settingsStore.obtenerAjustes()).modo_programador;
   diseñoActualmenteEditado.value = await designsStore.obtenerDiseñoPorId(props.id);
   await refrescarOperacionesDeDiseñoActualmenteEditado();
 })
@@ -95,10 +99,22 @@ const onArchivoImportado = async () => {
   await refrescarOperacionesDeDiseñoActualmenteEditado();
 }
 
+const clasesParaContenedorDeOperaciones = () => {
+  return {
+    "md:w-3/4": modoDesarrolladorActivado.value,
+  };
+}
+
+const clasesParaContenedorDeCodigo = () => {
+  return {
+    "md:w-1/4": modoDesarrolladorActivado.value,
+  };
+}
+
 </script>
 <template>
   <div class="flex flex-col md:flex-row">
-    <div class="p-1 bg-gray-100 w-full md:w-3/4">
+    <div class="p-1 bg-gray-100 w-full" :class="clasesParaContenedorDeOperaciones()">
       <DesignItem @importado="onArchivoImportado" :mostrar-boton-exportar="true" :mostrar-boton-importar="true"
         :mostrarBotonEliminar="false" :mostrarBotonModificar="false" :diseño="diseñoActualmenteEditado"></DesignItem>
       <div v-show="operaciones.length <= 0" class="bg-sky-500 my-2 p-8 rounded-md text-center text-white text-2xl">
@@ -114,8 +130,8 @@ const onArchivoImportado = async () => {
           :operaciones="todasLasOperaciones"></ListaDeOperacionesParaAgregar>
       </div>
     </div>
-    <div class="bg-white w-full md:w-1/4 overflow-x-auto p-2 break-all">
-      <br><br>
+    <div v-if="modoDesarrolladorActivado" class="bg-white overflow-x-auto p-2 break-all w-full"
+      :class="clasesParaContenedorDeCodigo()">
       <Codigo :json="obtenerCodigo()" :diseño="diseñoActualmenteEditado"></Codigo>
     </div>
   </div>
