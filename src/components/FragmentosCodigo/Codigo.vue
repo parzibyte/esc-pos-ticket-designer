@@ -10,6 +10,8 @@ import Laravel from "./Laravel.vue";
 import Dart from "./Dart.vue";
 import React from "./React.vue";
 import Angular from "./Angular.vue";
+import Vue from "./Vue.vue";
+import Golang from "./Golang.vue";
 import { ref } from "vue"
 type Propiedades = {
 	json: string,
@@ -25,8 +27,8 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 const indiceLenguajeSeleccionado = ref(0);
 const lenguajes = [
 	{
-		nombre: "JavaScript (Cliente y servidor)",
-		componente: JavascriptCliente,
+		nombre: "Angular",
+		componente: Angular,
 	},
 	{
 		nombre: "C#",
@@ -37,46 +39,47 @@ const lenguajes = [
 		componente: CurlWindows,
 	},
 	{
-		nombre: "Java",
-		componente: Java,
-	},
-	{
-		nombre: "Python",
-		componente: Python,
-	},
-	{
-		nombre: "PHP",
-		componente: PHP,
-	},
-	{
-		nombre: "Laravel",
-		componente: Laravel,
+		nombre: "C y C++",
+		componente: C,
 	},
 	{
 		nombre: "Dart y Flutter",
 		componente: Dart,
 	},
 	{
+		nombre: "Golang",
+		componente: Golang,
+	},
+	{
+		nombre: "Java",
+		componente: Java,
+	},
+	{
+		nombre: "JavaScript (Cliente y servidor)",
+		componente: JavascriptCliente,
+	},
+	{
+		nombre: "Laravel",
+		componente: Laravel,
+	},
+	{
+		nombre: "PHP",
+		componente: PHP,
+	},
+	{
+		nombre: "Python",
+		componente: Python,
+	},
+	{
 		nombre: "React",
 		componente: React,
 	},
 	{
-		nombre: "Angular",
-		componente: Angular,
-	},
-	{
-		nombre: "Vue",
-		componente: Python,
-	},
-	{
-		nombre: "Golang",
-		componente: "Go",
-	},
-	{
-		nombre: "C",
-		componente: C,
+		nombre: "Vue 3",
+		componente: Vue,
 	},
 ];
+
 const clase = (indice: number) => {
 	if (indice === indiceLenguajeSeleccionado.value) {
 		return "border-b-2 border-b-green-500 text-green-500";
