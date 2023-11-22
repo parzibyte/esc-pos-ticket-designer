@@ -5,6 +5,9 @@ import CreateDesign from '../views/CreateDesign.vue'
 import PlatformsSettings from '../views/PlatformsSettings.vue'
 import EditDesign from '../views/EditDesign.vue'
 import Settings from '../views/Settings.vue'
+import Help from '../views/Help.vue'
+import FirstSteps from '../views/FirstSteps.vue'
+import RemoveFooter from '../views/RemoveFooter.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +48,21 @@ const router = createRouter({
       path: '/settings',
       name: 'Settings',
       component: Settings,
+    },
+    {
+      path: '/help',
+      name: 'Help',
+      component: Help,
+    },
+    {
+      path: '/first-steps',
+      name: 'FirstSteps',
+      component: FirstSteps,
+    },
+    {
+      path: '/remove-footer',
+      name: 'RemoveFooter',
+      component: RemoveFooter,
     },
   ]
 })
