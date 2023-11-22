@@ -5,6 +5,7 @@ import type { OperacionConIndice } from "@/types/Tipos";
 import Delete from "vue-material-design-icons/Delete.vue";
 import UnfoldLessHorizontal from "vue-material-design-icons/UnfoldLessHorizontal.vue";
 import UnfoldMoreHorizontal from "vue-material-design-icons/UnfoldMoreHorizontal.vue";
+import DragHorizontal from "vue-material-design-icons/DragHorizontal.vue";
 import Corte from "./Operaciones/Corte.vue";
 import DefinirCaracterPersonalizado from "./Operaciones/DefinirCaracterPersonalizado.vue";
 import Texto from "./Operaciones/Texto.vue";
@@ -130,11 +131,13 @@ const onDragOver = (evento: DragEvent) => {
 
 </script>
 <template>
-    <div @dragover="onDragOver($event)" @dragleave="onAPuntoDeSoltarCancelado($event)"
-        @dragenter="onArrastreAPuntoDeSoltar($event)" draggable="true"
-        @dragstart="onArrastreIniciado($event, props.operacion, props.indice)" @drop="onSoltado($event)"
-        class="p-1 my-2 bg-white rounded-md"
+    <div class="p-1 my-2 bg-white rounded-md" @dragover="onDragOver($event)" @dragleave="onAPuntoDeSoltarCancelado($event)"
+        @dragenter="onArrastreAPuntoDeSoltar($event)" @drop="onSoltado($event)"
         :class="{ 'deshabilitar-pointer-events border-2 border-sky-200': estanAPuntoDeSoltarAlgoSobreElElementoActual }">
+        <div draggable="true" @dragstart="onArrastreIniciado($event, props.operacion, props.indice)"
+            class="cursor-pointer flex justify-center">
+            <DragHorizontal></DragHorizontal>
+        </div>
         <div class="flex my-2">
             <h1 class="text-xl" v-show="!estanAPuntoDeSoltarAlgoSobreElElementoActual">{{ props.operacion.nombre }}</h1>
             <h1 class="text-xl" v-show="estanAPuntoDeSoltarAlgoSobreElElementoActual">Suelta para intercambiarlas</h1>
