@@ -2,6 +2,7 @@
 import type { Diseño } from '@/types/Tipos';
 import { computed } from 'vue';
 import { usePingPlatformStore } from "@/stores/ping_platform"
+import router from '@/router';
 const pingStore = usePingPlatformStore();
 
 const props = withDefaults(defineProps<{
@@ -26,7 +27,7 @@ const estaConectado = computed(() => {
 });
 
 const navegarAAyuda = () => {
-    //TODO
+    router.push({ name: "FirstSteps" });
 }
 
 

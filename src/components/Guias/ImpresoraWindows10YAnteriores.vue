@@ -1,0 +1,23 @@
+<script setup lang="ts">
+import agregarImpresora from "@/assets/ImpresoraWindows10YAnteriores/Agregar-impresora.png";
+import InstalarImpresoraWindowsComun from "./InstalarImpresoraWindowsComun.vue";
+import AvisoFabricanteWindows from "./AvisoFabricanteWindows.vue";
+</script>
+<template>
+    <div>
+        <AvisoFabricanteWindows></AvisoFabricanteWindows>
+        <ul class="list-decimal list-inside">
+            <li>Ve al
+                <strong>Panel de control</strong>, selecciona
+                <strong>Dispositivos e impresoras</strong>, una vez ahí elige
+                <strong>Agregar una impresora</strong>
+            </li>
+            <li>Espera a que aparezca la opción
+                <strong>La impresora deseada no está en la lista</strong>
+                y haz clic en ella
+                <img :src="agregarImpresora">
+            </li>
+            <InstalarImpresoraWindowsComun></InstalarImpresoraWindowsComun>
+        </ul>
+    </div>
+</template>
