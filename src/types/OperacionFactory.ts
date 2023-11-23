@@ -47,6 +47,13 @@ export class OperacionFactory {
 						argumentos: [argumentos.lineas],
 					}];
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCorte;
+					return [{
+						nombre: "Corte",
+						argumentos: [argumentos.lineas],
+					}];
+				},
 			},
 		},
 		"DefinirCaracterPersonalizado": {
@@ -69,6 +76,9 @@ export class OperacionFactory {
 
 					];
 				},
+				"Android": () => {
+					return [];
+				}
 			},
 
 		},
@@ -119,6 +129,48 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTexto;
+					const argumentosParaDevolver = [
+						{
+							nombre: "EstablecerTamañoFuente",
+							argumentos: [argumentos.ancho, argumentos.alto],
+						},
+						{
+							nombre: "EstablecerEnfatizado",
+							argumentos: [argumentos.enfatizado],
+						},
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "EstablecerSubrayado",
+							argumentos: [argumentos.subrayado],
+						},
+						{
+							nombre: "EstablecerModoDeImpresionAlReves",
+							argumentos: [argumentos.alReves],
+						},
+						{
+							nombre: "EstablecerImpresionBlancoYNegroInversa",
+							argumentos: [argumentos.inverso],
+						},
+						{
+							nombre: "EstablecerRotacionDe90Grados",
+							argumentos: [argumentos.rotacion90],
+						},
+						{
+							nombre: "EscribirTexto",
+							argumentos: [argumentos.texto],
+						},
+						{
+							nombre: "Feed",
+							argumentos: [1],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 
 		},
@@ -128,6 +180,20 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
+					const argumentosParaDevolver = [
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "ImprimirImagenEnBase64",
+							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+						}
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
 					const argumentosParaDevolver = [
 						{
@@ -151,6 +217,30 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTabla;
+					let contenido = "";
+					let { caracterSeparadorColumnasDatos, caracterSeparadorColumnasEnSeparadorDeFilas, caracterSeparadorFilas, relleno } = argumentos;
+					contenido += obtenerSeparador(caracterSeparadorFilas, caracterSeparadorColumnasEnSeparadorDeFilas, cantidadColumnas(argumentos), argumentos.ajustesEncabezados)
+					for (const fila of argumentos.tabla) {
+						contenido += tabularDatos(fila.map((cadena, indiceColumna) => {
+							return {
+								contenido: cadena,
+								maximaLongitud: argumentos.ajustesEncabezados[indiceColumna].longitudMaxima,
+							};
+						}),
+							relleno, caracterSeparadorColumnasDatos).join("\n");
+						contenido += "\n";
+						contenido += obtenerSeparador(caracterSeparadorFilas, caracterSeparadorColumnasEnSeparadorDeFilas, cantidadColumnas(argumentos), argumentos.ajustesEncabezados)
+					}
+					const argumentosParaDevolver = [
+						{
+							nombre: "EscribirTexto",
+							argumentos: [contenido],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTabla;
 					let contenido = "";
 					let { caracterSeparadorColumnasDatos, caracterSeparadorColumnasEnSeparadorDeFilas, caracterSeparadorFilas, relleno } = argumentos;
@@ -238,6 +328,38 @@ export class OperacionFactory {
 					}
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoDeBarras;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+					];
+					const mapa: Record<string, string> = {
+						"Codabar": "codabar",
+						"Code 128": "code128",
+						"Code 39": "code39",
+						"Code93": "code93",
+						"Ean": "ean",
+						"Ean 8": "ean8",
+						"PDF 417": "pdf417",
+						"Two off five ITF": "itf",
+						"UPC A": "upca",
+						"UPC E": "upce",
+					};
+					argumentosParaDevolver.push({
+						nombre: "ImprimirCodigoDeBarras",
+						argumentos: [mapa[argumentos.tipo.nombre], argumentos.contenido, argumentos.tamaño.valor, argumentos.ancho, argumentos.alto],
+					});
+					if (argumentos.imprimirContenido) {
+						argumentosParaDevolver.push({
+							nombre: "EscribirTexto",
+							argumentos: [argumentos.contenido + "\n"],
+						});
+					}
+					return argumentosParaDevolver;
+				},
 			},
 
 		},
@@ -254,8 +376,8 @@ export class OperacionFactory {
 							argumentos: [argumentos.alineacion.valor],
 						},
 						{
-							nombre: "ImprimirCodigoQr",
-							argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion.valor, argumentos.tamaño.valor],
+							nombre: "ImprimirCodigoDeBarras",
+							argumentos: ["qr", argumentos.contenido, argumentos.tamaño.valor, argumentos.ancho, argumentos.ancho],
 						}
 					];
 					if (argumentos.imprimirContenido) {
@@ -288,6 +410,20 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenLocal;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "CargarImagenLocalEImprimir",
+							argumentos: [argumentos.ruta, argumentos.tamaño.valor, argumentos.maximoAncho],
+						}
+					];
+					return argumentosParaDevolver;
+				},
 			},
 
 		},
@@ -297,6 +433,16 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCorteParcial;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "CorteParcial",
+							argumentos: [],
+						}
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCorteParcial;
 					const argumentosParaDevolver = <any>[
 						{
@@ -328,6 +474,20 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenDeInternet;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "DescargarImagenDeInternetEImprimir",
+							argumentos: [argumentos.url, argumentos.tamaño.valor, argumentos.maximoAncho],
+						}
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"DeshabilitarCaracteresPersonalizados": {
@@ -343,6 +503,9 @@ export class OperacionFactory {
 						},
 					];
 					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
+					return [];
 				},
 			},
 		},
@@ -360,6 +523,15 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "DeshabilitarElModoDeCaracteresChinos",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"TextoSimple": {
@@ -368,6 +540,16 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTextoSimple;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EscribirTexto",
+							argumentos: [argumentos.contenido],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTextoSimple;
 					const argumentosParaDevolver = <any>[
 						{
@@ -394,6 +576,16 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirAlineacion;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"EstablecerEnfatizado": {
@@ -402,6 +594,16 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirEnfatizado;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerEnfatizado",
+							argumentos: [argumentos.enfatizado],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirEnfatizado;
 					const argumentosParaDevolver = <any>[
 						{
@@ -428,6 +630,16 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFuente;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerFuente",
+							argumentos: [argumentos.fuente.valor],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"EstablecerImpresionAlReves": {
@@ -440,6 +652,16 @@ export class OperacionFactory {
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerImpresionAlReves",
+							argumentos: [argumentos.alReves],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImpresionAlReves;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerModoDeImpresionAlReves",
 							argumentos: [argumentos.alReves],
 						},
 					];
@@ -479,6 +701,16 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirRotacionDe90Grados;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerRotacionDe90Grados",
+							argumentos: [argumentos.rotar],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"EstablecerSubrayado": {
@@ -487,6 +719,16 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirSubrayado;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerSubrayado",
+							argumentos: [argumentos.subrayar],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirSubrayado;
 					const argumentosParaDevolver = <any>[
 						{
@@ -513,6 +755,16 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTamañoFuente;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerTamañoFuente",
+							argumentos: [argumentos.ancho, argumentos.alto],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"Feed": {
@@ -521,6 +773,16 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFeed;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "Feed",
+							argumentos: [argumentos.lineas],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFeed;
 					const argumentosParaDevolver = <any>[
 						{
@@ -546,6 +808,11 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"HabilitarElModoDeCaracteresChinos": {
@@ -554,6 +821,15 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "HabilitarElModoDeCaracteresChinos",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "HabilitarElModoDeCaracteresChinos",
@@ -583,6 +859,20 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenEnBase64;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "ImprimirImagenEnBase64",
+							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"Iniciar": {
@@ -591,6 +881,15 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "Iniciar",
+							argumentos: [],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "Iniciar",
@@ -616,6 +915,16 @@ export class OperacionFactory {
 					];
 					return argumentosParaDevolver;
 				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirPulso;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "Pulso",
+							argumentos: [argumentos.pin, argumentos.tiempoEncendido, argumentos.tiempoApagado],
+						},
+					];
+					return argumentosParaDevolver;
+				},
 			},
 		},
 		"TextoSegunPaginaDeCodigos": {
@@ -624,6 +933,16 @@ export class OperacionFactory {
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTextoSegunPaginaDeCodigos;
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "TextoSegunPaginaDeCodigos",
+							argumentos: [argumentos.numeroPagina, argumentos.pagina, argumentos.texto],
+						},
+					];
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirTextoSegunPaginaDeCodigos;
 					const argumentosParaDevolver = <any>[
 						{
