@@ -48,6 +48,7 @@ export const usePingPlatformStore = defineStore('ping_platform', () => {
         try {
             const httpResponse = await fetch(url + "/version");
             const respuesta = await httpResponse.json();
+            respuesta.activa = true;
             return respuesta;
         } catch (e) {
             return false;
