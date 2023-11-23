@@ -10,14 +10,34 @@ const impresoras = ref([]);
 const impresoraSeleccionada = ref("");
 
 const obtenerImpresoras = async () => {
-    console.log("Obteniendo impresoras...");
-
     const response = await fetch(`${props.plataforma.ruta_api}/impresoras`);
     impresoras.value = await response.json();
 }
 
 const imprimir = async () => {
-    //await fetch();
+    try {
+        const httpResponse = await fetch(`${props.plataforma.ruta_api}/imprimir`, {
+            method: "POST",
+            body: JSON.stringify({
+                nombreImpresora: impresoraSeleccionada.value,
+                serial: props.plataforma.licencia,
+                operaciones: [
+                    {
+                        nombre: "EscribirTexto",
+                        argumentos: ["Esto es una prueba\n\n"]
+                    }
+                ]
+            })
+        });
+        const respuesta = await httpResponse.json();
+        if (respuesta === true) {
+            alert("Ok");
+        } else {
+            alert("Error: " + respuesta);
+        }
+    } catch (e) {
+        alert("Error: " + e);
+    }
 }
 const estaConectado = computed(() => {
     if (!props.plataforma) {
