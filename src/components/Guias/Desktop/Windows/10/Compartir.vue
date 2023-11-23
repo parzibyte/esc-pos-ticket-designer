@@ -2,7 +2,6 @@
 import clicDerecho from "@/assets/CompartirW10Anteriores/Click-derecho.png";
 import compartir1 from "@/assets/CompartirW10Anteriores/Compartir-1.png";
 import compartirImpresoraLocal from "@/assets/CompartirW10Anteriores/Compartir-2.png";
-import { ref } from "vue";
 </script>
 <template>
     <div>

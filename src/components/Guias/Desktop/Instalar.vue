@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import ImpresoraW11 from "@/components/Guias/Desktop/Windows/11/Instalar.vue";
-import ImpresoraWindows10YAnteriores from "@/components/Guias/Desktop/Windows/10/Instalar.vue";
+import InstalarW11 from "@/components/Guias/Desktop/Windows/11/Instalar.vue";
+import InstalarW10 from "@/components/Guias/Desktop/Windows/10/Instalar.vue";
 import { ref } from "vue";
-import InstalarLinuxLike from "@/components/Guias/Desktop/Linux/Instalar.vue";
+import InstalarLinux from "@/components/Guias/Desktop/Linux/Instalar.vue";
 const indiceSistema = ref(0);
 const clase = (indice: number) => {
     if (indice === indiceSistema.value) {
@@ -19,8 +19,8 @@ const clase = (indice: number) => {
                 v-for="(sistema, indice) in ['Windows 8, 8.1 y 10', 'Windows 11', 'Linux y Raspbian']">{{ sistema }}
             </div>
         </div>
-        <ImpresoraW11 v-if="indiceSistema === 1"></ImpresoraW11>
-        <ImpresoraWindows10YAnteriores v-if="indiceSistema === 0"></ImpresoraWindows10YAnteriores>
-        <InstalarLinuxLike v-if="indiceSistema === 2"></InstalarLinuxLike>
+        <InstalarW10 v-if="indiceSistema === 0"></InstalarW10>
+        <InstalarW11 v-if="indiceSistema === 1"></InstalarW11>
+        <InstalarLinux v-if="indiceSistema === 2"></InstalarLinux>
     </div>
 </template>

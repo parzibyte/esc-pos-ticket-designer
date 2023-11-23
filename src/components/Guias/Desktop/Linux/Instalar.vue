@@ -1,16 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import BloqueDeCodigo from "@/components/FragmentosCodigo/BloqueDeCodigo.vue";
 import listar from "@/assets/Linux/Listar.png";
 import gid from "@/assets/Linux/Gid.png";
-const indiceSistema = ref(0);
-const clase = (indice: number) => {
-    if (indice === indiceSistema.value) {
-        return "border-b-2 border-b-green-500 text-green-500";
-    }
-    return "";
-}
-
 const codigoImprimir = `echo "Imprimiendo en una impresora termica en Linux desde el blog de parzibyte (parzibyte.me/blog)" >> /dev/usb/lp1`;
 </script>
 <template>
