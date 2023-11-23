@@ -3,8 +3,7 @@ import imagenDescargarDesktop from "@/assets/Desktop_descargar.png";
 import imagenExtraerDesktop from "@/assets/Extraer_plugin.png";
 import imagenEjecutar from "@/assets/Desktop_ejecutar.png";
 import desktopPermisos from "@/assets/Desktop_permisos.gif";
-</script>
-<template>
+</script><template>
     <p>Descarga el plugin desde
         <a target="_blank" href="https://github.com/parzibyte/plugin-impresora-termica-v3/releases/latest"
             class="text-blue-500 font-semibold">

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import ImpresoraW11 from "./ImpresoraW11.vue";
-import ImpresoraWindows10YAnteriores from "./ImpresoraWindows10YAnteriores.vue";
+import ImpresoraW11 from "@/components/Guias/Desktop/Windows/11/Instalar.vue";
+import ImpresoraWindows10YAnteriores from "@/components/Guias/Desktop/Windows/10/Instalar.vue";
 import { ref } from "vue";
-import InstalarLinuxLike from "./InstalarLinuxLike.vue";
+import InstalarLinuxLike from "@/components/Guias/Desktop/Linux/Instalar.vue";
 const indiceSistema = ref(0);
 const clase = (indice: number) => {
     if (indice === indiceSistema.value) {

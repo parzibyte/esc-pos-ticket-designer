@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import agregarImpresora from "@/assets/ImpresoraWindows10YAnteriores/Agregar-impresora.png";
-import InstalarImpresoraWindowsComun from "./InstalarImpresoraWindowsComun.vue";
-import AvisoFabricanteWindows from "./AvisoFabricanteWindows.vue";
+import InstalarImpresoraWindowsComun from "@/components/Guias/Desktop/Windows/InstalarWindowsComun.vue"
+import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabricanteWindows.vue";
 </script>
 <template>
     <div>

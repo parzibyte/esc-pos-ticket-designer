@@ -3,15 +3,22 @@ import clicDerecho from "@/assets/CompartirW10Anteriores/Click-derecho.png";
 import compartir1 from "@/assets/CompartirW10Anteriores/Compartir-1.png";
 import compartirImpresoraLocal from "@/assets/CompartirW10Anteriores/Compartir-2.png";
 import { ref } from "vue";
-import CompartirImpresoraWindows10YAnteriores from "./CompartirImpresoraWindows10YAnteriores.vue";
-import CompartirW11 from "./CompartirW11.vue";
+import CompartirImpresoraWindows10YAnteriores from "@/components/Guias/Desktop/Windows/10/Compartir.vue";
+import CompartirW11 from "@/components/Guias/Desktop/Windows/11/Compartir.vue";
 const indiceSistema = ref(0);
+const clase = (indice: number) => {
+    if (indice === indiceSistema.value) {
+        return "border-b-2 border-b-green-500 text-green-500";
+    }
+    return "";
+}
 </script>
 <template>
     <div>
         <p>Vamos a compartir la impresora aunque esto no es para usarla en red, es para que el plugin funcione</p>
         <div class="flex flex-row overflow-x-auto">
-            <div @click="indiceSistema = indice" class="cursor-pointer pt-1 pb-2 px-2 w-fit min-w-fit"
+            <div :class="clase(indice)" @click="indiceSistema = indice"
+                class="cursor-pointer pt-1 pb-2 px-2 w-fit min-w-fit"
                 v-for="(sistema, indice) in ['Windows 8, 8.1 y 10', 'Windows 11', 'Linux y Raspbian']">{{ sistema }}
             </div>
         </div>

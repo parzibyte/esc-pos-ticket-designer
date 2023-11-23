@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import BloqueDeCodigo from "../FragmentosCodigo/BloqueDeCodigo.vue";
+import BloqueDeCodigo from "@/components/FragmentosCodigo/BloqueDeCodigo.vue";
 import listar from "@/assets/Linux/Listar.png";
 import gid from "@/assets/Linux/Gid.png";
 const indiceSistema = ref(0);

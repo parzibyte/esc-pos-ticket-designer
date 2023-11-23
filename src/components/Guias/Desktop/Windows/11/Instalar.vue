@@ -2,8 +2,8 @@
 import InicioImpresoras from "@/assets/ImpresoraW11/InicioImpresoras.png"
 import AgregarDispositivo from "@/assets/ImpresoraW11/AgregarDispositivo.png"
 import AgregarManualmente from "@/assets/ImpresoraW11/AgregarManualmente.png"
-import InstalarImpresoraWindowsComun from "./InstalarImpresoraWindowsComun.vue";
-import AvisoFabricanteWindows from "./AvisoFabricanteWindows.vue";
+import InstalarImpresoraWindowsComun from "@/components/Guias/Desktop/Windows/InstalarWindowsComun.vue";
+import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabricanteWindows.vue"
 </script>
 <template>
     <AvisoFabricanteWindows></AvisoFabricanteWindows>
