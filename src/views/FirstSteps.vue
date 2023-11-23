@@ -19,11 +19,9 @@ const estaConectado = computed(() => {
 </script>
 <template>
     <div>
-        <SelectPlataformas v-model="plataforma"></SelectPlataformas>
-        <Desktop></Desktop>
         <p>El plugin es compatible con impresoras térmicas con el protocolo ESC POS. No es compatible con impresoras de
             etiquetas</p>
-        <p>{{ plataforma }}</p>
-        <strong>{{ estaConectado }}</strong>
+        <SelectPlataformas v-model="plataforma"></SelectPlataformas>
+        <Desktop v-if="plataforma.nombre === 'Desktop'" :plataforma="plataforma"></Desktop>
     </div>
 </template>

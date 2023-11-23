@@ -1,25 +1,20 @@
 <script lang="ts" setup>
-import type { Diseño } from '@/types/Tipos';
 import { computed } from 'vue';
 import { usePingPlatformStore } from "@/stores/ping_platform"
 import router from '@/router';
 const pingStore = usePingPlatformStore();
 
 const props = withDefaults(defineProps<{
-    diseño: Diseño,
+    idPlataforma: string | number,
 }>(), {
-    diseño: () => {
-        return {
-            id: 0,
-            nombre: "",
-            fechaModificacion: "",
-        };
+    idPlataforma: () => {
+        return 0;
     }
 });
 
 
 const estaConectado = computed(() => {
-    const estadoDePlataforma = pingStore.estado[props.diseño.id_plataforma];
+    const estadoDePlataforma = pingStore.estado[props.idPlataforma];
     if (!estadoDePlataforma) {
         return false;
     }
@@ -29,7 +24,6 @@ const estaConectado = computed(() => {
 const navegarAAyuda = () => {
     router.push({ name: "FirstSteps" });
 }
-
 
 </script>
 <template>

@@ -151,7 +151,7 @@ VALUES
 			<small class="text-sm text-gray-500">{{ filterStore.date(props.diseño.fecha_modificacion) }}</small>
 			<div class="inline-block bg-blue-500 rounded-md text-white mx-2 p-1 text-sm">{{ props.diseño.plataforma }} ({{
 				props.diseño.impresora }})</div>
-			<Ping :diseño="props.diseño"></Ping>
+			<Ping :idPlataforma="props.diseño.id_plataforma"></Ping>
 		</div>
 		<div class="flex flex-col md:flex-row">
 			<div class="flex flex-row">

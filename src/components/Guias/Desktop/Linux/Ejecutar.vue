@@ -1,1 +1,0 @@
-<template>Ejecutar en Linux</template>
