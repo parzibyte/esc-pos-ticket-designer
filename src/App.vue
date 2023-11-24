@@ -71,6 +71,10 @@ const navegarAComponente = (nombre: string) => {
         </span>
         <p class="text-center font-normal text-xs">
           ESC POS ticket designer developed by Parzibyte
+          <br>
+          <a target="_blank" class="text-sky-500" href="https://www.flaticon.com/free-icons/receipt"
+            title="receipt icons">Receipt icons created by SBTS2018 -
+            Flaticon</a>
         </p>
       </div>
       <RouterView :class="clasesParaContenedor()" />
