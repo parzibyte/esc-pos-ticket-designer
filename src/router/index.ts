@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import EditDesignOperations from '../views/EditDesignOperations.vue'
 import Designs from '../views/Designs.vue'
 import CreateDesign from '../views/CreateDesign.vue'
@@ -10,7 +10,7 @@ import FirstSteps from '../views/FirstSteps.vue'
 import RemoveFooter from '../views/RemoveFooter.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',

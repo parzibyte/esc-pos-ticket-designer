@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterView } from 'vue-router'
 import Menu from "vue-material-design-icons/Menu.vue";
 import MenuOpen from "vue-material-design-icons/MenuOpen.vue";
 import ViewList from "vue-material-design-icons/ViewList.vue";
@@ -42,36 +42,38 @@ const navegarAComponente = (nombre: string) => {
     <div class="flex md:flex-row flex-col flex-1">
       <div class="flex flex-col border border-r-gray-200 font-semibold text-gray-700 w-full md:w-1/4" v-show="mostrarMenu"
         :class="clasesParaMenu()">
-        <a href="#" @click="navegarAComponente('FirstSteps')" class="p-3 hover:bg-gray-100 flex flex-row">
+        <span href="#" @click="navegarAComponente('FirstSteps')"
+          class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Hiking class="mr-6"></Hiking>
           Primeros pasos
-        </a>
-        <a href="#" @click="navegarAComponente('Designs')" class="p-3 hover:bg-gray-100 flex flex-row">
+        </span>
+        <span href="#" @click="navegarAComponente('Designs')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <ViewList class="mr-6"></ViewList>
           Mis diseños
-        </a>
-        <a href="#" @click="navegarAComponente('PlatformsSettings')" class="p-3 hover:bg-gray-100 flex flex-row">
+        </span>
+        <span href="#" @click="navegarAComponente('PlatformsSettings')"
+          class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <CellPhoneLink class="mr-6"></CellPhoneLink>
           Plataformas
-        </a>
-        <a href="#" @click="navegarAComponente('RemoveFooter')" class="p-3 hover:bg-gray-100 flex flex-row">
+        </span>
+        <span href="#" @click="navegarAComponente('RemoveFooter')"
+          class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <ReceiptTextRemove class="mr-6"></ReceiptTextRemove>
           Remover pie de página
-        </a>
-        <a href="#" @click="navegarAComponente('Settings')" class="p-3 hover:bg-gray-100 flex flex-row">
+        </span>
+        <span href="#" @click="navegarAComponente('Settings')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Cog class="mr-6"></Cog>
           Ajustes
-        </a>
-        <a href="#" @click="navegarAComponente('Help')" class="p-3 hover:bg-gray-100 flex flex-row">
+        </span>
+        <span href="#" @click="navegarAComponente('Help')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Help class="mr-6"></Help>
           Ayuda
-        </a>
+        </span>
         <p class="text-center font-normal text-xs">
           ESC POS ticket designer developed by Parzibyte
         </p>
       </div>
       <RouterView :class="clasesParaContenedor()" />
     </div>
-
   </div>
 </template>
