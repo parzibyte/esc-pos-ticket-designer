@@ -35,7 +35,7 @@ type PropiedadesDelComponente = {
 const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
 })
 
-const mapa = {
+const mapaDeIconosSegunClaveDeOperacion = {
     "Corte": ContentCut,
     "DefinirCaracterPersonalizado": Brush,
     "Texto": TextBoxEdit,
@@ -65,11 +65,41 @@ const mapa = {
     "Pulso": CashRegister,
     "TextoSegunPaginaDeCodigos": Tilde,
 }
+const mapaDeColoresSegunClaveDeOperacion = {
+    "Corte": "#fb7185",
+    "DefinirCaracterPersonalizado": "#fde047",
+    "Texto": "#6366f1",
+    "Imagen": "#c084fc",
+    "Tabla": "#6366f1",
+    "CodigoDeBarras": "#c084fc",
+    "CodigoQr": "#c084fc",
+    "ImagenLocal": "#c084fc",
+    "CorteParcial": "#fb7185",
+    "DescargarImagenDeInternet": "#c084fc",
+    "DeshabilitarCaracteresPersonalizados": "#fde047",
+    "DeshabilitarElModoDeCaracteresChinos": "#4ade80",
+    "TextoSimple": "#6366f1",
+    "EstablecerAlineacion": "#60a5fa",
+    "EstablecerEnfatizado": "#60a5fa",
+    "EstablecerFuente": "#fb923c",
+    "EstablecerImpresionAlReves": "#60a5fa",
+    "EstablecerImpresionBlancoYNegroInversa": "#60a5fa",
+    "EstablecerRotacionDe90Grados": "#60a5fa",
+    "EstablecerSubrayado": "#60a5fa",
+    "EstablecerTamañoFuente": "#fb923c",
+    "Feed": "#fb7185",
+    "HabilitarCaracteresPersonalizados": "#fde047",
+    "HabilitarElModoDeCaracteresChinos": "#4ade80",
+    "ImprimirImagenEnBase64": "#c084fc",
+    "Iniciar": "#86efac",
+    "Pulso": "#fb7185",
+    "TextoSegunPaginaDeCodigos": "#4ade80",
+}
 </script>
 <template>
     <div class="bg-white p-1 rounded-md  break-words cursor-pointer border border-gray-150 hover:bg-gray-100 flex flex-col">
         <div class="flex justify-center">
-            <component fillColor="#6366f1" size="60" :is="mapa[propiedades.operacion.clave]"></component>
+            <component :fillColor="mapaDeColoresSegunClaveDeOperacion[propiedades.operacion.clave]" size="60" :is="mapaDeIconosSegunClaveDeOperacion[propiedades.operacion.clave]"></component>
         </div>
         <p>
             <strong>{{ propiedades.operacion.nombre }}</strong>: {{ propiedades.operacion.descripcion }}

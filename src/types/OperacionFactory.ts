@@ -877,7 +877,7 @@ export class OperacionFactory {
 		},
 		"Iniciar": {
 			nombre: "Iniciar impresora",
-			descripcion: `Limpia el formato y búfer. Útil para reiniciar los estilos`,
+			descripcion: `Limpia el formato y búfer. Útil para reiniciar los estilos. Se recomienda colocarla siempre al inicio de un diseño`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {

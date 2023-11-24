@@ -56,10 +56,7 @@ export class Operacion {
 	}
 }
 export const listaCompletaDeOperaciones = [
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Corte", <ArgumentosParaDefinirCorte>{ lineas: 1 }),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DefinirCaracterPersonalizado", <ArgumentosParaDefinirCaracterPersonalizado>{
-		caracterQueReemplaza: "",
-		matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]],
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Iniciar", {
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Texto", <ArgumentosParaDefinirTexto>{
 		texto: "",
@@ -89,6 +86,15 @@ export const listaCompletaDeOperaciones = [
 		maximoAncho: 8,
 		contenidoEnBase64: "",
 	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Feed", <ArgumentosParaDefinirFeed>{
+		lineas: 1,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Corte", <ArgumentosParaDefinirCorte>{ lineas: 1 }),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Pulso", <ArgumentosParaDefinirPulso>{
+		pin: 48,
+		tiempoEncendido: 60,
+		tiempoApagado: 120,
+	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Tabla", <ArgumentosParaDefinirTabla>{
 		tabla: [],
 		ajustesEncabezados: [],
@@ -96,6 +102,9 @@ export const listaCompletaDeOperaciones = [
 		caracterSeparadorColumnasEnSeparadorDeFilas: "+",
 		caracterSeparadorFilas: "-",
 		relleno: " ",
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSimple", <ArgumentosParaDefinirTextoSimple>{
+		contenido: "",
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoDeBarras", <ArgumentosParaDefinirCodigoDeBarras>{
 		tipo: {
@@ -145,8 +154,6 @@ export const listaCompletaDeOperaciones = [
 		},
 		maximoAncho: 8,
 	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CorteParcial", <ArgumentosParaDefinirCorteParcial>{
-	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DescargarImagenDeInternet", <ArgumentosParaDefinirImagenDeInternet>{
 		url: "",
 		tamaño: {
@@ -158,51 +165,6 @@ export const listaCompletaDeOperaciones = [
 			valor: Alineacion.Centro,
 		},
 		maximoAncho: 8,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DeshabilitarCaracteresPersonalizados", {
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DeshabilitarElModoDeCaracteresChinos", {
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSimple", <ArgumentosParaDefinirTextoSimple>{
-		contenido: "",
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerAlineacion", <ArgumentosParaDefinirAlineacion>{
-		alineacion: {
-			nombre: "Centro",
-			valor: Alineacion.Centro,
-		}
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerEnfatizado", <ArgumentosParaDefinirEnfatizado>{
-		enfatizado: false,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerFuente", <ArgumentosParaDefinirFuente>{
-		fuente: {
-			nombre: "Fuente A (24x12)",
-			valor: 0,
-		}
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerImpresionAlReves", <ArgumentosParaDefinirImpresionAlReves>{
-		alReves: false,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerImpresionBlancoYNegroInversa", <ArgumentosParaDefinirImpresionBlancoYNegroInversa>{
-		inversa: false,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerRotacionDe90Grados", <ArgumentosParaDefinirRotacionDe90Grados>{
-		rotar: false,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerSubrayado", <ArgumentosParaDefinirSubrayado>{
-		subrayar: false,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerTamañoFuente", <ArgumentosParaDefinirTamañoFuente>{
-		alto: 1,
-		ancho: 1,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Feed", <ArgumentosParaDefinirFeed>{
-		lineas: 1,
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarCaracteresPersonalizados", {
-	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarElModoDeCaracteresChinos", {
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "ImprimirImagenEnBase64", <ArgumentosParaDefinirImagenEnBase64>{
 		alineacion: {
@@ -216,16 +178,55 @@ export const listaCompletaDeOperaciones = [
 		contenidoEnBase64: "",
 		maximoAncho: 200,
 	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Iniciar", {
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarCaracteresPersonalizados", {
 	}),
-	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Pulso", <ArgumentosParaDefinirPulso>{
-		pin: 48,
-		tiempoEncendido: 60,
-		tiempoApagado: 120,
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DefinirCaracterPersonalizado", <ArgumentosParaDefinirCaracterPersonalizado>{
+		caracterQueReemplaza: "",
+		matrizDeBits: [["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"], ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"]],
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DeshabilitarCaracteresPersonalizados", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CorteParcial", <ArgumentosParaDefinirCorteParcial>{
+	}),
+
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarElModoDeCaracteresChinos", {
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSegunPaginaDeCodigos", <ArgumentosParaDefinirTextoSegunPaginaDeCodigos>{
 		texto: "",
 		pagina: "cp850",
 		numeroPagina: 2,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DeshabilitarElModoDeCaracteresChinos", {
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerTamañoFuente", <ArgumentosParaDefinirTamañoFuente>{
+		alto: 1,
+		ancho: 1,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerFuente", <ArgumentosParaDefinirFuente>{
+		fuente: {
+			nombre: "Fuente A (24x12)",
+			valor: 0,
+		}
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerAlineacion", <ArgumentosParaDefinirAlineacion>{
+		alineacion: {
+			nombre: "Centro",
+			valor: Alineacion.Centro,
+		}
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerEnfatizado", <ArgumentosParaDefinirEnfatizado>{
+		enfatizado: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerSubrayado", <ArgumentosParaDefinirSubrayado>{
+		subrayar: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerImpresionAlReves", <ArgumentosParaDefinirImpresionAlReves>{
+		alReves: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerImpresionBlancoYNegroInversa", <ArgumentosParaDefinirImpresionBlancoYNegroInversa>{
+		inversa: false,
+	}),
+	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "EstablecerRotacionDe90Grados", <ArgumentosParaDefinirRotacionDe90Grados>{
+		rotar: false,
 	}),
 ]
