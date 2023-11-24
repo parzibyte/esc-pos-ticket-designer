@@ -15,7 +15,7 @@ const onClick = (operacion: Operacion) => {
 }
 </script>
 <template>
-    <div class="grid gap-2 grid-cols-5 bg-gray-200 p-1">
+    <div class="grid gap-2 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 bg-gray-200 p-1">
         <OperacionParaAgregar @click="onClick(operacion)" :operacion="operacion" v-for="operacion in todasLasOperaciones">
         </OperacionParaAgregar>
     </div>
