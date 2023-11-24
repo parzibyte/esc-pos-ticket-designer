@@ -1,14 +1,78 @@
 <script lang="ts" setup>
 import { Operacion } from '@/types/Operacion';
+import ContentCut from "vue-material-design-icons/ContentCut.vue";
+import Brush from "vue-material-design-icons/Brush.vue";
+import TextBoxEdit from "vue-material-design-icons/TextBoxEdit.vue";
+import Image from "vue-material-design-icons/Image.vue";
+import Table from "vue-material-design-icons/Table.vue";
+import Barcode from "vue-material-design-icons/Barcode.vue";
+import Qr from "vue-material-design-icons/Qrcode.vue";
+import FileImage from "vue-material-design-icons/FileImage.vue";
+import ScissorsCutting from "vue-material-design-icons/ScissorsCutting.vue";
+import CloudDownload from "vue-material-design-icons/CloudDownload.vue";
+import PrinterPosCancel from "vue-material-design-icons/PrinterPosCancel.vue";
+import PrinterPosCheck from "vue-material-design-icons/PrinterPosCheck.vue";
+import Text from "vue-material-design-icons/Text.vue";
+import FormatAlignRight from "vue-material-design-icons/FormatAlignRight.vue";
+import FormatBold from "vue-material-design-icons/FormatBold.vue";
+import FormatFont from "vue-material-design-icons/FormatFont.vue";
+import InvertColors from "vue-material-design-icons/InvertColors.vue";
+import ArrowUUpRight from "vue-material-design-icons/ArrowUUpRight.vue";
+import RotateRight from "vue-material-design-icons/RotateRight.vue";
+import FormatUnderline from "vue-material-design-icons/FormatUnderline.vue";
+import FormatFontSizeIncrease from "vue-material-design-icons/FormatFontSizeIncrease.vue";
+import PaperRoll from "vue-material-design-icons/PaperRoll.vue";
+import CurrencyEur from "vue-material-design-icons/CurrencyEur.vue";
+import CurrencyEurOff from "vue-material-design-icons/CurrencyEurOff.vue";
+import ImageText from "vue-material-design-icons/ImageText.vue";
+import FormatClear from "vue-material-design-icons/FormatClear.vue";
+import CashRegister from "vue-material-design-icons/CashRegister.vue";
+import Tilde from "vue-material-design-icons/Tilde.vue";
+
 type PropiedadesDelComponente = {
     operacion: Operacion,
 };
 const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
 })
+
+const mapa = {
+    "Corte": ContentCut,
+    "DefinirCaracterPersonalizado": Brush,
+    "Texto": TextBoxEdit,
+    "Imagen": Image,
+    "Tabla": Table,
+    "CodigoDeBarras": Barcode,
+    "CodigoQr": Qr,
+    "ImagenLocal": FileImage,
+    "CorteParcial": ScissorsCutting,
+    "DescargarImagenDeInternet": CloudDownload,
+    "DeshabilitarCaracteresPersonalizados": CurrencyEurOff,
+    "DeshabilitarElModoDeCaracteresChinos": PrinterPosCancel,
+    "TextoSimple": Text,
+    "EstablecerAlineacion": FormatAlignRight,
+    "EstablecerEnfatizado": FormatBold,
+    "EstablecerFuente": FormatFont,
+    "EstablecerImpresionAlReves": ArrowUUpRight,
+    "EstablecerImpresionBlancoYNegroInversa": InvertColors,
+    "EstablecerRotacionDe90Grados": RotateRight,
+    "EstablecerSubrayado": FormatUnderline,
+    "EstablecerTamañoFuente": FormatFontSizeIncrease,
+    "Feed": PaperRoll,
+    "HabilitarCaracteresPersonalizados": CurrencyEur,
+    "HabilitarElModoDeCaracteresChinos": PrinterPosCheck,
+    "ImprimirImagenEnBase64": ImageText,
+    "Iniciar": FormatClear,
+    "Pulso": CashRegister,
+    "TextoSegunPaginaDeCodigos": Tilde,
+}
 </script>
 <template>
-    <div class="bg-white p-1 rounded-md  break-words cursor-pointer border border-gray-150 hover:bg-gray-100">
-        <h1 class="text-md  text-center text-black">{{ propiedades.operacion.nombre }}</h1>
-        <p class="text-xs text-gray-700">{{ propiedades.operacion.descripcion }}</p>
+    <div class="bg-white p-1 rounded-md  break-words cursor-pointer border border-gray-150 hover:bg-gray-100 flex flex-col">
+        <div class="flex justify-center">
+            <component fillColor="#6366f1" size="60" :is="mapa[propiedades.operacion.clave]"></component>
+        </div>
+        <p>
+            <strong>{{ propiedades.operacion.nombre }}</strong>: {{ propiedades.operacion.descripcion }}
+        </p>
     </div>
 </template>

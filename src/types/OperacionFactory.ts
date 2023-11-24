@@ -38,7 +38,7 @@ export class OperacionFactory {
 		},
 		"Corte": {
 			nombre: "Corte",
-			descripcion: `Avanza el papel especificado por el número de líneas y después lo corta`,
+			descripcion: `Avanza el papel y hace un corte`,
 			plataformas: {
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCorte;
@@ -57,8 +57,8 @@ export class OperacionFactory {
 			},
 		},
 		"DefinirCaracterPersonalizado": {
-			nombre: "DefinirCaracterPersonalizado",
-			descripcion: `Define un char`,
+			nombre: "Crear carácter",
+			descripcion: `Define una letra que no existe y reemplaza a una existente`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -84,7 +84,7 @@ export class OperacionFactory {
 		},
 		"Texto": {
 			nombre: "Texto",
-			descripcion: `Imprimir cualquier texto`,
+			descripcion: `Dar formato e imprimir texto`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -213,7 +213,7 @@ export class OperacionFactory {
 
 		"Tabla": {
 			nombre: "Texto como tabla",
-			descripcion: `Imprimir texto tabulado`,
+			descripcion: `Imprimir tabla en forma de texto`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -269,7 +269,7 @@ export class OperacionFactory {
 		},
 		"CodigoDeBarras": {
 			nombre: "Código de barras",
-			descripcion: `Código de barras`,
+			descripcion: `Imprime un código en varios formatos`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -364,8 +364,8 @@ export class OperacionFactory {
 
 		},
 		"CodigoQr": {
-			nombre: "Código QR",
-			descripcion: `Código QR`,
+			nombre: "QR",
+			descripcion: `Imprime un QR`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -393,7 +393,7 @@ export class OperacionFactory {
 		},
 		"ImagenLocal": {
 			nombre: "Imagen local",
-			descripcion: `Imagen que existe en el sistema, por ejemplo, C:\\Users\\Parzibyte\\desktop\\maggie.jpg o /home/parzibyte/mj.png`,
+			descripcion: `Imagen que existe en el sistema, por ejemplo /home/parzibyte/mj.png`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -492,7 +492,7 @@ export class OperacionFactory {
 		},
 		"DeshabilitarCaracteresPersonalizados": {
 			nombre: "Deshabilitar caracteres personalizados",
-			descripcion: `Deshabilita la impresión de caracteres personalizados`,
+			descripcion: `Deshabilita la impresión de caracteres creados por el usuario`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -511,7 +511,7 @@ export class OperacionFactory {
 		},
 		"DeshabilitarElModoDeCaracteresChinos": {
 			nombre: "Deshabilitar caracteres chinos",
-			descripcion: `Deshabilita el modo de caracteres chinos. Si tu impresora es china y al imprimir acentos aparecen caracteres chinos puede que quieras deshabilitarlos`,
+			descripcion: `Deshabilita los caracteres chinos. Útil si tu impresora es china y quieres imprimir acentos`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -562,8 +562,8 @@ export class OperacionFactory {
 			},
 		},
 		"EstablecerAlineacion": {
-			nombre: "Establecer alineación",
-			descripcion: `Establece la alineación del texto e imágenes (incluyendo códigos de barras y QR)`,
+			nombre: "Cambiar alineación",
+			descripcion: `Cambiar alineación del texto, imágenes y códigos de barras`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -589,7 +589,7 @@ export class OperacionFactory {
 			},
 		},
 		"EstablecerEnfatizado": {
-			nombre: "Establecer enfatizado",
+			nombre: "Alternar enfatizado",
 			descripcion: `Cambiar el estado enfatizado del texto`,
 			plataformas:
 			{
@@ -670,7 +670,7 @@ export class OperacionFactory {
 			},
 		},
 		"EstablecerImpresionBlancoYNegroInversa": {
-			nombre: "Establecer impresión B&N inversa",
+			nombre: "Alternar impresión B&N",
 			descripcion: `Alternar modo de impresión blanco y negro inversa`,
 			plataformas:
 			{
@@ -687,7 +687,7 @@ export class OperacionFactory {
 			},
 		},
 		"EstablecerRotacionDe90Grados": {
-			nombre: "Establecer rotación de 90°",
+			nombre: "Rotar texto 90°",
 			descripcion: `Alternar rotación de texto de 90°`,
 			plataformas:
 			{
@@ -714,7 +714,7 @@ export class OperacionFactory {
 			},
 		},
 		"EstablecerSubrayado": {
-			nombre: "Establecer subrayado",
+			nombre: "Subrayado",
 			descripcion: `Alternar subrayado de texto`,
 			plataformas:
 			{
@@ -741,8 +741,8 @@ export class OperacionFactory {
 			},
 		},
 		"EstablecerTamañoFuente": {
-			nombre: "Establecer tamaño de fuente",
-			descripcion: `Cambiar ancho y alto de fuente`,
+			nombre: "Cambiar tamaño de fuente",
+			descripcion: `Cambiar ancho y alto del texto`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -769,7 +769,7 @@ export class OperacionFactory {
 		},
 		"Feed": {
 			nombre: "Feed",
-			descripcion: `Avanzar el papel determinado número de líneas`,
+			descripcion: `Avanzar el papel`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -841,8 +841,8 @@ export class OperacionFactory {
 			},
 		},
 		"ImprimirImagenEnBase64": {
-			nombre: "Imprimir una imagen en base64",
-			descripcion: `Convierte el texto en base64 a una imagen, la convierte a blanco y negro y la redimensiona para que el ancho no sea mayor al ancho especificado. La imagen puede ser JPG o PNG y tener o no tener el "base64,"`,
+			nombre: "Imagen base64",
+			descripcion: `Imprime una imagen a partir de su representación como cadena en base64`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -877,7 +877,7 @@ export class OperacionFactory {
 		},
 		"Iniciar": {
 			nombre: "Iniciar impresora",
-			descripcion: `Limpia los datos en el búfer y reinicia la impresora al modo que estaba en efecto cuando fue encendida. Útil para borrar el formato`,
+			descripcion: `Limpia el formato y búfer. Útil para reiniciar los estilos`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -902,7 +902,7 @@ export class OperacionFactory {
 		},
 		"Pulso": {
 			nombre: "Enviar pulso",
-			descripcion: `Envía un pulso eléctrico. Normalmente es para abrir el cajón. Los valores más comunes son pin 48, tiempo encendido 60, tiempo apagado 120`,
+			descripcion: `Envía un pulso eléctrico que normalmente es para abrir el cajón. Los valores más comunes son pin 48, tiempo encendido 60, tiempo apagado 120`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
@@ -928,8 +928,8 @@ export class OperacionFactory {
 			},
 		},
 		"TextoSegunPaginaDeCodigos": {
-			nombre: "Convertir codificación texto según página de códigos de caracteres",
-			descripcion: `Permite, en palabras simples, escribir texto con acentos. Hay que especificar el número de página (según la impresora) y el character code page para iconv. Se recomienda deshabilitar el modo de caracteres chinos en impresoras chinas. Funciona solo si el plugin viene con iconv`,
+			nombre: "Texto acentuado",
+			descripcion: `Permite imprimir texto con acentos. Recomiendo deshabilitar los caracteres chinos y probar todas las combinaciones`,
 			plataformas:
 			{
 				"Desktop": (thisArg: Operacion) => {
