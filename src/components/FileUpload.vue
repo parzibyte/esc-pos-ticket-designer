@@ -22,7 +22,7 @@ const fileList = computed({
     },
 });
 
-const inputReference: Ref<HTMLInputElement> = ref(new HTMLInputElement());
+const inputReference: Ref<HTMLInputElement> = ref(document.createElement("input") as HTMLInputElement);
 
 const handleClick = () => {
     inputReference.value.click()
