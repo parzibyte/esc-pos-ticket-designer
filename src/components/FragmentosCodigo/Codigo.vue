@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import JavascriptCliente from "./Javascript.vue";
+import JavascriptCliente from "./JS.vue";
 import CSharp from "./CSharp.vue";
 import CurlWindows from "./CurlWindows.vue";
 import Java from "./Java.vue";
@@ -12,17 +12,31 @@ import React from "./React.vue";
 import Angular from "./Angular.vue";
 import Vue from "./Vue.vue";
 import Golang from "./Golang.vue";
-import { onMounted, ref } from "vue"
+import { ref } from "vue"
 import { useSettingsStore } from "@/stores/settings";
+import type { DiseñoRecuperadoDeBaseDeDatos, Payload } from "@/types/Tipos";
 const settingsStore = useSettingsStore();
 type Propiedades = {
-	json: string,
-	diseño: object,
+	json: Payload,
+	diseño: DiseñoRecuperadoDeBaseDeDatos,
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
-	json: "",
+	json: () => ({
+		nombreImpresora: "",
+		serial: "",
+		operaciones: [],
+	}),
 	diseño: () => {
-		return {};
+		return {
+			ruta_api: "",
+			id: 0,
+			licencia: "",
+			plataforma: "",
+			impresora: "",
+			id_plataforma: 0,
+			nombre: "",
+			fecha_modificacion: 0,
+		};
 	},
 })
 

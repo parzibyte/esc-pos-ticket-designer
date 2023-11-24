@@ -1,6 +1,6 @@
 import type { Operacion } from "./types/Operacion";
 import { OperacionFactory } from "./types/OperacionFactory";
-import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, OperacionSerializada } from "./types/Tipos";
+import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, OperacionSerializada, Payload } from "./types/Tipos";
 export const debounce = (callback: Function, wait: number) => {
     let timerId: number;
     return (...args: any) => {
@@ -84,7 +84,7 @@ export const cantidadColumnas = (argumentos: ArgumentosParaDefinirTabla) => {
     }
     return cantidad;
 }
-export const obtenerPayload = (plataforma: string, operaciones: Operacion[], impresora: string, serial: string) => {
+export const obtenerPayload = (plataforma: string, operaciones: Operacion[], impresora: string, serial: string): Payload => {
     const operacionesParaPayload = [];
     for (const operacion of operaciones) {
         operacionesParaPayload.push(...(operacion.obtenerArgumentosPorPlataforma(plataforma)));

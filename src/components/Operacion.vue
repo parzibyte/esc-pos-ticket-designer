@@ -95,15 +95,21 @@ const alternarVisibilidad = () => {
 }
 
 // Empezaron a arrastrar el elemento, ponemos los datos
-const onArrastreIniciado = (evento, operacion, indice) => {
+const onArrastreIniciado = (evento: DragEvent, operacion: Operacion, indice: number) => {
+    if (evento.dataTransfer === null) {
+        return;
+    }
     evento.dataTransfer.setData("text/plain", JSON.stringify(<OperacionConIndice>{
         operacion, indice,
     }));
 }
 
 // Lo soltaron, aquí ya podemos acceder al elemento soltado y cancelar estilos
-const onSoltado = (evento) => {
+const onSoltado = (evento: DragEvent) => {
     evento.preventDefault();
+    if (evento.dataTransfer === null) {
+        return;
+    }
     const operacionReemplazoConIndice = JSON.parse(evento.dataTransfer.getData("text/plain"))
     const operacionReemplazadaConIndice = { operacion: props.operacion.clonar(), indice: props.indice };
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
@@ -112,13 +118,13 @@ const onSoltado = (evento) => {
 
 // Están a punto de soltar algo sobre el elemento. Debemos mostrar estilo e interfaz que muestren que el
 // elemento puede ser soltado
-const onArrastreAPuntoDeSoltar = (evento) => {
+const onArrastreAPuntoDeSoltar = (evento: DragEvent) => {
     evento.preventDefault();
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = true;
 }
 
 // Lo iban a soltar pero no lo hicieron. Debemos cancelar los estilos y cosas similares
-const onAPuntoDeSoltarCancelado = (evento) => {
+const onAPuntoDeSoltarCancelado = (evento: DragEvent) => {
     evento.preventDefault();
     estanAPuntoDeSoltarAlgoSobreElElementoActual.value = false;
 }
@@ -126,6 +132,9 @@ const onAPuntoDeSoltarCancelado = (evento) => {
 // Solo lo necesitamos para que "onSoltado", "ondrop" o el evento "drop" funcione
 const onDragOver = (evento: DragEvent) => {
     evento.preventDefault();
+    if (evento.dataTransfer === null) {
+        return;
+    }
     evento.dataTransfer.dropEffect = "move";
 }
 

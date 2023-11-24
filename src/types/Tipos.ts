@@ -238,3 +238,25 @@ export type OperacionSerializada = {
     argumentos: string,
     orden: number,
 }
+export type DiseñoRecuperadoDeBaseDeDatos = {
+    ruta_api: string,
+    id: number,
+    licencia: string,
+    plataforma: string,
+    impresora: string,
+    id_plataforma: number,
+    nombre: string,
+    fecha_modificacion: number,
+}
+export type PlataformaRecuperadaDeBaseDeDatos = {
+    ruta_api: string,
+    licencia: string,
+    id: number,
+    nombre: string,
+    descripcion: string,
+}
+export type Payload = {
+    nombreImpresora: string,
+    serial: string,
+    operaciones: any[],
+}

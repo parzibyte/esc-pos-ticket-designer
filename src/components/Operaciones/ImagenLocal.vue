@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Alineacion, TamañoImagen, type ArgumentosParaDefinirImagenLocal } from '@/types/Tipos';
-import { computed, ref, } from 'vue';
+import { computed } from 'vue';
 import CustomInput from '../CustomInput.vue';
 import Range from '../Range.vue';
 import SelectTamanioImagen from '../Selects/SelectTamanioImagen.vue';

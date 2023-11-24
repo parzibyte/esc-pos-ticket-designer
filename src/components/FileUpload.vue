@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, type Ref } from 'vue';
 type Props = {
     modelValue: File[],
     label: string,
@@ -22,14 +22,21 @@ const fileList = computed({
     },
 });
 
-const inputReference = ref(null);
+const inputReference: Ref<HTMLInputElement> = ref(new HTMLInputElement());
 
 const handleClick = () => {
     inputReference.value.click()
 }
 
 const onActualInputChange = (e: Event) => {
-    const files = e.target.files;
+    if (e.target === null) {
+        return;
+    }
+    const input = e.target as HTMLInputElement;
+    const files = input.files;
+    if (files === null) {
+        return;
+    }
     fileList.value = files;
     if (files.length <= 0) {
         return;
@@ -39,7 +46,8 @@ const onActualInputChange = (e: Event) => {
 </script>
 <template>
     <button @click="handleClick"
-        class="max-w-max h-10 p-2 bg-sky-500 text-white rounded-md mx-1 mt-1 font-semibold hover:bg-sky-400">{{ label }}</button>
+        class="max-w-max h-10 p-2 bg-sky-500 text-white rounded-md mx-1 mt-1 font-semibold hover:bg-sky-400">{{ label
+        }}</button>
     <div>
         <span class="mr-2 mt-1 mb-1 inline-block text-white bg-indigo-500 p-1 font-semibold rounded-md text-xs"
             v-for="file in props.modelValue">{{ file.name }}</span>

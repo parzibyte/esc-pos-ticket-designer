@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, type Ref } from 'vue';
 import AjustePlataforma from "@/components/Ajustes/AjustePlataforma.vue"
 import { usePlatformStore } from '@/stores/platform';
-const plataformas = ref([]);
+import type { PlataformaRecuperadaDeBaseDeDatos } from '@/types/Tipos';
+const plataformas: Ref<PlataformaRecuperadaDeBaseDeDatos[]> = ref([]);
 const platformStore = usePlatformStore();
 
-const guardarPlataforma = async (plataforma) => {
+const guardarPlataforma = async (plataforma: PlataformaRecuperadaDeBaseDeDatos) => {
     platformStore.actualizarPlataforma(plataforma);
 }
 

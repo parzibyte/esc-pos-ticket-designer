@@ -4,9 +4,10 @@ import Instalar from "@/components/Guias/Desktop/Instalar.vue"
 import Compartir from "@/components/Guias/Desktop/Compartir.vue"
 import Descargar from "@/components/Guias/Desktop/Descargar.vue"
 import PruebaImpresion from "@/components/Guias/Desktop/PruebaImpresion.vue"
-const props = defineProps({
-    plataforma: Object,
-})
+import type { PlataformaRecuperadaDeBaseDeDatos } from '@/types/Tipos';
+const props = defineProps<{
+    plataforma: PlataformaRecuperadaDeBaseDeDatos,
+}>();
 const indicePaso = ref(0);
 const clase = (indice: number) => {
     if (indice === indicePaso.value) {

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ArgumentosParaDefinirTabla } from '@/types/Tipos';
-
 import TableColumnRemove from "vue-material-design-icons/TableColumnRemove.vue";
 import TableRowRemove from "vue-material-design-icons/TableRowRemove.vue";
 import TableRowPlusAfter from "vue-material-design-icons/TableRowPlusAfter.vue";

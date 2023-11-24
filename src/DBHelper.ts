@@ -1,14 +1,27 @@
+//@ts-ignore
 import sqlite3InitModule from '@sqlite.org/sqlite-wasm';
 import * as Comlink from "comlink"
 const NOMBRE_BASE_DE_DATOS = "escpos.sqlite3";
-const log = (...args) => { console.log(...args) };
-const error = (...args) => { console.log(...args) };
+const log = (...args: any[]) => { console.log(...args) };
+const error = (...args: any[]) => { console.log(...args) };
+type sqlObject = {
+    sql: string,
+    bind: any[],
+    returnValue: string,
+    rowMode: string,
+}
 class EnvolturaDeBaseDeDatos {
-    db = null;
+    db: { exec: (sql: string | sqlObject) => Promise<any>, filename: string, } = {
+        exec(sql: string | sqlObject) {
+            return new Promise<any>(() => { });
+        },
+        filename: "",
+    };
     constructor() {
     }
     async iniciar() {
         console.log("Iniciando worker...");
+        //@ts-ignore
         const sqlite3 = await sqlite3InitModule({
             print: log,
             printErr: error,
@@ -16,7 +29,7 @@ class EnvolturaDeBaseDeDatos {
         if ('opfs' in sqlite3) {
             this.db = new sqlite3.oo1.OpfsDb({
                 filename: NOMBRE_BASE_DE_DATOS,
-                flags: "ct",
+                flags: "c",
                 vfs: false,
             });
             log('OPFS is available, created persisted database at', this.db.filename);
@@ -29,6 +42,10 @@ class EnvolturaDeBaseDeDatos {
         this.exponerFuncionesDeDB();
     }
     crearTablas() {
+        if (this.db === null) {
+            console.error("Base de datos es null");
+            return;
+        }
         this.db.exec(`CREATE TABLE IF NOT EXISTS plataformas(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
@@ -85,27 +102,18 @@ class EnvolturaDeBaseDeDatos {
                 returnValue: "resultRows",
                 rowMode: "object",
             });
-            return;
-
-            await this.db.exec({
-                sql: "INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion) VALUES (?, ?, ?, ?)",
-                bind: [1, "Mi primer diseño", "2023-10-14T12:34:55", "2023-10-14T12:34:55"],
-                returnValue: "resultRows",
-                rowMode: "object",
-            });
-
-            await this.db.exec({
-                sql: "INSERT INTO diseños(id_plataforma, nombre, fecha_creacion, fecha_modificacion) VALUES (?, ?, ?, ?)",
-                bind: [2, "Ticket de venta", "2023-10-14T15:34:55", "2023-10-16T12:34:55"],
-                returnValue: "resultRows",
-                rowMode: "object",
-            });
         }
     }
 
     exponerFuncionesDeDB() {
+        if (this.db === null) {
+            console.error("Base de datos es null");
+            return;
+        }
         for (const key in this.db) {
+            //@ts-ignore
             if (typeof this.db[key] === 'function') {
+                //@ts-ignore
                 this[key] = this.db[key].bind(this.db);
             }
         }

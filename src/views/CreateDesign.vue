@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, type Ref } from "vue"
 import CheckBold from "vue-material-design-icons/CheckBold.vue";
 import FormatListText from "vue-material-design-icons/FormatListText.vue";
 import router from "@/router";
@@ -7,9 +7,16 @@ import CustomInput from "@/components/CustomInput.vue";
 import SelectPlataformas from "@/components/Selects/SelectPlataformas.vue";
 import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { useDesignsStore } from "@/stores/designsStore";
+import type { PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
 const impresoras = ref([]);
 const nombre = ref("");
-const plataformaSeleccionada = ref({});
+const plataformaSeleccionada: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
+	nombre: "",
+	licencia: "",
+	id: 0,
+	ruta_api: "",
+	descripcion: "",
+});
 const impresoraSeleccionada = ref("");
 const designsStore = useDesignsStore();
 

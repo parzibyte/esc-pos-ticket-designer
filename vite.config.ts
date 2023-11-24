@@ -5,10 +5,13 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    target: "esnext",
+  },
   plugins: [
     vue({
-      template:{
-        compilerOptions:{
+      template: {
+        compilerOptions: {
           whitespace: "preserve",
         }
       }
@@ -26,6 +29,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-		exclude: ['@sqlite.org/sqlite-wasm'],
-	},
+    exclude: ['@sqlite.org/sqlite-wasm'],
+  },
 })

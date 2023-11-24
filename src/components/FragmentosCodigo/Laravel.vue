@@ -1,16 +1,32 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import BloqueDeCodigo from './BloqueDeCodigo.vue';
+import type { DiseñoRecuperadoDeBaseDeDatos, Payload } from '@/types/Tipos';
 
 type Propiedades = {
-	json: string,
-	diseño: object,
+	json: Payload,
+	diseño: DiseñoRecuperadoDeBaseDeDatos,
 	payloadEscapado: string,
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
-	json: "",
+	json: () => {
+		return {
+			nombreImpresora: "",
+			serial: "",
+			operaciones: [],
+		};
+	},
 	diseño: () => {
-		return {};
+		return {
+			ruta_api: "",
+			id: 0,
+			licencia: "",
+			plataforma: "",
+			impresora: "",
+			id_plataforma: 0,
+			nombre: "",
+			fecha_modificacion: 0,
+		};
 	},
 })
 const bloques = computed(() => {
@@ -53,4 +69,5 @@ if ($response->ok()) {
 		en caso contrario el error estará en esa misma variable</p>
 	<BloqueDeCodigo :codigo="bloques.principal"></BloqueDeCodigo>
 	<p>Puedes usar el código en cualquier lugar de Laravel. Por ejemplo, en las rutas, devolviendo un JSON:</p>
-	<BloqueDeCodigo :codigo="bloques.vista"></BloqueDeCodigo></template>
+	<BloqueDeCodigo :codigo="bloques.vista"></BloqueDeCodigo>
+</template>

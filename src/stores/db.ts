@@ -3,6 +3,7 @@ import DbWorker from "@/DBHelper?worker"
 import * as Comlink from "comlink"
 const worker = new DbWorker();
 const DbHelper = Comlink.wrap(worker);
+// @ts-ignore
 const helper = await new DbHelper();
 await helper.iniciar()
 

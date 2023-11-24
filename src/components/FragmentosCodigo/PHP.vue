@@ -1,17 +1,32 @@
-
 <script lang="ts" setup>
 import { computed } from 'vue';
 import BloqueDeCodigo from './BloqueDeCodigo.vue';
+import type { DiseñoRecuperadoDeBaseDeDatos, Payload } from '@/types/Tipos';
 
 type Propiedades = {
-	json: string,
-	diseño: object,
+	json: Payload,
+	diseño: DiseñoRecuperadoDeBaseDeDatos,
 	payloadEscapado: string,
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
-	json: "",
+	json: () => {
+		return {
+			nombreImpresora: "",
+			serial: "",
+			operaciones: [],
+		};
+	},
 	diseño: () => {
-		return {};
+		return {
+			ruta_api: "",
+			id: 0,
+			licencia: "",
+			plataforma: "",
+			impresora: "",
+			id_plataforma: 0,
+			nombre: "",
+			fecha_modificacion: 0,
+		};
 	},
 })
 const bloques = computed(() => {

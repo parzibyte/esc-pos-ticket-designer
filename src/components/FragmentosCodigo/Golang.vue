@@ -1,16 +1,33 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import BloqueDeCodigo from './BloqueDeCodigo.vue';
+import type { DiseñoRecuperadoDeBaseDeDatos, Payload } from '@/types/Tipos';
+
 
 type Propiedades = {
-	json: string,
-	diseño: object,
+	json: Payload,
+	diseño: DiseñoRecuperadoDeBaseDeDatos,
 	payloadEscapado: string,
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
-	json: "",
+	json: () => {
+		return {
+			nombreImpresora: "",
+			serial: "",
+			operaciones: [],
+		};
+	},
 	diseño: () => {
-		return {};
+		return {
+			ruta_api: "",
+			id: 0,
+			licencia: "",
+			plataforma: "",
+			impresora: "",
+			id_plataforma: 0,
+			nombre: "",
+			fecha_modificacion: 0,
+		};
 	},
 })
 const bloques = computed(() => {
@@ -61,7 +78,8 @@ const bloques = computed(() => {
 	<p>Importa los siguientes paquetes:</p>
 	<BloqueDeCodigo :codigo="bloques.imports"></BloqueDeCodigo>
 	<p>Define la función <code>imprimir</code>. Fíjate que devolverá una variable de tipo <code>error</code>, estará en
-		<code>nil</code> si la impresión fue correcta:</p>
+		<code>nil</code> si la impresión fue correcta:
+	</p>
 	<BloqueDeCodigo :codigo="bloques.funcion"></BloqueDeCodigo>
 	<p>Ahora puedes invocarla desde cualquier lugar para imprimir el ticket. Por ejemplo, en el main:</p>
 	<BloqueDeCodigo :codigo="bloques.invocacion"></BloqueDeCodigo>

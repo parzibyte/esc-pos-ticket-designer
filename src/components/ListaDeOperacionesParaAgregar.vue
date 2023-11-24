@@ -5,9 +5,7 @@ import { type Ref, ref } from "vue"
 type PropiedadesDelComponente = {
     operaciones: Operacion[],
 };
-const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
-    operaciones: [],
-})
+const propiedades = defineProps<PropiedadesDelComponente>();
 const emit = defineEmits(['operacionSeleccionada'])
 const todasLasOperaciones: Ref<Array<Operacion>> = ref(listaCompletaDeOperaciones);
 const onClick = (operacion: Operacion) => {

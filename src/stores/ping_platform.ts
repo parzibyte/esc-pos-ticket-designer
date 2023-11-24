@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, type Ref } from 'vue';
-import { useDatabaseStore } from "@/stores/db"
-import { PlataformasService } from "@/services/PlataformasService"
+import { usePlatformStore } from './platform';
 
 type DiccionarioDePlataformas = {
     [key: string]: {
@@ -19,13 +18,11 @@ type DiccionarioDePlataformas = {
     },
 }
 export const usePingPlatformStore = defineStore('ping_platform', () => {
-    const dbStore = useDatabaseStore();
-    const plataformaService = new PlataformasService(dbStore);
     const estado: Ref<DiccionarioDePlataformas> = ref({});
-
+    const platformsStore = usePlatformStore();
 
     const inicializarPlataformas = async () => {
-        const plataformas = await plataformaService.obtenerPlataformas();
+        const plataformas = await platformsStore.obtenerPlataformas();
         for (const plataforma of plataformas) {
             estado.value[plataforma.id] = {
                 detalles: {

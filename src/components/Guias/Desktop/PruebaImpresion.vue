@@ -2,9 +2,10 @@
 import Ping from "@/components/Ping.vue";
 import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { usePingPlatformStore } from "@/stores/ping_platform";
+import type { PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
 import { computed, onMounted, ref, watch } from "vue"
 
-const props = defineProps<{ plataforma: any }>();
+const props = defineProps<{ plataforma: PlataformaRecuperadaDeBaseDeDatos }>();
 const pingStore = usePingPlatformStore();
 const impresoras = ref([]);
 const impresoraSeleccionada = ref("");

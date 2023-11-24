@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, ref, type Ref } from 'vue';
 import Select from '../Select.vue';
-import type { Plataforma } from '@/types/Tipos';
-import { useDatabaseStore } from "@/stores/db"
-import { PlataformasService } from "@/services/PlataformasService"
-const store = useDatabaseStore();
-const plataformas = ref([]);
-const plataformasService = new PlataformasService(store);
-
-
+import type { Plataforma, PlataformaRecuperadaDeBaseDeDatos } from '@/types/Tipos';
+import { usePlatformStore } from '@/stores/platform';
+const plataformas: Ref<PlataformaRecuperadaDeBaseDeDatos[]> = ref([]);
+const platformStore = usePlatformStore();
 type Propiedades = {
-	modelValue: Plataforma,
+	modelValue: PlataformaRecuperadaDeBaseDeDatos,
 };
 
 const propiedades = withDefaults(defineProps<Propiedades>(), {
 	modelValue: () => {
 		return {
-
+			id: 0,
+			licencia: "",
+			nombre: "",
+			ruta_api: "",
+			descripcion: "",
 		};
 	}
 })
@@ -45,7 +45,7 @@ const displayItemFunction = (plataforma: Plataforma): string => {
 	return "";
 }
 onMounted(async () => {
-	plataformas.value = await plataformasService.obtenerPlataformas();
+	plataformas.value = await platformStore.obtenerPlataformas();
 });
 
 

@@ -5,7 +5,7 @@ import { ref, type Ref, onMounted } from "vue";
 import ComponenteOperacion from "@/components/Operacion.vue";
 import { useDesignsOperationStore } from "@/stores/designOperation"
 import { debounce, obtenerPayload, convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from "@/Helpers"
-import type { OperacionConIndice } from "@/types/Tipos";
+import type { DiseñoRecuperadoDeBaseDeDatos, OperacionConIndice } from "@/types/Tipos";
 import ListaDeOperacionesParaAgregar from "@/components/ListaDeOperacionesParaAgregar.vue";
 import Codigo from "@/components/FragmentosCodigo/Codigo.vue";
 import DesignItem from "@/components/DesignItem.vue";
@@ -14,14 +14,25 @@ import { useSettingsStore } from "@/stores/settings";
 const designsStore = useDesignsStore();
 const designsOperationStore = useDesignsOperationStore();
 const settingsStore = useSettingsStore();
-const diseñoActualmenteEditado = ref({});
+const diseñoActualmenteEditado: Ref<DiseñoRecuperadoDeBaseDeDatos> = ref({
+  ruta_api: "",
+  id: 0,
+  licencia: "",
+  impresora: "",
+  plataforma: "",
+  nombre: "",
+  id_plataforma: 0,
+  fecha_modificacion: 0,
+});
 const props = defineProps<{
   id: number,
 }>();
 const todasLasOperaciones: Ref<Array<Operacion>> = ref(listaCompletaDeOperaciones);
 const operaciones: Ref<Array<Operacion>> = ref([]);
 const modoDesarrolladorActivado = ref(false);
-const componenteCodigo = ref({});
+const componenteCodigo: Ref<{ refrescarIndice: () => void }> = ref({
+  refrescarIndice() { },
+});
 
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
@@ -93,10 +104,6 @@ const onOperacionSeleccionada = async (operacion: Operacion) => {
     operacionRecienInsertada.orden,
   );
   operaciones.value.push(operacionParaAgregarAlArreglo);
-}
-
-const onErrorImprimiendo = (err) => {
-  alert("Error imprimiendo: " + err);
 }
 
 const onArchivoImportado = async () => {

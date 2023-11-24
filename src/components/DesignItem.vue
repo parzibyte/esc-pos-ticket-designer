@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { defineProps, withDefaults } from 'vue';
-import { type Diseño } from "@/types/Tipos"
+import { type Diseño, type DiseñoRecuperadoDeBaseDeDatos } from "@/types/Tipos"
 import Delete from "vue-material-design-icons/Delete.vue";
 import Pencil from "vue-material-design-icons/Pencil.vue";
 import CalendarBlank from "vue-material-design-icons/CalendarBlank.vue";
@@ -12,10 +12,12 @@ import Ping from './Ping.vue';
 import { useDatabaseStore } from '@/stores/db';
 import FileUpload from './FileUpload.vue';
 import { useFiltersStore } from '@/stores/filters';
+import { useDesignsOperationStore } from '@/stores/designOperation';
 const store = useDatabaseStore();
+const designsOperationStore = useDesignsOperationStore();
 const filterStore = useFiltersStore();
 const props = withDefaults(defineProps<{
-	diseño: Diseño,
+	diseño: DiseñoRecuperadoDeBaseDeDatos,
 	mostrarBotonModificar: boolean,
 	mostrarBotonEliminar: boolean,
 	mostrarBotonExportar: boolean,
@@ -29,7 +31,12 @@ const props = withDefaults(defineProps<{
 			mostrarBotonImportar: false,
 			id: 0,
 			nombre: "",
-			fechaModificacion: "",
+			fecha_modificacion: 0,
+			ruta_api: "",
+			licencia: "",
+			plataforma: "",
+			id_plataforma: 0,
+			impresora: "",
 		};
 	}
 });
@@ -58,8 +65,7 @@ const eliminarDiseño = () => {
 }
 
 const exportarDiseño = async () => {
-	console.log(props.diseño);
-	const operacionesRecuperadasDeBaseDeDatos = await store.obtenerOperacionesDeDiseño(props.diseño.id);
+	const operacionesRecuperadasDeBaseDeDatos = await designsOperationStore.obtenerOperacionesDeDiseño(props.diseño.id);
 	const operacionesParaGuardar = operacionesRecuperadasDeBaseDeDatos.map(operacion => {
 		const { clave, argumentos } = operacion;
 		return { clave, argumentos };
@@ -73,7 +79,7 @@ const exportarDiseño = async () => {
 	URL.revokeObjectURL(url);
 	a.remove();
 }
-const onErrorImprimiendo = (err) => {
+const onErrorImprimiendo = (err: Error) => {
 	alert("Error imprimiendo: " + err);
 }
 
@@ -109,33 +115,7 @@ const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
 		}
 		const operacionesSerializadas = JSON.parse(operacionesCodificadas);
 		for (const operacion of operacionesSerializadas) {
-			await store.exec(`INSERT INTO
-    operaciones_diseños(id_diseño, clave, argumentos, orden)
-VALUES
-    (
-        ?,
-        ?,
-        ?,
-        (
-            SELECT
-                COALESCE(
-                    (
-                        SELECT
-                            orden
-                        FROM
-                            operaciones_diseños
-                        WHERE
-                            id_diseño = ?
-                        ORDER BY
-                            orden DESC
-                        LIMIT
-                            1
-                    ), 0
-                )
-        ) + 1
-    ) RETURNING *`,
-				[props.diseño.id, operacion.clave, operacion.argumentos],
-			)
+			await designsOperationStore.agregarOperacion(props.diseño.id, operacion.clave, operacion.argumentos);
 		}
 		emit("importado");
 	}

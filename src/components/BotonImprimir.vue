@@ -1,18 +1,22 @@
 <script lang="ts" setup>
-import type { Diseño } from '@/types/Tipos';
+import type { Diseño, DiseñoRecuperadoDeBaseDeDatos } from '@/types/Tipos';
 import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from '@/Helpers';
 import Printer from "vue-material-design-icons/Printer.vue";
-import { emit } from 'process';
 import { useDesignsOperationStore } from '@/stores/designOperation';
 const designsOperationStore = useDesignsOperationStore();
 const props = withDefaults(defineProps<{
-    diseño: Diseño,
+    diseño: DiseñoRecuperadoDeBaseDeDatos,
 }>(), {
     diseño: () => {
         return {
             id: 0,
             nombre: "",
-            fechaModificacion: "",
+            fecha_modificacion: 0,
+            ruta_api: "",
+            licencia: "",
+            plataforma: "",
+            impresora: "",
+            id_plataforma: 0,
         };
     }
 });

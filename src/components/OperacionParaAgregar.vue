@@ -28,6 +28,7 @@ import ImageText from "vue-material-design-icons/ImageText.vue";
 import FormatClear from "vue-material-design-icons/FormatClear.vue";
 import CashRegister from "vue-material-design-icons/CashRegister.vue";
 import Tilde from "vue-material-design-icons/Tilde.vue";
+import type { Component } from 'vue';
 
 type PropiedadesDelComponente = {
     operacion: Operacion,
@@ -35,7 +36,15 @@ type PropiedadesDelComponente = {
 const propiedades = withDefaults(defineProps<PropiedadesDelComponente>(), {
 })
 
-const mapaDeIconosSegunClaveDeOperacion = {
+type MapaIconos = {
+    [key: string]: Component,
+}
+
+type MapaColores = {
+    [key: string]: string,
+}
+
+const mapaDeIconosSegunClaveDeOperacion: MapaIconos = {
     "Corte": ContentCut,
     "DefinirCaracterPersonalizado": Brush,
     "Texto": TextBoxEdit,
@@ -65,7 +74,7 @@ const mapaDeIconosSegunClaveDeOperacion = {
     "Pulso": CashRegister,
     "TextoSegunPaginaDeCodigos": Tilde,
 }
-const mapaDeColoresSegunClaveDeOperacion = {
+const mapaDeColoresSegunClaveDeOperacion: MapaColores = {
     "Corte": "#fb7185",
     "DefinirCaracterPersonalizado": "#fde047",
     "Texto": "#6366f1",
@@ -99,7 +108,8 @@ const mapaDeColoresSegunClaveDeOperacion = {
 <template>
     <div class="bg-white p-1 rounded-md  break-words cursor-pointer border border-gray-150 hover:bg-gray-100 flex flex-col">
         <div class="flex justify-center">
-            <component :fillColor="mapaDeColoresSegunClaveDeOperacion[propiedades.operacion.clave]" size="60" :is="mapaDeIconosSegunClaveDeOperacion[propiedades.operacion.clave]"></component>
+            <component :fillColor="mapaDeColoresSegunClaveDeOperacion[propiedades.operacion.clave]" size="60"
+                :is="mapaDeIconosSegunClaveDeOperacion[propiedades.operacion.clave]"></component>
         </div>
         <p>
             <strong>{{ propiedades.operacion.nombre }}</strong>: {{ propiedades.operacion.descripcion }}

@@ -12,23 +12,7 @@ import SelectTipoCodigoDeBarras from '../Selects/SelectTipoCodigoDeBarras.vue';
 type Propiedades = {
     modelValue: ArgumentosParaDefinirCodigoDeBarras,
 };
-const propiedades = withDefaults(defineProps<Propiedades>(), {
-    modelValue: () => {
-        return {
-            tipo: TipoDeCodigoDeBarras.Ean,
-            contenido: "",
-            ancho: 200,
-            alto: 10,
-            tamaño: TamañoImagen.Normal,
-            incluirSumaDeVerificacion: false,
-            modoAsciiCompleto: false,
-            intercalado: false,
-            alineacion: Alineacion.Centro,
-            nivelDeSeguridad: 1,
-            imprimirContenido: false,
-        };
-    }
-})
+const propiedades = defineProps<Propiedades>();
 const deberiaMostrarCamposParaSumaDeVerificacion = () => {
     if (!propiedades.modelValue.tipo) {
         return false;

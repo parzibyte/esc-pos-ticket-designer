@@ -14,37 +14,8 @@ import SelectRecuperacionQr from '../Selects/SelectRecuperacionQr.vue';
 type Propiedades = {
     modelValue: ArgumentosParaDefinirCodigoQr,
 };
-const propiedades = withDefaults(defineProps<Propiedades>(), {
-    modelValue: () => {
-        return {
-            alineacion: Alineacion.Centro,
-            contenido: "",
-            ancho: 200,
-            tamaño: TamañoImagen.Normal,
-            nivelDeRecuperacion: RecuperacionQr.Medio,
-            imprimirContenido: false,
-        };
-    }
-})
+const propiedades = defineProps<Propiedades>();
 
-const recuperaciones = ref([
-    {
-        nombre: "Bajo",
-        valor: RecuperacionQr.Bajo,
-    },
-    {
-        nombre: "Medio",
-        valor: RecuperacionQr.Medio,
-    },
-    {
-        nombre: "Alto",
-        valor: RecuperacionQr.Alto,
-    },
-    {
-        nombre: "El mejor",
-        valor: RecuperacionQr.ElMasAlto,
-    },
-]);
 </script>
 <template>
     <div class="flex md:flex-row flex-col">
