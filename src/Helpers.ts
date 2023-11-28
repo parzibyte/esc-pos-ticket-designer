@@ -1,6 +1,6 @@
 import type { Operacion } from "./types/Operacion";
 import { OperacionFactory } from "./types/OperacionFactory";
-import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, OperacionSerializada, Payload } from "./types/Tipos";
+import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, ImpresoraAndroid, OperacionSerializada, Payload, PlataformaRecuperadaDeBaseDeDatos } from "./types/Tipos";
 export const debounce = (callback: Function, wait: number) => {
     let timerId: number;
     return (...args: any) => {
@@ -113,3 +113,19 @@ export const obtenerPayloadComoJson = (plataforma: string, operaciones: Operacio
     return JSON.stringify(obtenerPayload(plataforma, operaciones, impresora, serial));
 }
 
+
+
+export const plataformaEsAndroid = (plataformaSeleccionada: PlataformaRecuperadaDeBaseDeDatos) => {
+    return plataformaSeleccionada.nombre === "Android";
+}
+
+export const obtenerNombreDeImpresoraComoCadena = (plataformaSeleccionada: PlataformaRecuperadaDeBaseDeDatos, impresoraSeleccionada: any): string => {
+    let verdaderoNombreImpresora: string = "";
+    if (plataformaEsAndroid(plataformaSeleccionada)) {
+        const impresoraComoAndroid = impresoraSeleccionada as ImpresoraAndroid;
+        verdaderoNombreImpresora = impresoraComoAndroid.mac;
+    } else {
+        verdaderoNombreImpresora = impresoraSeleccionada.value as string;
+    }
+    return verdaderoNombreImpresora;
+}

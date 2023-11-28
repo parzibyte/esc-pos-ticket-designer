@@ -13,7 +13,7 @@ export const usePlatformStore = defineStore('platformStore', () => {
 			[plataforma.ruta_api, plataforma.licencia, plataforma.id]
 		);
 	}
-	const obtenerPlataformaPorId = async (id: string): Promise<PlataformaRecuperadaDeBaseDeDatos> => {
+	const obtenerPlataformaPorId = async (id: string | number): Promise<PlataformaRecuperadaDeBaseDeDatos> => {
 		const plataformasCoincidentes = await dbStore.exec("SELECT id, nombre, descripcion, ruta_api, licencia FROM plataformas WHERE id = ?", [id]);
 		return plataformasCoincidentes[0];
 	}

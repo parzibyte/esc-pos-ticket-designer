@@ -8,7 +8,8 @@ import SelectPlataformas from "@/components/Selects/SelectPlataformas.vue";
 import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { useDesignsStore } from "@/stores/designsStore";
 import type { PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
-const impresoras = ref([]);
+import { obtenerNombreDeImpresoraComoCadena } from "@/Helpers";
+const impresoras: Ref<any> = ref([]);
 const nombre = ref("");
 const plataformaSeleccionada: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
 	nombre: "",
@@ -17,11 +18,12 @@ const plataformaSeleccionada: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
 	ruta_api: "",
 	descripcion: "",
 });
-const impresoraSeleccionada = ref("");
+const impresoraSeleccionada: Ref<any> = ref("");
 const designsStore = useDesignsStore();
 
 const guardarDiseño = async () => {
-	await designsStore.insertarDiseño(plataformaSeleccionada.value.id, nombre.value, impresoraSeleccionada.value);
+	let verdaderoNombreImpresora = obtenerNombreDeImpresoraComoCadena(plataformaSeleccionada.value, impresoraSeleccionada.value);
+	await designsStore.insertarDiseño(plataformaSeleccionada.value.id, nombre.value, verdaderoNombreImpresora);
 	navegarADiseños();
 }
 
@@ -42,7 +44,8 @@ const onPlataformaCambiada = async (plataforma: any) => {
 		<CustomInput label="Dale un nombre a tu diseño" type="text" placeholder="Por ejemplo, ticket de venta"
 			v-model="nombre"></CustomInput>
 		<SelectPlataformas @change="onPlataformaCambiada" v-model="plataformaSeleccionada"></SelectPlataformas>
-		<SelectImpresoras v-model="impresoraSeleccionada" :impresoras="impresoras"></SelectImpresoras>
+		<SelectImpresoras :plataforma="plataformaSeleccionada" v-model="impresoraSeleccionada" :impresoras="impresoras">
+		</SelectImpresoras>
 		<button @click="guardarDiseño"
 			class="rounded-md px-3 py-2 mt-2 bg-green-500 text-white hover:bg-green-400 font-bold inline-flex items-center">
 			<CheckBold></CheckBold>

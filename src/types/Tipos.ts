@@ -260,3 +260,8 @@ export type Payload = {
     serial: string,
     operaciones: any[],
 }
+export type ImpresoraAndroid = {
+    mac: string,
+    type: string,
+    name: string,
+}

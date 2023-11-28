@@ -8,10 +8,11 @@ import CustomInput from "@/components/CustomInput.vue";
 import SelectPlataformas from "@/components/Selects/SelectPlataformas.vue";
 import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { usePlatformStore } from "@/stores/platform";
-import type { PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
+import type { ImpresoraAndroid, PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
+import { obtenerNombreDeImpresoraComoCadena, plataformaEsAndroid } from "@/Helpers";
 const designsStore = useDesignsStore();
 const platformStore = usePlatformStore();
-const impresoras = ref([]);
+const impresoras: Ref<any> = ref([]);
 const nombre = ref("");
 const plataformaSeleccionada: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
 	ruta_api: "",
@@ -20,12 +21,13 @@ const plataformaSeleccionada: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
 	nombre: "",
 	descripcion: "",
 });
-const impresoraSeleccionada = ref("");
+const impresoraSeleccionada: Ref<any> = ref("");
 const props = defineProps<{
 	id: number,
 }>();
 const guardarDiseño = async () => {
-	await designsStore.actualizarDiseño(plataformaSeleccionada.value.id, nombre.value, impresoraSeleccionada.value, props.id);
+	let verdaderoNombreImpresora = obtenerNombreDeImpresoraComoCadena(plataformaSeleccionada.value, impresoraSeleccionada.value);
+	await designsStore.actualizarDiseño(plataformaSeleccionada.value.id, nombre.value, verdaderoNombreImpresora, props.id);
 	navegarADiseños();
 }
 
@@ -42,10 +44,23 @@ const onPlataformaCambiada = async (plataforma: any) => {
 }
 onMounted(async () => {
 	const diseñoActualmenteEditado = await designsStore.obtenerDiseñoPorId(props.id);
-	nombre.value = diseñoActualmenteEditado.nombre;
-	impresoraSeleccionada.value = diseñoActualmenteEditado.impresora;
 	plataformaSeleccionada.value = await platformStore.obtenerPlataformaPorId(diseñoActualmenteEditado.id_plataforma);
+	nombre.value = diseñoActualmenteEditado.nombre;
 	await onPlataformaCambiada(plataformaSeleccionada.value);
+	if (plataformaEsAndroid(plataformaSeleccionada.value)) {
+		// Esto es porque solo guardamos la MAC, y para el select se necesita el objeto completo
+		const impresora = impresoras.value.find(
+			(impresora: ImpresoraAndroid) => {
+				if (impresora.mac === diseñoActualmenteEditado.impresora) {
+					return true;
+				}
+				return false;
+			}
+		);
+		impresoraSeleccionada.value = impresora;
+	} else {
+		impresoraSeleccionada.value = diseñoActualmenteEditado.impresora;
+	}
 });
 </script>
 <template>
@@ -53,7 +68,8 @@ onMounted(async () => {
 		<CustomInput label="Dale un nombre a tu diseño" type="text" placeholder="Por ejemplo, ticket de venta"
 			v-model="nombre"></CustomInput>
 		<SelectPlataformas @change="onPlataformaCambiada" v-model="plataformaSeleccionada"></SelectPlataformas>
-		<SelectImpresoras v-model="impresoraSeleccionada" :impresoras="impresoras"></SelectImpresoras>
+		<SelectImpresoras :plataforma="plataformaSeleccionada" v-model="impresoraSeleccionada" :impresoras="impresoras">
+		</SelectImpresoras>
 		<button @click="guardarDiseño"
 			class="rounded-md px-3 py-2 mt-2 bg-green-500 text-white hover:bg-green-400 font-bold inline-flex items-center">
 			<CheckBold></CheckBold>
