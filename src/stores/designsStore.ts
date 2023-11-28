@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useDatabaseStore } from "@/stores/db"
+import type { DiseñoRecuperadoDeBaseDeDatos } from '@/types/Tipos';
 
 export const useDesignsStore = defineStore('designsStore', () => {
 	const dbStore = useDatabaseStore();
@@ -36,7 +37,7 @@ FROM diseños d
 		);
 	}
 
-	const obtenerDiseñoPorId = async (id: number | string) => {
+	const obtenerDiseñoPorId = async (id: number | string): Promise<DiseñoRecuperadoDeBaseDeDatos> => {
 		const diseñosCoincidentesConId = await dbStore.exec(`select d.id,
 	d.nombre,
 	d.fecha_modificacion,
