@@ -11,6 +11,7 @@ import Codigo from "@/components/FragmentosCodigo/Codigo.vue";
 import DesignItem from "@/components/DesignItem.vue";
 import { useDesignsStore } from "@/stores/designsStore";
 import { useSettingsStore } from "@/stores/settings";
+const estaCargando = ref(false);
 const designsStore = useDesignsStore();
 const designsOperationStore = useDesignsOperationStore();
 const settingsStore = useSettingsStore();
@@ -36,8 +37,10 @@ const componenteCodigo: Ref<{ refrescarIndice: () => void }> = ref({
 
 const eliminarOperacionPorIndice = async (indice: number) => {
   const operacionParaEliminar = operaciones.value[indice];
+  estaCargando.value = true;
   await designsOperationStore.eliminarOperacion(operacionParaEliminar.id);
   await actualizarFechaDeModificacionDeDiseño();
+  estaCargando.value = false;
   operaciones.value.splice(indice, 1);
 }
 
@@ -51,11 +54,14 @@ const obtenerCodigo = () => {
 }
 
 const onActualizado = debounce(async (op: Operacion) => {
+  estaCargando.value = true;
   await designsOperationStore.actualizarArgumentosDeOperacion(op.clonar().obtenerArgumentosRealesSerializados(), op.id);
   await actualizarFechaDeModificacionDeDiseño();
+  estaCargando.value = false;
 }, 500);
 
 const actualizarFechaDeModificacionDeDiseño = async () => {
+  estaCargando.value = true;
   await designsStore.actualizarDiseño(
     diseñoActualmenteEditado.value.id_plataforma,
     diseñoActualmenteEditado.value.nombre,
@@ -63,21 +69,27 @@ const actualizarFechaDeModificacionDeDiseño = async () => {
     props.id,
   );
   diseñoActualmenteEditado.value = await designsStore.obtenerDiseñoPorId(props.id);
+
+  estaCargando.value = false;
 }
 
 
 const refrescarOperacionesDeDiseñoActualmenteEditado = async () => {
   operaciones.value = [];// Necesario para que se escuche el change de los argumentos
+  estaCargando.value = true;
   operaciones.value = convertirOperacionesSerializadasAReactivas(await designsOperationStore.obtenerOperacionesDeDiseño(props.id));
+  estaCargando.value = false;
 }
 
 onMounted(async () => {
+  estaCargando.value = true;
   modoDesarrolladorActivado.value = !!(await settingsStore.obtenerAjustes()).modo_programador;
   diseñoActualmenteEditado.value = await designsStore.obtenerDiseñoPorId(props.id);
   await refrescarOperacionesDeDiseñoActualmenteEditado();
   if (modoDesarrolladorActivado.value) {
     await componenteCodigo.value.refrescarIndice();
   }
+  estaCargando.value = false;
 })
 
 const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionConIndice, operacionReemplazadaConIndice: OperacionConIndice) => {
@@ -85,15 +97,18 @@ const onOperacionIntercambiada = async (operacionReemplazoConIndice: OperacionCo
   const ordenReemplazado = operacionReemplazadaConIndice.operacion.orden;
   const idReemplazo = operacionReemplazoConIndice.operacion.id;
   const idReemplazado = operacionReemplazadaConIndice.operacion.id;
+  estaCargando.value = true;
   await designsOperationStore.cambiarOrdenDeOperacion(idReemplazo, ordenReemplazado);
   await designsOperationStore.cambiarOrdenDeOperacion(idReemplazado, ordenReemplazo);
   await actualizarFechaDeModificacionDeDiseño();
   await refrescarOperacionesDeDiseñoActualmenteEditado();
+  estaCargando.value = false;
 }
 
 const onOperacionSeleccionada = async (operacion: Operacion) => {
   const operacionSinReferencias = operacion.clonar();
   const argumentosSerializados = operacionSinReferencias.obtenerArgumentosRealesSerializados();
+  estaCargando.value = true;
   const operacionesInsertadas = await designsOperationStore.agregarOperacion(props.id, operacionSinReferencias.clave, argumentosSerializados)
   const operacionRecienInsertada = operacionesInsertadas[0];
   await actualizarFechaDeModificacionDeDiseño();
@@ -104,10 +119,14 @@ const onOperacionSeleccionada = async (operacion: Operacion) => {
     operacionRecienInsertada.orden,
   );
   operaciones.value.push(operacionParaAgregarAlArreglo);
+
+  estaCargando.value = false;
 }
 
 const onArchivoImportado = async () => {
+  estaCargando.value = true;
   await refrescarOperacionesDeDiseñoActualmenteEditado();
+  estaCargando.value = false;
 }
 
 const clasesParaContenedorDeOperaciones = () => {
@@ -121,13 +140,13 @@ const clasesParaContenedorDeCodigo = () => {
     "md:w-1/4": modoDesarrolladorActivado.value,
   };
 }
-
 </script>
 <template>
   <div class="flex flex-col md:flex-row">
     <div class="p-1 bg-gray-100 w-full" :class="clasesParaContenedorDeOperaciones()">
-      <DesignItem @importado="onArchivoImportado" :mostrar-boton-exportar="true" :mostrar-boton-importar="true"
-        :mostrarBotonEliminar="false" :mostrarBotonModificar="false" :diseño="diseñoActualmenteEditado"></DesignItem>
+      <DesignItem :cargando="estaCargando" @importado="onArchivoImportado" :mostrar-boton-exportar="true"
+        :mostrar-boton-importar="true" :mostrarBotonEliminar="false" :mostrarBotonModificar="false"
+        :diseño="diseñoActualmenteEditado"></DesignItem>
       <div v-show="operaciones.length <= 0" class="bg-sky-500 my-2 p-8 rounded-md text-center text-white text-2xl">
         <p>Tu diseño está vacío. Elige una operación de la lista de abajo para empezar</p>
       </div>

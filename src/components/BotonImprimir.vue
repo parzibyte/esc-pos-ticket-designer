@@ -2,10 +2,12 @@
 import type { Diseño, DiseñoRecuperadoDeBaseDeDatos } from '@/types/Tipos';
 import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from '@/Helpers';
 import Printer from "vue-material-design-icons/Printer.vue";
+import Loading from "vue-material-design-icons/Loading.vue";
 import { useDesignsOperationStore } from '@/stores/designOperation';
 const designsOperationStore = useDesignsOperationStore();
 const props = withDefaults(defineProps<{
     diseño: DiseñoRecuperadoDeBaseDeDatos,
+    cargando: boolean,
 }>(), {
     diseño: () => {
         return {
@@ -18,7 +20,8 @@ const props = withDefaults(defineProps<{
             impresora: "",
             id_plataforma: 0,
         };
-    }
+    },
+    cargando: false,
 });
 
 const emit = defineEmits(["error", "exito"]);
@@ -49,9 +52,10 @@ const imprimir = async () => {
 }
 </script>
 <template>
-    <button @click="imprimir"
-        class="rounded-md px-3 py-2 m-1 bg-sky-500 text-white hover:bg-sky-400 text-sm font-semibold inline-flex items-center">
-        <Printer></Printer>
+    <button :disabled="cargando" @click="imprimir"
+        class="disabled:bg-sky-200 rounded-md px-3 py-2 m-1 bg-sky-500 text-white hover:bg-sky-400 text-sm font-semibold inline-flex items-center">
+        <Loading v-if="cargando" class="animate-spin"></Loading>
+        <Printer v-if="!cargando"></Printer>
         Imprimir
     </button>
 </template>

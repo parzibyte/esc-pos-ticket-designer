@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue';
+import { computed, defineProps, ref, withDefaults } from 'vue';
 import { type Diseño, type DiseñoRecuperadoDeBaseDeDatos } from "@/types/Tipos"
 import Delete from "vue-material-design-icons/Delete.vue";
 import Pencil from "vue-material-design-icons/Pencil.vue";
@@ -9,19 +9,20 @@ import PlayListEdit from "vue-material-design-icons/PlayListEdit.vue";
 import router from '@/router';
 import BotonImprimir from './BotonImprimir.vue';
 import Ping from './Ping.vue';
-import { useDatabaseStore } from '@/stores/db';
 import FileUpload from './FileUpload.vue';
 import { useFiltersStore } from '@/stores/filters';
 import { useDesignsOperationStore } from '@/stores/designOperation';
-const store = useDatabaseStore();
 const designsOperationStore = useDesignsOperationStore();
 const filterStore = useFiltersStore();
+const cargandoEnEsteComponente = ref(false);
+const cargandoComputed = computed(() => cargandoEnEsteComponente.value === true || props.cargando === true);
 const props = withDefaults(defineProps<{
 	diseño: DiseñoRecuperadoDeBaseDeDatos,
 	mostrarBotonModificar: boolean,
 	mostrarBotonEliminar: boolean,
 	mostrarBotonExportar: boolean,
 	mostrarBotonImportar: boolean,
+	cargando: boolean,
 }>(), {
 	diseño: () => {
 		return {
@@ -65,6 +66,7 @@ const eliminarDiseño = () => {
 }
 
 const exportarDiseño = async () => {
+	cargandoEnEsteComponente.value = true;
 	const operacionesRecuperadasDeBaseDeDatos = await designsOperationStore.obtenerOperacionesDeDiseño(props.diseño.id);
 	const operacionesParaGuardar = operacionesRecuperadasDeBaseDeDatos.map(operacion => {
 		const { clave, argumentos } = operacion;
@@ -78,6 +80,7 @@ const exportarDiseño = async () => {
 	a.click();
 	URL.revokeObjectURL(url);
 	a.remove();
+	cargandoEnEsteComponente.value = false;
 }
 const onErrorImprimiendo = (err: Error) => {
 	alert("Error imprimiendo: " + err);
@@ -107,15 +110,18 @@ const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
 		return;
 	}
 	const primerArchivo = archivos[0];
+	cargandoEnEsteComponente.value = true;
 	const reader = new FileReader();
 	reader.onload = async () => {
 		const operacionesCodificadas = reader.result as string;
 		if (!esCadenaValida(operacionesCodificadas)) {
+			cargandoEnEsteComponente.value = false;
 			return alert("El archivo importado no es válido");
 		}
 		const operacionesSerializadas = JSON.parse(operacionesCodificadas);
 		for (const operacion of operacionesSerializadas) {
 			await designsOperationStore.agregarOperacion(props.diseño.id, operacion.clave, operacion.argumentos);
+			cargandoEnEsteComponente.value = false;
 		}
 		emit("importado");
 	}
@@ -135,7 +141,8 @@ const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
 		</div>
 		<div class="flex flex-col md:flex-row">
 			<div class="flex flex-row">
-				<BotonImprimir @error="onErrorImprimiendo" :diseño="props.diseño"></BotonImprimir>
+				<BotonImprimir :cargando="cargandoComputed" @error="onErrorImprimiendo" :diseño="props.diseño">
+				</BotonImprimir>
 				<button v-show="mostrarBotonModificar" @click="modificarOperacionesDeDiseño"
 					class="rounded-md px-3 py-2 m-1 bg-indigo-500 text-white hover:bg-indigo-400 text-sm font-semibold inline-flex items-center">
 					<PlayListEdit></PlayListEdit>
