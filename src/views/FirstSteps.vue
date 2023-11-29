@@ -4,6 +4,7 @@ import { ref, type Ref } from 'vue';
 import Desktop from '@/components/Guias/Desktop.vue';
 import Android from '@/components/Guias/Android.vue';
 import type { PlataformaRecuperadaDeBaseDeDatos } from '@/types/Tipos';
+import { plataformaEsAndroid } from '@/Helpers';
 const plataforma: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
     ruta_api: "",
     licencia: "",
@@ -23,7 +24,7 @@ const plataforma: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
             ejecución; en Android solo es compatible con impresoras Bluetooth
         </p>
         <SelectPlataformas v-model="plataforma"></SelectPlataformas>
-        <Desktop v-if="plataforma.nombre === 'Desktop'" :plataforma="plataforma"></Desktop>
-        <Android v-if="plataforma.nombre === 'Android'" :plataforma="plataforma"></Android>
+        <Desktop v-if="plataforma && plataforma.nombre === 'Desktop'" :plataforma="plataforma"></Desktop>
+        <Android v-if="plataforma && plataforma.nombre === 'Android'" :plataforma="plataforma"></Android>
     </div>
 </template>

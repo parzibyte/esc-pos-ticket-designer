@@ -181,6 +181,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = [
 						{
 							nombre: "EstablecerAlineacion",
@@ -195,6 +198,9 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = [
 						{
 							nombre: "EstablecerAlineacion",
@@ -274,6 +280,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoDeBarras;
+					if (!argumentos || !argumentos.alineacion || !argumentos.tipo || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -336,6 +345,9 @@ export class OperacionFactory {
 							argumentos: [argumentos.alineacion.valor],
 						},
 					];
+					if (!argumentos || !argumentos.alineacion || !argumentos.tipo || !argumentos.tamaño) {
+						return [];
+					}
 					const mapa: Record<string, string> = {
 						"Codabar": "codabar",
 						"Code 128": "code128",
@@ -370,6 +382,32 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoQr;
+					if (!argumentos.alineacion || !argumentos.tamaño || !argumentos.nivelDeRecuperacion) {
+						return [];
+					}
+					const argumentosParaDevolver = <any>[
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "ImprimirCodigoQr",
+							argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion.valor, argumentos.tamaño.valor],
+						}
+					];
+					if (argumentos.imprimirContenido) {
+						argumentosParaDevolver.push({
+							nombre: "EscribirTexto",
+							argumentos: [argumentos.contenido + "\n"],
+						});
+					}
+					return argumentosParaDevolver;
+				},
+				"Android": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoQr;
+					if (!argumentos.alineacion || !argumentos.tamaño || !argumentos.nivelDeRecuperacion) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -398,6 +436,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenLocal;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -412,6 +453,9 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenLocal;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -462,6 +506,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenDeInternet;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -476,6 +523,9 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenDeInternet;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -568,6 +618,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirAlineacion;
+					if (!argumentos.alineacion) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -578,6 +631,9 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirAlineacion;
+					if (!argumentos.alineacion) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -622,6 +678,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFuente;
+					if (!argumentos.fuente) {
+						return;
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerFuente",
@@ -632,6 +691,9 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirFuente;
+					if (!argumentos.fuente) {
+						return;
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerFuente",
@@ -847,6 +909,9 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenEnBase64;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
@@ -861,6 +926,9 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenEnBase64;
+					if (!argumentos.alineacion || !argumentos.tamaño) {
+						return [];
+					}
 					const argumentosParaDevolver = <any>[
 						{
 							nombre: "EstablecerAlineacion",
