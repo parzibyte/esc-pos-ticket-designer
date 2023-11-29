@@ -18,7 +18,9 @@ const clase = (indice: number) => {
                     sistema }}
             </div>
         </div>
-        <DescargarWindows v-if="indiceSistema === 0"></DescargarWindows>
-        <DescargarLinux v-if="indiceSistema === 1"></DescargarLinux>
+        <div class="p-4 leading-relaxed text-xl text-justify">
+            <DescargarWindows v-if="indiceSistema === 0"></DescargarWindows>
+            <DescargarLinux v-if="indiceSistema === 1"></DescargarLinux>
+        </div>
     </div>
 </template>

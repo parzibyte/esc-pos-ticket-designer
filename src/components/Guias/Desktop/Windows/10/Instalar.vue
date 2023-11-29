@@ -15,7 +15,7 @@ import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabr
             <li>Espera a que aparezca la opción
                 <strong>La impresora deseada no está en la lista</strong>
                 y haz clic en ella
-                <img :src="agregarImpresora">
+                <img class="mx-auto" :src="agregarImpresora">
             </li>
             <InstalarImpresoraWindowsComun></InstalarImpresoraWindowsComun>
         </ul>

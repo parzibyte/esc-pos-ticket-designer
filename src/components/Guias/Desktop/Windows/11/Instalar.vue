@@ -10,15 +10,15 @@ import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabr
     <ul class="list-decimal list-inside">
         <li>
             En el inicio, busca y elige <strong>Impresoras y escáneres</strong>
-            <img :src="InicioImpresoras">
+            <img class="mx-auto mb-4" :src="InicioImpresoras">
         </li>
         <li>Haz clic en <strong>Agregar dispositivo</strong>
 
-            <img :src="AgregarDispositivo">
+            <img class="mx-auto mb-4" :src="AgregarDispositivo">
         </li>
         <li>
             Espera a que aparezca la opción y haz clic en <strong>Agregar manualmente</strong>
-            <img :src="AgregarManualmente">
+            <img class="mx-auto mb-4" :src="AgregarManualmente">
         </li>
         <InstalarImpresoraWindowsComun></InstalarImpresoraWindowsComun>
     </ul>

@@ -14,10 +14,18 @@ import PluginEnEjecucionWindows from "@/assets/PluginEnEjecucionWindows.png";
                 https://github.com/parzibyte/plugin-impresora-termica-v3/releases/latest
             </a> y una vez ahí, navega al final hasta Assets
         </li>
-        <li>Elige el plugin llamado <code>plugin_v3.2.1.zip</code>. Si tienes problemas para ejecutarlo más adelante,
-            entonces descarga <code>plugin_v3.2.1_si</code></li>
+        <li>Si no conoces la arquitectura de tu sistema, descarga
+            <strong>plugin_v3.2.1.zip</strong>
+        </li>
+        <li>Si conoces la arquitectura, puedes elegir <strong>plugin_v3.2.1.zip</strong> para 64 bits y
+            <strong>plugin_v3.2.1_si.zip</strong> para 32 bits.
+        </li>
+        <li>Si más adelante tienes problemas de compatibilidad, puede que se deba a que tu arquitectura es de 32 bits; en
+            ese caso descarga
+            <strong>plugin_v3.2.1_si.zip</strong>
+        </li>
     </ol>
-    <img :src="imagenDescargarDesktop" alt="">
+    <img class="mx-auto" :src="imagenDescargarDesktop" alt="">
     <div class="bg-red-500 rounded-md  p-2 text-white">
         En ocasiones, tu navegador web o antivirus van a bloquear la descarga. <strong>El plugin no tiene ningún
             tipo de virus</strong>, pero es tu responsabilidad forzar la descarga.
@@ -28,23 +36,24 @@ import PluginEnEjecucionWindows from "@/assets/PluginEnEjecucionWindows.png";
             ejecutarlo</strong></p>
     <img :src="imagenExtraerDesktop" alt="">
     <p>Al ser extraído tendrás un archivo ejecutable junto con un archivo DLL que es una librería (misma que siempre debe
-        estar en el mismo lugar donde se ejecuta el plugin). Si elegiste la versión que tiene <code>si</code>en su nombre,
+        estar en el mismo lugar donde se ejecuta el plugin). Si elegiste la versión que tiene <code>si</code> en su nombre,
         esta DLL no estará presente. </p>
-    <img :src="imagenEjecutar" alt="">
-    <div class="bg-red-500 m-2 rounded-md  p-2 text-white">
+    <img class="mx-auto" :src="imagenEjecutar" alt="">
+    <div class="my-2 bg-red-500 rounded-md  p-2 text-white">
         De nuevo, en ocasiones Windows o tu antivirus bloqueará la ejecución. Debes hacer clic en <strong>Más
             información</strong>, <strong>Opciones avanzadas</strong>
         o la opción que te permita forzar la ejecución. Eso cambia entre sistemas operativos y antivirus.
         <br>
-        <strong>Debes darle al plugin todos los permisos. No tiene ningún tipo de virus</strong>
-        <p>A continuación un ejemplo de cómo forzar la ejecución.</p>
+        <strong>Debes darle al plugin todos los permisos. No tiene ningún tipo de virus</strong>. <p>A continuación un
+            ejemplo de cómo forzar la ejecución.</p>
     </div>
-    <img :src="desktopPermisos" alt="">
+    <img class="mx-auto" :src="desktopPermisos" alt="">
     <p>Si has ejecutado el plugin pero aparece un error de ejecución (y no de seguridad) entonces descarga la versión que
         contiene <code>si</code> en su nombre</p>
     <strong>En caso de que no haya ningún error, pasa al siguiente paso. El plugin no muestra ventanas ni nada
         parecido</strong>
     <p>Como una comprobación final, puedes abrir el administrador de tareas ( <code>CTRL + SHIFT + ESC</code> ), ir a
-        <strong>Detalles</strong> y revisar si el plugin se está ejecutando. Por ejemplo:</p>
+        <strong>Detalles</strong> y revisar si el plugin se está ejecutando. Por ejemplo:
+    </p>
     <img :src="PluginEnEjecucionWindows" alt="">
 </template>

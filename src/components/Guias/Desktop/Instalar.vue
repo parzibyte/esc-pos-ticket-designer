@@ -19,8 +19,10 @@ const clase = (indice: number) => {
                 v-for="(sistema, indice) in ['Windows 8, 8.1 y 10', 'Windows 11', 'Linux y Raspbian']">{{ sistema }}
             </div>
         </div>
-        <InstalarW10 v-if="indiceSistema === 0"></InstalarW10>
-        <InstalarW11 v-if="indiceSistema === 1"></InstalarW11>
-        <InstalarLinux v-if="indiceSistema === 2"></InstalarLinux>
+        <div class="px-4 text-xl text-justify">
+            <InstalarW10 v-if="indiceSistema === 0"></InstalarW10>
+            <InstalarW11 v-if="indiceSistema === 1"></InstalarW11>
+            <InstalarLinux v-if="indiceSistema === 2"></InstalarLinux>
+        </div>
     </div>
 </template>

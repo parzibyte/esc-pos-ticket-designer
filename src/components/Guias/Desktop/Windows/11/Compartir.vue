@@ -5,10 +5,10 @@ import ImagenCompartirW11 from "@/assets/ImpresoraW11/CompartirW11.png";
     <div>
         <ul class="list-decimal list-inside">
             <li>
-                Una vez instalada busca y elige <strong>Impresoras y escáneres</strong> en el menú inicio.
+                Una vez que tu impresora esté instalada busca y elige <strong>Impresoras y escáneres</strong> en el menú inicio.
                 Ahí, haz clic sobre la impresora que quieres compartir. Eso te llevará a una pestaña de
                 <strong>Configuración de la impresora;</strong> haz clic en <strong> Propiedades de impresora
-                </strong>:
+                </strong>
             </li>
             <li>Ve a la pestaña de
                 <strong>Uso compartido </strong>
@@ -29,7 +29,7 @@ import ImagenCompartirW11 from "@/assets/ImpresoraW11/CompartirW11.png";
             <li>
                 Finalmente haz clic en <strong>Aceptar</strong> y tu impresora estará compartida. Los pasos se muestran a
                 continuación:
-                <img :src="ImagenCompartirW11" />
+                <img class="mx-auto" :src="ImagenCompartirW11" />
             </li>
         </ul>
     </div>

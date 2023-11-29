@@ -23,8 +23,10 @@ const clase = (indice: number) => {
             {{ paso }}
         </div>
     </div>
-    <Instalar v-if="indicePaso === 0"></Instalar>
-    <Compartir v-if="indicePaso === 1"></Compartir>
-    <Descargar v-if="indicePaso === 2"></Descargar>
-    <PruebaImpresion :plataforma="props.plataforma" v-if="indicePaso === 3"></PruebaImpresion>
+    <div class="leading-relaxed ">
+        <Instalar v-if="indicePaso === 0"></Instalar>
+        <Compartir v-if="indicePaso === 1"></Compartir>
+        <Descargar v-if="indicePaso === 2"></Descargar>
+        <PruebaImpresion :plataforma="props.plataforma" v-if="indicePaso === 3"></PruebaImpresion>
+    </div>
 </template>

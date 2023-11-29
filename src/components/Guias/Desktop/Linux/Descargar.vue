@@ -20,7 +20,7 @@ import EjecutarPluginLinux from "@/assets/Ejecutando-plugin-para-impresora-termi
         </li>
     </ol>
     <img :src="imagenDescargarDesktop" alt="">
-    <div class="bg-red-500 rounded-md  p-2 text-white">
+    <div class="bg-red-500 rounded-md my-2 p-2 text-white">
         En ocasiones, tu navegador web o antivirus van a bloquear la descarga. <strong>El plugin no tiene ningún
             tipo de virus</strong>, pero es tu responsabilidad forzar la descarga.
     </div>
@@ -37,5 +37,6 @@ import EjecutarPluginLinux from "@/assets/Ejecutando-plugin-para-impresora-termi
     <img :src="EjecutarPluginLinux">
     <p>Si más adelante quieres ejecutarlo en segundo plano sin que la terminal sea bloqueada, ejecuta</p>
     <BloqueDeCodigo :codigo="`./nombre_plugin 2>1 &`"></BloqueDeCodigo>
-    <strong>En caso de que no haya ningún error, navega al siguiente paso.</strong>
+    <strong>En caso de que no haya ningún error y el plugin te haya mostrado el mensaje de ejecución, navega al siguiente
+        paso.</strong>
 </template>
