@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="p-2">
         <p class="text-xl">Si necesitas ayuda, te recomiendo, en orden:</p>
         <ol class="list-inside list-decimal">
             <li>Seguir la guía en <strong>Primeros pasos</strong></li>

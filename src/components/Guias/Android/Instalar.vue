@@ -13,7 +13,7 @@ import instalacionCorrecta from "@/assets/Android/InstalacionCorrecta.jpg"
         <br>
         <strong>En algunos casos, debes dar permisos de instalación de aplicaciones. Por ejemplo, si usas Chrome debes ir a
             la configuración:</strong>
-        <img class="mx-auto mb-2"  :src="configuracion" alt="">
+        <img class="mx-auto mb-2" :src="configuracion" alt="">
         <p>Confiar en la fuente:</p>
         <img class="mx-auto mb-2" :src="confiar" alt="">
         <p>Leer y permitir la instalación:</p>
@@ -29,5 +29,10 @@ import instalacionCorrecta from "@/assets/Android/InstalacionCorrecta.jpg"
         </p>
         <img class="mx-auto mb-2" :src="instalacionCorrecta" alt="">
         <p>Llegado a este punto, ya puedes pasar al siguiente paso</p>
+        <div class="p-2 text-white bg-red-500 rounded-sm">
+            A partir de aquí, siempre que quieras usar el diseñador, debes dejar al plugin en la pantalla que se muestra en
+            la imagen de arriba y minimizarlo desde ahí. Dicho con otras palabras, asegúrate que el plugin dice
+            <strong>Plugin funcionando correctamente</strong> y no cierres la app, solo déjala en segundo plano
+        </div>
     </div>
 </template>

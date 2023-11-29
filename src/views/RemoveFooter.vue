@@ -8,7 +8,7 @@ const quiereVerPrecios = ref(false);
 const quiereContactarme = ref(false);
 </script>
 <template>
-    <div class="flex flex-col bg-white p-2 m-2">
+    <div class="flex flex-col bg-white p-2 m-2 break-all">
         <p class="text-black text-6xl font-bold">Consigue una licencia y apoya al desarrollo</p>
         <p class="text-4xl">Hola. Espero que mi diseñador te esté siendo útil. Si quieres quitar el pie de página de todos
             los tickets puedes
@@ -175,8 +175,7 @@ const quiereContactarme = ref(false);
                 necesita conexión a
                 internet, usted debe actualizar la licencia cuando la anterior se venza. </li>
             <li><strong>¿Qué pasa con la compartición de licencias?</strong> Usted puede usar la licencia individualmente
-                sin límites,pero
-                no puede
+                sin límites, pero no puede
                 compartirla con externos. De hacerlo, su licencia será removida y el pago no será reembolsado. Recuerde leer
                 las condiciones.
             </li>

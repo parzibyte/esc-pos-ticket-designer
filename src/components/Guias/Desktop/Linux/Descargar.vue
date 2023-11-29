@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import imagenDescargarDesktop from "@/assets/Desktop_descargar.png";
+import imagenDescargarDesktop from "@/assets/Descargar_linux_raspbian.png";
 import BloqueDeCodigo from "@/components/FragmentosCodigo/BloqueDeCodigo.vue";
 import EjecutarPluginLinux from "@/assets/Ejecutando-plugin-para-impresora-termica-en-Linux.png"
 </script>
