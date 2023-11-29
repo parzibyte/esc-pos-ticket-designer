@@ -13,21 +13,21 @@ import instalacionCorrecta from "@/assets/Android/InstalacionCorrecta.jpg"
         <br>
         <strong>En algunos casos, debes dar permisos de instalación de aplicaciones. Por ejemplo, si usas Chrome debes ir a
             la configuración:</strong>
-        <img :src="configuracion" alt="">
+        <img class="mx-auto mb-2"  :src="configuracion" alt="">
         <p>Confiar en la fuente:</p>
-        <img :src="confiar" alt="">
+        <img class="mx-auto mb-2" :src="confiar" alt="">
         <p>Leer y permitir la instalación:</p>
-        <img :src="permitirInstalacion" alt="">
+        <img class="mx-auto mb-2" :src="permitirInstalacion" alt="">
         <p>Y finalmente instalar:</p>
-        <img :src="instalar" alt="">
+        <img class="mx-auto mb-2" :src="instalar" alt="">
         <strong>Recuerda que esto puede variar entre sistemas y dispositivos. Es tu responsabilidad forzar la instalación y
             dar todos los permisos necesarios</strong>
-        <img :src="darPermisos" alt="">
+        <img class="mx-auto mb-2" :src="darPermisos" alt="">
         <p>Una vez instalado, abre la app y dale todos los permisos necesarios. Si la app se cierra, vuelve a abrirla hasta
             que se vea una pantalla parecida a la siguiente en donde debe decir
             <strong>Plugin funcionando correctamente</strong>
         </p>
-        <img :src="instalacionCorrecta" alt="">
+        <img class="mx-auto mb-2" :src="instalacionCorrecta" alt="">
         <p>Llegado a este punto, ya puedes pasar al siguiente paso</p>
     </div>
 </template>

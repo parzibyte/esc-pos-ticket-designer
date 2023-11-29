@@ -24,9 +24,11 @@ const clase = (indice: number) => {
             {{ paso }}
         </div>
     </div>
-    <Sincronizar v-if="indicePaso === 0"></Sincronizar>
-    <Descargar v-if="indicePaso === 1"></Descargar>
-    <Instalar v-if="indicePaso === 2"></Instalar>
-    <Probar v-if="indicePaso === 3"></Probar>
-    <PruebaImpresion :plataforma="props.plataforma" v-if="indicePaso === 4"></PruebaImpresion>
+    <div class="p-4 leading-relaxed text-xl text-justify">
+        <Sincronizar v-if="indicePaso === 0"></Sincronizar>
+        <Descargar v-if="indicePaso === 1"></Descargar>
+        <Instalar v-if="indicePaso === 2"></Instalar>
+        <Probar v-if="indicePaso === 3"></Probar>
+        <PruebaImpresion :plataforma="props.plataforma" v-if="indicePaso === 4"></PruebaImpresion>
+    </div>
 </template>
