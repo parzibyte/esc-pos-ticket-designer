@@ -4,7 +4,7 @@ import Sincronizar from "@/components/Guias/Android/SincronizarImpresora.vue"
 import Descargar from "@/components/Guias/Android/Descargar.vue"
 import Instalar from "@/components/Guias/Android/Instalar.vue"
 import Probar from "@/components/Guias/Android/Probar.vue"
-import PruebaImpresion from "@/components/Guias/Android/PruebaImpresion.vue"
+import PruebaImpresion from "@/components/Guias/PruebaImpresion.vue"
 import type { PlataformaRecuperadaDeBaseDeDatos } from '@/types/Tipos';
 const props = defineProps<{
     plataforma: PlataformaRecuperadaDeBaseDeDatos,
