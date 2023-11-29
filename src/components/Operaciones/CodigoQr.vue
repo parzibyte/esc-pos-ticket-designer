@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { TamañoImagen, type ArgumentosParaDefinirCodigoQr, RecuperacionQr, Alineacion } from '@/types/Tipos';
-import { ref } from 'vue';
+import { type ArgumentosParaDefinirCodigoQr, } from '@/types/Tipos';
 import CustomInputVue from '../CustomInput.vue';
-import Select from '../Select.vue';
 import Range from '../Range.vue';
 import CustomCheckboxVue from '../CustomCheckbox.vue';
 import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
-import type SelectAlineacionVue from '../Selects/SelectAlineacion.vue';
+import SelectAlineacion from '../Selects/SelectAlineacion.vue';
 import SelectTamanioImagen from '../Selects/SelectTamanioImagen.vue';
 import SelectRecuperacionQr from '../Selects/SelectRecuperacionQr.vue';
 
@@ -20,7 +18,7 @@ const propiedades = defineProps<Propiedades>();
 <template>
     <div class="flex md:flex-row flex-col">
         <CustomInputVue v-model="propiedades.modelValue.contenido" type="text" label="Contenido del QR"></CustomInputVue>
-        <SelectAlineacionVue v-model="propiedades.modelValue.alineacion"></SelectAlineacionVue>
+        <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
         <Range label="Ancho" step="8" min="8" max="648" v-model="propiedades.modelValue.ancho"></Range>
         <CustomCheckboxVue v-model="propiedades.modelValue.imprimirContenido"
             label="Imprimir contenido como texto debajo del código QR"></CustomCheckboxVue>
