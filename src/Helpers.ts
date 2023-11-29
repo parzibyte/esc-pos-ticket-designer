@@ -125,7 +125,7 @@ export const obtenerNombreDeImpresoraComoCadena = (plataformaSeleccionada: Plata
         const impresoraComoAndroid = impresoraSeleccionada as ImpresoraAndroid;
         verdaderoNombreImpresora = impresoraComoAndroid.mac;
     } else {
-        verdaderoNombreImpresora = impresoraSeleccionada.value as string;
+        verdaderoNombreImpresora = impresoraSeleccionada as string;
     }
     return verdaderoNombreImpresora;
 }
