@@ -11,7 +11,7 @@ import Hiking from "vue-material-design-icons/Hiking.vue";
 
 import router from '@/router';
 import { ref } from "vue"
-const mostrarMenu = ref(false);
+const mostrarMenu = ref(true);
 const clasesParaMenu = () => {
   return { "w-1/4": mostrarMenu.value };
 }
