@@ -8,7 +8,7 @@ const quiereVerPrecios = ref(false);
 const quiereContactarme = ref(false);
 </script>
 <template>
-    <div class="flex flex-col bg-white p-2 m-2 break-all">
+    <div class="flex flex-col bg-white p-2 m-2 break-words">
         <p class="text-black text-6xl font-bold">Consigue una licencia y apoya al desarrollo</p>
         <p class="text-4xl">Hola. Espero que mi diseñador te esté siendo útil. Si quieres quitar el pie de página de todos
             los tickets puedes

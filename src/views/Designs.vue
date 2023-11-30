@@ -34,7 +34,7 @@ const eliminarDiseño = async (diseño: Diseño) => {
 			<FilePlus></FilePlus>
 			Nuevo diseño
 		</button>
-		<DesignItem :mostrar-boton-exportar="false" :mostrar-boton-importar="false" :mostrar-boton-modificar="true"
+		<DesignItem :cargando="false" :mostrar-boton-exportar="false" :mostrar-boton-importar="false" :mostrar-boton-modificar="true"
 			:mostrar-boton-eliminar="true" @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños"
 			:key="indiceDiseño" :diseño="diseño"></DesignItem>
 	</div>
