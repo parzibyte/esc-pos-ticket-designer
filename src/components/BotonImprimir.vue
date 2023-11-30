@@ -4,6 +4,7 @@ import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } fr
 import Printer from "vue-material-design-icons/Printer.vue";
 import Loading from "vue-material-design-icons/Loading.vue";
 import { useDesignsOperationStore } from '@/stores/designOperation';
+import { computed, ref } from 'vue';
 const designsOperationStore = useDesignsOperationStore();
 const props = withDefaults(defineProps<{
     diseño: DiseñoRecuperadoDeBaseDeDatos,
@@ -25,8 +26,12 @@ const props = withDefaults(defineProps<{
 });
 
 const emit = defineEmits(["error", "exito"]);
+const cargandoInternamente = ref(false);
+
+const cargandoComputed = computed<boolean>(() => props.cargando || cargandoInternamente.value);
 
 const imprimir = async () => {
+    cargandoInternamente.value = true;
     const operacionesRecuperadasDeBaseDeDatos = await designsOperationStore.obtenerOperacionesDeDiseño(props.diseño.id);
     const payload = obtenerPayloadComoJson(
         props.diseño.plataforma,
@@ -48,14 +53,16 @@ const imprimir = async () => {
     } catch (e) {
         console.log({ e });
         emit("error", e);
+    } finally {
+        cargandoInternamente.value = false;
     }
 }
 </script>
 <template>
-    <button :disabled="cargando" @click="imprimir"
+    <button :disabled="cargandoComputed" @click="imprimir"
         class="disabled:bg-sky-200 rounded-md px-3 py-2 m-1 bg-sky-500 text-white hover:bg-sky-400 text-sm font-semibold inline-flex items-center">
-        <Loading v-if="cargando" class="animate-spin"></Loading>
-        <Printer v-if="!cargando"></Printer>
+        <Loading v-if="cargandoComputed" class="animate-spin"></Loading>
+        <Printer v-if="!cargandoComputed"></Printer>
         Imprimir
     </button>
 </template>
