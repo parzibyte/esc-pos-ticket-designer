@@ -1,6 +1,6 @@
 import type { Operacion } from "./types/Operacion";
 import { OperacionFactory } from "./types/OperacionFactory";
-import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, ImpresoraAndroid, OperacionSerializada, Payload, PlataformaRecuperadaDeBaseDeDatos } from "./types/Tipos";
+import type { ArgumentosParaDefinirTabla, EncabezadoDeTabla, ImpresoraAndroid, OperacionSerializada, Payload, PayloadAndroid, PlataformaRecuperadaDeBaseDeDatos } from "./types/Tipos";
 export const debounce = (callback: Function, wait: number) => {
     let timerId: number;
     return (...args: any) => {
@@ -84,16 +84,25 @@ export const cantidadColumnas = (argumentos: ArgumentosParaDefinirTabla) => {
     }
     return cantidad;
 }
-export const obtenerPayload = (plataforma: string, operaciones: Operacion[], impresora: string, serial: string): Payload => {
+export const obtenerPayload = (plataforma: string, operaciones: Operacion[], impresora: string, serial: string): Payload | PayloadAndroid => {
     const operacionesParaPayload = [];
     for (const operacion of operaciones) {
         operacionesParaPayload.push(...(operacion.obtenerArgumentosPorPlataforma(plataforma)));
     }
-    return {
-        nombreImpresora: impresora,
-        serial,
-        operaciones: operacionesParaPayload,
-    };
+    if (plataforma === "Desktop") {
+        return {
+            nombreImpresora: impresora,
+            serial,
+            operaciones: operacionesParaPayload,
+        };
+    } else {
+        return {
+            impresora,
+            serial,
+            operaciones: operacionesParaPayload,
+        };
+
+    }
 }
 
 export const convertirOperacionesSerializadasAReactivas = (operacionesSerializadas: OperacionSerializada[]) => {

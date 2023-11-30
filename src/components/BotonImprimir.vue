@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Diseño, DiseñoRecuperadoDeBaseDeDatos } from '@/types/Tipos';
+import type { DiseñoRecuperadoDeBaseDeDatos } from '@/types/Tipos';
 import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } from '@/Helpers';
 import Printer from "vue-material-design-icons/Printer.vue";
 import Loading from "vue-material-design-icons/Loading.vue";

@@ -1,15 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import BloqueDeCodigo from './BloqueDeCodigo.vue';
-import type { DiseñoRecuperadoDeBaseDeDatos, Payload } from '@/types/Tipos';
+import type { PropiedadesParaFragmentoDeCodigo } from '@/types/Tipos';
 
-
-type Propiedades = {
-	json: Payload,
-	diseño: DiseñoRecuperadoDeBaseDeDatos,
-	payloadEscapado: string,
-};
-const propiedades = withDefaults(defineProps<Propiedades>(), {
+const propiedades = withDefaults(defineProps<PropiedadesParaFragmentoDeCodigo>(), {
 	json: () => {
 		return {
 			nombreImpresora: "",

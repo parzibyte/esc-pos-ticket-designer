@@ -260,8 +260,19 @@ export type Payload = {
     serial: string,
     operaciones: any[],
 }
+
+export type PayloadAndroid = {
+    impresora: string,
+    serial: string,
+    operaciones: any[],
+}
 export type ImpresoraAndroid = {
     mac: string,
     type: string,
     name: string,
 }
+export type PropiedadesParaFragmentoDeCodigo = {
+    json: Payload | PayloadAndroid,
+    diseño: DiseñoRecuperadoDeBaseDeDatos,
+    payloadEscapado: string,
+};

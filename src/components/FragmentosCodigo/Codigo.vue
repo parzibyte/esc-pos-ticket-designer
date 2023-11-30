@@ -14,10 +14,10 @@ import Vue from "./Vue.vue";
 import Golang from "./Golang.vue";
 import { ref } from "vue"
 import { useSettingsStore } from "@/stores/settings";
-import type { DiseñoRecuperadoDeBaseDeDatos, Payload } from "@/types/Tipos";
+import type { DiseñoRecuperadoDeBaseDeDatos, Payload, PayloadAndroid } from "@/types/Tipos";
 const settingsStore = useSettingsStore();
 type Propiedades = {
-	json: Payload,
+	json: Payload | PayloadAndroid,
 	diseño: DiseñoRecuperadoDeBaseDeDatos,
 };
 const propiedades = withDefaults(defineProps<Propiedades>(), {
