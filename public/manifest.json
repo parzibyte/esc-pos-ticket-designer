@@ -1,0 +1,32 @@
+{
+    "name": "Creador de recibos",
+    "description": "Crea e imprime tus diseños en impresoras térmicas",
+    "short_name": "Tickets",
+    "theme_color": "#2196f3",
+    "background_color": "#2196f3",
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "scope": "./",
+    "start_url": "./",
+    "icons": [
+        {
+            "src": "./logo.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "./screenshot-desktop.png",
+            "type": "image/png",
+            "sizes": "1080x720",
+            "form_factor": "wide"
+        },
+        {
+            "src": "./screenshot-mobile.png",
+            "type": "image/jpg",
+            "sizes": "600x1066",
+            "form_factor": "narrow"
+        }
+    ]
+}

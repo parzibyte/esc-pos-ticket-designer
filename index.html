@@ -4,8 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <link rel="icon" href="/favicon.ico">
+  <link rel="manifest" href="/manifest.json">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Creador de recibos - By Parzibyte</title>
+  <script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+  </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4859317680104877"
     crossorigin="anonymous"></script>
 </head>
