@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { obtenerPayloadComoJson } from "@/Helpers";
 import Ping from "@/components/Ping.vue";
 import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { usePingPlatformStore } from "@/stores/ping_platform";
-import type { PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
+import { OperacionFactory } from "@/types/OperacionFactory";
+import type { PlataformaRecuperadaDeBaseDeDatos, ArgumentosParaDefinirTextoSimple } from "@/types/Tipos";
 import { computed, onMounted, ref, watch } from "vue"
 
 const props = defineProps<{ plataforma: PlataformaRecuperadaDeBaseDeDatos }>();
@@ -17,18 +19,13 @@ const obtenerImpresoras = async () => {
 
 const imprimir = async () => {
     try {
+        const operacion = OperacionFactory.crearAPartirDeClaveYArgumentos(0, "TextoSimple", <ArgumentosParaDefinirTextoSimple>{
+            contenido: "Si puede leer esto, ya puede usar la aplicacion para crear tickets y recibos\n\n\n",
+        });
+        const payload = obtenerPayloadComoJson(props.plataforma.nombre, [operacion], impresoraSeleccionada.value, props.plataforma.licencia);
         const httpResponse = await fetch(`${props.plataforma.ruta_api}/imprimir`, {
             method: "POST",
-            body: JSON.stringify({
-                nombreImpresora: impresoraSeleccionada.value,
-                serial: props.plataforma.licencia,
-                operaciones: [
-                    {
-                        nombre: "EscribirTexto",
-                        argumentos: ["Esto es una prueba\n\n"]
-                    }
-                ]
-            })
+            body: payload,
         });
         const respuesta = await httpResponse.json();
         if (respuesta === true) {
