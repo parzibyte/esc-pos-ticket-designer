@@ -23,7 +23,52 @@
             "form_factor": "wide"
         },
         {
+            "src": "./screenshot-desktop-2.png",
+            "type": "image/png",
+            "sizes": "1080x720",
+            "form_factor": "wide"
+        },
+        {
+            "src": "./screenshot-desktop-3.png",
+            "type": "image/png",
+            "sizes": "1080x720",
+            "form_factor": "wide"
+        },
+        {
             "src": "./screenshot-mobile.png",
+            "type": "image/jpg",
+            "sizes": "600x1066",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "./screenshot-mobile-2.png",
+            "type": "image/jpg",
+            "sizes": "600x1066",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "./screenshot-mobile-3.jpg",
+            "type": "image/jpg",
+            "sizes": "576x1280"
+        },
+        {
+            "src": "./screenshot-mobile-4.jpg",
+            "type": "image/jpg",
+            "sizes": "576x1280"
+        },
+        {
+            "src": "./screenshot-mobile-5.jpg",
+            "type": "image/jpg",
+            "sizes": "576x1280"
+        },
+        {
+            "src": "./screenshot-mobile-6.png",
+            "type": "image/jpg",
+            "sizes": "600x1066",
+            "form_factor": "narrow"
+        },
+        {
+            "src": "./screenshot-mobile-7.png",
             "type": "image/jpg",
             "sizes": "600x1066",
             "form_factor": "narrow"
