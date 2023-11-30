@@ -117,7 +117,7 @@ const onCsvSeleccionado = (archivos: File[]) => {
             const celdas = columna.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/)
             if (!haCalculadoEncabezados) {
                 const cantidadColumnas = celdas.length;
-                const longitudMaximaPorColumna = LONGITUD_MAXIMA_POR_LINEA_EN_58_MM / cantidadColumnas;
+                const longitudMaximaPorColumna = Math.floor(LONGITUD_MAXIMA_POR_LINEA_EN_58_MM / cantidadColumnas);
                 for (let i = 0; i < cantidadColumnas; i++) {
                     propiedades.modelValue.ajustesEncabezados.push({ longitudMaxima: longitudMaximaPorColumna });
                 }
