@@ -54,7 +54,7 @@ const quiereContactarme = ref(false);
         <div v-if="quiereContactarme" class="text-xl bg-yellow-100 p-2 rounded m-2">
             <p>
                 La forma más segura de contactarte conmigo es a través de <a class="text-sky-500 hover:text-sky-400"
-                    href="https://parzibyte.me/#contacto">mi página
+                    href="https://parzibyte.me/#contacto" target="_blank">mi página
                     web</a>
 
             </p>
@@ -155,15 +155,16 @@ const quiereContactarme = ref(false);
             </li>
             <li><strong>¿Puedo comprar el código fuente? </strong>Si se refiere al código fuente del diseñador, el mismo es
                 open source: <a class="text-sky-500 font-bold hover:text-sky-400"
-                    href="https://github.com/parzibyte/esc-pos-ticket-designer/">https://github.com/parzibyte/esc-pos-ticket-designer/</a>.
+                    href="https://github.com/parzibyte/esc-pos-ticket-designer/"
+                    target="_blank">https://github.com/parzibyte/esc-pos-ticket-designer/</a>.
                 Si, por otro lado, se refiere al código fuente de los plugins: el código fuente de las últimas versiones no
                 está
                 disponible,
                 solo lo está el de la versión Desktop 1
-                <a class="text-sky-500 font-bold hover:text-sky-400"
+                <a class="text-sky-500 font-bold hover:text-sky-400" target="_blank"
                     href="https://parzibyte.me/blog/2022/10/04/codigo-fuente-plugin-impresora-termica-v1/">https://parzibyte.me/blog/2022/10/04/codigo-fuente-plugin-impresora-termica-v1/</a>
                 y 2
-                <a class="text-sky-500 font-bold hover:text-sky-400"
+                <a class="text-sky-500 font-bold hover:text-sky-400" target="_blank"
                     href="https://parzibyte.me/blog/2022/10/05/codigo-fuente-plugin-impresoras-termicas-v2/">https://parzibyte.me/blog/2022/10/05/codigo-fuente-plugin-impresoras-termicas-v2/</a>
             </li>
             <li>
