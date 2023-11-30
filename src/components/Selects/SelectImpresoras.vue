@@ -62,7 +62,12 @@ const obtenerFuncionParaMostrarImpresora = () => {
 	if (!plataformaEsAndroid(propiedades.plataforma)) {
 		return (impresora: string) => impresora;
 	}
-	return (impresora: ImpresoraAndroid) => `${impresora.name} (${impresora.mac})`;
+	return (impresora: ImpresoraAndroid) => {
+		if (!impresora) {
+			return "";
+		}
+		return `${impresora.name} (${impresora.mac})`;
+	};
 }
 
 </script>
