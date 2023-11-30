@@ -106,3 +106,12 @@ Usé los siguientes enfoques con los siguientes resultados:
 2. Pasar el código en una propiedad (como se hace actualmente) pero definir el código ahí mismo en el atributo: funcionaba bien excepto cuando el código tenía comillas dobles (`"`), además de que el código se veía un poco sucio
 
 Así que al final se quedó con un objeto devuelto por un computed. En el script podemos definir código en variables usando los backticks y luego pasarlo en el template
+
+# Build
+
+Suponiendo que ya cuentas con workbox y npm, ejecuta:
+1. `npm run build`
+2. `workbox generateSW workbox-config.js`
+3. Distribuye lo de la carpeta `dist`
+
+
