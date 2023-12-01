@@ -1,5 +1,6 @@
-# ticket-designer
- Diseñador de tickets para mi plugin de impresión
+# ESC/POS ticket designer
+
+Diseñador de tickets para mi plugin de impresión. Disponible en: https://parzibyte.me/apps/ticket-designer/#/first-steps
 
 # Agregando una nueva operación
 1. Crea el componente en **src/components/Operaciones**. Por ejemplo, `CorteParcial.vue`
