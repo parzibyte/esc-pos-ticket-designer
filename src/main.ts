@@ -11,6 +11,7 @@ const i18n = createI18n({
     locale: "es",
     fallbackLocale: "en",
     messages: translations,
+    legacy: false,
 })
 
 const app = createApp(App)

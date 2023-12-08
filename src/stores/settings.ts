@@ -9,6 +9,19 @@ export const useSettingsStore = defineStore('settingsStore', () => {
         FROM ajustes`);
         return filas[0];
     }
+    const guardarIdioma = async (idioma: string) => {
+        return await dbStore.exec(`UPDATE ajustes SET
+        idioma = ?`, [idioma]);
+    }
+
+    const obtenerIdioma = async () => {
+        const filas = await dbStore.exec(`SELECT idioma FROM ajustes`);
+        if (filas.length > 0) {
+            return filas[0].idioma;
+        } else {
+            return "es";
+        }
+    }
 
     const guardarAjustes = async (modo_programador: number) => {
         return await dbStore.exec(`UPDATE ajustes SET
@@ -31,5 +44,5 @@ export const useSettingsStore = defineStore('settingsStore', () => {
             };
         }
     }
-    return { obtenerAjustes, guardarAjustes, guardarAjustesDeDiseño,obtenerAjustesDeDiseño };
+    return { obtenerAjustes, guardarAjustes, guardarAjustesDeDiseño, obtenerAjustesDeDiseño, guardarIdioma, obtenerIdioma };
 });

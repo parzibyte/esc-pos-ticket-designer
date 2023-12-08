@@ -276,3 +276,20 @@ export type PropiedadesParaFragmentoDeCodigo = {
     diseño: DiseñoRecuperadoDeBaseDeDatos,
     payloadEscapado: string,
 };
+/**
+ * Representa una fila de una tabla SQLite.
+ */
+export type TablaSQLite = {
+    /** Identificador único de la columna. */
+    cid: number;
+    /** Valor predeterminado de la columna. Su tipo depende del tipo de la columna */
+    dflt_value: any;
+    /** Nombre de la columna. */
+    name: string;
+    /** Indica si la columna no puede contener valores nulos (1 si es verdadero, 0 si es falso). */
+    notnull: number;
+    /** Indica si la columna es una clave primaria (1 si es verdadero, 0 si es falso). */
+    pk: number;
+    /** Tipo de dato de la columna. */
+    type: string;
+};

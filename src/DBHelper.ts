@@ -1,6 +1,7 @@
 //@ts-ignore
 import sqlite3InitModule from '@sqlite.org/sqlite-wasm';
 import * as Comlink from "comlink"
+import type { TablaSQLite } from './types/Tipos';
 const NOMBRE_BASE_DE_DATOS = "escpos.sqlite3";
 const log = (...args: any[]) => { console.log(...args) };
 const error = (...args: any[]) => { console.log(...args) };
@@ -37,11 +38,11 @@ class EnvolturaDeBaseDeDatos {
             this.db = new sqlite3.oo1.DB(NOMBRE_BASE_DE_DATOS, 'ct');
             log('OPFS is not available, created transient database', this.db.filename);
         }
-        this.crearTablas();
+        await this.crearTablas();
         await this.insertarDatosIniciales();
         this.exponerFuncionesDeDB();
     }
-    crearTablas() {
+    async crearTablas() {
         if (this.db === null) {
             console.error("Base de datos es null");
             return;
@@ -77,6 +78,38 @@ class EnvolturaDeBaseDeDatos {
         this.db.exec(`CREATE TABLE IF NOT EXISTS ajustes(
     modo_programador INTEGER NOT NULL DEFAULT 0
     );`);
+        if (!this.tableHasColumn(await this.getTableInfo("ajustes"), "idioma")) {
+            await this.db.exec(`ALTER TABLE ajustes ADD COLUMN idioma TEXT NOT NULL DEFAULT "es";`);
+        }
+    }
+    /**
+     * Cuidado: está expuesta a inyecciones SQL
+     */
+    async getTableInfo(table: string): Promise<TablaSQLite[]> {
+        return await this.db.exec({
+            sql: `PRAGMA table_info("${table}")`,
+            bind: [],
+            returnValue: "resultRows",
+            rowMode: "object",
+        });
+    }
+
+    tableHasColumn(tableInfo: TablaSQLite[], column: string) {
+        for (const rowInfo of tableInfo) {
+            if (rowInfo.name === column) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    async addColumnToTable(table: string, tableInfo: TablaSQLite[]) {
+        for (const rowInfo of tableInfo) {
+            if (rowInfo.name === table) {
+                return true;
+            }
+        }
+        return false;
     }
 
     async insertarDatosIniciales() {

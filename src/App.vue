@@ -8,9 +8,14 @@ import ReceiptTextRemove from "vue-material-design-icons/ReceiptTextRemove.vue";
 import Cog from "vue-material-design-icons/Cog.vue";
 import Help from "vue-material-design-icons/Help.vue";
 import Hiking from "vue-material-design-icons/Hiking.vue";
+import Translate from "vue-material-design-icons/Translate.vue";
 
 import router from '@/router';
-import { ref } from "vue"
+import { ref, onMounted } from "vue"
+import { useSettingsStore } from './stores/settings';
+import { useI18n } from 'vue-i18n';
+const i18n = useI18n();
+const settingsStore = useSettingsStore();
 const mostrarMenu = ref(true);
 const clasesParaMenu = () => {
   return { "w-1/4": mostrarMenu.value };
@@ -25,6 +30,19 @@ const navegarAComponente = (nombre: string) => {
     name: nombre,
   });
   mostrarMenu.value = false;
+}
+onMounted(async () => {
+  const idioma = await settingsStore.obtenerIdioma();
+  i18n.locale.value = idioma;
+});
+
+const alternarIdioma = async () => {
+  let nuevoIdioma = "es";
+  if (i18n.locale.value === "es") {
+    nuevoIdioma = "en";
+  }
+  i18n.locale.value = nuevoIdioma;
+  await settingsStore.guardarIdioma(nuevoIdioma);
 }
 </script>
 
@@ -42,10 +60,6 @@ const navegarAComponente = (nombre: string) => {
     <div class="flex md:flex-row flex-col flex-1">
       <div class="flex flex-col border border-r-gray-200 font-semibold text-gray-700 w-full md:w-1/4" v-show="mostrarMenu"
         :class="clasesParaMenu()">
-        <button @click="$i18n.locale = 'es'">Cambiar a español</button>
-        <button @click="$i18n.locale = 'en'">Cambiar a inglés</button>
-
-
         <span href="#" @click="navegarAComponente('FirstSteps')"
           class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Hiking class="mr-6"></Hiking>
@@ -72,6 +86,11 @@ const navegarAComponente = (nombre: string) => {
         <span href="#" @click="navegarAComponente('Help')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Help class="mr-6"></Help>
           {{ $t("menu.help") }}
+        </span>
+        <span href="#" @click="alternarIdioma()"
+          class="text-white bg-gray-700 p-5 my-2 hover:bg-gray-900 flex flex-row cursor-pointer">
+          <Translate class="mr-6"></Translate>
+          {{ $t("menu.changeLanguage") }}
         </span>
         <p class="text-center font-normal text-xs">
           {{ $t("menu.footer") }}

@@ -9,11 +9,13 @@ export const translations = {
             settings: "Settings",
             help: "Help",
             footer: "ESC POS ticket designer developed by Parzibyte",
+            changeLanguage: "Cambiar a español",
         }
     },
     es: {
         title: "Diseñador de tickets para impresoras térmicas - Por Parzibyte",
         menu: {
+            changeLanguage: "Switch to English",
             firstSteps: "Primeros pasos",
             myDesigns: "Mis diseños",
             platforms: "Plataformas",
