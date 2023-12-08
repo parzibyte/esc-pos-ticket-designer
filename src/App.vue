@@ -36,41 +36,45 @@ const navegarAComponente = (nombre: string) => {
           <Menu v-show="!mostrarMenu"></Menu>
           <MenuOpen v-show="mostrarMenu"></MenuOpen>
         </button>
-        <p>Diseñador de tickets By Parzibyte</p>
+        <p>{{ $t("title") }}</p>
       </nav>
     </header>
     <div class="flex md:flex-row flex-col flex-1">
       <div class="flex flex-col border border-r-gray-200 font-semibold text-gray-700 w-full md:w-1/4" v-show="mostrarMenu"
         :class="clasesParaMenu()">
+        <button @click="$i18n.locale = 'es'">Cambiar a español</button>
+        <button @click="$i18n.locale = 'en'">Cambiar a inglés</button>
+
+
         <span href="#" @click="navegarAComponente('FirstSteps')"
           class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Hiking class="mr-6"></Hiking>
-          Primeros pasos
+          {{ $t("menu.firstSteps") }}
         </span>
         <span href="#" @click="navegarAComponente('Designs')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <ViewList class="mr-6"></ViewList>
-          Mis diseños
+          {{ $t("menu.myDesigns") }}
         </span>
         <span href="#" @click="navegarAComponente('PlatformsSettings')"
           class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <CellPhoneLink class="mr-6"></CellPhoneLink>
-          Plataformas
+          {{ $t("menu.platforms") }}
         </span>
         <span href="#" @click="navegarAComponente('RemoveFooter')"
           class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <ReceiptTextRemove class="mr-6"></ReceiptTextRemove>
-          Remover pie de página
+          {{ $t("menu.removeFooter") }}
         </span>
         <span href="#" @click="navegarAComponente('Settings')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Cog class="mr-6"></Cog>
-          Ajustes
+          {{ $t("menu.settings") }}
         </span>
         <span href="#" @click="navegarAComponente('Help')" class="p-3 hover:bg-gray-100 flex flex-row cursor-pointer">
           <Help class="mr-6"></Help>
-          Ayuda
+          {{ $t("menu.help") }}
         </span>
         <p class="text-center font-normal text-xs">
-          ESC POS ticket designer developed by Parzibyte
+          {{ $t("menu.footer") }}
           <br>
           <a target="_blank" class="text-sky-500" href="https://www.flaticon.com/free-icons/receipt"
             title="receipt icons">Receipt icons created by SBTS2018 -
