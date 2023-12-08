@@ -1,7 +1,11 @@
 import { defineStore } from 'pinia'
-
+import { useI18n } from 'vue-i18n';
+const formateadoresPorIdioma: Record<string, Intl.DateTimeFormat> = {
+	"es": new Intl.DateTimeFormat('es-MX', { dateStyle: 'medium', timeStyle: 'medium' }),
+	"en": new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeStyle: 'medium' }),
+};
 export const useFiltersStore = defineStore('filtersStore', () => {
-	const formateador = new Intl.DateTimeFormat('es-MX', { dateStyle: 'medium', timeStyle: 'medium' });
+	const { locale } = useI18n();
 	const date = (ms: number) => {
 		if (!ms) {
 			return "";
@@ -10,7 +14,7 @@ export const useFiltersStore = defineStore('filtersStore', () => {
 		if (!date) {
 			return "";
 		}
-		return formateador.format(date);
+		return formateadoresPorIdioma[locale.value].format(date);
 	}
 	return { date };
 });

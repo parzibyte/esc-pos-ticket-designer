@@ -20,6 +20,147 @@ export const translations = {
         selectAnOption: "Please select",
         selectAPrinter: "Printer",
         save: "Save",
+        platformSetting: {
+            serialPlaceholder: "Serial without whitespaces nor quotes",
+            serial: "Serial (optional)",
+            apiEndpointWarning: "Be careful when changing this setting. If you do not know what you are doing, don't touch it",
+            apiEndpoint: "API endpoint",
+            apiEndpointPlaceholder: "API endpoint",
+        },
+        settings: {
+            developerMode: "Developer mode",
+        },
+        designs: {
+            addDesign: "Create design",
+        },
+        designItem: {
+            printingError: "Error while printing: ",
+            importFileInvalid: "Invalid file to import",
+            operations: "Operations",
+            edit: "Edit",
+            export: "Export",
+            import: "Import...",
+            delete: "Delete",
+        },
+        print: "Print",
+        editDesignOperations: {
+            emptyDesign: "Your design is empty. Please select an operation from the list",
+        },
+        operations: {
+            Corte: {
+                name: "Cut",
+                description: "Feeds paper and cuts",
+            },
+            DefinirCaracterPersonalizado: {
+                name: "Define char",
+                description: "Creates an unexistent char and replaces a existing one",
+            },
+            Texto: {
+                name: "Formatted text",
+                description: "Format and print text",
+            },
+            Imagen: {
+                name: "Image",
+                description: "Select and print a picture",
+            },
+            Tabla: {
+                name: "Text as table",
+                description: "Prints text as a table",
+            },
+            CodigoDeBarras: {
+                name: "Barcode",
+                description: "Prints a barcode in different formats",
+            },
+            CodigoQr: {
+                name: "QR",
+                description: "Prints a QR",
+            },
+            ImagenLocal: {
+                name: "Local image",
+                description: "Prints an existing image in the filesystem. For example /home/parzibyte/mj.png",
+            },
+            CorteParcial: {
+                name: "Partial cut",
+                description: "Makes a partial cut",
+            },
+            DescargarImagenDeInternet: {
+                name: "Internet image",
+                description: "Download and print a public image by its URL",
+            },
+            DeshabilitarCaracteresPersonalizados: {
+                name: "Disable custom chars",
+                description: "Disable user defined characters",
+            },
+            DeshabilitarElModoDeCaracteresChinos: {
+                name: "Disable chinese character mode",
+                description: "Helpful if your printer prints chinese characters and you want to print spanish text",
+            },
+            TextoSimple: {
+                name: "Text",
+                description: "Unformatted text (format can be defined in other operations)",
+            },
+            EstablecerAlineacion: {
+                name: "Change justification",
+                description: "Change text, images, and barcodes justification",
+            },
+            EstablecerEnfatizado: {
+                name: "Toggle emphasize",
+                description: "Toggle emphasize when printing text",
+            },
+            EstablecerFuente: {
+                name: "Change font",
+                description: "Select between Font A (24x12) or Font B (17x9). Be careful, as the user defined characters are only compatible with Font A",
+            },
+            EstablecerImpresionAlReves: {
+                name: "Upside-down character printing",
+                description: "Toggle upside-down character printing",
+            },
+            EstablecerImpresionBlancoYNegroInversa: {
+                name: "B&W reverse printing",
+                description: "Toggle B&W reverse printing",
+            },
+            EstablecerRotacionDe90Grados: {
+                name: "Rotate 90° cw",
+                description: "Toggle 90° character rotate",
+            },
+            EstablecerSubrayado: {
+                name: "Underline",
+                description: "Toggle underline text",
+            },
+            EstablecerTamañoFuente: {
+                name: "Change font size",
+                description: "Change font height and width",
+            },
+            Feed: {
+                name: "Feed",
+                description: "Print and line feed",
+            },
+            HabilitarCaracteresPersonalizados: {
+                name: "Enable user-defined characteres",
+                description: "Use it when defining a new char",
+            },
+            HabilitarElModoDeCaracteresChinos: {
+                name: "Enable chinese characters",
+                description: "Select Chinese character mode",
+            },
+            ImprimirImagenEnBase64: {
+                name: "Base64 image",
+                description: "Prints an image encoded as base64",
+            },
+            Iniciar: {
+                name: "Initialize printer",
+                description: "Clears format and buffer. It should be the first operation in your designs",
+            },
+            Pulso: {
+                name: "Generate pulse",
+                description: "Outputs pulse at connector pin. Used to open cash drawer.Common values are pin 48, on time 60, off time 120",
+            },
+
+            TextoSegunPaginaDeCodigos: {
+                name: "Change charcode page and print text",
+                description: "Change charcode page number, encode text and print",
+            },
+        }
     },
     es: {
         title: "Diseñador de tickets para impresoras térmicas - Por Parzibyte",
@@ -42,5 +183,146 @@ export const translations = {
         selectAnOption: "Por favor selecciona",
         selectAPrinter: "Impresora",
         save: "Guardar",
+        platformSetting: {
+            serialPlaceholder: "Serial, sin espacios ni comillas",
+            serial: "Serial (opcional)",
+            apiEndpointWarning: "Tenga cuidado al cambiar esta opción. Si no sabe lo que hace, no lo toque",
+            apiEndpoint: "Ruta API",
+            apiEndpointPlaceholder: "Ruta API",
+        },
+        settings: {
+            developerMode: "Modo desarrollador",
+        },
+        designs: {
+            addDesign: "Nuevo diseño",
+        },
+        designItem: {
+            printingError: "Error al imprimir: ",
+            importFileInvalid: "Archivo inválido para importar",
+            operations: "Operaciones",
+            edit: "Editar",
+            export: "Exportar",
+            import: "Importar...",
+            delete: "Eliminar",
+        },
+        print: "Imprimir",
+        editDesignOperations: {
+            emptyDesign: "Tu diseño está vacío. Por favor agrega una operación de la lista",
+        },
+        operations: {
+            Corte: {
+                name: "Corte",
+                description: "Avanza el papel y hace un corte",
+            },
+            DefinirCaracterPersonalizado: {
+                name: "Crear carácter",
+                description: "Define una letra que no existe y reemplaza a una existente",
+            },
+            Texto: {
+                name: "Texto",
+                description: "Dar formato e imprimir texto",
+            },
+            Imagen: {
+                name: "Imagen",
+                description: "Imprimir una imagen del dispositivo",
+            },
+            Tabla: {
+                name: "Texto como tabla",
+                description: "Imprimir tabla en forma de texto",
+            },
+            CodigoDeBarras: {
+                name: "Codigo de barras",
+                description: "Imprime un código en varios formatos",
+            },
+            CodigoQr: {
+                name: "QR",
+                description: "Imprime un QR",
+            },
+            ImagenLocal: {
+                name: "Imagen local",
+                description: "Imagen que existe en el sistema, por ejemplo, /home/parzibyte/mj.png",
+            },
+            CorteParcial: {
+                name: "Corte parcial",
+                description: "Hacer un corte parcial",
+            },
+            DescargarImagenDeInternet: {
+                name: "Imprimir imagen de internet",
+                description: "Descargar e imprimir una imagen de internet. La imagen debe ser pública",
+            },
+            DeshabilitarCaracteresPersonalizados: {
+                name: "Deshabilitar caracteres personalizados",
+                description: "Deshabilita la impresión de caracteres creados por el usuario",
+            },
+            DeshabilitarElModoDeCaracteresChinos: {
+                name: "Deshabilitar caracteres chinos",
+                description: "Deshabilita los caracteres chinos. Útil si tu impresora es china y quieres imprimir acentos",
+            },
+            TextoSimple: {
+                name: "Texto sin formato",
+                description: "Texto simple cuyo formato puede definirse en otras operaciones",
+            },
+            EstablecerAlineacion: {
+                name: "Cambiar alineación",
+                description: "Cambiar alineación del texto, imágenes y códigos de barras",
+            },
+            EstablecerEnfatizado: {
+                name: "Alternar enfatizado",
+                description: "Cambiar el estado enfatizado del texto",
+            },
+            EstablecerFuente: {
+                name: "Establecer fuente",
+                description: "Cambiar entre la fuente A (24x12) y B (17x9). Tener cuidado porque los caracteres personalizados solo funcionan con la fuente A",
+            },
+            EstablecerImpresionAlReves: {
+                name: "Establecer impresión al revés",
+                description: "Alternar modo de impresión al revés",
+            },
+            EstablecerImpresionBlancoYNegroInversa: {
+                name: "Alternar impresión B&N",
+                description: "Alternar modo de impresión blanco y negro inversa",
+            },
+            EstablecerRotacionDe90Grados: {
+                name: "Rotar texto 90°",
+                description: "Alternar rotación de texto de 90°",
+            },
+            EstablecerSubrayado: {
+                name: "Subrayado",
+                description: "Alternar subrayado de texto",
+            },
+            EstablecerTamañoFuente: {
+                name: "Cambiar tamaño de fuente",
+                description: "Cambiar ancho y alto del texto",
+            },
+            Feed: {
+                name: "Feed",
+                description: "Avanzar el papel",
+            },
+            HabilitarCaracteresPersonalizados: {
+                name: "Habilitar caracteres personalizados",
+                description: "Habilita la impresión y reemplazo de caracteres definidos por el usuario",
+            },
+            HabilitarElModoDeCaracteresChinos: {
+                name: "Habilitar los caracteres chinos",
+                description: "Habilita la impresión de caracteres chinos",
+            },
+            ImprimirImagenEnBase64: {
+                name: "Imagen base64",
+                description: "Imprime una imagen a partir de su representación como base64",
+            },
+            Iniciar: {
+                name: "Iniciar impresora",
+                description: "Limpia el formato y búfer. Útil para reiniciar los estilos. Se recomienda colocarla siempre al inicio de un diseño",
+            },
+            Pulso: {
+                name: "Enviar pulso",
+                description: "Envía un pulso eléctrico que normalmente es para abrir el cajón. Los valores más comunes son pin 48, tiempo encendido 60, tiempo apagado 120",
+            },
+
+            TextoSegunPaginaDeCodigos: {
+                name: "Texto acentuado",
+                description: "Permite imprimir texto con acentos. Recomiendo deshabilitar los caracteres chinos y probar todas las combinaciones",
+            },
+        }
     }
 }

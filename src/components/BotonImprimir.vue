@@ -63,6 +63,6 @@ const imprimir = async () => {
         class="disabled:bg-sky-200 rounded-md px-3 py-2 m-1 bg-sky-500 text-white hover:bg-sky-400 text-sm font-semibold inline-flex items-center">
         <Loading v-if="cargandoComputed" class="animate-spin"></Loading>
         <Printer v-if="!cargandoComputed"></Printer>
-        Imprimir
+        {{ $t("print") }}
     </button>
 </template>

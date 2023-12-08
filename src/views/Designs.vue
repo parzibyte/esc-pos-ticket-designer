@@ -32,7 +32,7 @@ const eliminarDiseño = async (diseño: Diseño) => {
 		<button @click="agregarNuevoDiseño"
 			class="rounded-md px-3 py-2 ml-2 bg-green-500 text-white hover:bg-green-400 font-bold inline-flex items-center">
 			<FilePlus></FilePlus>
-			Nuevo diseño
+			{{ $t("designs.addDesign") }}
 		</button>
 		<DesignItem :cargando="false" :mostrar-boton-exportar="false" :mostrar-boton-importar="false" :mostrar-boton-modificar="true"
 			:mostrar-boton-eliminar="true" @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños"

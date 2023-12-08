@@ -12,6 +12,8 @@ import Ping from './Ping.vue';
 import FileUpload from './FileUpload.vue';
 import { useFiltersStore } from '@/stores/filters';
 import { useDesignsOperationStore } from '@/stores/designOperation';
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n
 const designsOperationStore = useDesignsOperationStore();
 const filterStore = useFiltersStore();
 const cargandoEnEsteComponente = ref(false);
@@ -83,7 +85,7 @@ const exportarDiseño = async () => {
 	cargandoEnEsteComponente.value = false;
 }
 const onErrorImprimiendo = (err: Error) => {
-	alert("Error imprimiendo: " + err);
+	alert(t("designItem.printingError") + err);
 }
 
 const esCadenaValida = (operacionesCodificadas: string) => {
@@ -116,7 +118,7 @@ const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
 		const operacionesCodificadas = reader.result as string;
 		if (!esCadenaValida(operacionesCodificadas)) {
 			cargandoEnEsteComponente.value = false;
-			return alert("El archivo importado no es válido");
+			return alert(t("designItem.importFileInvalid"));
 		}
 		const operacionesSerializadas = JSON.parse(operacionesCodificadas);
 		for (const operacion of operacionesSerializadas) {
@@ -146,7 +148,7 @@ const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
 				<button v-show="mostrarBotonModificar" @click="modificarOperacionesDeDiseño"
 					class="rounded-md px-3 py-2 m-1 bg-indigo-500 text-white hover:bg-indigo-400 text-sm font-semibold inline-flex items-center">
 					<PlayListEdit></PlayListEdit>
-					Operaciones
+					{{ $t("designItem.operations") }}
 				</button>
 
 			</div>
@@ -154,20 +156,20 @@ const onArchivoParaImportarSeleccionado = async (archivos: File[]) => {
 				<button v-show="mostrarBotonModificar" @click="modificarDiseño"
 					class="rounded-md px-3 py-2 m-1 bg-amber-500 text-white hover:bg-amber-400 text-sm font-semibold inline-flex items-center">
 					<Pencil></Pencil>
-					Editar
+					{{ $t("designItem.edit") }}
 				</button>
 				<button v-show="mostrarBotonExportar" @click="exportarDiseño"
 					class="rounded-md px-3 py-2 m-1 bg-green-500 text-white hover:bg-green-400 text-sm font-semibold inline-flex items-center">
 					<ShareVariant></ShareVariant>
-					Exportar
+					{{ $t("designItem.export") }}
 				</button>
 				<FileUpload v-if="mostrarBotonImportar" accept="application/json"
-					@change="onArchivoParaImportarSeleccionado" label="Importar...">
+					@change="onArchivoParaImportarSeleccionado" :label="$t('designItem.import')">
 				</FileUpload>
 				<button v-show="mostrarBotonEliminar" @click="eliminarDiseño"
 					class="rounded-md px-3 py-2 m-1 bg-red-500 text-white hover:bg-red-400 text-sm font-semibold inline-flex items-center">
 					<Delete></Delete>
-					Eliminar
+					{{ $t("designItem.delete") }}
 				</button>
 			</div>
 		</div>

@@ -112,7 +112,8 @@ const mapaDeColoresSegunClaveDeOperacion: MapaColores = {
                 :is="mapaDeIconosSegunClaveDeOperacion[propiedades.operacion.clave]"></component>
         </div>
         <p>
-            <strong>{{ propiedades.operacion.nombre }}</strong>: {{ propiedades.operacion.descripcion }}
+            <strong>{{ $t(`operations.${propiedades.operacion.clave}.name`) }}</strong>: {{
+                $t(`operations.${propiedades.operacion.clave}.description`) }}
         </p>
     </div>
 </template>

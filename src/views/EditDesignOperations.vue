@@ -148,7 +148,7 @@ const clasesParaContenedorDeCodigo = () => {
         :mostrar-boton-importar="true" :mostrarBotonEliminar="false" :mostrarBotonModificar="false"
         :diseño="diseñoActualmenteEditado"></DesignItem>
       <div v-show="operaciones.length <= 0" class="bg-sky-500 my-2 p-8 rounded-md text-center text-white text-2xl">
-        <p>Tu diseño está vacío. Elige una operación de la lista de abajo para empezar</p>
+        <p>{{ $t("editDesignOperations.emptyDesign") }}</p>
       </div>
       <div class="">
         <ComponenteOperacion @intercambiar="onOperacionIntercambiada" :indice="indice" @actualizado="onActualizado"

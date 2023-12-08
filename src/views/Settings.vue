@@ -21,7 +21,8 @@ onMounted(async () => {
 </script>
 <template>
     <div>
-        <CustomCheckbox v-model="ajustes.modo_programador" label="Modo desarrollador"></CustomCheckbox>
-        <button class="bg-green-500 text-white p-2 rounded-md m-2 font-semibold hover:bg-green-400" @click="guardar">Guardar</button>
+        <CustomCheckbox v-model="ajustes.modo_programador" :label="$t('settings.developerMode')"></CustomCheckbox>
+        <button class="bg-green-500 text-white p-2 rounded-md m-2 font-semibold hover:bg-green-400"
+            @click="guardar">{{ $t("save") }}</button>
     </div>
 </template>
