@@ -51,7 +51,7 @@ onMounted(async () => {
 
 </script>
 <template>
-	<Select @change="onPlataformaCambiada" v-model="valorSerializado" label="¿Para cuál plataforma?" :items="plataformas"
+	<Select @change="onPlataformaCambiada" v-model="valorSerializado" :label="$t('chooseAPlatform')" :items="plataformas"
 		:filter-function="funcionDeFiltroParaPlataformas" :display-item-function="displayItemFunction">
 		<template #item="{ item, index }">
 			<h1 class="text-xl">{{ item.nombre }}</h1>

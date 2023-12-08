@@ -10,7 +10,16 @@ export const translations = {
             help: "Help",
             footer: "ESC POS ticket designer developed by Parzibyte",
             changeLanguage: "Cambiar a español",
-        }
+        },
+        createDesign: {
+            giveItAName: "Give it a name",
+            nameExample: "For example: ticket receipt",
+            goToDesigns: "Go to designs",
+        },
+        chooseAPlatform: "Choose a platform",
+        selectAnOption: "Please select",
+        selectAPrinter: "Printer",
+        save: "Save",
     },
     es: {
         title: "Diseñador de tickets para impresoras térmicas - Por Parzibyte",
@@ -23,6 +32,15 @@ export const translations = {
             settings: "Ajustes",
             help: "Ayuda",
             footer: "Diseñador de recibos para impresoras térmicas desarrollado por Parzibyte",
-        }
+        },
+        createDesign: {
+            giveItAName: "Dale un nombre",
+            nameExample: "Por ejemplo: ticket de venta",
+            goToDesigns: "Ir a diseños",
+        },
+        chooseAPlatform: "Selecciona una plataforma",
+        selectAnOption: "Por favor selecciona",
+        selectAPrinter: "Impresora",
+        save: "Guardar",
     }
 }

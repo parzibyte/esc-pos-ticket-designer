@@ -160,7 +160,7 @@ const additionalClassesForInput = () => {
         <div class="flex flex-col relative">
             <div class="flex">
                 <input ref="input" @focus="onInputFocus" @blur="onInputBlur" @keyup="onKeyup" @click="onInputClick"
-                    v-model="inputValue" placeholder="Selecciona una opción" type="input"
+                    v-model="inputValue" :placeholder="$t('selectAnOption')" type="input"
                     class="focus:outline-none text-xl w-full h-10 rounded-tl-md p-2 border-r-0"
                     :class="additionalClassesForInput()">
                 <button v-if="shouldShowClearButton()" @click="clearSelectedItem(true, true)"

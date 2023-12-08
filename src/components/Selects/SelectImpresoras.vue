@@ -72,7 +72,7 @@ const obtenerFuncionParaMostrarImpresora = () => {
 
 </script>
 <template>
-	<Select @change="onImpresoraCambiada" v-model="valorSerializado" label="¿En dónde se va a imprimir?"
+	<Select @change="onImpresoraCambiada" v-model="valorSerializado" :label="$t('selectAPrinter')"
 		:items="propiedades.impresoras" :filter-function="obtenerFuncionParaFiltrarImpresoras()"
 		:display-item-function="obtenerFuncionParaMostrarImpresora()">
 		<template v-if="plataformaEsAndroid(plataforma)" #item="{ item, index }">
