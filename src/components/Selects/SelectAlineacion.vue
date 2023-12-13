@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ALINEACIONES_PARA_IMAGEN_O_TEXTO, type AlineacionConNombreYValor, Alineacion } from '@/types/Tipos'
-import { ref,computed } from "vue"
+import { ref, computed } from "vue"
 import Select from "@/components/Select.vue"
 type Propiedades = {
 	modelValue: AlineacionConNombreYValor,
@@ -27,10 +27,12 @@ const valorSerializado = computed({
 const alineaciones = ref(ALINEACIONES_PARA_IMAGEN_O_TEXTO);
 </script>
 <template>
-	<Select :display-item-function="(alineacion) => alineacion.nombre" :items="alineaciones" label="Alineación"
-		v-model="valorSerializado">
+	<Select :display-item-function="(alineacion) => $t('alignments.' + alineacion.nombre)" :items="alineaciones"
+		:label="$t('alignment')" v-model="valorSerializado">
 		<template #item="{ item, index }">
-			<h1 class="text-xl">{{ item.nombre }}</h1>
+			<h1 class="text-xl">
+				{{ $t('alignments.' + item.nombre) }}
+			</h1>
 		</template>
 	</Select>
 </template>

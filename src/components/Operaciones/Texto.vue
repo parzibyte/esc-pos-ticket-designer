@@ -38,19 +38,19 @@ const valorSerializado = computed({
 });
 </script>
 <template>
-    <CustomTextarea rows="3" placeholder="Escribe el texto para imprimir..." label="Texto para imprimir"
-        v-model="propiedades.modelValue.texto"></CustomTextarea>
+    <CustomTextarea rows="3" :placeholder="$t('operationComponents.Texto.placeholder')"
+        :label="$t('operationComponents.Texto.label')" v-model="propiedades.modelValue.texto"></CustomTextarea>
     <div class="flex flex-col md:flex-row">
-        <SelectTamanioFuente v-model="propiedades.modelValue.ancho" label="Ancho"></SelectTamanioFuente>
-        <SelectTamanioFuente v-model="propiedades.modelValue.alto" label="Alto"></SelectTamanioFuente>
+        <SelectTamanioFuente v-model="propiedades.modelValue.ancho" :label="$t('width')"></SelectTamanioFuente>
+        <SelectTamanioFuente v-model="propiedades.modelValue.alto" :label="$t('height')"></SelectTamanioFuente>
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
     </div>
     <div class="flex md:flex-row flex-col">
-        <CustomCheckbox label="Enfatizado" v-model="propiedades.modelValue.enfatizado"></CustomCheckbox>
-        <CustomCheckbox label="Subrayado" v-model="propiedades.modelValue.subrayado"></CustomCheckbox>
-        <CustomCheckbox label="Al revés" v-model="propiedades.modelValue.alReves"></CustomCheckbox>
-        <CustomCheckbox label="Inverso" v-model="propiedades.modelValue.inverso"></CustomCheckbox>
-        <CustomCheckbox label="Rotar 90°" v-model="propiedades.modelValue.rotacion90"></CustomCheckbox>
+        <CustomCheckbox :label="$t('emphasized')" v-model="propiedades.modelValue.enfatizado"></CustomCheckbox>
+        <CustomCheckbox :label="$t('underline')" v-model="propiedades.modelValue.subrayado"></CustomCheckbox>
+        <CustomCheckbox :label="$t('upsideDown')" v-model="propiedades.modelValue.alReves"></CustomCheckbox>
+        <CustomCheckbox :label="$t('negative')" v-model="propiedades.modelValue.inverso"></CustomCheckbox>
+        <CustomCheckbox :label="$t('rotate90Degrees')" v-model="propiedades.modelValue.rotacion90"></CustomCheckbox>
     </div>
     <div class="bg-red-500 rounded-md text-white p-1 my-2"
         v-show="propiedades.modelValue.alto !== 1 && propiedades.modelValue.rotacion90">

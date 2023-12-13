@@ -160,6 +160,25 @@ export const translations = {
                 name: "Change charcode page and print text",
                 description: "Change charcode page number, encode text and print",
             },
+        },
+        operationComponents: {
+            Texto: {
+                placeholder: "Text to be printed...",
+                label: "Please input the text:"
+            },
+        },
+        height: "Height",
+        width: "Width",
+        alignment: "Alignment",
+        emphasized: "Emphasized",
+        underline: "Underline",
+        upsideDown: "Upside down",
+        rotate90Degrees: "90° rotate",
+        negative: "Negative",
+        alignments: {
+            "Centro": "Center",
+            "Izquierda": "Left",
+            "Derecha": "Right",
         }
     },
     es: {

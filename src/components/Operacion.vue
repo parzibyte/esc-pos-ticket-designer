@@ -148,7 +148,9 @@ const onDragOver = (evento: DragEvent) => {
             <DragHorizontal></DragHorizontal>
         </div>
         <div class="flex my-2">
-            <h1 class="text-xl" v-show="!estanAPuntoDeSoltarAlgoSobreElElementoActual">{{ props.operacion.nombre }}</h1>
+            <h1 class="text-xl" v-show="!estanAPuntoDeSoltarAlgoSobreElElementoActual">
+                {{ $t(`operations.${props.operacion.clave}.name`) }}
+            </h1>
             <h1 class="text-xl" v-show="estanAPuntoDeSoltarAlgoSobreElElementoActual">Suelta para intercambiarlas</h1>
             <button :class="{ 'invisible': estanAPuntoDeSoltarAlgoSobreElElementoActual }" @click="eliminar"
                 class="bg-red-500 text-white p-1 mx-2 rounded-md hover:bg-red-600 focus:bg-red-600">
