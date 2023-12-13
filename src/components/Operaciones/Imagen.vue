@@ -80,7 +80,7 @@ const hayImagenSeleccionada = computed(() => {
 </script>
 <template>
     <div class="flex flex-col">
-        <img class="w-80" :src="propiedades.modelValue.contenidoEnBase64" v-if="hayImagenSeleccionada">
+        <img class="max-w-max" :src="propiedades.modelValue.contenidoEnBase64" v-if="hayImagenSeleccionada">
         <FileUpload label="Seleccionar archivo..." accept="image/png,image/jpeg" @change="onImagenSeleccionada">
         </FileUpload>
     </div>
