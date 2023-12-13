@@ -13,7 +13,7 @@ import FileUpload from './FileUpload.vue';
 import { useFiltersStore } from '@/stores/filters';
 import { useDesignsOperationStore } from '@/stores/designOperation';
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n
+const { t } = useI18n();
 const designsOperationStore = useDesignsOperationStore();
 const filterStore = useFiltersStore();
 const cargandoEnEsteComponente = ref(false);
