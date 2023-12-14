@@ -20,7 +20,7 @@ const clase = (indice: number) => {
 <template>
     <div class="flex flex-row overflow-x-auto">
         <div @click="indicePaso = indice" class="cursor-pointer pt-1 pb-2 px-2 w-fit min-w-fit" :class="clase(indice)"
-            v-for="(paso, indice) in ['Emparejar impresora', 'Descargar plugin', 'Instalar plugin', 'Prueba desde el plugin', 'Prueba de impresión']">
+            v-for="(paso, indice) in [$t('firstSteps.android.pairPrinter.title'), $t('firstSteps.android.downloadPlugin.title'), $t('firstSteps.android.installPlugin.title'), $t('firstSteps.android.testFromPlugin.title'), $t('firstSteps.android.testFromDesigner.title')]">
             {{ paso }}
         </div>
     </div>

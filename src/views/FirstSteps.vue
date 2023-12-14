@@ -16,13 +16,7 @@ const plataforma: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
 </script>
 <template>
     <div>
-        <p class="p-2">
-            <strong>Nota:</strong>
-            El plugin es compatible con impresoras térmicas con el protocolo ESC POS; no es compatible con impresoras de
-            etiquetas (o al menos no he probado). En Desktop solo es compatible con impresoras USB conectadas al lugar donde
-            el plugin está en
-            ejecución; en Android solo es compatible con impresoras Bluetooth
-        </p>
+        <p class="p-2">{{ $t("firstSteps.pluginCompatibility") }}</p>
         <SelectPlataformas v-model="plataforma"></SelectPlataformas>
         <Desktop v-if="plataforma && plataforma.nombre === 'Desktop'" :plataforma="plataforma"></Desktop>
         <Android v-if="plataforma && plataforma.nombre === 'Android'" :plataforma="plataforma"></Android>

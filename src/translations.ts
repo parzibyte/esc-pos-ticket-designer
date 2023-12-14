@@ -1,5 +1,29 @@
 export const translations = {
     en: {
+        firstSteps: {
+            pluginCompatibility: "Please note: the plugin is compatible with thermal printers that use ESC POS commands. It is not compatible with label printers (or, at least, I haven't tested on them). In Desktop platform, the plugin is only compatible with USB printers. On Android, the plugin is only compatible with Bluetooth printers ",
+            android: {
+                pairPrinter: {
+                    title: "Emparejar impresora",
+                    pairPrinter: "Si nunca has impreso con tu impresora, debes seguir estos pasos. Enciende tu Bluetooth y la impresora. Si el manual o fabricante indican los pasos para colocar la impresora en modo descubrimiento, debes seguir los pasos.",
+                    goToBluetooth: "Go to Bluetooth settings and choose {option}, in this example the printer's name is {printerName}",
+                    syncNewDevice: "Sync new device",
+                    printerName: "MTP-II",
+                },
+                downloadPlugin: {
+                    title: "Download plugin",
+                },
+                installPlugin: {
+                    title: "Install plugin",
+                },
+                testFromPlugin: {
+                    title: "Print test from plugin"
+                },
+                testFromDesigner: {
+                    title: "Print test",
+                }
+            }
+        },
         platforms: {
             Android: {
                 name: "Android",
@@ -284,6 +308,30 @@ export const translations = {
         },
     },
     es: {
+        firstSteps: {
+            pluginCompatibility: "Nota: el plugin es compatible con impresoras térmicas con el protocolo ESC POS; no es compatible con impresoras de etiquetas (o al menos no he probado). En Desktop solo es compatible con impresoras USB conectadas al lugar donde el plugin está en ejecución; en Android solo es compatible con impresoras Bluetooth",
+            android: {
+                pairPrinter: {
+                    title: "Emparejar impresora",
+                    pairPrinter: "Si nunca has impreso con tu impresora, debes seguir estos pasos. Enciende tu Bluetooth y la impresora. Si el manual o fabricante indican los pasos para colocar la impresora en modo descubrimiento, debes seguir los pasos.",
+                    goToBluetooth: "Ve a tus ajustes Bluetooth y elige {option}, en este ejemplo la impresora es la {printerName}:",
+                    syncNewDevice: "Sincronizar nuevo dispositivo",
+                    printerName: "MTP-II",
+                },
+                downloadPlugin: {
+                    title: "Descargar plugin",
+                },
+                installPlugin: {
+                    title: "Instalar plugin",
+                },
+                testFromPlugin: {
+                    title: "Probar impresión (plugin)"
+                },
+                testFromDesigner: {
+                    title: "Prueba de impresión",
+                }
+            }
+        },
         platforms: {
             Android: {
                 name: "Android",

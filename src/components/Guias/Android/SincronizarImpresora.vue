@@ -5,14 +5,16 @@ import agregarImpresora from "@/assets/Android/AgregarImpresora.jpg"
 <template>
     <div>
         <p>
-            Si nunca has impreso con tu impresora, debes seguir estos pasos. Enciende tu Bluetooth y la impresora. Si el
-            manual
-            o fabricante indican los pasos para colocar la impresora en modo descubrimiento, debes seguir los pasos.
+            {{ $t("firstSteps.android.pairPrinter.pairPrinter") }}
         </p>
-        <p>Ve a tus ajustes Bluetooth y elige <strong>Sincronizar un nuevo dispositivo</strong>, en este ejemplo la
-            impresora es la
-            <strong>MTP-II</strong>:
-        </p>
+        <i18n-t keypath="firstSteps.android.pairPrinter.goToBluetooth" tag="p">
+            <template #option>
+                <strong>{{ $t("firstSteps.android.pairPrinter.syncNewDevice") }}</strong>
+            </template>
+            <template #printerName>
+                <strong>{{ $t("firstSteps.android.pairPrinter.printerName") }}</strong>
+            </template>
+        </i18n-t>
         <img class="mx-auto" :src="agregarImpresora" alt="">
         <p>Si te pide algún código para realizar el emparejamiento revisa el manual de usuario o prueba con las
             combinaciones más comunes como
