@@ -1,5 +1,15 @@
 export const translations = {
     en: {
+        platforms: {
+            Android: {
+                name: "Android",
+                description: "Print using Bluetooth on Android",
+            },
+            Desktop: {
+                name: "Desktop",
+                description: "Print in USB printers on Windows, Linux and Raspberry Pi OS",
+            },
+        },
         editDesign: {
             giveItAName: "Design's name",
             nameExample: "For example: ticket receipt",
@@ -274,6 +284,16 @@ export const translations = {
         },
     },
     es: {
+        platforms: {
+            Android: {
+                name: "Android",
+                description: "Imprimir en Android con impresora Bluetooth",
+            },
+            Desktop: {
+                name: "Desktop",
+                description: "Imprimir en Windows, Raspbian o Linux con impresora USB",
+            },
+        },
         editDesign: {
             giveItAName: "Nombre del diseño",
             nameExample: "Por ejemplo: recibo de venta",

@@ -125,6 +125,9 @@ export const obtenerPayloadComoJson = (plataforma: string, operaciones: Operacio
 
 
 export const plataformaEsAndroid = (plataformaSeleccionada: PlataformaRecuperadaDeBaseDeDatos) => {
+    if (!plataformaSeleccionada) {
+        return false;
+    }
     return plataformaSeleccionada.nombre === "Android";
 }
 
