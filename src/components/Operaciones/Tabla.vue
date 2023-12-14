@@ -132,14 +132,16 @@ const onCsvSeleccionado = (archivos: File[]) => {
 </script>
 <template>
     <div class="flex md:flex-row flex-col">
-        <CustomInput placeholder="|" class="flex-1" type="text" label="Sep. columnas:" maxlength="1"
+        <CustomInput placeholder="|" class="flex-1" type="text"
+            :label="$t('operationComponents.Tabla.columnSeparatorCharacter')" maxlength="1"
             v-model="propiedades.modelValue.caracterSeparadorColumnasDatos"></CustomInput>
-        <CustomInput placeholder="-" class="flex-1" type="text" label="Sep. filas" maxlength="1"
+        <CustomInput placeholder="-" class="flex-1" type="text"
+            :label="$t('operationComponents.Tabla.rowSeparatorCharacter')" maxlength="1"
             v-model="propiedades.modelValue.caracterSeparadorFilas"></CustomInput>
-        <CustomInput placeholder="+" class="flex-1" type="text" label="Sep. esquinas" maxlength="1"
-            v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas"></CustomInput>
-        <CustomInput placeholder=" " class="flex-1" type="text" label="Relleno" maxlength="1"
-            v-model="propiedades.modelValue.relleno"></CustomInput>
+        <CustomInput placeholder="+" class="flex-1" type="text" :label="$t('operationComponents.Tabla.cornerCharacter')"
+            maxlength="1" v-model="propiedades.modelValue.caracterSeparadorColumnasEnSeparadorDeFilas"></CustomInput>
+        <CustomInput placeholder=" " class="flex-1" type="text" :label="$t('operationComponents.Tabla.paddingCharacter')"
+            maxlength="1" v-model="propiedades.modelValue.relleno"></CustomInput>
     </div>
 
     <div class="overflow-x-auto">
@@ -148,8 +150,8 @@ const onCsvSeleccionado = (archivos: File[]) => {
                 <tr>
                     <td class="p-0 border border-gray-200"
                         v-for="(ajuste, indiceAjuste) in propiedades.modelValue.ajustesEncabezados" :key="indiceAjuste">
-                        <Range :max="LONGITUD_MAXIMA_POR_LINEA_EN_80_MM" min="1" label="Máxima longitud:"
-                            v-model="ajuste.longitudMaxima">
+                        <Range :max="LONGITUD_MAXIMA_POR_LINEA_EN_80_MM" min="1"
+                            :label="$t('operationComponents.Tabla.maxColumnLength')" v-model="ajuste.longitudMaxima">
                         </Range>
                     </td>
                     <td class="p-0  border border-gray-200 text-center">
@@ -160,7 +162,7 @@ const onCsvSeleccionado = (archivos: File[]) => {
                 </tr>
                 <tr v-for="(fila, indiceFila) in propiedades.modelValue.tabla">
                     <td class="p-0 border-collapse border border-gray-200" v-for="(celda, indiceColumna) in fila">
-                        <input type="text" placeholder="Escriba aquí el contenido de la celda..."
+                        <input type="text" :placeholder="$t('operationComponents.Tabla.writeTheCellContent')"
                             class="w-full h-full outline-none p-3 focus:border focus:border-blue-500  border-collapse"
                             v-model="propiedades.modelValue.tabla[indiceFila][indiceColumna]">
                     </td>
@@ -186,10 +188,9 @@ const onCsvSeleccionado = (archivos: File[]) => {
             </tbody>
         </table>
     </div>
-    <FileUpload label="Cargar desde CSV..." accept="text/csv" @change="onCsvSeleccionado"></FileUpload>
+    <FileUpload :label="$t('operationComponents.Tabla.createFromCsv')" accept="text/csv" @change="onCsvSeleccionado">
+    </FileUpload>
     <div v-show="deberiaMostrarAlertaDeMaximosCaracteres()" class="my-1 p-2 bg-orange-600 text-white rounded-md">
-        <strong>Nota:</strong> según pruebas, en impresoras de 58mm la cantidad máxima por línea es de 30 caracteres.
-        En impresoras de 80mm, la cantidad máxima es de 45. Usted tiene actualmente {{ totalCaracteresPorLinea() }}
-        caracteres en total.
+        {{ $t("operationComponents.Tabla.maxTotalLengthWarning", { chars: totalCaracteresPorLinea() }) }}
     </div>
 </template>

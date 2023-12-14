@@ -26,7 +26,7 @@ const valorSerializado = computed<ArgumentosParaDefinirTamañoFuente>({
 </script>
 <template>
 	<div class="flex flex-col md:flex-row">
-		<SelectTamanioFuente label="Alto" v-model="valorSerializado.alto"></SelectTamanioFuente>
-		<SelectTamanioFuente label="Ancho" v-model="valorSerializado.ancho"></SelectTamanioFuente>
+		<SelectTamanioFuente :label="$t('width')" v-model="valorSerializado.alto"></SelectTamanioFuente>
+		<SelectTamanioFuente :label="$t('height')" v-model="valorSerializado.ancho"></SelectTamanioFuente>
 	</div>
 </template>

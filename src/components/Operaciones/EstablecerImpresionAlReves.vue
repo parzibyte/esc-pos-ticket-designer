@@ -24,6 +24,5 @@ const valorSerializado = computed<ArgumentosParaDefinirImpresionAlReves>({
 });
 </script>
 <template>
-	<CustomCheckbox label="Al revés" v-model="valorSerializado.alReves"></CustomCheckbox>
-	<p>A partir de aquí, el texto <strong>{{ valorSerializado.alReves ? "" : "no" }}</strong> estará al revés</p>
+	<CustomCheckbox :label="$t('upsideDown')" v-model="valorSerializado.alReves"></CustomCheckbox>
 </template>

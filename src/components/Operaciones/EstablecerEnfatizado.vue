@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {type ArgumentosParaDefinirEnfatizado } from '@/types/Tipos';
+import { type ArgumentosParaDefinirEnfatizado } from '@/types/Tipos';
 import { computed, } from 'vue';
 import CustomCheckbox from '../CustomCheckbox.vue';
 
@@ -24,6 +24,5 @@ const valorSerializado = computed<ArgumentosParaDefinirEnfatizado>({
 });
 </script>
 <template>
-	<CustomCheckbox label="Enfatizado" v-model="valorSerializado.enfatizado"></CustomCheckbox>
-	<p>A partir de aquí, el texto <strong>{{ valorSerializado.enfatizado ? "" : "no" }}</strong> estará enfatizado</p>
+	<CustomCheckbox :label="$t('emphasized')" v-model="valorSerializado.enfatizado"></CustomCheckbox>
 </template>

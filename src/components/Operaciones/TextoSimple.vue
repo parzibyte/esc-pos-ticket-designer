@@ -24,5 +24,6 @@ const valorSerializado = computed<ArgumentosParaDefinirTextoSimple>({
 });
 </script>
 <template>
-	<CustomTextarea v-model="valorSerializado.contenido" placeholder="Escribe el texto" label="Texto:"></CustomTextarea>
+	<CustomTextarea v-model="valorSerializado.contenido" :placeholder="$t('operationComponents.TextoSimple.placeholder')"
+		:label="$t('operationComponents.TextoSimple.placeholder')"></CustomTextarea>
 </template>

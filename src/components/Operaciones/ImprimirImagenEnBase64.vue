@@ -38,13 +38,13 @@ const valorSerializado = computed({
 </script>
 <template>
 	<div class="flex flex-col">
-		<CustomTextarea v-model="propiedades.modelValue.contenidoEnBase64" label="Imagen codificada en base64:">
-		</CustomTextarea>
+		<CustomTextarea v-model="propiedades.modelValue.contenidoEnBase64"
+			:label="$t('operationComponents.ImprimirImagenEnBase64.label')"
+			:placeholder="$t('operationComponents.ImprimirImagenEnBase64.label')"> </CustomTextarea>
 	</div>
 	<div class="flex flex-col md:flex-row">
 		<SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
 		<SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
-		<Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="648" step="8" label="Ancho"></Range>
+		<Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="648" step="8" :label="$t('width')"></Range>
 	</div>
-	<AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen>
-</template>
+	<AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen></template>

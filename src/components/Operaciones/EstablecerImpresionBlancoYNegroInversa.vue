@@ -24,6 +24,5 @@ const valorSerializado = computed<ArgumentosParaDefinirImpresionBlancoYNegroInve
 });
 </script>
 <template>
-	<CustomCheckbox label="B&N inverso" v-model="valorSerializado.inversa"></CustomCheckbox>
-	<p>A partir de aquí, el texto <strong>{{ valorSerializado.inversa ? "" : "no" }}</strong> estará inverso</p>
+	<CustomCheckbox :label="$t('negative')" v-model="valorSerializado.inversa"></CustomCheckbox>
 </template>

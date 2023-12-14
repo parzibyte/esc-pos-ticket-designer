@@ -39,7 +39,7 @@ const valorSerializado = computed({
 <template>
 	<SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
 	<SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
-	<Range label="Ancho" step="8" min="8" max="648" v-model="propiedades.modelValue.maximoAncho"></Range>
-	<CustomInput type="text" placeholder="/home/parzibyte/mj.png" label="Ruta absoluta de la imagen"
+	<Range :label="$t('width')" step="8" min="8" max="648" v-model="propiedades.modelValue.maximoAncho"></Range>
+	<CustomInput type="text" placeholder="/home/parzibyte/mj.png" :label="$t('operationComponents.ImagenLocal.absolutePath')"
 		v-model="propiedades.modelValue.ruta"></CustomInput>
 </template>

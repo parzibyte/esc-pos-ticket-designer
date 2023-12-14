@@ -39,11 +39,13 @@ const valorSerializado = computed<ArgumentosParaDefinirImagenDeInternet>({
 </script>
 <template>
 	<div class="flex flex-col md:flex-row">
-		<CustomInput label="URL absoluta:" type="text" placeholder="URL absoluta de la imagen"
-			v-model="valorSerializado.url"></CustomInput>
+		<CustomInput :label="$t('operationComponents.DescargarImagenDeInternet.absoluteUrl')" type="text"
+			:placeholder="$t('operationComponents.DescargarImagenDeInternet.absoluteUrlPlaceholder')"
+			v-model="valorSerializado.url">
+		</CustomInput>
 		<SelectAlineacion v-model="valorSerializado.alineacion"></SelectAlineacion>
 		<SelectTamanioImagen v-model="valorSerializado.tamaño"></SelectTamanioImagen>
-		<Range v-model="valorSerializado.maximoAncho" max="648" min="8" step="8"></Range>
+		<Range :label="$t('width')" v-model="valorSerializado.maximoAncho" max="648" min="8" step="8"></Range>
 	</div>
 	<AlertaAnchoImagen :ancho="valorSerializado.maximoAncho"></AlertaAnchoImagen>
 </template>

@@ -24,5 +24,5 @@ const valorSerializado = computed({
 });
 </script>
 <template>
-	<CustomInput type="number" placeholder="Líneas" label="Líneas" v-model="propiedades.modelValue.lineas"></CustomInput>
+	<CustomInput type="number" :placeholder="$t('operationComponents.Feed.lines')" :label="$t('operationComponents.Feed.lines')" v-model="propiedades.modelValue.lineas"></CustomInput>
 </template>

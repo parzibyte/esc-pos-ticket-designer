@@ -17,11 +17,12 @@ const propiedades = defineProps<Propiedades>();
 </script>
 <template>
     <div class="flex md:flex-row flex-col">
-        <CustomInputVue v-model="propiedades.modelValue.contenido" type="text" label="Contenido del QR"></CustomInputVue>
+        <CustomInputVue v-model="propiedades.modelValue.contenido" type="text"
+            :label="$t('operationComponents.CodigoQr.content')"></CustomInputVue>
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
-        <Range label="Ancho" step="8" min="8" max="648" v-model="propiedades.modelValue.ancho"></Range>
+        <Range :label="$t('width')" step="8" min="8" max="648" v-model="propiedades.modelValue.ancho"></Range>
         <CustomCheckboxVue v-model="propiedades.modelValue.imprimirContenido"
-            label="Imprimir contenido como texto debajo del código QR"></CustomCheckboxVue>
+            :label="$t('operationComponents.CodigoQr.printContentUnderQrCode')"></CustomCheckboxVue>
     </div>
     <div class="flex flex-col md:flex-row">
         <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>

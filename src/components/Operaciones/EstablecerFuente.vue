@@ -37,10 +37,10 @@ const fuentes = ref([
 ]);
 </script>
 <template>
-	<Select :display-item-function="(fuente) => fuente.nombre" :items="fuentes" label="Fuente:"
-		v-model="propiedades.modelValue.fuente">
+	<Select :display-item-function="(fuente) => $t('fonts.' + fuente.nombre)" :items="fuentes"
+		:label="$t('operationComponents.EstablecerFuente.font')" v-model="propiedades.modelValue.fuente">
 		<template #item="{ item, index }">
-			<h1 class="text-xl">{{ item.nombre }}</h1>
+			<h1 class="text-xl">{{ $t("fonts." + item.nombre) }}</h1>
 		</template>
 	</Select>
 </template>

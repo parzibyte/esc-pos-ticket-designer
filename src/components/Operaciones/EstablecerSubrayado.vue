@@ -24,6 +24,5 @@ const valorSerializado = computed<ArgumentosParaDefinirSubrayado>({
 });
 </script>
 <template>
-	<CustomCheckbox label="¿Subrayar?" v-model="valorSerializado.subrayar"></CustomCheckbox>
-	<p>A partir de aquí, el texto <strong>{{ valorSerializado.subrayar ? "" : "no" }}</strong> estará subrayado</p>
+	<CustomCheckbox :label="$t('underline')" v-model="valorSerializado.subrayar"></CustomCheckbox>
 </template>

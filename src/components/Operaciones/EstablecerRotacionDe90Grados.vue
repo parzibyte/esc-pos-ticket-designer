@@ -24,6 +24,5 @@ const valorSerializado = computed<ArgumentosParaDefinirRotacionDe90Grados>({
 });
 </script>
 <template>
-	<CustomCheckbox label="¿Rotar 90°?" v-model="valorSerializado.rotar"></CustomCheckbox>
-	<p>A partir de aquí, el texto <strong>{{ valorSerializado.rotar ? "" : "no" }}</strong> estará rotado</p>
+	<CustomCheckbox :label="$t('rotate90Degrees')" v-model="valorSerializado.rotar"></CustomCheckbox>
 </template>

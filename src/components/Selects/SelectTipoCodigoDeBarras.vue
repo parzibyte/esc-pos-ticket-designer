@@ -69,7 +69,7 @@ const tipos = ref([
 ]);
 </script>
 <template>
-	<Select :items="tipos" :display-item-function="(tipo) => tipo.nombre" label="Tipo" v-model="valorSerializado">
+	<Select :items="tipos" :display-item-function="(tipo) => tipo.nombre" :label="$t('operationComponents.CodigoDeBarras.barcodeType')" v-model="valorSerializado">
 		<template #item="{ item, index }">
 			<h1 class="text-xl">{{ item.nombre }}</h1>
 		</template>

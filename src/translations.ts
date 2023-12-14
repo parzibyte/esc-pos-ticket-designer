@@ -153,7 +153,7 @@ export const translations = {
             },
             Pulso: {
                 name: "Generate pulse",
-                description: "Outputs pulse at connector pin. Used to open cash drawer.Common values are pin 48, on time 60, off time 120",
+                description: "Outputs pulse at connector pin. Used to open cash drawer. Common values are pin 48, on time 60, off time 120",
             },
 
             TextoSegunPaginaDeCodigos: {
@@ -165,6 +165,70 @@ export const translations = {
             Texto: {
                 placeholder: "Text to be printed...",
                 label: "Please input the text:"
+            },
+            Imagen: {
+                label: "Select file..."
+            },
+            Feed: {
+                lines: "Lines",
+            },
+            Corte: {
+                lines: "Lines",
+            },
+            Pulso: {
+                connectorPin: "Connector pin number",
+                onTime: "On time",
+                offTime: "Off time",
+            },
+            Tabla: {
+                columnSeparatorCharacter: "Col. separator",
+                rowSeparatorCharacter: "Row separator",
+                cornerCharacter: "Corner char",
+                paddingCharacter: "Padding",
+                maxColumnLength: "Max length",
+                writeTheCellContent: "Cell content",
+                createFromCsv: "Create from CSV...",
+                maxTotalLengthWarning: "Please note: our tests indicate that, in 58mm printers, the recommended max total length is 30 chars and 45 on 80mm printers. Currently you have {chars} in total",
+            },
+            TextoSimple: {
+                placeholder: "Text to be printed...",
+                label: "Please input the text:"
+            },
+            CodigoDeBarras: {
+                barcodeType: "Type",
+                content: "Content",
+                printContentUnderBarcode: "Print content as text under barcode",
+                includeChecksum: "Include Checksum",
+                interleaved: "Interleaved",
+                fullAsciiMode: "Full ASCII mode",
+                securityLevel: "Security level",
+            },
+            CodigoQr: {
+                content: "Content",
+                printContentUnderQrCode: "Print content as text under QR code",
+                errorCorrection: "Error correction",
+            },
+            ImagenLocal: {
+                absolutePath: "Absolute path",
+            },
+            DescargarImagenDeInternet: {
+                absoluteUrl: "Absolute URL",
+                absoluteUrlPlaceholder: "https://github.com/parzibyte.png",
+            },
+            ImprimirImagenEnBase64: {
+                label: "Encoded image as base64 string"
+            },
+            DefinirCaracterPersonalizado: {
+                replacedCharacter: "Replaced character",
+                createFromImage: "Create from image"
+            },
+            TextoSegunPaginaDeCodigos: {
+                textContent: "Text content",
+                pageNumber: "Page number",
+                charcodePageNameForIconv: "Charcode page (for iconv)"
+            },
+            EstablecerFuente: {
+                font: "Font",
             },
         },
         height: "Height",
@@ -179,7 +243,24 @@ export const translations = {
             "Centro": "Center",
             "Izquierda": "Left",
             "Derecha": "Right",
-        }
+        },
+        imageSize: "Size",
+        imageSizes: {
+            "Normal": "Normal",
+            "Doble ancho": "Double width",
+            "Doble largo": "Double height",
+            "Doble ancho y largo": "Double width and height",
+        },
+        qrErrorCorrection: {
+            "Bajo": "Low",
+            "Medio": "Medium",
+            "Alto": "Quartile",
+            "El mejor": "High",
+        },
+        fonts: {
+            "Fuente A (24x12)": "Font A (24x12)",
+            "Fuente B (9x17)": "Font B (9x17)",
+        },
     },
     es: {
         title: "Diseñador de tickets para impresoras térmicas - Por Parzibyte",

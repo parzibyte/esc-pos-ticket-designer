@@ -27,10 +27,10 @@ const valorSerializado = computed({
 const tamaños = ref(TAMAÑOS_IMAGEN);
 </script>
 <template>
-	<Select :display-item-function="(tamaño) => tamaño.nombre" :items="tamaños" label="Redimensionar al imprimir:"
+	<Select :display-item-function="(tamaño) => $t('imageSizes.' + tamaño.nombre)" :items="tamaños" :label="$t('imageSize')"
 		v-model="valorSerializado">
 		<template #item="{ item, index }">
-			<h1 class="text-xl">{{ item.nombre }}</h1>
+			<h1 class="text-xl"> {{ $t("imageSizes." + item.nombre) }}</h1>
 		</template>
 	</Select>
 </template>

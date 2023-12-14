@@ -55,27 +55,31 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
 <template>
     <div class="flex md:flex-row flex-col md:items-center">
         <SelectTipoCodigoDeBarras v-model="propiedades.modelValue.tipo"></SelectTipoCodigoDeBarras>
-        <CustomInput label="Contenido" v-model="propiedades.modelValue.contenido" type="text">
+        <CustomInput :label="$t('operationComponents.CodigoDeBarras.content')" v-model="propiedades.modelValue.contenido"
+            type="text">
         </CustomInput>
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
-        <CustomCheckbox label="Imprimir contenido como texto debajo el código"
+        <CustomCheckbox :label="$t('operationComponents.CodigoDeBarras.printContentUnderBarcode')"
             v-model="propiedades.modelValue.imprimirContenido"></CustomCheckbox>
     </div>
     <div class="flex md:flex-row flex-col">
         <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
         <div class="flex flex-col">
-            <CustomCheckbox v-if="deberiaMostrarCamposParaSumaDeVerificacion()" label="Incluir suma de verificación"
+            <CustomCheckbox v-if="deberiaMostrarCamposParaSumaDeVerificacion()"
+                :label="$t('operationComponents.CodigoDeBarras.includeChecksum')"
                 v-model="propiedades.modelValue.incluirSumaDeVerificacion">
             </CustomCheckbox>
-            <CustomCheckbox v-if="deberiaMostrarCamposParaIntercalado()" label="Intercalado"
-                v-model="propiedades.modelValue.intercalado"></CustomCheckbox>
-            <CustomCheckbox v-if="deberiaMostrarCamposParaModoAsciiCompleto()" label="Modo ASCII completo"
+            <CustomCheckbox v-if="deberiaMostrarCamposParaIntercalado()"
+                :label="$t('operationComponents.CodigoDeBarras.interleaved')" v-model="propiedades.modelValue.intercalado">
+            </CustomCheckbox>
+            <CustomCheckbox v-if="deberiaMostrarCamposParaModoAsciiCompleto()"
+                :label="$t('operationComponents.CodigoDeBarras.fullAsciiMode')"
                 v-model="propiedades.modelValue.modoAsciiCompleto"></CustomCheckbox>
         </div>
-        <Range step="8" v-model.number="propiedades.modelValue.ancho" min="8" max="648" label="Ancho"></Range>
-        <Range v-model="propiedades.modelValue.alto" min="8" max="500" label="Alto"></Range>
+        <Range step="8" v-model.number="propiedades.modelValue.ancho" min="8" max="648" :label="$t('width')"></Range>
+        <Range v-model="propiedades.modelValue.alto" min="8" max="500" :label="$t('height')"></Range>
         <Range v-if="deberiaMostrarCamposParaNivelDeSeguridad()" v-model="propiedades.modelValue.nivelDeSeguridad" min="0"
-            max="8" label="Nivel de seguridad"> </Range>
+            max="8" :label="$t('operationComponents.CodigoDeBarras.securityLevel')"> </Range>
     </div>
     <AlertaAnchoImagen :ancho="propiedades.modelValue.ancho">
     </AlertaAnchoImagen>

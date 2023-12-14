@@ -44,10 +44,10 @@ const recuperaciones = ref([
 ]);
 </script>
 <template>
-	<Select :display-item-function="(nivel) => nivel.nombre" :items="recuperaciones" label="Recuperación:"
-		v-model="valorSerializado">
+	<Select :display-item-function="(nivel) => $t('qrErrorCorrection.' + nivel.nombre)" :items="recuperaciones"
+		:label="$t('operationComponents.CodigoQr.errorCorrection')" v-model="valorSerializado">
 		<template #item="{ item, index }">
-			<h1 class="text-xl">{{ item.nombre }}</h1>
+			<h1 class="text-xl">{{ $t("qrErrorCorrection." + item.nombre) }}</h1>
 		</template>
 	</Select>
 </template>

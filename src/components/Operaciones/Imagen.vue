@@ -81,14 +81,14 @@ const hayImagenSeleccionada = computed(() => {
 <template>
     <div class="flex flex-col">
         <img class="max-w-max" :src="propiedades.modelValue.contenidoEnBase64" v-if="hayImagenSeleccionada">
-        <FileUpload label="Seleccionar archivo..." accept="image/png,image/jpeg" @change="onImagenSeleccionada">
+        <FileUpload :label="$t('operationComponents.Imagen.label')" accept="image/png,image/jpeg" @change="onImagenSeleccionada">
         </FileUpload>
     </div>
     <div class="flex flex-col md:flex-row" v-if="hayImagenSeleccionada">
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
         <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
         <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho" step="8"
-            label="Ancho"></Range>
+            :label="$t('width')"></Range>
     </div>
     <AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen>
 </template>

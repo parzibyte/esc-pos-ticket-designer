@@ -254,12 +254,13 @@ const onArchivoSeleccionado = async (archivos: File[]) => {
             </div>
             <canvas :style="estiloDelCanvas()" ref="canvas" class="flex-1 border border-zinc-100 mt-2"></canvas>
             <FileUpload accept="image/png,image/jpeg,image/bmp" @change="onArchivoSeleccionado"
-                label="Crear desde imagen...">
+                :label="$t('operationComponents.DefinirCaracterPersonalizado.createFromImage')">
             </FileUpload>
         </div>
         <div>
-            <CustomInput v-model="propiedades.modelValue.caracterQueReemplaza" label="Carácter que va a reemplazar"
-                maxlength="1" type="text"></CustomInput>
+            <CustomInput v-model="propiedades.modelValue.caracterQueReemplaza"
+                :label="$t('operationComponents.DefinirCaracterPersonalizado.replacedCharacter')" maxlength="1" type="text">
+            </CustomInput>
         </div>
 
     </div>

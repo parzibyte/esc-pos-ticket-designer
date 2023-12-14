@@ -27,11 +27,12 @@ const valorSerializado = computed({
 </script>
 <template>
 	<div class="flex flex-col md:flex-row">
-		<CustomInput type="number" placeholder="Pin" label="Pin" v-model="propiedades.modelValue.pin"></CustomInput>
-		<CustomInput type="number" placeholder="Milisegundos encendido" label="Tiempo encendido"
-			v-model="propiedades.modelValue.tiempoEncendido"></CustomInput>
-		<CustomInput type="number" placeholder="Milisegundos apagado" label="Tiempo apagado"
-			v-model="propiedades.modelValue.tiempoApagado"></CustomInput>
+		<CustomInput type="number" :placeholder="$t('operationComponents.Pulso.connectorPin')"
+			:label="$t('operationComponents.Pulso.connectorPin')" v-model="propiedades.modelValue.pin"></CustomInput>
+		<CustomInput type="number" :placeholder="$t('operationComponents.Pulso.onTime')"
+			:label="$t('operationComponents.Pulso.onTime')" v-model="propiedades.modelValue.tiempoEncendido"></CustomInput>
+		<CustomInput type="number" :placeholder="$t('operationComponents.Pulso.offTime')"
+			:label="$t('operationComponents.Pulso.offTime')" v-model="propiedades.modelValue.tiempoApagado"></CustomInput>
 
 	</div>
 </template>

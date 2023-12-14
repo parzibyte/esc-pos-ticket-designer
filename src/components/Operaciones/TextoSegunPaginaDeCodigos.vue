@@ -187,10 +187,13 @@ const paginasDeCodigos = [
 ];
 </script>
 <template>
-	<CustomTextarea v-model="valorSerializado.texto" placeholder="Escribe el texto" label="Texto:"></CustomTextarea>
+	<CustomTextarea v-model="valorSerializado.texto"
+		:placeholder="$t('operationComponents.TextoSegunPaginaDeCodigos.textContent')"
+		:label="$t('operationComponents.TextoSegunPaginaDeCodigos.textContent')"></CustomTextarea>
 	<CustomInput min="0" v-model="valorSerializado.numeroPagina" type="number"
-		label="Número de página según modelo de tu impresora"></CustomInput>
-	<Select v-model="valorSerializado.pagina" label="Página de caracteres para iconv" :items="paginasDeCodigos"
+		:label="$t('operationComponents.TextoSegunPaginaDeCodigos.pageNumber')"></CustomInput>
+	<Select v-model="valorSerializado.pagina"
+		:label="$t('operationComponents.TextoSegunPaginaDeCodigos.charcodePageNameForIconv')" :items="paginasDeCodigos"
 		:display-item-function="(pagina) => pagina">
 		<template #item="{ item, index }">
 			<h1 class="text-xl">{{ item }}</h1>
