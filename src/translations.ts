@@ -423,6 +423,106 @@ export const translations = {
                 name: "Texto acentuado",
                 description: "Permite imprimir texto con acentos. Recomiendo deshabilitar los caracteres chinos y probar todas las combinaciones",
             },
-        }
+        },
+        operationComponents: {
+            Texto: {
+                placeholder: "Texto para imprimir",
+                label: "Por favor, escriba el texto"
+            },
+            Imagen: {
+                label: "Seleccionar archivo..."
+            },
+            Feed: {
+                lines: "Líneas",
+            },
+            Corte: {
+                lines: "Líneas",
+            },
+            Pulso: {
+                connectorPin: "Número de pin",
+                onTime: "Duración encendido",
+                offTime: "Duración apagado",
+            },
+            Tabla: {
+                columnSeparatorCharacter: "Sep. columna",
+                rowSeparatorCharacter: "Sep. Fila",
+                cornerCharacter: "Sep. esquina",
+                paddingCharacter: "Relleno",
+                maxColumnLength: "Máxima longitud",
+                writeTheCellContent: "Contenido de la celda",
+                createFromCsv: "Crear desde CSV...",
+                maxTotalLengthWarning: "Nota: nuestras pruebas indican que, en impresoras de 58mm, el ancho máximo total es de 30 caracteres, y de 45 en impresoras de 80mm. Actualmente usted está usando {chars} caracteres",
+            },
+            TextoSimple: {
+                placeholder: "Texto para imprimir...",
+                label: "Por favor, escriba el texto:"
+            },
+            CodigoDeBarras: {
+                barcodeType: "Tipo",
+                content: "Contenido",
+                printContentUnderBarcode: "Imprimir contenido debajo como texto",
+                includeChecksum: "Incluir suma de verificación",
+                interleaved: "Intercalado",
+                fullAsciiMode: "Modo ASCII completo",
+                securityLevel: "Nivel de seguridad",
+            },
+            CodigoQr: {
+                content: "Contenido",
+                printContentUnderQrCode: "Imprimir contenido debajo como texto",
+                errorCorrection: "Corrección",
+            },
+            ImagenLocal: {
+                absolutePath: "Ruta absoluta",
+            },
+            DescargarImagenDeInternet: {
+                absoluteUrl: "URL absoluta",
+                absoluteUrlPlaceholder: "https://github.com/parzibyte.png",
+            },
+            ImprimirImagenEnBase64: {
+                label: "Imagen codificada como cadena en base64"
+            },
+            DefinirCaracterPersonalizado: {
+                replacedCharacter: "Carácter remplazado",
+                createFromImage: "Crear desde imagen"
+            },
+            TextoSegunPaginaDeCodigos: {
+                textContent: "Texto",
+                pageNumber: "Número de página",
+                charcodePageNameForIconv: "Página de códigos (para iconv)"
+            },
+            EstablecerFuente: {
+                font: "Fuente",
+            },
+        },
+        height: "Alto",
+        width: "Ancho",
+        alignment: "Alineación",
+        emphasized: "Enfatizado",
+        underline: "Subrayado",
+        upsideDown: "Invertido",
+        rotate90Degrees: "Rotar 90°",
+        negative: "B&N invertido",
+        alignments: {
+            "Centro": "Centro",
+            "Izquierda": "Izquierda",
+            "Derecha": "Derecha",
+        },
+        imageSize: "Tamaño",
+        imageSizes: {
+            "Normal": "Normal",
+            "Doble ancho": "Doble ancho",
+            "Doble largo": "Doble alto",
+            "Doble ancho y largo": "Doble ancho y largo",
+        },
+        qrErrorCorrection: {
+            "Bajo": "Bajo",
+            "Medio": "Medio",
+            "Alto": "Alto",
+            "El mejor": "El mejor",
+        },
+        fonts: {
+            "Fuente A (24x12)": "Fuente A (24x12)",
+            "Fuente B (9x17)": "Fuente B (9x17)",
+        },
     }
 }
