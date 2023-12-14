@@ -65,7 +65,7 @@ onMounted(async () => {
 </script>
 <template>
 	<div class="p-1">
-		<CustomInput label="Dale un nombre a tu diseño" type="text" placeholder="Por ejemplo, ticket de venta"
+		<CustomInput :label="$t('editDesign.giveItAName')" type="text" :placeholder="$t('editDesign.nameExample')"
 			v-model="nombre"></CustomInput>
 		<SelectPlataformas @change="onPlataformaCambiada" v-model="plataformaSeleccionada"></SelectPlataformas>
 		<SelectImpresoras :plataforma="plataformaSeleccionada" v-model="impresoraSeleccionada" :impresoras="impresoras">
@@ -73,12 +73,12 @@ onMounted(async () => {
 		<button @click="guardarDiseño"
 			class="rounded-md px-3 py-2 mt-2 bg-green-500 text-white hover:bg-green-400 font-bold inline-flex items-center">
 			<CheckBold></CheckBold>
-			Guardar
+			{{ $t("save") }}
 		</button>
 		<button @click="navegarADiseños"
 			class="rounded-md px-3 py-2 mt-2 ml-2 bg-blue-500 text-white hover:bg-blue-400 font-bold inline-flex items-center">
 			<FormatListText></FormatListText>
-			Ir a diseños
+			{{ $t("editDesign.goToDesigns") }}
 		</button>
 	</div>
 </template>

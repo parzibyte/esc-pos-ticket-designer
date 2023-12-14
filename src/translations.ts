@@ -1,5 +1,10 @@
 export const translations = {
     en: {
+        editDesign: {
+            giveItAName: "Design's name",
+            nameExample: "For example: ticket receipt",
+            goToDesigns: "Back to designs",
+        },
         help: {
             title: "If you need help, I suggest, in order:",
             followFirstSteps: "Follow the guide in First steps",
@@ -269,7 +274,12 @@ export const translations = {
         },
     },
     es: {
- help: {
+        editDesign: {
+            giveItAName: "Nombre del diseño",
+            nameExample: "Por ejemplo: recibo de venta",
+            goToDesigns: "Volver a Diseños",
+        },
+        help: {
             title: "Si necesita ayuda, sugiero, en orden:",
             followFirstSteps: "Siga la guía en \"Primeros pasos\"",
             checkYoutubeTutorials: "Mira los tutoriales en YouTube:",
