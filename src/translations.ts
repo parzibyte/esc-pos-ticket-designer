@@ -52,7 +52,69 @@ export const translations = {
                     title: "Print test",
                     pluginNotRunning: "It looks like the plugin is not running. Please re-check the previous steps to download and execute it"
                 }
-            }
+            },
+            desktop: {
+                manufacturerNote: "If your printer includes an installation guide, follow it and go to the next step to share it. If your printer does not have a guide or does not work even with the manufacturer's instructions, follow the next steps. Remember to turn on the printer and connect it via USB",
+                installPrinter: {
+                    title: "Install printer",
+                    windows10: {
+                        title: "Windows 8, 8.1 and 10",
+                        goToControlPanel: "Go to the {controlPanel}, choose {printers}, once there choose {addPrinter}",
+                        addManually: "Wait until the {printerIsNotInTheList} option appears and click it",
+                        controlPanel: "Control panel",
+                        printers: "Printers and devices",
+                        addPrinter: "Add printer",
+                        printerIsNotInTheList: "Printer is not in the list",
+                    },
+                    windows11: {
+                        title: "Windows 11",
+                        goToControlPanel: "In the Windows Menu search and choose {printers}",
+                        printers: "Printers and devices",
+                        clickAddDevice: "Click {addDevice}",
+                        addDevice: "Add device",
+                        addManually: "Wait until the {printerIsNotInTheList} option appears and click it",
+                        printerIsNotInTheList: "Printer is not in the list",
+                    },
+                    linux: {
+                        title: "Linux and Raspberry Pi OS",
+                        commandWarning: "Every command will be executed in the terminal. Remember: some of them will need superuser access",
+                        showPrinters: "Execute: {commandListPrinters} Your printer should appear as lpX where X is a number. If there are many of them, you may try with lp1, lp2, and so on. In my case is {myPrinter}",
+                        myPrinter: "lp1",
+                        checkGroup: "Execute: {commandStat} and check the group that appears near {gid}. In the image, the group is {group}",
+                        gid: "Gid Number / Group",
+                        group: "lp",
+                        addUser: "Add your current user to the group. In my case, my user is {myUser}, so the command is: {commandToAddUser} Remember that in your case the group, printer and user may vary",
+                        myUser: "parzibyte",
+                        reboot: "Reboot your computer by using the way or command you like",
+                        testPrinter: "Execute the next command to make a test. The command assumes that your printer's name is {printerName}, if in your case it is another printer, change the command accordingly {commandToPrint}",
+                        printedSuccessfully: "If the test page is printed, you can move to the next step. Remember that, in some cases, the paper does not feed, so you should feed the paper and check your printer to make sure the printer was successful",
+
+                    },
+                    commonInstructionsForWindows: {
+                        manuallyAdd: "A new window will open. There, chose {addLocalPrinter} and then choose {next}",
+                        addLocalPrinter: "Add local printer with manual configuration",
+                        next: "Next",
+                        setupPort: "In the next window choose the USB00X where X is a number. If there is more than one port and later the printer test does not work, come back to this step and change the port. In my case there's only one port so I will take it",
+                        setupDrivers: "In the next window choose {generic} for {manufacturer} and then choose {genericTextOnly} in {printers}. Finally, click {next}",
+                        manufacturer: "Manufacturer",
+                        printers: "Printers",
+                        generic: "Generic",
+                        genericTextOnly: "Generic / Text Only",
+                        setupName: "Now it's time to give your printer a name. {nameWarning}. Then, click {next}",
+                        nameWarning: "It is very important to use only letters for naming your printer",
+                        printTest: "To finish, print a page test. If the page is printed successfully, then go to the next step. If it is not printed, go back to the previous steps and check every setting, maybe you have to choose another port"
+                    }
+                },
+                sharePrinter: {
+                    title: "Share printer",
+                },
+                downloadAndExecutePlugin: {
+                    title: "Download and run plugin",
+                },
+                printTest: {
+                    title: "Print test",
+                },
+            },
         },
         platforms: {
             Android: {

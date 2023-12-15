@@ -6,45 +6,48 @@ const codigoImprimir = `echo "Imprimiendo en una impresora termica en Linux desd
 </script>
 <template>
     <div>
-        <p>
-            Todos los comandos serán ejecutados en la terminal.
-            Recuerda que algunos comandos necesitan permisos de superusuario.
-        </p>
+        <p>{{ $t("firstSteps.desktop.installPrinter.linux.commandWarning") }}</p>
         <ol class="list-inside list-decimal">
-            <li> Ejecuta: <BloqueDeCodigo codigo="ls /dev/usb"></BloqueDeCodigo>
-                Tu impresora debería aparecer como lpX donde X es un número. Si hay varias, puede que tengas que probar con
-                lp1, lp2, etcétera. En mi caso es
-                la <code>lp1</code>
-                <img :src="listar" class="my-2">
-            </li>
-            <li>Ejecuta
-                <BloqueDeCodigo codigo="stat /dev/usb/lp1 "></BloqueDeCodigo>
+            <i18n-t keypath="firstSteps.desktop.installPrinter.linux.showPrinters" tag="li">
+                <template #commandListPrinters>
+                    <BloqueDeCodigo codigo="ls /dev/usb"></BloqueDeCodigo>
+                </template>
+                <template #myPrinter>
+                    <code>{{ $t("firstSteps.desktop.installPrinter.linux.myPrinter") }}</code>
+                </template>
+            </i18n-t>
+            <img :src="listar" class="my-2">
+            <i18n-t keypath="firstSteps.desktop.installPrinter.linux.checkGroup" tag="li">
+                <template #commandStat>
+                    <BloqueDeCodigo codigo="stat /dev/usb/lp1"></BloqueDeCodigo>
+                </template>
+                <template #gid>
+                    <strong>{{ $t("firstSteps.desktop.installPrinter.linux.gid") }}</strong>
+                </template>
+                <template #group>
+                    <code>{{ $t("firstSteps.desktop.installPrinter.linux.group") }}</code>
+                </template>
+            </i18n-t>
+            <img :src="gid" alt="">
+            <i18n-t keypath="firstSteps.desktop.installPrinter.linux.addUser" tag="li">
+                <template #myUser>
+                    <code>{{ $t("firstSteps.desktop.installPrinter.linux.myUser") }}</code>
+                </template>
+                <template #commandToAddUser>
+                    <BloqueDeCodigo codigo="sudo usermod -a -G lp parzibyte"></BloqueDeCodigo>
+                </template>
+            </i18n-t>
+            <li>{{ $t("firstSteps.desktop.installPrinter.linux.reboot") }}</li>
+            <i18n-t keypath="firstSteps.desktop.installPrinter.linux.testPrinter" tag="li">
+                <template #printerName>
+                    <code>{{ $t("firstSteps.desktop.installPrinter.linux.myPrinter") }}</code>
+                </template>
+                <template #commandToPrint>
 
-                Fíjate en el grupo que aparece cerca de
-                <strong>
-                    Gid( Número / Grupo)
-                </strong>
-                , en la imagen el grupo es
-                <code>lp</code>
-                <img :src="gid" alt="">
-            </li>
-            <li>Agrega tu usuario actual al grupo listado previamente. En mi caso, como el grupo es <code>lp</code> y mi
-                usuario es
-                <code>parzibyte</code>, el comando es:
-                <BloqueDeCodigo codigo="sudo usermod -a -G lp parzibyte"></BloqueDeCodigo>
-                Recuerda que en tu caso el grupo y el usuario pueden cambiar.
-            </li>
-            <li>Reinicia la computadora con el método que tú prefieras</li>
-            <li>
-                Ejecuta el siguiente mensaje para imprimir una prueba. Estoy suponiendo que la impresora es la
-                <code>lp1</code>, si en tu caso
-                la impresora es otra, cambia el nombre como sea necesario
-                <BloqueDeCodigo :codigo="codigoImprimir"></BloqueDeCodigo>
-            </li>
-            <li>Si la impresión se ejecuta correctamente, puedes pasar al siguiente paso. Recuerda que en ocasiones no se
-                hace un avance de papel, por lo que debes avanzar el papel de la impresora y revisar si la impresión fue
-                exitosa</li>
-
+                    <BloqueDeCodigo :codigo="codigoImprimir"></BloqueDeCodigo>
+                </template>
+            </i18n-t>
+            <li>{{ $t("firstSteps.desktop.installPrinter.linux.printedSuccessfully") }}</li>
         </ol>
     </div>
 </template>

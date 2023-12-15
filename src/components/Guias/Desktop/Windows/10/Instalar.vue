@@ -7,16 +7,27 @@ import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabr
     <div>
         <AvisoFabricanteWindows></AvisoFabricanteWindows>
         <ul class="list-decimal list-inside">
+            <i18n-t keypath="firstSteps.desktop.installPrinter.windows10.goToControlPanel" tag="li">
+                <template #controlPanel>
+                    <strong>{{ $t("firstSteps.desktop.installPrinter.windows10.controlPanel") }}</strong>
+                </template>
+                <template #printers>
+                    <strong>{{ $t("firstSteps.desktop.installPrinter.windows10.printers") }}</strong>
+                </template><template #addPrinter>
+                    <strong>{{ $t("firstSteps.desktop.installPrinter.windows10.addPrinter") }}</strong>
+                </template>
+            </i18n-t>
             <li>Ve al
                 <strong>Panel de control</strong>, selecciona
                 <strong>Dispositivos e impresoras</strong>, una vez ahí elige
                 <strong>Agregar una impresora</strong>
             </li>
-            <li>Espera a que aparezca la opción
-                <strong>La impresora deseada no está en la lista</strong>
-                y haz clic en ella
-                <img class="mx-auto" :src="agregarImpresora">
-            </li>
+            <i18n-t keypath="firstSteps.desktop.installPrinter.windows10.addManually" tag="li">
+                <template #printerIsNotInTheList>
+                    <strong>{{ $t("firstSteps.desktop.installPrinter.windows10.printerIsNotInTheList") }}</strong>
+                </template>
+            </i18n-t>
+            <img :src="agregarImpresora" class="mx-auto" alt="">
             <InstalarImpresoraWindowsComun></InstalarImpresoraWindowsComun>
         </ul>
     </div>

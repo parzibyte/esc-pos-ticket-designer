@@ -6,34 +6,46 @@ import nombre from "@/assets/ImpresoraWindows10YAnteriores/Nombre-de-la-impresor
 import instalacionTerminada from "@/assets/ImpresoraWindows10YAnteriores/Instalación-terminada.png";
 </script>
 <template>
+    <i18n-t keypath="firstSteps.desktop.installPrinter.commonInstructionsForWindows.manuallyAdd" tag="li">
+        <template #addLocalPrinter>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.addLocalPrinter") }}</strong>
+        </template>
+        <template #next>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.next") }}</strong>
+        </template>
+    </i18n-t>
+    <img class="mx-auto" :src="agregarImpresoraLocal" />
+    <li>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.setupPort") }}</li>
+    <img class="mx-auto" :src="impresoraUsb1" />
+    <i18n-t keypath="firstSteps.desktop.installPrinter.commonInstructionsForWindows.setupDrivers" tag="li">
+        <template #generic>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.generic") }}</strong>
+        </template>
+        <template #manufacturer>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.manufacturer") }}</strong>
+        </template>
+        <template #genericTextOnly>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.genericTextOnly") }}</strong>
+        </template>
+        <template #printers>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.printers") }}</strong>
+        </template>
+        <template #next>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.next") }}</strong>
+        </template>
+    </i18n-t>
+    <img class="mx-auto" :src="generico" />
+    <i18n-t keypath="firstSteps.desktop.installPrinter.commonInstructionsForWindows.setupName" tag="li">
+        <template #nameWarning>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.nameWarning") }}</strong>
+        </template>
+        <template #next>
+            <strong>{{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.next") }}</strong>
+        </template>
+    </i18n-t>
+    <img class="mx-auto" :src="nombre" />
     <li>
-        Se abrirá una nueva ventana, ahí elige <strong>Agregar una impresora local o de red con configuración
-            manual</strong> y luego haz clic en
-        <strong>Siguiente</strong>
-        <img class="mx-auto" :src="agregarImpresoraLocal" />
+        {{ $t("firstSteps.desktop.installPrinter.commonInstructionsForWindows.printTest") }}
     </li>
-    <li>En la siguiente ventana vamos a elegir el puerto USB00X en donde la X es un número. Si hay más de un puerto
-        USB y al llegar a la prueba de impresión no se imprime nada, tendremos que volver a este punto para
-        seleccionar otro puerto. En mi caso sólo hay uno, por lo que
-        tomaré ese.
-        <img class="mx-auto" :src="impresoraUsb1" />
-        Haz clic en <strong>Siguiente</strong>
-    </li>
-    <li>
-        En la siguiente ventana, para <strong>Fabricante</strong> elige <strong>Generic</strong> y en
-        <strong>Impresoras</strong> elige <strong>Generic / Text Only</strong>. Luego haz clic en
-        <strong>Siguiente</strong>
-        <img class="mx-auto" :src="generico" />
-    </li>
-    <li>Es momento de elegir un nombre para tu impresora.
-        <strong>Es muy importante que no uses caracteres especiales ni espacios. Usa solo letras y guiones</strong>
-        Luego, haz clic en <strong>Siguiente</strong>
-        <img class="mx-auto" :src="nombre" />
-    </li>
-    <li>
-        Para terminar, imprime una página de prueba. Si la página de prueba se imprime correctamente, entonces ya
-        puedes pasar al siguiente paso. En caso contrario, puedes volver a los pasos anteriores y revisar si
-        omitiste algún paso o si deberías elegir otro puerto
-        <img class="mx-auto" :src="instalacionTerminada" />
-    </li>
+    <img class="mx-auto" :src="instalacionTerminada" />
 </template>

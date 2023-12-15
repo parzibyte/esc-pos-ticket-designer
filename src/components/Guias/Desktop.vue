@@ -19,7 +19,7 @@ const clase = (indice: number) => {
 <template>
     <div class="flex flex-row overflow-x-auto">
         <div @click="indicePaso = indice" class="cursor-pointer pt-1 pb-2 px-2 w-fit min-w-fit" :class="clase(indice)"
-            v-for="(paso, indice) in ['1: Instalar impresora', '2: Compartir impresora', '3: Descargar y ejecutar plugin', '4: Prueba de impresión']">
+            v-for="(paso, indice) in [$t('firstSteps.desktop.installPrinter.title'), $t('firstSteps.desktop.sharePrinter.title'), $t('firstSteps.desktop.downloadAndExecutePlugin.title'), $t('firstSteps.desktop.printTest.title')]">
             {{ paso }}
         </div>
     </div>

@@ -8,18 +8,24 @@ import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabr
 <template>
     <AvisoFabricanteWindows></AvisoFabricanteWindows>
     <ul class="list-decimal list-inside">
-        <li>
-            En el inicio, busca y elige <strong>Impresoras y escáneres</strong>
-            <img class="mx-auto mb-4" :src="InicioImpresoras">
-        </li>
-        <li>Haz clic en <strong>Agregar dispositivo</strong>
-
-            <img class="mx-auto mb-4" :src="AgregarDispositivo">
-        </li>
-        <li>
-            Espera a que aparezca la opción y haz clic en <strong>Agregar manualmente</strong>
-            <img class="mx-auto mb-4" :src="AgregarManualmente">
-        </li>
+        <i18n-t keypath="firstSteps.desktop.installPrinter.windows11.goToControlPanel" tag="li">
+            <template #printers>
+                <strong>{{ $t("firstSteps.desktop.installPrinter.windows11.printers") }}</strong>
+            </template>
+        </i18n-t>
+        <img class="mx-auto mb-4" :src="InicioImpresoras">
+        <i18n-t keypath="firstSteps.desktop.installPrinter.windows11.clickAddDevice" tag="li">
+            <template #addDevice>
+                <strong>{{ $t("firstSteps.desktop.installPrinter.windows11.addDevice") }}</strong>
+            </template>
+        </i18n-t>
+        <img class="mx-auto mb-4" :src="AgregarDispositivo">
+        <i18n-t keypath="firstSteps.desktop.installPrinter.windows11.addManually" tag="li">
+            <template #printerIsNotInTheList>
+                <strong>{{ $t("firstSteps.desktop.installPrinter.windows11.printerIsNotInTheList") }}</strong>
+            </template>
+        </i18n-t>
+        <img class="mx-auto mb-4" :src="AgregarManualmente">
         <InstalarImpresoraWindowsComun></InstalarImpresoraWindowsComun>
     </ul>
 </template>
