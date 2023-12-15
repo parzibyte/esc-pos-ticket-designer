@@ -14,7 +14,9 @@ const clase = (indice: number) => {
     <div>
         <div class="flex flex-row overflow-x-auto">
             <div @click="indiceSistema = indice" class="cursor-pointer pt-1 pb-2 px-2 w-fit min-w-fit"
-                :class="clase(indice)" v-for="(sistema, indice) in ['Windows 8, 8.1, 10 y 11', 'Linux y Raspbian']">{{
+                :class="clase(indice)"
+                v-for="(sistema, indice) in [$t('firstSteps.desktop.downloadAndExecutePlugin.windows.title'), $t('firstSteps.desktop.downloadAndExecutePlugin.linux.title'),]">
+                {{
                     sistema }}
             </div>
         </div>

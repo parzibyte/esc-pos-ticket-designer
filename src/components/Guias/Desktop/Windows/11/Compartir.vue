@@ -4,33 +4,40 @@ import ImagenCompartirW11 from "@/assets/ImpresoraW11/CompartirW11.png";
 <template>
     <div>
         <ul class="list-decimal list-inside">
-            <li>
-                Una vez que tu impresora esté instalada busca y elige <strong>Impresoras y escáneres</strong> en el menú inicio.
-                Ahí, haz clic sobre la impresora que quieres compartir. Eso te llevará a una pestaña de
-                <strong>Configuración de la impresora;</strong> haz clic en <strong> Propiedades de impresora
-                </strong>
-            </li>
-            <li>Ve a la pestaña de
-                <strong>Uso compartido </strong>
-                y si la opción
-                <strong>
-                    Compartir esta impresora
-                </strong>
-                está deshabilitada entonces haz clic en el botón que dice
-                <strong>
-                    Cambiar opciones de uso compartido
-                </strong>
-            </li>
-            <li>Una vez que hayas habilitado el uso compartido, marca la casilla
-                <strong>Compartir esta impresora</strong> y escribe el mismo nombre de la impresora sin cambiarlo y
-                <strong>sin espacios ni caracteres especiales</strong>, debe tener el mismo nombre de la impresora, no lo
-                olvides
-            </li>
-            <li>
-                Finalmente haz clic en <strong>Aceptar</strong> y tu impresora estará compartida. Los pasos se muestran a
-                continuación:
-                <img class="mx-auto" :src="ImagenCompartirW11" />
-            </li>
+            <i18n-t keypath="firstSteps.desktop.sharePrinter.windows11.goToPrinters" tag="li">
+                <template #printers>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.printers") }}</strong>
+                </template>
+                <template #printerSettings>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.printerSettings") }}</strong>
+                </template>
+                <template #properties>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.properties") }}</strong>
+                </template>
+            </i18n-t>
+            <i18n-t keypath="firstSteps.desktop.sharePrinter.windows11.goToShareTab" tag="li">
+                <template #shareTab>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.shareTab") }}</strong>
+                </template>
+                <template #shareThisPrinter>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.shareThisPrinter") }}</strong>
+                </template>
+                <template #changeShareOptions>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.changeShareOptions") }}</strong>
+                </template>
+            </i18n-t>
+            <i18n-t keypath="firstSteps.desktop.sharePrinter.windows11.finishSharing" tag="li">
+                <template #shareThisPrinter>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.shareThisPrinter") }}</strong>
+                </template>
+                <template #nameWarning>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.nameWarning") }}</strong>
+                </template>
+                <template #ok>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows11.ok") }}</strong>
+                </template>
+            </i18n-t>
         </ul>
+        <img class="mx-auto" :src="ImagenCompartirW11" />
     </div>
 </template>

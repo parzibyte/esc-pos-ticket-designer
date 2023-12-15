@@ -6,32 +6,44 @@ import compartirImpresoraLocal from "@/assets/CompartirW10Anteriores/Compartir-2
 <template>
     <div>
         <ul class="list-decimal list-inside">
-            <li>
-                Una vez que la impresora esté instalada ve al <strong> Panel de control </strong> y después a <strong>
-                    Dispositivos e impresoras</strong>.
-                Ahí, haz clic derecho a la impresora que quieres compartir y elige <strong> Propiedades de
-                    impresora</strong>:
-                <img class="mx-auto" :src="clicDerecho" />
-            </li>
-            <li>Ve a la pestaña de
-                <strong>Uso compartido </strong>
-                y si la opción
-                <strong>
-                    Compartir esta impresora
-                </strong>
-                está deshabilitada entonces haz clic en el botón que dice
-                <strong>
-                    Cambiar opciones de uso compartido
-                </strong>:
-                <img class="mx-auto" :src="compartir1" />
-            </li>
-            <li>Una vez que hayas habilitado el uso compartido, marca la casilla
-                <strong>Compartir esta impresora</strong> y escribe el mismo nombre de la impresora sin cambiarlo y
-                <strong>sin espacios ni caracteres especiales</strong>, debe tener el mismo nombre de la impresora, no lo
-                olvides
-                <img class="mx-auto" :src="compartirImpresoraLocal" />
-                Finalmente haz clic en <strong>Aceptar</strong> y tu impresora estará compartida
-            </li>
+            <i18n-t keypath="firstSteps.desktop.sharePrinter.windows10.goToPrinters" tag="li">
+                <template #controlPanel>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.controlPanel") }}</strong>
+                </template>
+                <template #printers>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.printers") }}</strong>
+                </template>
+                <template #properties>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.properties") }}</strong>
+                </template>
+            </i18n-t>
+            <img class="mx-auto" :src="clicDerecho" />
+            <i18n-t keypath="firstSteps.desktop.sharePrinter.windows10.goToShareTab" tag="li">
+                <template #shareTab>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.shareTab") }}</strong>
+                </template>
+                <template #shareThisPrinter>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.shareThisPrinter") }}</strong>
+                </template>
+                <template #changeShareOptions>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.changeShareOptions") }}</strong>
+                </template>
+            </i18n-t>
+            <img class="mx-auto" :src="compartir1" />
+            <i18n-t keypath="firstSteps.desktop.sharePrinter.windows10.finishSharing" tag="li">
+                <template #shareThisPrinter>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.shareThisPrinter") }}</strong>
+                </template>
+                <template #nameWarning>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.nameWarning") }}</strong>
+                </template>
+                <template #imageShared>
+                    <img class="mx-auto" :src="compartirImpresoraLocal" />
+                </template>
+                <template #ok>
+                    <strong>{{ $t("firstSteps.desktop.sharePrinter.windows10.ok") }}</strong>
+                </template>
+            </i18n-t>
         </ul>
     </div>
 </template>

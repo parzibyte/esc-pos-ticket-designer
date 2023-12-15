@@ -7,53 +7,79 @@ import PluginEnEjecucionWindows from "@/assets/PluginEnEjecucionWindows.png";
 </script>
 <template>
     <ol class="list-inside list-decimal">
-        <li>
-            Navega al siguiente enlace:
-            <a class="text-blue-500 font-semibold hover:text-blue-600"
-                href="https://github.com/parzibyte/plugin-impresora-termica-v3/releases/latest" target="_blank">
-                https://github.com/parzibyte/plugin-impresora-termica-v3/releases/latest
-            </a> y una vez ahí, navega al final hasta Assets
-        </li>
-        <li>Si no conoces la arquitectura de tu sistema, descarga
-            <strong>plugin_v3.2.1.zip</strong>
-        </li>
-        <li>Si conoces la arquitectura, puedes elegir <strong>plugin_v3.2.1.zip</strong> para 64 bits y
-            <strong>plugin_v3.2.1_si.zip</strong> para 32 bits.
-        </li>
-        <li>Si más adelante tienes problemas de compatibilidad, puede que se deba a que tu arquitectura es de 32 bits; en
-            ese caso descarga
-            <strong>plugin_v3.2.1_si.zip</strong>
-        </li>
+        <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.navigateToPluginDownload" tag="li">
+            <template #link>
+                <a class="text-blue-500 font-semibold hover:text-blue-600"
+                    href="https://github.com/parzibyte/plugin-impresora-termica-v3/releases/latest" target="_blank">
+                    https://github.com/parzibyte/plugin-impresora-termica-v3/releases/latest</a>
+            </template>
+        </i18n-t>
+        <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.unknownArch" tag="li">
+            <template #plugin64>
+                <code>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.plugin64") }}</code>
+            </template>
+        </i18n-t>
+        <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.knownArch" tag="li">
+            <template #plugin64>
+                <code>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.plugin64") }}</code>
+            </template>
+            <template #plugin32>
+                <code>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.plugin32") }}</code>
+            </template>
+        </i18n-t>
+        <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.compatibility" tag="li">
+            <template #plugin32>
+                <code>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.plugin32") }}</code>
+            </template>
+        </i18n-t>
     </ol>
+
     <img class="mx-auto" :src="imagenDescargarDesktop" alt="">
     <div class="bg-red-500 rounded-md  p-2 text-white">
-        En ocasiones, tu navegador web o antivirus van a bloquear la descarga. <strong>El plugin no tiene ningún
-            tipo de virus</strong>, pero es tu responsabilidad forzar la descarga.
+        <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.antivirusesWarning" tag="p">
+            <template #pluginIsSecure>
+                <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.pluginIsSecure") }}</strong>
+            </template>
+        </i18n-t>
+
     </div>
-    <p>Una vez descargado, en caso de que sea un archivo zip, debes extraerlo. En algunos sistemas, te dará la
-        opción de extraer nativamente. En otros sistemas puedes instalar programas como WinZip, 7-Zip, etcétera. La
-        extracción del programa queda fuera de este tutorial, pero es <strong>obligatorio extraerlo, y no solo abrirlo y
-            ejecutarlo</strong></p>
+    <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.onceDownloaded" tag="p">
+        <template #mandatoryToExtract>
+            <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.mandatoryToExtract") }}</strong>
+        </template>
+    </i18n-t>
     <img :src="imagenExtraerDesktop" alt="">
-    <p>Al ser extraído tendrás un archivo ejecutable junto con un archivo DLL que es una librería (misma que siempre debe
-        estar en el mismo lugar donde se ejecuta el plugin). Si elegiste la versión que tiene <code>si</code> en su nombre,
-        esta DLL no estará presente. </p>
+    <p>
+        {{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.onceExtracted") }}
+    </p>
     <img class="mx-auto" :src="imagenEjecutar" alt="">
     <div class="my-2 bg-red-500 rounded-md  p-2 text-white">
-        De nuevo, en ocasiones Windows o tu antivirus bloqueará la ejecución. Debes hacer clic en <strong>Más
-            información</strong>, <strong>Opciones avanzadas</strong>
-        o la opción que te permita forzar la ejecución. Eso cambia entre sistemas operativos y antivirus.
-        <br>
-        <strong>Debes darle al plugin todos los permisos. No tiene ningún tipo de virus</strong>. <p>A continuación un
-            ejemplo de cómo forzar la ejecución.</p>
+        <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.secondWarning" tag="p">
+            <template #moreInfo>
+                <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.moreInfo") }}</strong>
+            </template>
+            <template #advancedOptions>
+                <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.advancedOptions") }}</strong>
+            </template>
+            <template #givePermissions>
+                <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.givePermissions") }}</strong>
+            </template>
+        </i18n-t>
     </div>
     <img class="mx-auto" :src="desktopPermisos" alt="">
-    <p>Si has ejecutado el plugin pero aparece un error de ejecución (y no de seguridad) entonces descarga la versión que
-        contiene <code>si</code> en su nombre</p>
-    <strong>En caso de que no haya ningún error, pasa al siguiente paso. El plugin no muestra ventanas ni nada
-        parecido</strong>
-    <p>Como una comprobación final, puedes abrir el administrador de tareas ( <code>CTRL + SHIFT + ESC</code> ), ir a
-        <strong>Detalles</strong> y revisar si el plugin se está ejecutando. Por ejemplo:
-    </p>
+    <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.executionError" tag="p">
+        <template #plugin32>
+            <code>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.plugin32") }}</code>
+        </template>
+    </i18n-t>
+    <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.noErrors") }}</strong>
+    <i18n-t keypath="firstSteps.desktop.downloadAndExecutePlugin.windows.finalCheck" tag="p">
+        <template #keyCommand>
+            (<code>CTRL + SHIFT + ESC</code>)
+        </template>
+        <template #details>
+            <strong>{{ $t("firstSteps.desktop.downloadAndExecutePlugin.windows.details") }}</strong>
+        </template>
+    </i18n-t>
     <img :src="PluginEnEjecucionWindows" alt="">
 </template>
