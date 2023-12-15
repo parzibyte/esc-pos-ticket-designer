@@ -1,5 +1,8 @@
 export const translations = {
     en: {
+        removeFooter: {
+            getALicense: "Get a license and support the development",
+        },
         firstSteps: {
             pluginCompatibility: "Please note: the plugin is compatible with thermal printers that use ESC POS commands. It is not compatible with label printers (or, at least, I haven't tested on them). In Desktop platform, the plugin is only compatible with USB printers. On Android, the plugin is only compatible with Bluetooth printers ",
             android: {
