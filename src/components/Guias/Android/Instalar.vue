@@ -8,31 +8,33 @@ import instalacionCorrecta from "@/assets/Android/InstalacionCorrecta.jpg"
 </script>
 <template>
     <div>
-        Ahora que has descargado el plugin, debes instalarlo. El navegador te debe dar la opción, y en caso de que no, debes
-        usar un explorador de archivos para localizar la app recién descargada.
-        <br>
-        <strong>En algunos casos, debes dar permisos de instalación de aplicaciones. Por ejemplo, si usas Chrome debes ir a
-            la configuración:</strong>
+        <i18n-t keypath="firstSteps.android.installPlugin.locatePlugin" tag="p">
+            <template #installPermission>
+                <strong>{{ $t("firstSteps.android.installPlugin.installPermission") }}</strong>
+            </template>
+        </i18n-t>
         <img class="mx-auto mb-2" :src="configuracion" alt="">
-        <p>Confiar en la fuente:</p>
+        <p>{{ $t("firstSteps.android.installPlugin.trustSource") }}</p>
         <img class="mx-auto mb-2" :src="confiar" alt="">
-        <p>Leer y permitir la instalación:</p>
+        <p>{{ $t("firstSteps.android.installPlugin.allowInstall") }}</p>
         <img class="mx-auto mb-2" :src="permitirInstalacion" alt="">
-        <p>Y finalmente instalar:</p>
+        <p>{{ $t("firstSteps.android.installPlugin.install") }}</p>
         <img class="mx-auto mb-2" :src="instalar" alt="">
-        <strong>Recuerda que esto puede variar entre sistemas y dispositivos. Es tu responsabilidad forzar la instalación y
-            dar todos los permisos necesarios</strong>
+        <strong>{{ $t("firstSteps.android.installPlugin.forceInstall") }}</strong>
         <img class="mx-auto mb-2" :src="darPermisos" alt="">
-        <p>Una vez instalado, abre la app y dale todos los permisos necesarios. Si la app se cierra, vuelve a abrirla hasta
-            que se vea una pantalla parecida a la siguiente en donde debe decir
-            <strong>Plugin funcionando correctamente</strong>
-        </p>
+        <i18n-t keypath="firstSteps.android.installPlugin.appPermissions">
+            <template #pluginRunning>
+                <strong>{{ $t("firstSteps.android.installPlugin.pluginRunning") }}</strong>
+            </template>
+        </i18n-t>
         <img class="mx-auto mb-2" :src="instalacionCorrecta" alt="">
-        <p>Llegado a este punto, ya puedes pasar al siguiente paso</p>
+        <p>{{ $t("firstSteps.android.installPlugin.nextStep") }}</p>
         <div class="p-2 text-white bg-red-500 rounded-sm">
-            A partir de aquí, siempre que quieras usar el diseñador, debes dejar al plugin en la pantalla que se muestra en
-            la imagen de arriba y minimizarlo desde ahí. Dicho con otras palabras, asegúrate que el plugin dice
-            <strong>Plugin funcionando correctamente</strong> y no cierres la app, solo déjala en segundo plano
+            <i18n-t keypath="firstSteps.android.installPlugin.allowBackgroundExecution">
+                <template #pluginRunning>
+                    <strong>{{ $t("firstSteps.android.installPlugin.pluginRunning") }}</strong>
+                </template>
+            </i18n-t>
         </div>
     </div>
 </template>

@@ -97,8 +97,7 @@ onMounted(() => {
     <div>
         <Ping :idPlataforma="props.plataforma.id"></Ping>
         <div class="bg-red-500 text-white p-2" v-show="!estaConectado">
-            Parece que el plugin no se está ejecutando. Por favor, revise todos los pasos anteriores para descargarlo y
-            ejecutarlo
+            {{ $t("firstSteps.android.testFromDesigner.pluginNotRunning") }}
         </div>
         <SelectImpresoras :plataforma="plataforma" v-show="estaConectado" :impresoras="impresoras"
             v-model="impresoraSeleccionada">

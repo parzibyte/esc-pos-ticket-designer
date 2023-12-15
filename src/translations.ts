@@ -4,23 +4,53 @@ export const translations = {
             pluginCompatibility: "Please note: the plugin is compatible with thermal printers that use ESC POS commands. It is not compatible with label printers (or, at least, I haven't tested on them). In Desktop platform, the plugin is only compatible with USB printers. On Android, the plugin is only compatible with Bluetooth printers ",
             android: {
                 pairPrinter: {
-                    title: "Emparejar impresora",
-                    pairPrinter: "Si nunca has impreso con tu impresora, debes seguir estos pasos. Enciende tu Bluetooth y la impresora. Si el manual o fabricante indican los pasos para colocar la impresora en modo descubrimiento, debes seguir los pasos.",
+                    title: "Pair printer",
+                    pairPrinter: "If you have never printed with your printer, you should follow these steps. Turn on your Bluetooth and the printer. If the manual or manufacturer indicates the steps to put the printer in discovery mode, you must follow the steps.",
                     goToBluetooth: "Go to Bluetooth settings and choose {option}, in this example the printer's name is {printerName}",
                     syncNewDevice: "Sync new device",
                     printerName: "MTP-II",
+                    pairingCode: "If a pairing pin is required, check your printer's manual or try with the most common combinations like 1234, 0000, 1111 and so on"
                 },
                 downloadPlugin: {
                     title: "Download plugin",
+                    goToDownloadLink: "Navigate to the following link, go to {assets} and download {pluginName}: {downloadLink}",
+                    assets: "Assets",
+                    pluginName: "PluginImpresorasTermicasBT_1.1.apk",
+                    downloadLink: "https://github.com/parzibyte/plugin-impresora-termica-bt-android/releases/latest/",
+                    pluginIsSafe: "Remember: the plugin does not contain any kind of virus but in some cases you need to force the download. For example, in Google Chrome, you must choose \"{forceDownload}\"",
+                    forceDownload: "Download anyway",
+                    onceDownloaded: "Once downloaded, you can go to the next step"
                 },
                 installPlugin: {
                     title: "Install plugin",
+                    locatePlugin: "Now that you have downloaded the plugin, you should install it. The web browser should give you the option, but if it doesn't, use a file explorer to locate the downloaded app. {installPermission}",
+                    installPermission: "In some cases, you must give app permission to install APK. For example, if you are using Google Chrome you must go to settings:",
+                    trustSource: "Trust source",
+                    allowInstall: "Read and allow installation",
+                    install: "Install:",
+                    forceInstall: "This settings can vary from OS to OS. It is up to you to force the install and give the required permissions",
+                    appPermissions: "Once installed, open the app and allow every permission it asks for. If the app closes, open it again until you can see a screen like the next one where you can read {pluginRunning}",
+                    pluginRunning: "Plugin funcionando correctamente",
+                    nextStep: "Once you have reached this step, you can go to the next one",
+                    allowBackgroundExecution: "From here, every time you want to use the designer, you must run the plugin in the background. Make sure the plugin says {pluginRunning} and do not close the app, just let it running in the background"
                 },
                 testFromPlugin: {
-                    title: "Print test from plugin"
+                    title: "Print test from plugin",
+                    considerations: "Now that the plugin is running, please consider the following:",
+                    printerPaired: "The printer must be paired before you can use it in the plugin",
+                    pluginRunningInTheBackground: "It is required to execute the plugin in the background. Check your battery economizer and app priority",
+                    runPluginAndGoToHome: "You must leave the plugin in the {pluginRunning} screen and from there go to home (minimize app)",
+                    addPrinter: "Every time that you want to add a new printer so it can appear in the list, follow the next steps, but don't forget to go back to main screen (the one that says {pluginRunning}) and minimize the app from there",
+                    makeTest: "Turn on the Bluetooth and the printer. Click {showPrinters} and wait for the list to load. If the app asks for permission again, allow it. Once you see your printer's name and mac in the list, click {printTest}. In this case, the printer's name is {printerName}",
+                    showPrinters: "Ver impresoras disponibles",
+                    printTest: "Imprimir prueba",
+                    refreshList: "If your printer does not appear in the list, make sure you have paired it before, turn on the bluetooth and the printer, finally touch the button to refresh the list",
+                    printedSuccessfully: "If your printer is compatible with the plugin, you should see a receipt like the following. If it is printed ok, you are ready to use the designer, now go to the next step"
+
                 },
                 testFromDesigner: {
                     title: "Print test",
+                    pluginNotRunning: "It looks like the plugin is not running. Please re-check the previous steps to download and execute it"
                 }
             }
         },
@@ -317,6 +347,7 @@ export const translations = {
                     goToBluetooth: "Ve a tus ajustes Bluetooth y elige {option}, en este ejemplo la impresora es la {printerName}:",
                     syncNewDevice: "Sincronizar nuevo dispositivo",
                     printerName: "MTP-II",
+                    pairingCode: "Si te pide algún código para realizar el emparejamiento revisa el manual de usuario o prueba con las combinaciones más comunes como 1234, 0000, 1111, etcétera. Eso depende de tu impresora"
                 },
                 downloadPlugin: {
                     title: "Descargar plugin",
