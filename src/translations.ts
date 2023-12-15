@@ -165,6 +165,22 @@ export const translations = {
                     },
                     linux: {
                         title: "Linux and Raspberry Pi OS",
+                        navigateToPluginDownload: "Go to the next link: {link} and once there, go to the bottom until you see the Assets section",
+                        debianBased: "If you use a debian based OS, choose {plugin_debian}",
+                        raspberryPiOSBased: "If you use Raspberry Pi OS, choose {plugin_raspberry}",
+                        debian: "plugin_v3.2.1_d.zip",
+                        raspberryPiOS: "plugin_v3.2.1_r.zip",
+                        forceDownload: "In some cases, your web browser or antivirus will block the download. {pluginSafe}, and is up to you to force the download",
+                        pluginSafe: "The plugin is totally safe and does not contain any kind of virus",
+                        onceDownloaded: "Once downloaded, if it is a zip file, you must extract it. If you have the {zipUtility} utility installed, you can execute: {unzipCode} (changing the downloaded file's name accordingly)",
+                        onceExtracted: "Once extracted you will get an executable file. Sometimes it will be inside a folder created by the unzip software. Give it execution permissions with: {codeToGivePermission}",
+                        execute: "Make sure you are executing in the same path as the plugin (changing with {cd} as necessary) and execute {codeToExecutePlugin} (remember that, in your case, the plugin's name may vary)",
+                        exampleLook: "For example, it can look like this:",
+                        zipName: "plugin_name.zip",
+                        pluginsName: "plugin_name",
+                        backgroundExecute: "If you want to execute it in the background, execute: {codeToRunInBackground}",
+                        goToNextStep: "In case there's no error message and the plugin is executing successfully, go to the next step",
+
                     },
                 },
                 printTest: {

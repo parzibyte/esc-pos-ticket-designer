@@ -96,7 +96,7 @@ onMounted(() => {
 <template>
     <div>
         <Ping :idPlataforma="props.plataforma.id"></Ping>
-        <div class="bg-red-500 text-white p-2" v-show="!estaConectado">
+        <div class="bg-red-500 text-white p-2 mx-2 rounded-md" v-show="!estaConectado">
             {{ $t("firstSteps.android.testFromDesigner.pluginNotRunning") }}
         </div>
         <SelectImpresoras :plataforma="plataforma" v-show="estaConectado" :impresoras="impresoras"
