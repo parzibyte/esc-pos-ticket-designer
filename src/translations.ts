@@ -1,7 +1,73 @@
 export const translations = {
     en: {
         removeFooter: {
-            getALicense: "Get a license and support the development",
+            getALicense: "Get a license and support the plugin development",
+            hopeDesignerIsUseful: "Hi. I hope the designer is useful for you. You can remove the plugin's footer by buying a license",
+            platform: "Platform",
+            monthlyPrice: "Monthly price",
+            mexicanPeso: "MXN (Mexican peso)",
+            pricesAreMonthly: "Prices are monthly-based (30 days)",
+            licenseOnlyRemovesFooter: "License only removes receipt footers. Having it does not affect anything at all. If the plugin does not work without license, it won't neither work with a license",
+            wantToBuy: "I want to buy a license",
+            hidePaymentMethods: "Hide payment methods",
+            wantToGetInTouch: "First I want to get in touch",
+            hideContact: "Hide contact",
+            getInTouch: "Best way to get in touch with me is through my webpage: {webpageLink}",
+            moreWaysToGetInTouch: "You can also send me a mail to parzibyte at gmail dot com, and in Telegram you can find me as parzibyte",
+            pricesAreInMexicanPesos: "Prices are specified in mexican pesos. You can always use an online currency converter, just make sure you send the right amount",
+            paymentMethods: "Currently I accept payment through Paypal and wire transfer. Wire transfer will only work if you reside in México. To make the payment through Paypal, please follow this link: {paypalLink}. To make a wire transfer, you will found my bank details below: {bankDetails}Once the payment is done, please get in touch with me by using the contact button",
+            fullName: "Luis Cabrera Benito",
+            myNameIs: "My name is ",
+            myClabeIs: "Account CLABE is",
+            myAccountNumberIs: "Account number is",
+            myCardNumberIs: "Card number is",
+            clabe: "1271 8001 6673 3458 66",
+            accountNumber: "9546 1667 3345 86",
+            cardNumber: "4198 2101 6489 6028",
+            faq: "FAQ",
+            faqList: {
+                "paymentDone": {
+                    question: "What happens when I make the payment?",
+                    answer: "Once you contact me and send me the payment receipt, I will send you the license in up to 24 hours. License is a string that you must put in 'Platforms' in 'License' field. The license's term will start counting on the date you made the payment, if you want it to start on another date please indicate it when getting in touch with me",
+                },
+                "bothPlatforms": {
+                    question: "Can I have a license for more than one platform?",
+                    answer: "Sure, licenses are handled individually, so you can have one for Android and other for Desktop",
+                },
+
+                "licenseInArchitecture": {
+                    question: "Will my license work on my platform with my printer under any circumstance?",
+                    answer: "I suggest you to test the designer wherever you plan to use it with the license. If it works withouth license, it surely will work with a license",
+                },
+                printerLimit: {
+                    question: "Is there any printer or receipt number limit?",
+                    answer: "No. The only limit is the license term. While your license is valid, you can print designs on any printer without any limit",
+                },
+                whatIsAMonth: {
+                    question: "What is 'a month'?",
+                    answer: "For these cases, a month is defined as 30 days",
+                },
+                unlimitedLicense: {
+                    question: "Can I have an unlimited license?",
+                    answer: "No, but there's no limit in the months that your license can last, so you can buy a license for 10, 100, 1000 or 10000 months",
+                },
+                expiredLicense: {
+                    question: "What happens when my license expires?",
+                    answer: "The footer will appear again. The designer and plugin will work as they work without license and they won't stop working"
+                },
+                renewLicense: {
+                    question: "Do I have to change the license once I renew it?",
+                    answer: "Yes, once your license expires and you renew it, I will send you a new license",
+                },
+                shareLicense: {
+                    question: "Can I share my license?",
+                    answer: "No. You can use the license for your personal use only (there's no device nor printer limit, as long as they belong to you). Sharing your license may lead to its cancellation with no refunds"
+                },
+                sourceCode:{
+                    question: "Can I explore the designer and plugin source code?",
+                    answer: "The designer's code is open source and you can explore it in the following link: {designerCodeLink}. For plugin's source code, currently only version 1: {version1PluginCode} and version 2: {version2PluginCode} are available; version 3 is not available at this moment"
+                },
+            }
         },
         firstSteps: {
             pluginCompatibility: "Please note: the plugin is compatible with thermal printers that use ESC POS commands. It is not compatible with label printers (or, at least, I haven't tested on them). In Desktop platform, the plugin is only compatible with USB printers. On Android, the plugin is only compatible with Bluetooth printers ",
