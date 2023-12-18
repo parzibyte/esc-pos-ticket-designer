@@ -1,5 +1,6 @@
 export const translations = {
     en: {
+        dropToSwap: "Drop to swap",
         removeFooter: {
             getALicense: "Get a license and support the plugin development",
             hopeDesignerIsUseful: "Hi. I hope the designer is useful for you. You can remove the plugin's footer by buying a license",
@@ -327,7 +328,7 @@ export const translations = {
         operations: {
             Corte: {
                 name: "Cut",
-                description: "Feeds paper and cuts",
+                description: "Feed and  cut paper",
             },
             DefinirCaracterPersonalizado: {
                 name: "Define char",
@@ -541,6 +542,7 @@ export const translations = {
         },
     },
     es: {
+        dropToSwap: "Suelta para intercambiar",
         removeFooter: {
             getALicense: "Consigue una licencia y ayuda al desarrollo",
             hopeDesignerIsUseful: "Hola. Espero que el diseñador te esté siendo útil. Puedes remover el pie de página comprando una licencia",
