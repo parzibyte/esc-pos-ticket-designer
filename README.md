@@ -110,9 +110,24 @@ Así que al final se quedó con un objeto devuelto por un computed. En el script
 
 # Build
 
-Suponiendo que ya cuentas con workbox y npm, ejecuta:
+Suponiendo que ya cuentas con workbox (npm install workbox-cli --global) y npm, ejecuta:
 1. `npm run build`
 2. `workbox generateSW workbox-config.js`
 3. Distribuye lo de la carpeta `dist`
 
 
+# Clonando
+1. Clona el repositorio
+2. `npm install`
+
+# Problema al ejecutar npm install
+```
+npm ERR! code ERR_SSL_CIPHER_OPERATION_FAILED
+npm ERR! 1C2A0000:error:1C800066:Provider routines:ossl_gcm_stream_update:cipher operation failed:c:\ws\deps\openssl\openssl\providers\implementations\ciphers\ciphercommon_gcm.c:320:    
+npm ERR!
+
+npm ERR! A complete log of this run can be found in: C:\Users\parzibyte\AppData\Local\npm-cache\_logs\2023-12-17T19_52_40_539Z-debug-0.log
+```
+Prueba con `npm install --legacy-peer-deps`
+
+Intenté con cache verify, luego con la opción de legacy-peer-deps, luego borré el node_modules, hice un npm install y todo funcionó correctamente. No tengo idea de lo que pasó; leí por ahí que puede ser el internet
