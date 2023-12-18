@@ -17,11 +17,6 @@ import AvisoFabricanteWindows from "@/components/Guias/Desktop/Windows/AvisoFabr
                     <strong>{{ $t("firstSteps.desktop.installPrinter.windows10.addPrinter") }}</strong>
                 </template>
             </i18n-t>
-            <li>Ve al
-                <strong>Panel de control</strong>, selecciona
-                <strong>Dispositivos e impresoras</strong>, una vez ahí elige
-                <strong>Agregar una impresora</strong>
-            </li>
             <i18n-t keypath="firstSteps.desktop.installPrinter.windows10.addManually" tag="li">
                 <template #printerIsNotInTheList>
                     <strong>{{ $t("firstSteps.desktop.installPrinter.windows10.printerIsNotInTheList") }}</strong>

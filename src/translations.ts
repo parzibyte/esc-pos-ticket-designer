@@ -7,7 +7,7 @@ export const translations = {
             monthlyPrice: "Monthly price",
             mexicanPeso: "MXN (Mexican peso)",
             pricesAreMonthly: "Prices are monthly-based (30 days)",
-            licenseOnlyRemovesFooter: "License only removes receipt footers. Having it does not affect anything at all. If the plugin does not work without license, it won't neither work with a license",
+            licenseOnlyRemovesFooter: "License only removes receipt footers. Not having it does not affect anything at all. If the plugin does not work without license, it won't neither work with a license",
             wantToBuy: "I want to buy a license",
             hidePaymentMethods: "Hide payment methods",
             wantToGetInTouch: "First I want to get in touch",
@@ -63,7 +63,7 @@ export const translations = {
                     question: "Can I share my license?",
                     answer: "No. You can use the license for your personal use only (there's no device nor printer limit, as long as they belong to you). Sharing your license may lead to its cancellation with no refunds"
                 },
-                sourceCode:{
+                sourceCode: {
                     question: "Can I explore the designer and plugin source code?",
                     answer: "The designer's code is open source and you can explore it in the following link: {designerCodeLink}. For plugin's source code, currently only version 1: {version1PluginCode} and version 2: {version2PluginCode} are available; version 3 is not available at this moment"
                 },
@@ -541,6 +541,74 @@ export const translations = {
         },
     },
     es: {
+        removeFooter: {
+            getALicense: "Consigue una licencia y ayuda al desarrollo",
+            hopeDesignerIsUseful: "Hola. Espero que el diseñador te esté siendo útil. Puedes remover el pie de página comprando una licencia",
+            platform: "Plataforma",
+            monthlyPrice: "Costo mensual",
+            mexicanPeso: "MXN (Peso mexicano)",
+            pricesAreMonthly: "Los precios son mensuales de 30 días",
+            licenseOnlyRemovesFooter: "La licencia solo remueve el pie de página. No tenerla no afecta en nada. Si el plugin no funciona sin licencia, tampoco lo hará al tener una licencia",
+            wantToBuy: "Comprar una licencia",
+            hidePaymentMethods: "Ocultar métodos de pago",
+            wantToGetInTouch: "Primero quiero contactarte",
+            hideContact: "Ocultar contacto",
+            getInTouch: "La mejor manera de contactarme es a través de mi página web: {webpageLink}",
+            moreWaysToGetInTouch: "También puedes enviarme un correo a parzibyte arroba gmail punto com, y en telegram me encuentras como parzibyte",
+            pricesAreInMexicanPesos: "Los precios son especificados en pesos mexicanos. Tú puedes usar un conversor de divisas en línea para hacer la conversión, solo asegúrate de enviar el monto correcto",
+            paymentMethods: "Actualmente acepto pagos a través de Paypal y transferencia bancaria. La transferencia solo funcionará si resides en México. Para hacer el pago por PayPal, por favor sigue el siguiente enlace: {paypalLink}. Para hacer una transferencia bancaria por favor revisa los detalles de mi cuenta bancaria a continuación. {bankDetails}Una vez que hayas hecho el pago, contáctame usando el botón",
+            fullName: "Luis Cabrera Benito",
+            myNameIs: "Mi nombre es",
+            myClabeIs: "Mi CLABE es",
+            myAccountNumberIs: "Mi número de cuenta es",
+            myCardNumberIs: "Mi número de tarjeta es",
+            clabe: "1271 8001 6673 3458 66",
+            accountNumber: "9546 1667 3345 86",
+            cardNumber: "4198 2101 6489 6028",
+            faq: "Preguntas frecuentes",
+            faqList: {
+                "paymentDone": {
+                    question: "¿Qué pasa cuando hago el pago?",
+                    answer: "Una vez que me contactes para enviarme el método de pago, te enviaré tu licencia en un plazo de hasta 24 horas. La licencia es una cadena que debes colocar en 'Plataformas' dentro de 'Serial'. El período de la licencia comenzará a contar el día que hagas el pago; si prefieres que su plazo comience otro día, avísame al enviar el pago",
+                },
+                "bothPlatforms": {
+                    question: "¿Puedo tener una licencia para más de una plataforma?",
+                    answer: "Claro. Las licencias se manejan independientemente, así que puedes tener una para Android y otra para Desktop",
+                },
+                "licenseInArchitecture": {
+                    question: "¿Mi licencia funcionará en mi plataforma con mi impresora bajo cualquier circustancia?",
+                    answer: "Sugiero que pruebes el diseñador donde sea que planees usarlo con la licencia. Si funciona sin licencia, funcionará con ella",
+                },
+                printerLimit: {
+                    question: "¿Hay algún límite de impresoras o tickets impresos?",
+                    answer: "No. El único límite es el plazo de la licencia. Mientras tu licencia sea válida, puedes imprimir diseños en cualquier impresora sin límites",
+                },
+                whatIsAMonth: {
+                    question: "¿Qué es 'un mes?",
+                    answer: "Para estos casos, un mes se define como un período de 30 días",
+                },
+                unlimitedLicense: {
+                    question: "¿Puedo tener una licencia ilimitada?",
+                    answer: "No, pero no hay un límite de meses al contratar una licencia, así que puedes contratar una licencia por 10, 100, 1000 o 10000 meses",
+                },
+                expiredLicense: {
+                    question: "¿Qué pasa cuando mi licencia expira?",
+                    answer: "El pie de página aparecerá de nuevo. El diseñador y el plugin van a funcionar como trabajan sin licencia, y ninguno de ellos dejará de funcionar"
+                },
+                renewLicense: {
+                    question: "¿Tengo que cambiar la licencia una vez que la renueve?",
+                    answer: "Sí, una vez que tu licencia expire y la renueves, te enviaré una nueva licencia",
+                },
+                shareLicense: {
+                    question: "¿Puedo compartir mi licencia?",
+                    answer: "No. Puedes usar la licencia solo para tu uso personal (no hay límite de impresoras ni dispositivos, mientras ellos te pertenezcan). Compartir tu licencia podría causar que la misma sea cancelada sin reembolsos"
+                },
+                sourceCode: {
+                    question: "¿Puedo explorar el código fuente del diseñador y del plugin?",
+                    answer: "El código fuente del diseñador es código abierto y lo puedes explorar en el siguiente enlace: {designerCodeLink}. Para el código fuente del plugin, actualmente solo la versión 1: {version1PluginCode} y la versión 2: {version2PluginCode} están disponibles. El código fuente de la versión 3 no está disponible en este momento"
+                },
+            }
+        },
         firstSteps: {
             pluginCompatibility: "Nota: el plugin es compatible con impresoras térmicas con el protocolo ESC POS; no es compatible con impresoras de etiquetas (o al menos no he probado). En Desktop solo es compatible con impresoras USB conectadas al lugar donde el plugin está en ejecución; en Android solo es compatible con impresoras Bluetooth",
             android: {
@@ -554,17 +622,176 @@ export const translations = {
                 },
                 downloadPlugin: {
                     title: "Descargar plugin",
+                    goToDownloadLink: "Navega al siguiente enlace, ve a {assets} y descarga {pluginName}: {downloadLink}",
+                    assets: "Assets",
+                    pluginName: "PluginImpresorasTermicasBT_1.1.apk",
+                    downloadLink: "https://github.com/parzibyte/plugin-impresora-termica-bt-android/releases/latest/",
+                    pluginIsSafe: "Recuerda: el plugin no contiene ningún tipo de virus pero en algunos casos necesitas forzar la descarga. Por ejemplo, en Google Chrome debes elegir \"{forceDownload}\"",
+                    forceDownload: "Descargar de todos modos",
+                    onceDownloaded: "Una vez descargado puedes navegar al siguiente paso"
                 },
                 installPlugin: {
                     title: "Instalar plugin",
+                    locatePlugin: "Ahora que has descargado el plugin debes instalarlo. El navegador web debería darte la opción, pero si no te la da, usa un explorador de archivos para localizar la aplicación recién descargada. {installPermission}",
+                    installPermission: "En algunos casos debes darle permisos de instalación a la aplicación que usaste para descargar el plugin. Por ejemplo, si usas Google Chrome, debes ir a Ajustes:",
+                    trustSource: "Confiar en esta fuente",
+                    allowInstall: "Leer y permitir la instalación",
+                    install: "Instalar:",
+                    forceInstall: "Estos ajustes pueden variar entre sistemas. Es tu responsabilidad forzar la instalación y brindar los permisos necesarios",
+                    appPermissions: "Una vez instalada, abre la aplicación del plugin y permite todos los permisos que pida. Si la aplicación se cierra, ábrela de nuevo hasta que veas una pantalla como la siguiente donde se puede leer {pluginRunning}",
+                    pluginRunning: "Plugin funcionando correctamente",
+                    nextStep: "Una vez que has llegado a este punto, puedes avanzar al siguiente",
+                    allowBackgroundExecution: "A partir de aquí, cada vez que quieras usar el diseñador debes ejecutar el plugin en seegundo plano. Asegúrate de que el plugin diga{pluginRunning} y no cierres la aplicación, solo déjala en segundo plano y minimízala"
                 },
                 testFromPlugin: {
-                    title: "Probar impresión (plugin)"
+                    title: "Prueba de impresión (plugin)",
+                    considerations: "Ahora que el plugin se está ejecutando por favor considera lo siguiente:",
+                    printerPaired: "La impresora debe estar emparejada antes de que puedas usarla con el plugin",
+                    pluginRunningInTheBackground: "Es obligatorio ejecutar el plugin en segundo plano. Revisa tu optimizador de batería y la prioridad que se le da a la app",
+                    runPluginAndGoToHome: "Debes dejar el plugin en la pantalla que dice {pluginRunning} y, desde ahí, ir al inicio (minimizar la app)",
+                    addPrinter: "Cada vez que quieras agregar una nueva impresora para que aparezca en la lista, sigue los siguientes pasos, pero no olvides volver a la pantalla principal (la que dice {pluginRunning}) y minimizar la app desde ahí",
+                    makeTest: "Enciende el Bluetooth de tu dispositivo y la impresora. Haz clic en {showPrinters} y espera a que la lista cargue. Si la aplicación pide permiso de nuevo, bríndalo. Una vez que veas la MAC y nombre de tu impresora, haz clic en {printTest}. En este caso el nombre de mi impresora es {printerName}",
+                    showPrinters: "Ver impresoras disponibles",
+                    printTest: "Imprimir prueba",
+                    refreshList: "Si tu impresora no aparece en la lista asegúrate de que la has emparejado antes, enciende el bluetooth y la impresora y finalmente toca el botón para refrescar la lista",
+                    printedSuccessfully: "Si tu impresora es compatible con el plugin, deberías ver un recibo como el siguiente. Si se imprime correctamente, estás listo para usar el diseñador, ahora avanza al siguiente paso"
                 },
                 testFromDesigner: {
                     title: "Prueba de impresión",
+                    pluginNotRunning: "Parece que el plugin no se está ejecutando. Por favor revisa los pasos anteriores para descargarlo y ejecutarlo"
                 }
-            }
+            },
+            desktop: {
+                manufacturerNote: "Si tu impresora incluye una guía de instalación, síguela y avanza al siguiente paso para compartirla. Si tu impresora no tiene una guía o no funciona incluso con las instrucciones del fabricante, sigue los siguientes pasos. Recuerda encender tu impresora y conectarla con su cable USB.",
+                installPrinter: {
+                    title: "Instalar impresora",
+                    windows10: {
+                        title: "Windows 8, 8.1 y 10",
+                        goToControlPanel: "Ve al {controlPanel}, elige {printers}, una vez ahí elige {addPrinter}",
+                        addManually: "Espera hasta que aparezca la opción {printerIsNotInTheList} y haz clic en ella",
+                        controlPanel: "Panel de control",
+                        printers: "Dispositivos e impresoras",
+                        addPrinter: "Agregar una impresora",
+                        printerIsNotInTheList: "La impresora deseada no está en la lista",
+                    },
+                    windows11: {
+                        title: "Windows 11",
+                        goToControlPanel: "En el menú de inicio busca y elige {printers}",
+                        printers: "Impresoras y escáneres",
+                        clickAddDevice: "Haz clic en {addDevice}",
+                        addDevice: "Agregar dispositivo",
+                        addManually: "Espera hasta que la opción {printerIsNotInTheList} aparezca y haz clic en ella",
+                        printerIsNotInTheList: "La impresora deseada no está en la lista",
+                    },
+                    linux: {
+                        title: "Linux y Raspberry Pi OS",
+                        commandWarning: "Todos los comandos serán ejecutados en la terminal. Recuerda: algunos de ellos necesitarán permiso de superusuario",
+                        showPrinters: "Ejecuta: {commandListPrinters} Tu impresora debería aparecer como lpX donde X es un número. Si hay varios dispositivos, tendrás que probar con lp1, lp2, etcétera. En mi caso mi impresora es{myPrinter}",
+                        myPrinter: "lp1",
+                        checkGroup: "Ejecuta: {commandStat} y revisa el grupo que aparece cerca de {gid}. En la imagen, el grupo es {group}",
+                        gid: "Gid Number / Group",
+                        group: "lp",
+                        addUser: "Agrega tu usuario actual al grupo. En mi caso, mi usuario es {myUser}, así que el comando es: {commandToAddUser} Recuerda que en tu caso el grupo, impresora y usuario pueden variar",
+                        myUser: "parzibyte",
+                        reboot: "Reinicia tu computadora usando la manera o comando que prefieras",
+                        testPrinter: "Ejecuta el siguiente comando para hacer una prueba de impresión. El comando supone que el nombre de tu impresora es {printerName}, si, en tu caso es otra impresora, cambia el comando como sea necesario{commandToPrint}",
+                        printedSuccessfully: "Si la página de prueba es impresa, puedes navegar al siguiente paso. Recuerda que, en algunos casos, el papel no avanza, así que debes avanzarlo manualmente para revisar que la impresión fue correcta",
+                    },
+                    commonInstructionsForWindows: {
+                        manuallyAdd: "Se abrirá una nueva ventana. Ahí, elige {addLocalPrinter} y luego elige {next}",
+                        addLocalPrinter: "Agregar una impresora local o de red con configuración manual",
+                        next: "Siguiente",
+                        setupPort: "En la siguiente ventana elige USB00X donde X es un número. Si hay más de un puerto y después en la prueba de impresión la impresora no funciona, vuelve a este paso y cambia el puerto. En mi caso solo hay un puerto así que tomaré ese",
+                        setupDrivers: "En la siguiente ventana elige {generic} para {manufacturer} y luego elige {genericTextOnly} en {printers}. Finalmente haz clic en {next}",
+                        manufacturer: "Fabricante",
+                        printers: "Impresoras",
+                        generic: "Generic",
+                        genericTextOnly: "Generic / Text Only",
+                        setupName: "Es momento de darle un nombre a tu impresora. {nameWarning}. Después haz clic en {next}",
+                        nameWarning: "Es muy importante que utilices solo letras para nombrar a tu impresora. No espacios ni otro tipo de caracteres",
+                        printTest: "Para terminar, imprime una página de prueba. Si la página se imprime correctamente, ve al siguiente paso. Si no se imprime nada, vuelve a los pasos anteriores y revisa cada paso, tal vez tienes que elegir otro puerto"
+                    }
+                },
+                sharePrinter: {
+                    title: "Compartir impresora",
+                    shareNote: "Compartiremos la impresora para que el plugin la detecte. Esto no es para que se pueda imprimir en red local, pero es un paso obligatorio",
+                    windows10: {
+                        goToPrinters: "Una vez que has instalado tu impresora, ve a {controlPanel} y después a {printers}. Una vez ahí, haz clic derecho en la impresora que quieres compartir y elige {properties}",
+                        controlPanel: "Panel de control",
+                        printers: "Impresoras y escáneres",
+                        properties: "Propiedades de impresora",
+                        goToShareTab: "Ve a la pestaña {shareTab} y si la opción {shareThisPrinter} está deshabilitada, habilítala haciendo clic en {changeShareOptions}",
+                        shareTab: "Uso compartido",
+                        shareThisPrinter: "Compartir esta impresora",
+                        changeShareOptions: "Cambiar opciones de uso compartido",
+                        finishSharing: "Una vez que has habilitado el uso compartido, haz clic en la caja de {shareThisPrinter} y escribe el mismo nombre {nameWarning}. Debe ser el mismo nombre que el de tu impresora {imageShared} Finalmente haz clic en {ok} y tu impresora estará compartida",
+                        ok: "Aceptar",
+                        nameWarning: "usando solo letras, nada de espacios",
+                    },
+                    windows11: {
+                        goToPrinters: "Una vez que has instalado tu impresora busca y elige {printers} en el menú inicio. Una vez ahí, haz clic en la impresora que quieres compartir. Eso te llevará a la pestaña {printerSettings}, haz clic en {properties}",
+                        printers: "Impresoras y escáneres",
+                        printerSettings: "Configuración de la impresora",
+                        properties: "Propiedades de impresora",
+                        goToShareTab: "Ve a la pestaña {shareTab} y si la opción {shareThisPrinter} está deshabilitada habilítala haciendo clic en {changeShareOptions}",
+                        shareTab: "Uso compartido",
+                        shareThisPrinter: "Compartir esta impresora",
+                        changeShareOptions: "Cambiar opciones de uso compartido",
+                        finishSharing: "Una vez que has habilitado la compartición de la impresora, marca la caja de {shareThisPrinter} y escribe el mismo nombre {nameWarning}. Debe tener el mismo nombre que tu impresora {imageShared} Finalmente haz clic en {ok} y tu impresora estará compartida. Los pasos son mostrados en la siguiente imagen:",
+                        ok: "Aceptar",
+                        nameWarning: "usando solo letras, nada de espacios",
+                    },
+                    linux: {
+                        note: "En distribuciones basadas en Debian y Raspberry Pi OS este paso no es necesario"
+                    }
+                },
+                downloadAndExecutePlugin: {
+                    title: "Descargar y ejecutar plugin",
+                    windows: {
+                        title: "Windows 8, 8.1, 10 y 11",
+                        navigateToPluginDownload: "Navega al siguiente enlace: {link} y una vez ahí ve al final de la página hasta que encuentres la sección que dice Assets",
+                        unknownArch: "Si no conoces la arquitectura de tu sistema operativo, descarga {plugin64}",
+                        plugin64: "plugin_v3.2.1.zip",
+                        plugin32: "plugin_v3.2.1_si.zip",
+                        knownArch: "Si conoces la arquitectura de tu dispositivo, puedes elegir {plugin64} para 64 bits o {plugin32} para 32 bits",
+                        compatibility: "Si más adelante tienes problemas de compatibilidad, tal vez descargaste el plugin para una arquitectura distinta. En ese caso, descarga {plugin32}",
+                        antivirusesWarning: "En algunos casos, tu navegador web o antivirus bloqueará la descarga. {pluginIsSecure} y es tu responsabilidad forzar la descarga",
+                        pluginIsSecure: "El plugin no contiene ningún tipo de virus",
+                        onceDownloaded: "Una vez descargado, si es un archivo zip, debes extraerlo. En algunos sistemas la opción para extraerlo aparecerá al hacer clic derecho en el archivo, y en otros sistemas puedes usar software como WinZip, 7-Zip, etcétera. La extracción queda fuera del alcance de este tutorial, pero {mandatoryToExtract}",
+                        mandatoryToExtract: "Es obligatorio extraerlo y ejecutarlo, y no solo abrirlo desde el software extractor",
+                        onceExtracted: "Una vez extraído, tendrás un archivo ejecutable y en algunos casos un archivo DLL (esa DLL siempre debe estar en la misma carpeta que el plugin)",
+                        secondWarning: "De nuevo, algunas veces Windows o tu antivirus bloqueará la ejecución del plugin. Debes hacer clic en {moreInfo}, {advancedOptions} o la opción que te permita forzar la ejecución. Esa opción puede variar entre sistemas operativos y antivirus. {givePermissions}, por ejemplo, en la siguiente imagen yo estoy forzando la ejecución: ",
+                        moreInfo: "Más información",
+                        advancedOptions: "Opciones avanzadas",
+                        givePermissions: "Debes darle al plugin todos los permisos que pida. Es totalmente seguro",
+                        executionError: "Si has ejecutado el plugin, pero aparece un error de ejecución o compatibilidad (y no uno de seguridad) entonces descarga el archivo llamado {plugin32}",
+                        noErrors: "Si no hay ningún error, ve al siguiente paso. El plugin no abre ningún tipo de ventana (solo al listar las impresoras).",
+                        finalCheck: "Como una comprobación final, puedes abrir el administrador de tareas {keyCommand}, ir a {details} y revisar si el plugin se está ejecutando; debería tener el mismo nombre que el ejecutable, por ejemplo:",
+                        details: "Detalles",
+                    },
+                    linux: {
+                        title: "Linux y Raspberry Pi OS",
+                        navigateToPluginDownload: "Ve al siguiente enlace: {link} y una vez ahí, navega hacia abajo hasta que veas la sección de Assets",
+                        debianBased: "Si usas un sistema operativo basado en Debian, elige {plugin_debian}",
+                        raspberryPiOSBased: "Si usas Raspberry Pi OS, elige {plugin_raspberry}",
+                        debian: "plugin_v3.2.1_d.zip",
+                        raspberryPiOS: "plugin_v3.2.1_r.zip",
+                        forceDownload: "En algunos casos, tu navegador web o antivirus bloqueará la descarga. {pluginSafe}, y es tu responsabilidad forzar la descarga",
+                        pluginSafe: "El plugin es totalmente seguro y no contiene ningún tipo de virus",
+                        onceDownloaded: "Una vez descargado, si es un archivo zip, debes extraerlo. Si tienes la utilidad {zipUtility} instalada, puedes ejecutar: {unzipCode} (cambiando el nombre del archivo descargado como sea necesario)",
+                        onceExtracted: "Una vez extraído, tendrás un archivo ejecutable. Algunas veces estará dentro de una carpeta creada por el software para extraer el zip. Dale permisos de ejecución con: {codeToGivePermission}",
+                        execute: "Asegúrate de que estás ejecutando el comando en la misma ubicación donde se encuentra el plugin (cambiando con {cd} como sea necesario) y ejecuta {codeToExecutePlugin} (Recuerda que, en tu caso, el nombre del plugin podría variar)",
+                        exampleLook: "Por ejemplo, puede ser así:",
+                        zipName: "nombre_del_plugin_sin_extraer.zip",
+                        pluginsName: "nombre_del_plugin_extraído",
+                        backgroundExecute: "Si quieres ejecuta el plugin en segundo plano, ejecuta: {codeToRunInBackground}",
+                        goToNextStep: "Si no hay ningún mensaje de error y el plugin se está ejecutando correctamente, ve al siguiente paso",
+                    },
+                },
+                printTest: {
+                    title: "Prueba de impresión",
+                },
+            },
         },
         platforms: {
             Android: {
