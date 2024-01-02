@@ -51,7 +51,7 @@ const lenguajes = [
 		componente: CSharp,
 	},
 	{
-		nombre: "CURL Windows",
+		nombre: "cURL",
 		componente: CurlWindows,
 	},
 	{
