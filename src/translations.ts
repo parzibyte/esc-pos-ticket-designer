@@ -276,7 +276,7 @@ export const translations = {
         help: {
             title: "If you need help, I suggest, in order:",
             followFirstSteps: "Follow the guide in First steps",
-            checkYoutubeTutorials: "Watch youtube tutorials: ",
+            checkYoutubeTutorials: "Watch youtube tutorials ",
             askForAVirtualMeeting: "Ask for a virtual meeting:",
         },
         title: "Thermal printer receipt designer - By Parzibyte",
@@ -813,7 +813,7 @@ export const translations = {
         help: {
             title: "Si necesita ayuda, sugiero, en orden:",
             followFirstSteps: "Siga la guía en \"Primeros pasos\"",
-            checkYoutubeTutorials: "Mira los tutoriales en YouTube:",
+            checkYoutubeTutorials: "Mira los tutoriales en YouTube",
             askForAVirtualMeeting: "Solicita una reunión virtual: ",
         },
         title: "Diseñador de tickets para impresoras térmicas - Por Parzibyte",

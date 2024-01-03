@@ -55,6 +55,10 @@ const alternarIdioma = async () => {
           <MenuOpen v-show="mostrarMenu"></MenuOpen>
         </button>
         <p>{{ $t("title") }}</p>
+        <a target="_blank" class="ml-auto bg-white p-2 rounded-sm text-red-500"
+          href="https://www.youtube.com/playlist?list=PLat1rFhO_zZiFR2CdNJWkcCcRKO0sYQVL">
+          {{ $t("help.checkYoutubeTutorials") }}
+        </a>
       </nav>
     </header>
     <div class="flex md:flex-row flex-col flex-1">

@@ -4,7 +4,7 @@
         <ol class="list-inside list-decimal">
             <li>{{ $t("help.followFirstSteps") }}</li>
             <li>
-                <strong>{{ $t("help.checkYoutubeTutorials") }}</strong>
+                <strong>{{ $t("help.checkYoutubeTutorials") }}:</strong>
                 <a class="text-sky-500 hover:text-sky-400 font-semibold" target="_blank"
                     href="https://www.youtube.com/playlist?list=PLat1rFhO_zZiFR2CdNJWkcCcRKO0sYQVL">
                     https://www.youtube.com/playlist?list=PLat1rFhO_zZiFR2CdNJWkcCcRKO0sYQVL
