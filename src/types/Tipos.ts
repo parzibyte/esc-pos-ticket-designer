@@ -15,6 +15,24 @@ export enum Alineacion {
     Derecha,
 }
 
+export enum AlgoritmoImpresionImagen {
+    RasterBitImage = 0,
+    BitImageColumnFormat,
+    NVGraphics,
+}
+
+export const ALGORITMO_IMPRESION_POR_DEFECTO: AlgoritmoDeImpresionDeImagenConNombre = {
+    nombre: "Raster",
+    valor: AlgoritmoImpresionImagen.RasterBitImage,
+}
+/**
+ * En mi impresora térmica de 58mm en la verdadera medida es 47mm, lo máximo que soporta para una
+ * imagen completa en su ancho es 384. Entonces ocupa 0.122mm por pixel, así que en una de 80mm que
+ * puede tener una medida de 69, la máxima sería 566 de ancho. Si suponemos que no tiene márgenes, sería de 655
+ * pixeles de ancho, redondeado al anterior múltiplo de 8 es 648
+ */
+export const MAXIMO_ANCHO_IMAGEN_58_MM = 384;
+export const MAXIMO_ANCHO_IMAGEN_80_MM = 648;
 export enum TamañoImagen {
     Normal = 0,
     DobleAncho,
@@ -72,9 +90,10 @@ export type ArgumentosParaDefinirImagen = {
     alineacion: AlineacionConNombreYValor,
     ancho: number,
     alto: number,
-    tamaño: TamañoConNombreYValor,
     maximoAncho: number,
+    maximoAlto: number,
     contenidoEnBase64: string,
+    algoritmo: AlgoritmoDeImpresionDeImagenConNombre,
 }
 
 export type EncabezadoDeTabla = {
@@ -148,6 +167,7 @@ export type Diseño = {
     nombre: string,
     fechaModificacion: string,
 }
+
 export const TAMAÑOS_IMAGEN = [
     {
         nombre: "Normal",
@@ -184,6 +204,26 @@ export const ALINEACIONES_PARA_IMAGEN_O_TEXTO = [
 
 ]
 
+export const ALGORITMOS_PARA_IMPRIMIR_IMAGEN = [
+    {
+        nombre: "Raster",
+        valor: AlgoritmoImpresionImagen.RasterBitImage,
+    },
+    {
+        nombre: "Bit",
+        valor: AlgoritmoImpresionImagen.BitImageColumnFormat,
+    },
+
+    {
+        nombre: "NV",
+        valor: AlgoritmoImpresionImagen.NVGraphics,
+    },
+]
+
+export type AlgoritmoDeImpresionDeImagenConNombre = {
+    nombre: string,
+    valor: AlgoritmoImpresionImagen,
+}
 export type AlineacionConNombreYValor = {
     nombre: string,
     valor: Alineacion,

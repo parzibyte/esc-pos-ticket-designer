@@ -1,5 +1,11 @@
 export const translations = {
     en: {
+        imageAlgorithm: "Image algorithm",
+        imageAlgorithms: {
+            "Raster": "Raster bit image",
+            "Bit": "Bit image column format",
+            "NV": "NV Graphics",
+        },
         dropToSwap: "Drop to swap",
         removeFooter: {
             getALicense: "Get a license and support the plugin development",
@@ -542,6 +548,12 @@ export const translations = {
         },
     },
     es: {
+        imageAlgorithm: "Algoritmo para imprimir",
+        imageAlgorithms: {
+            "Raster": "Imagen de bits rasterizada",
+            "Bit": "Por columnas",
+            "NV": "Gráficos no volátiles",
+        },
         dropToSwap: "Suelta para intercambiar",
         removeFooter: {
             getALicense: "Consigue una licencia y ayuda al desarrollo",

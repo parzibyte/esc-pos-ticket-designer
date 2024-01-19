@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion } from "@/types/Tipos"
+import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion, ALGORITMO_IMPRESION_POR_DEFECTO, MAXIMO_ANCHO_IMAGEN_58_MM } from "@/types/Tipos"
 import Range from '../Range.vue';
 import FileUpload from '../FileUpload.vue';
 import AlertaAnchoImagen from '@/components/Alertas/AlertaAnchoImagen.vue';
 import SelectAlineacion from '@/components/Selects/SelectAlineacion.vue';
 import SelectTamanioImagen from '@/components/Selects/SelectTamanioImagen.vue';
+import SelectAlgoritmoImagen from '@/components/Selects/SelectAlgoritmoImagen.vue';
 
 
 type Propiedades = {
@@ -15,11 +16,12 @@ type Propiedades = {
 const propiedades = withDefaults(defineProps<Propiedades>(), {
     modelValue: () => {
         return {
-            tamaño: { nombre: "Normal", valor: TamañoImagen.Normal },
             alineacion: { nombre: "Centro", valor: Alineacion.Centro },
+            algoritmo: ALGORITMO_IMPRESION_POR_DEFECTO,
             alto: 0,
             ancho: 0,
             maximoAncho: 8,
+            maximoAlto: 8,
             contenidoEnBase64: "",
         };
     }
@@ -68,6 +70,13 @@ const onImagenSeleccionada = async (archivos: File[]) => {
     propiedades.modelValue.alto = alto;
     propiedades.modelValue.ancho = ancho;
     propiedades.modelValue.contenidoEnBase64 = await obtenerArchivoComoBase64(primerArchivo);
+    if (ancho > MAXIMO_ANCHO_IMAGEN_58_MM) {
+        propiedades.modelValue.maximoAncho = MAXIMO_ANCHO_IMAGEN_58_MM;
+    } else {
+        propiedades.modelValue.maximoAncho = ancho;
+    }
+    //if(alto)
+    //propiedades.modelValue.maximoAlto =
 }
 
 const hayImagenSeleccionada = computed(() => {
@@ -81,12 +90,13 @@ const hayImagenSeleccionada = computed(() => {
 <template>
     <div class="flex flex-col">
         <img class="max-w-max" :src="propiedades.modelValue.contenidoEnBase64" v-if="hayImagenSeleccionada">
-        <FileUpload :label="$t('operationComponents.Imagen.label')" accept="image/png,image/jpeg" @change="onImagenSeleccionada">
+        <FileUpload :label="$t('operationComponents.Imagen.label')" accept="image/png,image/jpeg"
+            @change="onImagenSeleccionada">
         </FileUpload>
     </div>
     <div class="flex flex-col md:flex-row" v-if="hayImagenSeleccionada">
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
-        <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
+        <SelectAlgoritmoImagen v-model="propiedades.modelValue.algoritmo"></SelectAlgoritmoImagen>
         <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho" step="8"
             :label="$t('width')"></Range>
     </div>
