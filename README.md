@@ -2,6 +2,13 @@
 
 Diseñador de tickets para mi plugin de impresión. Disponible en: https://parzibyte.me/apps/ticket-designer/#/first-steps
 
+# Versión de Node y NPM para el Parzibyte del futuro
+Si estás leyendo esto en el futuro, debes recordar que la versión con la que todo funciona correctamente (al momento de escribir esto) es:
+Node v20.11.0
+NPM 10.2.4
+
+Siempre puedes cambiar versiones con nvm o lo que exista en el futuro
+
 # Agregando una nueva operación
 1. Crea el componente en **src/components/Operaciones**. Por ejemplo, `CorteParcial.vue`
 2. Agrega el tipo en **Tipos.ts** para tu componente. Por ejemplo, `ArgumentosParaDefinirCorteParcial`
