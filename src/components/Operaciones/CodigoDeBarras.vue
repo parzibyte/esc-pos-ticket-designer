@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoDeBarras, TamañoImagen, Alineacion } from '@/types/Tipos';
+import { TipoDeCodigoDeBarras, type ArgumentosParaDefinirCodigoDeBarras,} from '@/types/Tipos';
 import Range from '../Range.vue';
 import CustomCheckbox from '../CustomCheckbox.vue';
 import CustomInput from '../CustomInput.vue';
 import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
 import SelectAlineacion from '../Selects/SelectAlineacion.vue';
-import SelectTamanioImagen from '../Selects/SelectTamanioImagen.vue';
 import SelectTipoCodigoDeBarras from '../Selects/SelectTipoCodigoDeBarras.vue';
+import SelectAlgoritmoImagen from '../Selects/SelectAlgoritmoImagen.vue';
 
 
 type Propiedades = {
@@ -59,12 +59,13 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
             type="text">
         </CustomInput>
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
-        <CustomCheckbox :label="$t('operationComponents.CodigoDeBarras.printContentUnderBarcode')"
-            v-model="propiedades.modelValue.imprimirContenido"></CustomCheckbox>
+
     </div>
     <div class="flex md:flex-row flex-col">
-        <SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
         <div class="flex flex-col">
+            <SelectAlgoritmoImagen v-model="propiedades.modelValue.algoritmoImpresionImagen"></SelectAlgoritmoImagen>
+            <CustomCheckbox :label="$t('operationComponents.CodigoDeBarras.printContentUnderBarcode')"
+                v-model="propiedades.modelValue.imprimirContenido"></CustomCheckbox>
             <CustomCheckbox v-if="deberiaMostrarCamposParaSumaDeVerificacion()"
                 :label="$t('operationComponents.CodigoDeBarras.includeChecksum')"
                 v-model="propiedades.modelValue.incluirSumaDeVerificacion">
@@ -76,7 +77,7 @@ const deberiaMostrarCamposParaModoAsciiCompleto = () => {
                 :label="$t('operationComponents.CodigoDeBarras.fullAsciiMode')"
                 v-model="propiedades.modelValue.modoAsciiCompleto"></CustomCheckbox>
         </div>
-        <Range step="8" v-model.number="propiedades.modelValue.ancho" min="8" max="648" :label="$t('width')"></Range>
+        <Range v-model.number="propiedades.modelValue.ancho" min="8" max="648" :label="$t('width')"></Range>
         <Range v-model="propiedades.modelValue.alto" min="8" max="500" :label="$t('height')"></Range>
         <Range v-if="deberiaMostrarCamposParaNivelDeSeguridad()" v-model="propiedades.modelValue.nivelDeSeguridad" min="0"
             max="8" :label="$t('operationComponents.CodigoDeBarras.securityLevel')"> </Range>

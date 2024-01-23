@@ -1,5 +1,5 @@
 import { OperacionFactory } from "./OperacionFactory.js";
-import { Alineacion, TamañoImagen, type Plataforma, Fuente } from "./Tipos"
+import { Alineacion, type Plataforma, ALGORITMO_IMPRESION_POR_DEFECTO } from "./Tipos"
 import type {
 	ArgumentosParaDefinirCorte,
 	ArgumentosParaDefinirCaracterPersonalizado,
@@ -12,10 +12,8 @@ import type {
 	ArgumentosParaDefinirCorteParcial,
 	ArgumentosParaDefinirImagenDeInternet,
 	ArgumentosParaDefinirTextoSimple,
-	AlineacionConNombreYValor,
 	ArgumentosParaDefinirEnfatizado,
 	ArgumentosParaDefinirFuente,
-	FuenteConNombreYValor,
 	ArgumentosParaDefinirImpresionAlReves,
 	ArgumentosParaDefinirImpresionBlancoYNegroInversa,
 	ArgumentosParaDefinirRotacionDe90Grados,
@@ -73,10 +71,7 @@ export const listaCompletaDeOperaciones = [
 		rotacion90: false,
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Imagen", <ArgumentosParaDefinirImagen>{
-		tamaño: {
-			nombre: "Normal",
-			valor: TamañoImagen.Normal,
-		},
+		algoritmo: ALGORITMO_IMPRESION_POR_DEFECTO,
 		alineacion: {
 			nombre: "Centro",
 			valor: Alineacion.Centro,
@@ -114,10 +109,7 @@ export const listaCompletaDeOperaciones = [
 		contenido: "",
 		ancho: 200,
 		alto: 80,
-		tamaño: {
-			nombre: "Normal",
-			valor: TamañoImagen.Normal,
-		},
+		algoritmoImpresionImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 		incluirSumaDeVerificacion: false,
 		modoAsciiCompleto: false,
 		intercalado: false,
@@ -131,10 +123,7 @@ export const listaCompletaDeOperaciones = [
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "CodigoQr", <ArgumentosParaDefinirCodigoQr>{
 		contenido: "",
 		ancho: 200,
-		tamaño: {
-			nombre: "Normal",
-			valor: TamañoImagen.Normal,
-		},
+		algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 		nivelDeRecuperacion: { nombre: "Medio", valor: RecuperacionQr.Medio },
 		alineacion: {
 			nombre: "Centro",
@@ -144,10 +133,7 @@ export const listaCompletaDeOperaciones = [
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "ImagenLocal", <ArgumentosParaDefinirImagenLocal>{
 		ruta: "",
-		tamaño: {
-			nombre: "Normal",
-			valor: TamañoImagen.Normal,
-		},
+		algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 		alineacion: {
 			nombre: "Centro",
 			valor: Alineacion.Centro,
@@ -156,10 +142,7 @@ export const listaCompletaDeOperaciones = [
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DescargarImagenDeInternet", <ArgumentosParaDefinirImagenDeInternet>{
 		url: "",
-		tamaño: {
-			nombre: "Normal",
-			valor: TamañoImagen.Normal,
-		},
+		algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 		alineacion: {
 			nombre: "Centro",
 			valor: Alineacion.Centro,
@@ -171,10 +154,7 @@ export const listaCompletaDeOperaciones = [
 			nombre: "Centro",
 			valor: Alineacion.Centro,
 		},
-		tamaño: {
-			nombre: "Normal",
-			valor: TamañoImagen.Normal,
-		},
+		algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 		contenidoEnBase64: "",
 		maximoAncho: 200,
 	}),

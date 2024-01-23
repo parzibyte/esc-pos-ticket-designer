@@ -2,7 +2,7 @@ import { Operacion } from "./Operacion"
 export type ArgumentosParaDefinirImagenLocal = {
     ruta: string,
     alineacion: AlineacionConNombreYValor,
-    tamaño: { nombre: string, valor: TamañoImagen },
+    algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
     maximoAncho: number,
 }
 export type ArgumentosParaDefinirCaracterPersonalizado = {
@@ -52,7 +52,7 @@ export type ArgumentosParaDefinirFeed = {
 }
 export type ArgumentosParaDefinirImagenEnBase64 = {
     alineacion: AlineacionConNombreYValor,
-    tamaño: TamañoConNombreYValor,
+    algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
     maximoAncho: number,
     contenidoEnBase64: string,
 }
@@ -69,7 +69,7 @@ export type ArgumentosParaDefinirCorteParcial = {
 }
 export type ArgumentosParaDefinirImagenDeInternet = {
     alineacion: AlineacionConNombreYValor,
-    tamaño: TamañoConNombreYValor,
+    algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
     maximoAncho: number,
     url: string,
 }
@@ -130,13 +130,13 @@ export type ArgumentosParaDefinirCodigoDeBarras = {
     contenido: string,
     ancho: number,
     alto: number,
-    tamaño: TamañoConNombreYValor,
     alineacion: AlineacionConNombreYValor,
     incluirSumaDeVerificacion?: boolean,
     modoAsciiCompleto?: boolean,
     intercalado?: boolean,
     nivelDeSeguridad?: number,
     imprimirContenido: boolean,
+    algoritmoImpresionImagen: AlgoritmoDeImpresionDeImagenConNombre,
 }
 export type NivelDeRecuperacionConNombreYValor = {
     nombre: string,
@@ -153,10 +153,10 @@ export enum RecuperacionQr {
 export type ArgumentosParaDefinirCodigoQr = {
     contenido: string,
     ancho: number,
-    tamaño: TamañoConNombreYValor,
     alineacion: AlineacionConNombreYValor,
     nivelDeRecuperacion: NivelDeRecuperacionConNombreYValor,
     imprimirContenido: boolean,
+    algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
 }
 
 
@@ -204,7 +204,7 @@ export const ALINEACIONES_PARA_IMAGEN_O_TEXTO = [
 
 ]
 
-export const ALGORITMOS_PARA_IMPRIMIR_IMAGEN = [
+export const ALGORITMOS_PARA_IMPRIMIR_IMAGEN: AlgoritmoDeImpresionDeImagenConNombre[] = [
     {
         nombre: "Raster",
         valor: AlgoritmoImpresionImagen.RasterBitImage,

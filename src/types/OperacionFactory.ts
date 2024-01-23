@@ -12,7 +12,6 @@ import {
 	TipoDeCodigoDeBarras,
 	type ArgumentosParaDefinirImagenDeInternet,
 	type ArgumentosParaDefinirTextoSimple,
-	type AlineacionConNombreYValor,
 	type ArgumentosParaDefinirEnfatizado,
 	type ArgumentosParaDefinirFuente,
 	type ArgumentosParaDefinirImpresionAlReves,
@@ -181,7 +180,7 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = [
@@ -191,14 +190,14 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirImagenEnBase64",
-							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmo.valor],
 						}
 					];
 					return argumentosParaDevolver;
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = [
@@ -208,7 +207,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirImagenEnBase64",
-							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.contenidoEnBase64, 0, argumentos.maximoAncho],
 						}
 					];
 					return argumentosParaDevolver;
@@ -280,7 +279,7 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoDeBarras;
-					if (!argumentos || !argumentos.alineacion || !argumentos.tipo || !argumentos.tamaño) {
+					if (!argumentos || !argumentos.alineacion || !argumentos.tipo) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -303,28 +302,28 @@ export class OperacionFactory {
 					) {
 						argumentosParaDevolver.push({
 							nombre: argumentos.tipo.valor,
-							argumentos: [argumentos.contenido, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
+							argumentos: [argumentos.contenido, argumentos.alto, argumentos.ancho, argumentos.algoritmoImpresionImagen.valor],
 						});
 					} else {
 						switch (argumentos.tipo.valor) {
 							case TipoDeCodigoDeBarras.Code39:
 								argumentosParaDevolver.push({
 									nombre: argumentos.tipo.valor,
-									argumentos: [argumentos.contenido, argumentos.incluirSumaDeVerificacion, argumentos.modoAsciiCompleto, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
+									argumentos: [argumentos.contenido, argumentos.incluirSumaDeVerificacion, argumentos.modoAsciiCompleto, argumentos.alto, argumentos.ancho, argumentos.algoritmoImpresionImagen.valor],
 								});
 								break;
 
 							case TipoDeCodigoDeBarras.Pdf417:
 								argumentosParaDevolver.push({
 									nombre: argumentos.tipo.valor,
-									argumentos: [argumentos.contenido, argumentos.nivelDeSeguridad, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
+									argumentos: [argumentos.contenido, argumentos.nivelDeSeguridad, argumentos.alto, argumentos.ancho, argumentos.algoritmoImpresionImagen.valor],
 								});
 								break;
 
 							case TipoDeCodigoDeBarras.TwoOffFiveITF:
 								argumentosParaDevolver.push({
 									nombre: argumentos.tipo.valor,
-									argumentos: [argumentos.contenido, argumentos.intercalado, argumentos.alto, argumentos.ancho, argumentos.tamaño.valor],
+									argumentos: [argumentos.contenido, argumentos.intercalado, argumentos.alto, argumentos.ancho, argumentos.algoritmoImpresionImagen.valor],
 								});
 								break;
 						}
@@ -345,7 +344,7 @@ export class OperacionFactory {
 							argumentos: [argumentos.alineacion.valor],
 						},
 					];
-					if (!argumentos || !argumentos.alineacion || !argumentos.tipo || !argumentos.tamaño) {
+					if (!argumentos || !argumentos.alineacion || !argumentos.tipo) {
 						return [];
 					}
 					const mapa: Record<string, string> = {
@@ -362,7 +361,7 @@ export class OperacionFactory {
 					};
 					argumentosParaDevolver.push({
 						nombre: "ImprimirCodigoDeBarras",
-						argumentos: [mapa[argumentos.tipo.nombre], argumentos.contenido, argumentos.tamaño.valor, argumentos.ancho, argumentos.alto],
+						argumentos: [mapa[argumentos.tipo.nombre], argumentos.contenido, 0, argumentos.ancho, argumentos.alto],
 					});
 					if (argumentos.imprimirContenido) {
 						argumentosParaDevolver.push({
@@ -382,7 +381,7 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoQr;
-					if (!argumentos.alineacion || !argumentos.tamaño || !argumentos.nivelDeRecuperacion) {
+					if (!argumentos.alineacion || !argumentos.nivelDeRecuperacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -392,7 +391,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirCodigoQr",
-							argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion.valor, argumentos.tamaño.valor],
+							argumentos: [argumentos.contenido, argumentos.ancho, argumentos.nivelDeRecuperacion.valor, argumentos.algoritmoImagen.valor],
 						}
 					];
 					if (argumentos.imprimirContenido) {
@@ -405,7 +404,7 @@ export class OperacionFactory {
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirCodigoQr;
-					if (!argumentos.alineacion || !argumentos.tamaño || !argumentos.nivelDeRecuperacion) {
+					if (!argumentos.alineacion || !argumentos.nivelDeRecuperacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -415,7 +414,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirCodigoDeBarras",
-							argumentos: ["qr", argumentos.contenido, argumentos.tamaño.valor, argumentos.ancho, argumentos.ancho],
+							argumentos: ["qr", argumentos.contenido, 0, argumentos.ancho, argumentos.ancho],
 						}
 					];
 					if (argumentos.imprimirContenido) {
@@ -436,7 +435,7 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenLocal;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -446,14 +445,14 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "CargarImagenLocalEImprimir",
-							argumentos: [argumentos.ruta, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.ruta, argumentos.maximoAncho, argumentos.algoritmoImagen.valor],
 						}
 					];
 					return argumentosParaDevolver;
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenLocal;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -463,7 +462,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "CargarImagenLocalEImprimir",
-							argumentos: [argumentos.ruta, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.ruta, 0, argumentos.maximoAncho],
 						}
 					];
 					return argumentosParaDevolver;
@@ -506,7 +505,7 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenDeInternet;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -516,14 +515,14 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "DescargarImagenDeInternetEImprimir",
-							argumentos: [argumentos.url, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.url, argumentos.maximoAncho, argumentos.algoritmoImagen.valor],
 						}
 					];
 					return argumentosParaDevolver;
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenDeInternet;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -533,7 +532,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "DescargarImagenDeInternetEImprimir",
-							argumentos: [argumentos.url, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.url, 0, argumentos.maximoAncho],
 						}
 					];
 					return argumentosParaDevolver;
@@ -909,7 +908,7 @@ export class OperacionFactory {
 			{
 				"Desktop": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenEnBase64;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -919,14 +918,14 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirImagenEnBase64",
-							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmoImagen.valor],
 						},
 					];
 					return argumentosParaDevolver;
 				},
 				"Android": (thisArg: Operacion) => {
 					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagenEnBase64;
-					if (!argumentos.alineacion || !argumentos.tamaño) {
+					if (!argumentos.alineacion) {
 						return [];
 					}
 					const argumentosParaDevolver = <any>[
@@ -936,7 +935,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirImagenEnBase64",
-							argumentos: [argumentos.contenidoEnBase64, argumentos.tamaño.valor, argumentos.maximoAncho],
+							argumentos: [argumentos.contenidoEnBase64, 0, argumentos.maximoAncho],
 						},
 					];
 					return argumentosParaDevolver;

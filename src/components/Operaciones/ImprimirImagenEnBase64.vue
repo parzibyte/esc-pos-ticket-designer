@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { Alineacion, TamañoImagen, type ArgumentosParaDefinirImagenEnBase64 } from '@/types/Tipos';
+import { Alineacion, type ArgumentosParaDefinirImagenEnBase64, ALGORITMO_IMPRESION_POR_DEFECTO } from '@/types/Tipos';
 import { computed, } from 'vue';
 import CustomTextarea from '../CustomTextarea.vue';
 import SelectAlineacion from '../Selects/SelectAlineacion.vue';
-import SelectTamanioImagen from '../Selects/SelectTamanioImagen.vue';
 import Range from '../Range.vue';
 import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
+import SelectAlgoritmoImagen from '../Selects/SelectAlgoritmoImagen.vue';
 
 type Propiedades = {
 	modelValue: ArgumentosParaDefinirImagenEnBase64;
@@ -18,10 +18,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 				nombre: "Centro",
 				valor: Alineacion.Centro,
 			},
-			tamaño: {
-				nombre: "Normal",
-				valor: TamañoImagen.Normal,
-			},
+			algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 			contenidoEnBase64: "",
 		};
 	}
@@ -44,7 +41,8 @@ const valorSerializado = computed({
 	</div>
 	<div class="flex flex-col md:flex-row">
 		<SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
-		<SelectTamanioImagen v-model="propiedades.modelValue.tamaño"></SelectTamanioImagen>
-		<Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="648" step="8" :label="$t('width')"></Range>
+		<SelectAlgoritmoImagen v-model="propiedades.modelValue.algoritmoImagen"></SelectAlgoritmoImagen>
+		<Range v-model="propiedades.modelValue.maximoAncho" min="1" :max="648" :label="$t('width')"></Range>
 	</div>
-	<AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen></template>
+	<AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen>
+</template>

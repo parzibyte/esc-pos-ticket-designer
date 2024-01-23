@@ -31,11 +31,5 @@ const bloques = computed(() => {
 
 </script>
 <template>
-    <p>El código funciona en el cliente y servidor. Si lo usas en el cliente, es
-        <strong>
-            obligatorio invocar al plugin desde un sitio con https
-        </strong>
-    </p>
-
     <BloqueDeCodigo :codigo="bloques.principal"></BloqueDeCodigo>
 </template>

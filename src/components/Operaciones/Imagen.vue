@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { TamañoImagen, type ArgumentosParaDefinirImagen, Alineacion, ALGORITMO_IMPRESION_POR_DEFECTO, MAXIMO_ANCHO_IMAGEN_58_MM } from "@/types/Tipos"
+import { type ArgumentosParaDefinirImagen, Alineacion, ALGORITMO_IMPRESION_POR_DEFECTO, MAXIMO_ANCHO_IMAGEN_58_MM } from "@/types/Tipos"
 import Range from '../Range.vue';
 import FileUpload from '../FileUpload.vue';
 import AlertaAnchoImagen from '@/components/Alertas/AlertaAnchoImagen.vue';
 import SelectAlineacion from '@/components/Selects/SelectAlineacion.vue';
-import SelectTamanioImagen from '@/components/Selects/SelectTamanioImagen.vue';
 import SelectAlgoritmoImagen from '@/components/Selects/SelectAlgoritmoImagen.vue';
 
 
@@ -97,7 +96,7 @@ const hayImagenSeleccionada = computed(() => {
     <div class="flex flex-col md:flex-row" v-if="hayImagenSeleccionada">
         <SelectAlineacion v-model="propiedades.modelValue.alineacion"></SelectAlineacion>
         <SelectAlgoritmoImagen v-model="propiedades.modelValue.algoritmo"></SelectAlgoritmoImagen>
-        <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho" step="8"
+        <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho"
             :label="$t('width')"></Range>
     </div>
     <AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen>
