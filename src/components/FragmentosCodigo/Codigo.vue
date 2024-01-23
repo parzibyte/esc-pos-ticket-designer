@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import JavascriptCliente from "./JS.vue";
+import CodigoJson from "./JSON.vue";
 import CSharp from "./CSharp.vue";
 import CurlWindows from "./CurlWindows.vue";
 import Java from "./Java.vue";
@@ -73,6 +74,10 @@ const lenguajes = [
 	{
 		nombre: "JavaScript (Cliente y servidor)",
 		componente: JavascriptCliente,
+	},
+	{
+		nombre: "JSON",
+		componente: CodigoJson,
 	},
 	{
 		nombre: "Laravel",
