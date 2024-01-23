@@ -4,7 +4,19 @@ import { convertirOperacionesSerializadasAReactivas, obtenerPayloadComoJson } fr
 import Printer from "vue-material-design-icons/Printer.vue";
 import Loading from "vue-material-design-icons/Loading.vue";
 import { useDesignsOperationStore } from '@/stores/designOperation';
-import { computed, ref } from 'vue';
+import { computed, ref, onMounted, onUnmounted } from 'vue';
+onMounted(() => {
+    document.addEventListener("keydown", manejadorImprimirConTeclas);
+});
+onUnmounted(() => {
+    document.removeEventListener("keydown", manejadorImprimirConTeclas);
+});
+const manejadorImprimirConTeclas = (event: KeyboardEvent) => {
+    if (event.key === "p" && event.ctrlKey) {
+        event.preventDefault();
+        imprimir();
+    }
+}
 const designsOperationStore = useDesignsOperationStore();
 const props = withDefaults(defineProps<{
     diseño: DiseñoRecuperadoDeBaseDeDatos,
@@ -57,12 +69,13 @@ const imprimir = async () => {
         cargandoInternamente.value = false;
     }
 }
+
 </script>
 <template>
     <button :disabled="cargandoComputed" @click="imprimir"
         class="disabled:bg-sky-200 rounded-md px-3 py-2 m-1 bg-sky-500 text-white hover:bg-sky-400 text-sm font-semibold inline-flex items-center">
         <Loading v-if="cargandoComputed" class="animate-spin"></Loading>
         <Printer v-if="!cargandoComputed"></Printer>
-        {{ $t("print") }}
+        {{ $t("print") }} (CTRL + P)
     </button>
 </template>
