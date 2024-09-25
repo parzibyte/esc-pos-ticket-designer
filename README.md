@@ -138,3 +138,116 @@ npm ERR! A complete log of this run can be found in: C:\Users\parzibyte\AppData\
 Prueba con `npm install --legacy-peer-deps`
 
 Intenté con cache verify, luego con la opción de legacy-peer-deps, luego borré el node_modules, hice un npm install y todo funcionó correctamente. No tengo idea de lo que pasó; leí por ahí que puede ser el internet
+
+
+# Modificando una operación
+
+Pondré un ejemplo para la operación de Imagen a
+la cual se le aplicó la propiedad aplicarDithering
+
+## Resumen
+
+Modifica **Tipos.ts** y **Operacion.ts** para agregar la nueva propiedad,
+luego dirígete a **OperacionFactory.ts** para modificar cómo se envía la
+nueva propiedad al plugin. 
+
+Finalmente modifica las propiedades del modelValue en el
+componente de la operación y agrega un elemento (input, textarea,
+checkbox, select, etcétera) que va a modificar esa propiedad
+
+## Guía completa
+
+Primero ve a **Tipos.ts** y modifica
+el tipo de la operación. En este caso
+es `ArgumentosParaDefinirImagenLocal`, quedó así:
+
+```typescript
+export type ArgumentosParaDefinirImagenDeInternet = {
+    alineacion: AlineacionConNombreYValor,
+    algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
+    maximoAncho: number,
+    url: string,
+    aplicarDithering: boolean, // <-- Aquí la nueva propiedad
+}
+```
+
+Luego ve a **OperacionFactory.ts** y modifica
+el arreglo de argumentos que se va a enviar
+según la plataforma y la operación
+
+
+```typescript
+"Imagen": {
+			nombre: "Imagen",
+			descripcion: `Imprimir una imagen del dispositivo`,
+			plataformas:
+			{
+				"Desktop": (thisArg: Operacion) => {
+					const argumentos = thisArg.argumentos as ArgumentosParaDefinirImagen;
+					if (!argumentos.alineacion) {
+						return [];
+					}
+					const argumentosParaDevolver = [
+						{
+							nombre: "EstablecerAlineacion",
+							argumentos: [argumentos.alineacion.valor],
+						},
+						{
+							nombre: "ImprimirImagenEnBase64",
+							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmo.valor, argumentos.aplicarDithering],
+							//                                                                           Esta es la nueva operación --------^
+						}
+					];
+					return argumentosParaDevolver;
+				},
+```
+
+Ahora ve a **Operacion.ts** y agrega
+la propiedad al igual que lo hiciste en 
+**OperacionFactory.ts**:
+
+```typescript
+OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Imagen", <ArgumentosParaDefinirImagen>{
+		algoritmo: ALGORITMO_IMPRESION_POR_DEFECTO,
+		alineacion: {
+			nombre: "Centro",
+			valor: Alineacion.Centro,
+		},
+		alto: 0,
+		ancho: 8,
+		maximoAncho: 8,
+		contenidoEnBase64: "",
+		aplicarDithering: true, // <-- Esta es la nueva propiedad
+	}),
+```
+
+Luego, en el componente de la operación
+que es con el que interactúa el usuario,
+agrega la operación en las propiedades:
+
+```typescript
+const propiedades = withDefaults(defineProps<Propiedades>(), {
+    modelValue: () => {
+        return {
+            alineacion: { nombre: "Centro", valor: Alineacion.Centro },
+            algoritmo: ALGORITMO_IMPRESION_POR_DEFECTO,
+            alto: 0,
+            ancho: 0,
+            maximoAncho: 8,
+            maximoAlto: 8,
+            contenidoEnBase64: "",
+            aplicarDithering: true, // Aquí la nueva propiedad
+        };
+    }
+})
+```
+
+Y agrega un elemento que va a 
+modificar esa propiedad. Como
+en este caso es un booleano, utilicé
+un checkbox:
+
+```vue
+<CustomCheckbox :label="$t('operationComponents.Imagen.aplicarDithering')"
+            v-model="propiedades.modelValue.aplicarDithering"></CustomCheckbox>
+```
