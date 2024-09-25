@@ -5,6 +5,7 @@ import CustomInput from '../CustomInput.vue';
 import Range from '../Range.vue';
 import SelectAlineacion from '../Selects/SelectAlineacion.vue';
 import SelectAlgoritmoImagen from '../Selects/SelectAlgoritmoImagen.vue';
+import CustomCheckbox from '../CustomCheckbox.vue';
 
 type Propiedades = {
 	modelValue: ArgumentosParaDefinirImagenLocal;
@@ -19,6 +20,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 				valor: Alineacion.Centro,
 			},
 			maximoAncho: 8,
+			aplicarDithering: false,
 		};
 	}
 })
@@ -39,4 +41,6 @@ const valorSerializado = computed({
 	<Range :label="$t('width')" min="8" max="648" v-model="propiedades.modelValue.maximoAncho"></Range>
 	<CustomInput type="text" placeholder="/home/parzibyte/mj.png"
 		:label="$t('operationComponents.ImagenLocal.absolutePath')" v-model="propiedades.modelValue.ruta"></CustomInput>
+	<CustomCheckbox :label="$t('operationComponents.Imagen.aplicarDithering')"
+		v-model="propiedades.modelValue.aplicarDithering"></CustomCheckbox>
 </template>

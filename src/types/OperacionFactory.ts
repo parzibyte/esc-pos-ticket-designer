@@ -190,7 +190,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirImagenEnBase64",
-							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmo.valor],
+							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmo.valor, argumentos.aplicarDithering],
 						}
 					];
 					return argumentosParaDevolver;
@@ -445,7 +445,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "CargarImagenLocalEImprimir",
-							argumentos: [argumentos.ruta, argumentos.maximoAncho, argumentos.algoritmoImagen.valor],
+							argumentos: [argumentos.ruta, argumentos.maximoAncho, argumentos.algoritmoImagen.valor, argumentos.aplicarDithering],
 						}
 					];
 					return argumentosParaDevolver;
@@ -515,7 +515,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "DescargarImagenDeInternetEImprimir",
-							argumentos: [argumentos.url, argumentos.maximoAncho, argumentos.algoritmoImagen.valor],
+							argumentos: [argumentos.url, argumentos.maximoAncho, argumentos.algoritmoImagen.valor, argumentos.aplicarDithering],
 						}
 					];
 					return argumentosParaDevolver;
@@ -918,7 +918,7 @@ export class OperacionFactory {
 						},
 						{
 							nombre: "ImprimirImagenEnBase64",
-							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmoImagen.valor],
+							argumentos: [argumentos.contenidoEnBase64, argumentos.maximoAncho, argumentos.algoritmoImagen.valor, argumentos.aplicarDithering],
 						},
 					];
 					return argumentosParaDevolver;

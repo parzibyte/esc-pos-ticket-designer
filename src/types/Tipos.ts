@@ -4,6 +4,7 @@ export type ArgumentosParaDefinirImagenLocal = {
     alineacion: AlineacionConNombreYValor,
     algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
     maximoAncho: number,
+    aplicarDithering: boolean,
 }
 export type ArgumentosParaDefinirCaracterPersonalizado = {
     matrizDeBits: Array<Array<string>>,
@@ -55,6 +56,7 @@ export type ArgumentosParaDefinirImagenEnBase64 = {
     algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
     maximoAncho: number,
     contenidoEnBase64: string,
+    aplicarDithering: boolean,
 }
 export type ArgumentosParaDefinirTextoSimple = {
     contenido: string,
@@ -72,6 +74,7 @@ export type ArgumentosParaDefinirImagenDeInternet = {
     algoritmoImagen: AlgoritmoDeImpresionDeImagenConNombre,
     maximoAncho: number,
     url: string,
+    aplicarDithering: boolean,
 }
 
 export type ArgumentosParaDefinirTexto = {
@@ -94,6 +97,7 @@ export type ArgumentosParaDefinirImagen = {
     maximoAlto: number,
     contenidoEnBase64: string,
     algoritmo: AlgoritmoDeImpresionDeImagenConNombre,
+    aplicarDithering: boolean,
 }
 
 export type EncabezadoDeTabla = {

@@ -7,6 +7,7 @@ import SelectAlineacion from '../Selects/SelectAlineacion.vue';
 import Range from '../Range.vue';
 import AlertaAnchoImagen from '../Alertas/AlertaAnchoImagen.vue';
 import SelectAlgoritmoImagen from '../Selects/SelectAlgoritmoImagen.vue';
+import CustomCheckbox from '../CustomCheckbox.vue';
 
 type Propiedades = {
 	modelValue: ArgumentosParaDefinirImagenDeInternet;
@@ -21,6 +22,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
 			},
 			algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 			maximoAncho: 8,
+			aplicarDithering: false,
 		};
 	}
 })
@@ -43,6 +45,8 @@ const valorSerializado = computed<ArgumentosParaDefinirImagenDeInternet>({
 		<SelectAlineacion v-model="valorSerializado.alineacion"></SelectAlineacion>
 		<SelectAlgoritmoImagen v-model="valorSerializado.algoritmoImagen"></SelectAlgoritmoImagen>
 		<Range :label="$t('width')" v-model="valorSerializado.maximoAncho" max="648" min="1"></Range>
+		<CustomCheckbox :label="$t('operationComponents.Imagen.aplicarDithering')"
+			v-model="propiedades.modelValue.aplicarDithering"></CustomCheckbox>
 	</div>
 	<AlertaAnchoImagen :ancho="valorSerializado.maximoAncho"></AlertaAnchoImagen>
 </template>

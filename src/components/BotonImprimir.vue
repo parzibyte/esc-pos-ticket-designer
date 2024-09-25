@@ -57,10 +57,18 @@ const imprimir = async () => {
             body: payload,
         });
         const respuesta = await httpResponse.json();
-        if (respuesta === true) {
-            emit("exito");
+        if (props.diseño.plataforma === "Desktop") {
+            if (respuesta.ok === true) {
+                emit("exito");
+            } else {
+                emit("error", respuesta.message);
+            }
         } else {
-            emit("error", respuesta);
+            if (respuesta === true) {
+                emit("exito");
+            } else {
+                emit("error", respuesta);
+            }
         }
     } catch (e) {
         console.log({ e });

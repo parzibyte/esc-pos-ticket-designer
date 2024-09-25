@@ -6,6 +6,7 @@ import FileUpload from '../FileUpload.vue';
 import AlertaAnchoImagen from '@/components/Alertas/AlertaAnchoImagen.vue';
 import SelectAlineacion from '@/components/Selects/SelectAlineacion.vue';
 import SelectAlgoritmoImagen from '@/components/Selects/SelectAlgoritmoImagen.vue';
+import CustomCheckbox from '../CustomCheckbox.vue';
 
 
 type Propiedades = {
@@ -22,6 +23,7 @@ const propiedades = withDefaults(defineProps<Propiedades>(), {
             maximoAncho: 8,
             maximoAlto: 8,
             contenidoEnBase64: "",
+            aplicarDithering: true,
         };
     }
 })
@@ -74,8 +76,6 @@ const onImagenSeleccionada = async (archivos: File[]) => {
     } else {
         propiedades.modelValue.maximoAncho = ancho;
     }
-    //if(alto)
-    //propiedades.modelValue.maximoAlto =
 }
 
 const hayImagenSeleccionada = computed(() => {
@@ -98,6 +98,8 @@ const hayImagenSeleccionada = computed(() => {
         <SelectAlgoritmoImagen v-model="propiedades.modelValue.algoritmo"></SelectAlgoritmoImagen>
         <Range v-model="propiedades.modelValue.maximoAncho" min="8" :max="propiedades.modelValue.ancho"
             :label="$t('width')"></Range>
+        <CustomCheckbox :label="$t('operationComponents.Imagen.aplicarDithering')"
+            v-model="propiedades.modelValue.aplicarDithering"></CustomCheckbox>
     </div>
     <AlertaAnchoImagen :ancho="propiedades.modelValue.maximoAncho"></AlertaAnchoImagen>
 </template>

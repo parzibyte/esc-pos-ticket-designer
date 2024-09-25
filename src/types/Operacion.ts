@@ -80,6 +80,7 @@ export const listaCompletaDeOperaciones = [
 		ancho: 8,
 		maximoAncho: 8,
 		contenidoEnBase64: "",
+		aplicarDithering: true,
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "Feed", <ArgumentosParaDefinirFeed>{
 		lineas: 1,
@@ -139,6 +140,7 @@ export const listaCompletaDeOperaciones = [
 			valor: Alineacion.Centro,
 		},
 		maximoAncho: 8,
+		aplicarDithering: false,
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "DescargarImagenDeInternet", <ArgumentosParaDefinirImagenDeInternet>{
 		url: "",
@@ -148,6 +150,7 @@ export const listaCompletaDeOperaciones = [
 			valor: Alineacion.Centro,
 		},
 		maximoAncho: 8,
+		aplicarDithering: false,
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "ImprimirImagenEnBase64", <ArgumentosParaDefinirImagenEnBase64>{
 		alineacion: {
@@ -157,6 +160,7 @@ export const listaCompletaDeOperaciones = [
 		algoritmoImagen: ALGORITMO_IMPRESION_POR_DEFECTO,
 		contenidoEnBase64: "",
 		maximoAncho: 200,
+		aplicarDithering: false,
 	}),
 	OperacionFactory.crearAPartirDeClaveYArgumentos(0, "HabilitarCaracteresPersonalizados", {
 	}),

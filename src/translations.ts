@@ -452,7 +452,8 @@ export const translations = {
                 label: "Please input the text:"
             },
             Imagen: {
-                label: "Select file..."
+                label: "Select file...",
+                aplicarDithering: "Apply dithering? (improves image quality)",
             },
             Feed: {
                 lines: "Lines",
@@ -995,7 +996,8 @@ export const translations = {
                 label: "Por favor, escriba el texto"
             },
             Imagen: {
-                label: "Seleccionar archivo..."
+                label: "Seleccionar archivo...",
+                aplicarDithering: "¿Dithering? (mejora la calidad de imagen)",
             },
             Feed: {
                 lines: "Líneas",
