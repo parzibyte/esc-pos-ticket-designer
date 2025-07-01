@@ -9,6 +9,7 @@ import SelectImpresoras from "@/components/Selects/SelectImpresoras.vue";
 import { useDesignsStore } from "@/stores/designsStore";
 import type { PlataformaRecuperadaDeBaseDeDatos } from "@/types/Tipos";
 import { obtenerNombreDeImpresoraComoCadena } from "@/Helpers";
+import GuiaVideoYouTube from "@/components/GuiaVideoYouTube.vue";
 const impresoras: Ref<any> = ref([]);
 const nombre = ref("");
 const plataformaSeleccionada: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
@@ -56,5 +57,6 @@ const onPlataformaCambiada = async (plataforma: any) => {
 			<FormatListText></FormatListText>
 			{{ $t("createDesign.goToDesigns") }}
 		</button>
+		<GuiaVideoYouTube></GuiaVideoYouTube>
 	</div>
 </template>

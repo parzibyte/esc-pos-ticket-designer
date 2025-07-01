@@ -5,6 +5,7 @@ import Desktop from '@/components/Guias/Desktop.vue';
 import Android from '@/components/Guias/Android.vue';
 import type { PlataformaRecuperadaDeBaseDeDatos } from '@/types/Tipos';
 import { plataformaEsAndroid } from '@/Helpers';
+import GuiaVideoYouTube from '@/components/GuiaVideoYouTube.vue';
 const plataforma: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
     ruta_api: "",
     licencia: "",
@@ -20,5 +21,6 @@ const plataforma: Ref<PlataformaRecuperadaDeBaseDeDatos> = ref({
         <SelectPlataformas v-model="plataforma"></SelectPlataformas>
         <Desktop v-if="plataforma && plataforma.nombre === 'Desktop'" :plataforma="plataforma"></Desktop>
         <Android v-if="plataforma && plataforma.nombre === 'Android'" :plataforma="plataforma"></Android>
+        <GuiaVideoYouTube></GuiaVideoYouTube>
     </div>
 </template>

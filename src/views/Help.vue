@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import GuiaVideoYouTube from '@/components/GuiaVideoYouTube.vue';
+
+</script>
+
 <template>
     <div class="p-2">
         <p class="text-xl">{{ $t("help.title") }}</p>
@@ -16,5 +21,6 @@
 
             </li>
         </ol>
+        <GuiaVideoYouTube></GuiaVideoYouTube>
     </div>
 </template>

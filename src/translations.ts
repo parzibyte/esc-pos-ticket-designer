@@ -1,5 +1,6 @@
 export const translations = {
     en: {
+        guiaEn2Minutos: "Video: watch how to use the designer in less than two minutes",
         imageAlgorithm: "Image algorithm",
         imageAlgorithms: {
             "Raster": "Raster bit image",
@@ -549,6 +550,7 @@ export const translations = {
         },
     },
     es: {
+        guiaEn2Minutos: "Video: aprende a usar el diseñador en menos de 2 minutos",
         imageAlgorithm: "Algoritmo para imprimir",
         imageAlgorithms: {
             "Raster": "Imagen de bits rasterizada",

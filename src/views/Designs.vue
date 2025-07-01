@@ -5,6 +5,7 @@ import router from "@/router/index"
 import FilePlus from "vue-material-design-icons/FilePlus.vue";
 import type { Diseño } from "@/types/Tipos";
 import { useDesignsStore } from "@/stores/designsStore";
+import GuiaVideoYouTube from "@/components/GuiaVideoYouTube.vue";
 
 const designsStore = useDesignsStore();
 const diseños = ref([]);
@@ -34,8 +35,9 @@ const eliminarDiseño = async (diseño: Diseño) => {
 			<FilePlus></FilePlus>
 			{{ $t("designs.addDesign") }}
 		</button>
-		<DesignItem :cargando="false" :mostrar-boton-exportar="false" :mostrar-boton-importar="false" :mostrar-boton-modificar="true"
-			:mostrar-boton-eliminar="true" @eliminar="eliminarDiseño" v-for="(diseño, indiceDiseño) in diseños"
-			:key="indiceDiseño" :diseño="diseño"></DesignItem>
+		<GuiaVideoYouTube v-if="diseños.length <= 0"></GuiaVideoYouTube>
+		<DesignItem :cargando="false" :mostrar-boton-exportar="false" :mostrar-boton-importar="false"
+			:mostrar-boton-modificar="true" :mostrar-boton-eliminar="true" @eliminar="eliminarDiseño"
+			v-for="(diseño, indiceDiseño) in diseños" :key="indiceDiseño" :diseño="diseño"></DesignItem>
 	</div>
 </template>
